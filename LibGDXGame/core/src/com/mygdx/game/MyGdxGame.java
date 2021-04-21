@@ -67,7 +67,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		}
 	}
 	
-
+	
 	@Override
 	public void render ()
 	{
@@ -124,7 +124,7 @@ public class MyGdxGame extends ApplicationAdapter{
 			}
 		}
 	}
-
+	
 	private void spawnRaindrop() {
 		Rectangle raindrop = new Rectangle();
 		raindrop.x = MathUtils.random(0, 800-64);
