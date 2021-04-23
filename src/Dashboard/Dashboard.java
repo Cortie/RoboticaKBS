@@ -18,7 +18,7 @@ public class Dashboard extends JFrame implements ActionListener {
   
 
   public Dashboard() {
-    setTitle("FietsDialoog");
+    setTitle("Dashboard");
     setLayout(new FlowLayout(FlowLayout.CENTER));
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
