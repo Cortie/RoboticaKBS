@@ -20,8 +20,7 @@ public class Account extends JFrame implements ActionListener {
     public Account(){
         setTitle("Klimaat Systeem");
         setSize(800,600);
-
-        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new FlowLayout());
         jlCreateAccount = new JLabel("Nieuw account aanmaken");
 
         JPanel labelCreateAccountPanel = new JPanel(new FlowLayout());
