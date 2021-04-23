@@ -9,19 +9,11 @@ void loop() {
   // put your main code here, to run repeatedly:
   if(digitalRead(left))
   {
-    goLeft();
+    Serial.println(500);
   }
   if(digitalRead(right))
   {
-    goRight();
+    Serial.println(1000);
   }
-  delay(100);
-}
-void goLeft()
-{
-  Serial.println(1000);
-}
-void goRight()
-{
-  Serial.println(500);
+  delay(10);
 }
