@@ -49,7 +49,7 @@ public class Inloggen extends JFrame implements ActionListener
         knoppenPnl.add(accountknoppenPnl, BorderLayout.NORTH);
         knoppenPnl.add(wachtwoordknopPnl,BorderLayout.CENTER);
 
-        JPanel gebruikergegevensPnl = new JPanel(new BorderLayout());
+        JPanel gebruikergegevensPnl = new JPanel(new GridLayout(2,2));
         gebruikergegevensPnl.add(gebruikersnaamPnl,BorderLayout.NORTH);
         gebruikergegevensPnl.add(wachtwoordPnl, BorderLayout.CENTER);
 
@@ -76,7 +76,6 @@ public class Inloggen extends JFrame implements ActionListener
 
     public static void main(String[] args)
     {
-       Inloggen inloggenscherm = new Inloggen();
-
+        Inloggen inloggenscherm= new Inloggen();
     }
 }

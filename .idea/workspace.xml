@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23-4-2021_11_25__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23-4-2021_11_25__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update inloggen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/Inloggen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/Inloggen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Inloggen/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard/Dashboard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Inloggen/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen/Inloggen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MuziekSpeler/MuziekSpeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekSpeler/MuziekSpeler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MuziekSpeler/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekSpeler/MuziekBeheren.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +44,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.MuziekSpeler">
+  <component name="RunManager" selected="Application.MuziekBeheren">
     <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Inloggen.Account" />
       <module name="RoboticaKBS" />
@@ -87,12 +84,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MuziekSpeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MuziekSpeler.MuziekSpeler" />
+    <configuration name="WachtwoordWijzigen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Inloggen.WachtwoordWijzigen" />
       <module name="RoboticaKBS" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="MuziekSpeler.*" />
+          <option name="PATTERN" value="Inloggen.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -102,7 +99,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MuziekSpeler" />
+        <item itemvalue="Application.MuziekBeheren" />
+        <item itemvalue="Application.Inloggen" />
+        <item itemvalue="Application.WachtwoordWijzigen" />
         <item itemvalue="Application.Account" />
         <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.MuziekBeheren" />
@@ -118,6 +117,21 @@
       <option name="presentableId" value="Default" />
       <updated>1618220571875</updated>
     </task>
+    <task id="LOCAL-00001" summary="muziek beheren scherm">
+      <created>1619182570001</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1619182570001</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update inloggen">
+      <created>1619183714013</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1619183714013</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -134,6 +148,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="muziek beheren scherm" />
+    <MESSAGE value="update inloggen" />
+    <option name="LAST_COMMIT_MESSAGE" value="update inloggen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
