@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
-import java.awt.*;
 
-public class Player extends Rectangle
+public class Player
 {
     public float x;
     public float y;
     private Texture shipImg;
     private Sprite ship;
+    private Rectangle area;
     
     public Player(FileHandle img)
     {
@@ -20,17 +21,22 @@ public class Player extends Rectangle
         this.ship = new Sprite(shipImg);
         this.x = Gdx.graphics.getWidth()/ 2 - 64 / 2;
         this.y = 10;
-        this.width = 64;
-        this.height = 64;
+        this.area = new Rectangle();
+        this.area.width = 64;
+        this.area.height = 64;
+        this.area.x = this.x;
+        this.area.y = this.y;
     }
-    public void setX(int x)
+    public void setX(float x)
     {
         this.x = x;
+        this.area.x = x;
     }
     
-    public void setY(int y)
+    public void setY(float y)
     {
         this.y = y;
+        this.area.y = y;
     }
     public Texture getShipImg()
     {
@@ -40,5 +46,22 @@ public class Player extends Rectangle
     {
         return ship;
     }
-    
+    public Rectangle getArea()
+    {
+        return area;
+    }
+    public void moveLeft()
+    {
+        if(!(this.x < 0))
+        {
+            this.setX(x - 300 * Gdx.graphics.getDeltaTime());
+        }
+    }
+    public void moveRight()
+    {
+        if(!(this.x > Gdx.graphics.getWidth() - 64))
+        {
+            this.setX(x + 300 * Gdx.graphics.getDeltaTime());
+        }
+    }
 }

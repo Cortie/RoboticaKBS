@@ -20,7 +20,7 @@ public class MyGdxGame extends ApplicationAdapter{
 	private Texture bulletImage;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private static Player player1;
+	public static Player player1;
 	private Array<Rectangle> raindrops;
 	private Array<Ellipse> bullets;
 	private SerialListener listener = new SerialListener();
@@ -92,9 +92,9 @@ public class MyGdxGame extends ApplicationAdapter{
 		// a sound effect as well.
 		for (Iterator<Rectangle> iter = raindrops.iterator(); iter.hasNext(); ) {
 			Rectangle raindrop = iter.next();
-			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-			if(raindrop.y + 64 < 0) iter.remove();
-			if(player1.getShip().getBoundingRectangle().overlaps(raindrop)) {
+			raindrop.setY(raindrop.getY() - 200 * Gdx.graphics.getDeltaTime());
+			if(raindrop.getY() + 64 < 0) iter.remove();
+			if(raindrop.overlaps(player1.getArea())) {
 				long id = hit.play(1.0f);
 				hit.setPitch(id, 1);
 				hit.setLooping(id, false);
@@ -112,10 +112,9 @@ public class MyGdxGame extends ApplicationAdapter{
 	private void spawnRaindrop() {
 		
 		Rectangle raindrop = new Rectangle();
-		raindrop.x = MathUtils.random(0, 800-64);
-		raindrop.y = 480;
-		raindrop.width = 64;
-		raindrop.height = 64;
+		raindrop.setX(MathUtils.random(0, 800-64));
+		raindrop.setY(480);
+		raindrop.setSize(64, 64);
 		raindrops.add(raindrop);
 		lastDropTime = TimeUtils.nanoTime();
 	}
@@ -136,14 +135,5 @@ public class MyGdxGame extends ApplicationAdapter{
 		batch.dispose();
 		hit.dispose();
 	}
-	public static void moveLeft()
-	{
-		if(!(player1.x < 0)){
-		player1.x -= 300 * Gdx.graphics.getDeltaTime();}
-	}
-	public static void moveRight()
-	{
-		if(!(player1.x > Gdx.graphics.getWidth() - 64)){
-		player1.x += 300 * Gdx.graphics.getDeltaTime();}
-	}
+
 }
