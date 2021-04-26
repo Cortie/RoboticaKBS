@@ -1,7 +1,3 @@
-package MuziekSpeler;
-
-import Inloggen.Account;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
