@@ -1,6 +1,8 @@
 package MuziekSpeler;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,8 @@ public class MuziekBeheren extends JFrame implements ActionListener
     private JLabel jlTitel;
     private JLabel jlSubTitel;
     private JButton jbAfspeellijstBeheren;
+    private JTable jtLuisteractiviteiten;
+    private String[] titelLuisterLijst;
 
 
     public MuziekBeheren()
@@ -31,8 +35,25 @@ public class MuziekBeheren extends JFrame implements ActionListener
         afspeellijstBeherenKnopPnl.add(jbAfspeellijstBeheren = new JButton("Afspeellijst beheren"));
 
         JPanel luisteractivitetPnl = new JPanel(new FlowLayout());
-        //luisteractivitetPnl.add();
 
+        TableModel tableModel = new AbstractTableModel() {
+
+                    public int getColumnCount()
+                    {
+                        return 2;
+                    }
+                    public int getRowCount()
+                    {
+                        return 3;
+                    }
+                    public Object getValueAt(int row, int col)
+                    {
+                        return Integer.valueOf(row*col);
+                    }
+                };
+                JTable jtLuisteractiviteiten = new JTable(tableModel);
+//                JScrollPane scrollpane = new JScrollPane(jtLuisteractiviteiten);
+        luisteractivitetPnl.add(jtLuisteractiviteiten);
         JPanel knopEnLuisteractiviteitenPnl = new JPanel(new BorderLayout());
         knopEnLuisteractiviteitenPnl.add(afspeellijstBeherenKnopPnl,BorderLayout.NORTH);
         knopEnLuisteractiviteitenPnl.add(luisteractivitetPnl,BorderLayout.CENTER);
@@ -56,5 +77,6 @@ public class MuziekBeheren extends JFrame implements ActionListener
     public static void main(String[] args)
     {
         MuziekBeheren muziekBeherenscherm = new MuziekBeheren();
+
     }
 }
