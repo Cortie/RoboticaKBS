@@ -18,10 +18,9 @@ import java.util.Iterator;
 
 public class MyGdxGame extends ApplicationAdapter{
 	private Texture bulletImage;
-	private Texture shipImage;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private static Rectangle ship;
+	private static Player player1;
 	private Array<Rectangle> raindrops;
 	private Array<Ellipse> bullets;
 	private SerialListener listener = new SerialListener();
@@ -37,15 +36,10 @@ public class MyGdxGame extends ApplicationAdapter{
 	public void create () {
 		// load the images for the droplet and the bucket, 64x64 pixels each
 		bulletImage = new Texture(Gdx.files.internal("4.png"));
-		shipImage = new Texture(Gdx.files.internal("Spaceship_01_PURPLE.png"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch = new SpriteBatch();
-		ship = new Rectangle();
-		ship.x = Gdx.graphics.getWidth()/ 2 - 64 / 2;
-		ship.y = 20;
-		ship.width = 64;
-		ship.height = 64;
+		player1 = new Player(Gdx.files.internal("Spaceship_01_PURPLE.png"));
 		raindrops = new Array<Rectangle>();
 		bullets = new Array<Ellipse>();
 		ListenerThread = new Thread(listener);
@@ -76,7 +70,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		// all drops
 		batch.begin();
 		backgroundSprite.draw(batch);
-		batch.draw(shipImage, ship.x, ship.y);
+		batch.draw(player1.getShipImg(), player1.x, player1.y);
 		for(Rectangle raindrop: raindrops) {
 			batch.draw(bulletImage, raindrop.x, raindrop.y);
 		}
@@ -100,7 +94,7 @@ public class MyGdxGame extends ApplicationAdapter{
 			Rectangle raindrop = iter.next();
 			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
 			if(raindrop.y + 64 < 0) iter.remove();
-			if(raindrop.overlaps(ship)) {
+			if(player1.getShip().getBoundingRectangle().overlaps(raindrop)) {
 				long id = hit.play(1.0f);
 				hit.setPitch(id, 1);
 				hit.setLooping(id, false);
@@ -128,8 +122,8 @@ public class MyGdxGame extends ApplicationAdapter{
 	private void spawnBullet()
 	{
 		Ellipse bullet = new Ellipse();
-		bullet.x = ship.x;
-		bullet.y = ship.y + 64;
+		bullet.x = player1.x;
+		bullet.y = player1.y + 64;
 		bullet.width = 64;
 		bullet.height = 64;
 		bullets.add(bullet);
@@ -138,18 +132,18 @@ public class MyGdxGame extends ApplicationAdapter{
 	@Override
 	public void dispose () {
 		bulletImage.dispose();
-		shipImage.dispose();
+		player1.getShipImg().dispose();
 		batch.dispose();
 		hit.dispose();
 	}
 	public static void moveLeft()
 	{
-		if(!(ship.x < 0)){
-		ship.x -= 300 * Gdx.graphics.getDeltaTime();}
+		if(!(player1.x < 0)){
+		player1.x -= 300 * Gdx.graphics.getDeltaTime();}
 	}
 	public static void moveRight()
 	{
-		if(!(ship.x > Gdx.graphics.getWidth() - 64)){
-		ship.x += 300 * Gdx.graphics.getDeltaTime();}
+		if(!(player1.x > Gdx.graphics.getWidth() - 64)){
+		player1.x += 300 * Gdx.graphics.getDeltaTime();}
 	}
 }
