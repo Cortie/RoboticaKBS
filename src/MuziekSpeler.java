@@ -18,38 +18,45 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         setSize(800,600);
         setLayout(new FlowLayout());
 
-        JPanel musicPlayerPanel = new JPanel(new FlowLayout());
+        JPanel TitelPanel = new JPanel(new FlowLayout());
         jlMusicPlayer = new JLabel("Muziekspeler");
-        musicPlayerPanel.add(jlMusicPlayer);
+        TitelPanel.add(jlMusicPlayer);
 
         JPanel menuPanel = new JPanel(new FlowLayout());
         jlMenu = new JLabel("Menu");
         menuPanel.add(jlMenu);
 
-        //dropdown menu voor het selecteren van een afspeellijst
-        JPanel dropdownPanel = new JPanel(new FlowLayout());
+
+        //dropdown menu panel voor het selecteren van een afspeellijst
+        FlowLayout dropDownLayout = new FlowLayout();
+        JPanel dropdownPanel = new JPanel(dropDownLayout);
         selectPlaylist = new String[] {"Afspeellijst selecteren","liedje 1", "liedje2"};
         jcPlaylist = new JComboBox(selectPlaylist);
         dropdownPanel.add(jcPlaylist);
 
-        JPanel managePlaylistPanel = new JPanel(new FlowLayout());
+
+        //panel voor de knoppen
+
+        BorderLayout knopLayout = new BorderLayout();
+        JPanel buttonPanel = new JPanel(knopLayout);
+        knopLayout.setVgap(5);
         jbManagePlaylist = new JButton("Afspeellijst beheren");
-        managePlaylistPanel.add(jbManagePlaylist);
-
-
-        JPanel manageMusicPanel = new JPanel(new FlowLayout());
         jbManageMusic = new JButton("Muziek beheren");
-        manageMusicPanel.add(jbManageMusic);
+        buttonPanel.add(jbManageMusic,BorderLayout.NORTH);
+        buttonPanel.add(jbManagePlaylist,BorderLayout.CENTER);
+
+
 
 
         JPanel borderPanel1 = new JPanel(new BorderLayout());
-        borderPanel1.add(musicPlayerPanel,BorderLayout.NORTH);
+        borderPanel1.add(TitelPanel,BorderLayout.NORTH);
         borderPanel1.add(menuPanel,BorderLayout.CENTER);
+
 
         JPanel borderPanel2 = new JPanel(new BorderLayout());
         borderPanel2.add(dropdownPanel,BorderLayout.NORTH);
-        borderPanel2.add(managePlaylistPanel,BorderLayout.CENTER);
-        borderPanel2.add(manageMusicPanel,BorderLayout.SOUTH);
+        borderPanel2.add(buttonPanel,BorderLayout.CENTER);
+
 
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
