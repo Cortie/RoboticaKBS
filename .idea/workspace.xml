@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update inloggen">
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update muziekbeheren">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard/Dashboard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/Inloggen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/WachtwoordWijzigen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler/AfspeellijstBeheer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler/MuziekBeheren.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler/MuziekSpeler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer/KlimaatBeheer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen/PersoonlijkeInstellingen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekBeheren.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619183714013</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update muziekbeheren">
+      <created>1619441719534</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1619441719534</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,7 +164,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="muziek beheren scherm" />
     <MESSAGE value="update inloggen" />
-    <option name="LAST_COMMIT_MESSAGE" value="update inloggen" />
+    <MESSAGE value="update muziekbeheren" />
+    <option name="LAST_COMMIT_MESSAGE" value="update muziekbeheren" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

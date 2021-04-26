@@ -33,9 +33,18 @@ public class MuziekBeheren extends JFrame implements ActionListener
         JPanel afspeellijstBeherenKnopPnl = new JPanel(new FlowLayout());
         afspeellijstBeherenKnopPnl.add(jbAfspeellijstBeheren = new JButton("Afspeellijst beheren"));
 
+        JPanel luisteractiviteitTitelPnl = new JPanel(new FlowLayout());
+        luisteractiviteitTitelPnl.add(jlLuisteractiviteit=new JLabel("Luisteractiviteit"));
+
         JPanel luisteractivitetPnl = new JPanel(new BorderLayout());
-        luisteractivitetPnl.add(jlLuisteractiviteit=new JLabel("Luisteractiviteit"),BorderLayout.NORTH);
+        luisteractivitetPnl.add(luisteractiviteitTitelPnl,BorderLayout.NORTH);
         JTable jtLuisteractiviteiten = new JTable(data,titelLuisterLijst);
+        jtLuisteractiviteiten.setCellSelectionEnabled(false);
+        jtLuisteractiviteiten.setShowGrid(false);
+        jtLuisteractiviteiten.setEnabled(false);
+        jtLuisteractiviteiten.setRowHeight(20);
+
+        jtLuisteractiviteiten.setBorder(BorderFactory.createLineBorder(Color.black));
         luisteractivitetPnl.add(jtLuisteractiviteiten,BorderLayout.CENTER);
 
         JPanel knopEnLuisteractiviteitenPnl = new JPanel(new BorderLayout());

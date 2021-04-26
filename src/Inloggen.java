@@ -62,6 +62,23 @@ public class Inloggen extends JFrame implements ActionListener
 
 
         add(borderPnl);
+//        add.addActionListener(new ActionListener() {
+//              public void actionPerformed(ActionEvent e) {
+//                String name = Nfield.getText();
+//                String happy = Bfield.getText();
+//                String nummer = Sfield.getText();
+//                int blij = Integer.parseInt(happy);
+//
+//                try {
+//                  klas.voegToe(name, nummer, blij);
+//                  klas.print();
+//                } catch (Exception a) {
+//                  mededeling = "Exception!";
+//                  setTitle("Jesper Kiers (s1156710): " + klas.getNaam() + " - mededeling: " + mededeling);
+//                  System.out.println("er is een uitzondering!");
+//                }
+//              }
+//            });
         setVisible(true);
     }
 
