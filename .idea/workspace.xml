@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Inloggen/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23-4-2021_11_25__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23-4-2021_11_25__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/Inloggen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen/Inloggen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inloggen/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Inloggen/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen/Inloggen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MuziekSpeler/MuziekSpeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekSpeler/MuziekSpeler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +47,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MuziekSpeler">
     <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Inloggen.Account" />
       <module name="RoboticaKBS" />
@@ -57,9 +61,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Inloggen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Inloggen.Inloggen" />
+      <module name="RoboticaKBS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Inloggen.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MuziekBeheren" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekSpeler.MuziekBeheren" />
+      <module name="RoboticaKBS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MuziekSpeler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MuziekSpeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekSpeler.MuziekSpeler" />
+      <module name="RoboticaKBS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MuziekSpeler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MuziekSpeler" />
         <item itemvalue="Application.Account" />
+        <item itemvalue="Application.Inloggen" />
+        <item itemvalue="Application.MuziekBeheren" />
       </list>
     </recent_temporary>
   </component>

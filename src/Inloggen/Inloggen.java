@@ -76,7 +76,7 @@ public class Inloggen extends JFrame implements ActionListener
 
     public static void main(String[] args)
     {
-       Inloggen inloggenscherm= new Inloggen();
+       Inloggen inloggenscherm = new Inloggen();
 
     }
 }

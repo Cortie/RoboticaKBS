@@ -21,7 +21,6 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         setTitle("Klimaat Systeem");
         setSize(800,600);
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel musicPlayerPanel = new JPanel(new FlowLayout());
         jlMusicPlayer = new JLabel("Muziekspeler");
@@ -31,6 +30,7 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         jlMenu = new JLabel("Menu");
         menuPanel.add(jlMenu);
 
+        //dropdown menu voor het selecteren van een afspeellijst
         JPanel dropdownPanel = new JPanel(new FlowLayout());
         selectPlaylist = new String[] {"Afspeellijst selecteren","liedje 1", "liedje2"};
         jcPlaylist = new JComboBox(selectPlaylist);
@@ -40,9 +40,11 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         jbManagePlaylist = new JButton("Afspeellijst beheren");
         managePlaylistPanel.add(jbManagePlaylist);
 
+
         JPanel manageMusicPanel = new JPanel(new FlowLayout());
         jbManageMusic = new JButton("Muziek beheren");
         manageMusicPanel.add(jbManageMusic);
+
 
         JPanel borderPanel1 = new JPanel(new BorderLayout());
         borderPanel1.add(musicPlayerPanel,BorderLayout.NORTH);
@@ -53,6 +55,8 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         borderPanel2.add(managePlaylistPanel,BorderLayout.CENTER);
         borderPanel2.add(manageMusicPanel,BorderLayout.SOUTH);
 
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         borderPanel1.add(borderPanel2,BorderLayout.SOUTH);
         add(borderPanel1);
 
