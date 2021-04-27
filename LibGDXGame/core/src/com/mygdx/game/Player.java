@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-
+import com.badlogic.gdx.utils.Array;
 
 public class Player
 {
@@ -14,9 +14,15 @@ public class Player
     private Texture shipImg;
     private Sprite ship;
     private Rectangle area;
+    private long shotSpeed = 750000000;
+    private long lastShot;
+    private BulletType type;
+    private static Array<Bullet> bullets;
     
     public Player(FileHandle img)
     {
+        this.type = new BulletType(new Texture(Gdx.files.internal("4.png")));
+        bullets = new Array<Bullet>();
         this.shipImg = new Texture(img);
         this.ship = new Sprite(shipImg);
         this.x = Gdx.graphics.getWidth()/ 2 - 64 / 2;
@@ -57,11 +63,29 @@ public class Player
             this.setX(x - 300 * Gdx.graphics.getDeltaTime());
         }
     }
+
     public void moveRight()
     {
         if(!(this.x > MyGdxGame.camera.viewportWidth - 64))
         {
             this.setX(x + 300 * Gdx.graphics.getDeltaTime());
         }
+    }
+    public Array<Bullet> getBullets()
+    {
+        return bullets;
+    }
+    public long getShotSpeed()
+    {
+        return shotSpeed;
+    }
+    
+    public BulletType getType()
+    {
+        return type;
+    }
+    public void setType(BulletType type)
+    {
+        this.type = type;
     }
 }
