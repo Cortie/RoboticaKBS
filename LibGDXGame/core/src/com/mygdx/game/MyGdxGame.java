@@ -19,28 +19,29 @@ public class MyGdxGame extends ApplicationAdapter{
 	public static OrthographicCamera camera;
 	private SpriteBatch batch;
 	public static Player player1;
+	public static Player player2;
 	private Array<Rectangle> raindrops;
 	private SerialListener listener = new SerialListener();
 	private Sound hit;
 	private static Sprite backgroundSprite;
 	private long lastDropTime;
 	private long lastShot;
+	private int players = 1;
 	
 	@Override
 	public void create () {
-		bulletImage = new Texture(Gdx.files.internal("4.png"));
-		camera = new OrthographicCamera();
-		
-		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch = new SpriteBatch();
-		player1 = new Player(Gdx.files.internal("Spaceship_01_PURPLE.png"));
-		raindrops = new Array<Rectangle>();
-		//bullets = new Array<Ellipse>();
 		Thread listenerThread = new Thread(listener);
 		listenerThread.setDaemon(true);
 		listenerThread.start();
 		Texture backgroundTexture = new Texture(Gdx.files.internal("BG.jpg"));
 		backgroundSprite = new Sprite(backgroundTexture);
+		batch = new SpriteBatch();
+		bulletImage = new Texture(Gdx.files.internal("4.png"));
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))));
+		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE_png"), new BulletType(new Texture(Gdx.files.internal("5.png"))));
+		raindrops = new Array<Rectangle>();
 		hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
 	}
 	@Override
@@ -65,6 +66,10 @@ public class MyGdxGame extends ApplicationAdapter{
 		batch.begin();
 		backgroundSprite.draw(batch);
 		batch.draw(player1.getShipImg(), player1.x, player1.y);
+		if(players == 2)
+		{
+		
+		}
 		for(Rectangle raindrop: raindrops) {
 			batch.draw(bulletImage, raindrop.x, raindrop.y);
 		}
@@ -79,7 +84,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		if(TimeUtils.nanoTime() - lastShot > player1.getShotSpeed())
 		{
 			Bullet bullet = new Bullet(player1.getType());
-			bullet.spawnBullet(player1.x, player1.y + 64);
+			bullet.spawnBullet(player1.x + 26, player1.y + 64);
 			lastShot = TimeUtils.nanoTime();
 		}
 		// move the raindrops, remove any that are beneath the bottom edge of
@@ -105,7 +110,6 @@ public class MyGdxGame extends ApplicationAdapter{
 	}
 	
 	private void spawnRaindrop() {
-		
 		Rectangle raindrop = new Rectangle();
 		raindrop.setX(MathUtils.random(0, camera.viewportWidth-64));
 		raindrop.setY(camera.viewportHeight);
@@ -113,16 +117,6 @@ public class MyGdxGame extends ApplicationAdapter{
 		raindrops.add(raindrop);
 		lastDropTime = TimeUtils.nanoTime();
 	}
-	/*private void spawnBullet()
-	{
-		Ellipse bullet = new Ellipse();
-		bullet.x = player1.x;
-		bullet.y = player1.y + 64;
-		bullet.width = 64;
-		bullet.height = 64;
-		bullets.add(bullet);
-		lastShot = TimeUtils.nanoTime();
-	}*/
 	@Override
 	public void dispose () {
 		for(Bullet bullet: player1.getBullets())

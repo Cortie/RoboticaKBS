@@ -19,9 +19,9 @@ public class Player
     private BulletType type;
     private static Array<Bullet> bullets;
     
-    public Player(FileHandle img)
+    public Player(FileHandle img, BulletType bullet)
     {
-        this.type = new BulletType(new Texture(Gdx.files.internal("4.png")));
+        this.setType(bullet);
         bullets = new Array<Bullet>();
         this.shipImg = new Texture(img);
         this.ship = new Sprite(shipImg);
