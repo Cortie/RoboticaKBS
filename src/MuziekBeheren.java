@@ -32,6 +32,7 @@ public class MuziekBeheren extends JFrame implements ActionListener
 
         JPanel afspeellijstBeherenKnopPnl = new JPanel(new FlowLayout());
         afspeellijstBeherenKnopPnl.add(jbAfspeellijstBeheren = new JButton("Afspeellijst beheren"));
+        jbAfspeellijstBeheren.addActionListener(this);
 
         JPanel luisteractiviteitTitelPnl = new JPanel(new FlowLayout());
         luisteractiviteitTitelPnl.add(jlLuisteractiviteit=new JLabel("Luisteractiviteit"));
@@ -55,8 +56,6 @@ public class MuziekBeheren extends JFrame implements ActionListener
         borderPnl.add(titelsPnl, BorderLayout.NORTH);
         borderPnl.add(knopEnLuisteractiviteitenPnl,BorderLayout.CENTER);
 
-
-
         add(borderPnl);
         setVisible(true);
     }
@@ -64,12 +63,15 @@ public class MuziekBeheren extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-
+        if (e.getSource()==jbAfspeellijstBeheren)
+        {
+            System.out.println("link naar afspeellijst beheren");
+        }
     }
 
     public static void main(String[] args)
     {
-        MuziekBeheren muziekBeherenscherm = new MuziekBeheren();
+        MuziekBeheren muziekBeherenscher = new MuziekBeheren();
 
     }
 }

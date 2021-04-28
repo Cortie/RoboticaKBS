@@ -36,6 +36,7 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
 
         JPanel wachtwoordWijzigenKnopPnl = new JPanel(new FlowLayout());
         wachtwoordWijzigenKnopPnl.add(jbWachtwoordWijzigen = new JButton("Wachtwoord wijzigen"));
+        jbWachtwoordWijzigen.addActionListener(this);
 
         JPanel wachtwoordCheckPnl = new JPanel(new BorderLayout());
         wachtwoordCheckPnl.add(wachtwoordBevestigenPnl,BorderLayout.NORTH);
@@ -62,7 +63,10 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-
+        if (e.getSource()==jbWachtwoordWijzigen)
+        {
+            System.out.println("link naar inloggen");
+        }
     }
 
     public static void main(String[] args)
