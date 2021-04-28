@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		Texture backgroundTexture = new Texture(Gdx.files.internal("BG.jpg"));
 		backgroundSprite = new Sprite(backgroundTexture);
 		batch = new SpriteBatch();
-		bulletImage = new Texture(Gdx.files.internal("Spaceship_01"));
+		bulletImage = new Texture(Gdx.files.internal("4.png"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))));
