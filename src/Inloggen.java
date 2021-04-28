@@ -32,9 +32,11 @@ public class Inloggen extends JFrame implements ActionListener
 
         JPanel inlogknopPnl = new JPanel(new FlowLayout());
         inlogknopPnl.add(jbInloggen = new JButton("Inloggen"));
+        jbInloggen.addActionListener(this);
 
         JPanel newAccountknopPnl = new JPanel(new FlowLayout());
         newAccountknopPnl.add(jbNieuwAccount = new JButton("Nieuw account aanmaken"));
+        jbNieuwAccount.addActionListener(this);
 
         JPanel accountknoppenPnl = new JPanel(new BorderLayout());
         accountknoppenPnl.add(inlogknopPnl,BorderLayout.NORTH);
@@ -42,6 +44,7 @@ public class Inloggen extends JFrame implements ActionListener
 
         JPanel wachtwoordknopPnl = new JPanel(new FlowLayout());
         wachtwoordknopPnl.add(jbVergetenWachtwoord=new JButton("Wachtwoord vergeten"));
+        jbVergetenWachtwoord.addActionListener(this);
 
         JPanel knoppenPnl = new JPanel(new BorderLayout());
         knoppenPnl.add(accountknoppenPnl, BorderLayout.NORTH);
@@ -62,30 +65,24 @@ public class Inloggen extends JFrame implements ActionListener
 
 
         add(borderPnl);
-//        add.addActionListener(new ActionListener() {
-//              public void actionPerformed(ActionEvent e) {
-//                String name = Nfield.getText();
-//                String happy = Bfield.getText();
-//                String nummer = Sfield.getText();
-//                int blij = Integer.parseInt(happy);
-//
-//                try {
-//                  klas.voegToe(name, nummer, blij);
-//                  klas.print();
-//                } catch (Exception a) {
-//                  mededeling = "Exception!";
-//                  setTitle("Jesper Kiers (s1156710): " + klas.getNaam() + " - mededeling: " + mededeling);
-//                  System.out.println("er is een uitzondering!");
-//                }
-//              }
-//            });
         setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
-
+        if (e.getSource()==jbInloggen)
+        {
+            System.out.println("link naar dashboard");
+        }
+        if (e.getSource()==jbNieuwAccount)
+        {
+            System.out.println("link naar account");
+        }
+        if (e.getSource()==jbVergetenWachtwoord)
+        {
+            System.out.println("link naar wachtwoord wijzigen");
+        }
 
     }
 
