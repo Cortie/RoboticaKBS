@@ -55,8 +55,6 @@ public class MuziekBeheren extends JFrame implements ActionListener
         borderPnl.add(titelsPnl, BorderLayout.NORTH);
         borderPnl.add(knopEnLuisteractiviteitenPnl,BorderLayout.CENTER);
 
-
-
         add(borderPnl);
         setVisible(true);
     }
