@@ -40,7 +40,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))));
-		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE_png"), new BulletType(new Texture(Gdx.files.internal("5.png"))));
+		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png"))));
 		raindrops = new Array<Rectangle>();
 		hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
 	}
@@ -68,7 +68,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		batch.draw(player1.getShipImg(), player1.x, player1.y);
 		if(players == 2)
 		{
-		
+			batch.draw(player1.getShipImg(), player2.x, player2.y);
 		}
 		for(Rectangle raindrop: raindrops) {
 			batch.draw(bulletImage, raindrop.x, raindrop.y);
