@@ -11,8 +11,9 @@ public class MuziekBeheren extends JFrame implements ActionListener
     private JLabel jlSubTitel;
     private JButton jbAfspeellijstBeheren;
     private JTable jtLuisteractiviteiten;
-    private String[] titelLuisterLijst;
-
+    private JLabel jlLuisteractiviteit;
+    private String[] titelLuisterLijst= {"Luisteractiviteit",""};
+    private Object[][] data ={{"nummer1", "5 minuten geleden"},{"nummer2", "5 minuten geleden"}};
 
     public MuziekBeheren()
     {
@@ -32,26 +33,20 @@ public class MuziekBeheren extends JFrame implements ActionListener
         JPanel afspeellijstBeherenKnopPnl = new JPanel(new FlowLayout());
         afspeellijstBeherenKnopPnl.add(jbAfspeellijstBeheren = new JButton("Afspeellijst beheren"));
 
-        JPanel luisteractivitetPnl = new JPanel(new FlowLayout());
+        JPanel luisteractiviteitTitelPnl = new JPanel(new FlowLayout());
+        luisteractiviteitTitelPnl.add(jlLuisteractiviteit=new JLabel("Luisteractiviteit"));
 
-        TableModel tableModel = new AbstractTableModel() {
+        JPanel luisteractivitetPnl = new JPanel(new BorderLayout());
+        luisteractivitetPnl.add(luisteractiviteitTitelPnl,BorderLayout.NORTH);
+        JTable jtLuisteractiviteiten = new JTable(data,titelLuisterLijst);
+        jtLuisteractiviteiten.setCellSelectionEnabled(false);
+        jtLuisteractiviteiten.setShowGrid(false);
+        jtLuisteractiviteiten.setEnabled(false);
+        jtLuisteractiviteiten.setRowHeight(20);
 
-                    public int getColumnCount()
-                    {
-                        return 2;
-                    }
-                    public int getRowCount()
-                    {
-                        return 3;
-                    }
-                    public Object getValueAt(int row, int col)
-                    {
-                        return Integer.valueOf(row*col);
-                    }
-                };
-                JTable jtLuisteractiviteiten = new JTable(tableModel);
-//                JScrollPane scrollpane = new JScrollPane(jtLuisteractiviteiten);
-        luisteractivitetPnl.add(jtLuisteractiviteiten);
+        jtLuisteractiviteiten.setBorder(BorderFactory.createLineBorder(Color.black));
+        luisteractivitetPnl.add(jtLuisteractiviteiten,BorderLayout.CENTER);
+
         JPanel knopEnLuisteractiviteitenPnl = new JPanel(new BorderLayout());
         knopEnLuisteractiviteitenPnl.add(afspeellijstBeherenKnopPnl,BorderLayout.NORTH);
         knopEnLuisteractiviteitenPnl.add(luisteractivitetPnl,BorderLayout.CENTER);
