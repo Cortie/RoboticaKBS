@@ -44,11 +44,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		Texture backgroundTexture = new Texture(Gdx.files.internal("BG.jpg"));
 		backgroundSprite = new Sprite(backgroundTexture);
 		batch = new SpriteBatch();
-<<<<<<< Updated upstream
 		bulletImage = new Texture(Gdx.files.internal("4.png"));
-=======
-		//bulletImage = new Texture(Gdx.files.internal("Spaceship_02_RED.png"));
->>>>>>> Stashed changes
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))), Gdx.graphics.getWidth()/ 4 - 64 / 2);
@@ -99,10 +95,10 @@ public class MyGdxGame extends ApplicationAdapter{
 			float screentop = camera.viewportHeight;
 			if(rand == 0)
 			{
-				position = MathUtils.random(0, Gdx.graphics.getWidth() - 120);
-				spawnEnemy(camera.viewportWidth/2 - enemylvls.get(rand).getSize() , screentop, enemylvls.get(rand));
-				spawnEnemy(camera.viewportWidth/2 - enemylvls.get(rand).getSize() + 175, screentop + 175, enemylvls.get(rand));
-				spawnEnemy(camera.viewportWidth/2 - enemylvls.get(rand).getSize() - 175, screentop + 175, enemylvls.get(rand));
+				position = camera.viewportWidth/2 - enemylvls.get(rand).getSize();
+				spawnEnemy(position , screentop, enemylvls.get(rand));
+				spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand));
+				spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand));
 				lastDropTime = TimeUtils.millis() + 5000;
 			}
 			if(rand == 1)
@@ -146,6 +142,21 @@ public class MyGdxGame extends ApplicationAdapter{
 			Bullet bullet = iter.next();
 			bullet.y += 200 * Gdx.graphics.getDeltaTime();
 			if(bullet.y + 64 > Gdx.graphics.getHeight()) iter.remove();
+			for(Iterator<Enemy> iter2 = enemies.iterator(); iter2.hasNext();)
+			{
+				Enemy enemy = iter2.next();
+				if(enemy.getShip().overlaps(bullet.getHitbox()))
+				{
+					enemy.setHealth(enemy.getHealth() - 1);
+					long id = hit.play(1.0f);
+					hit.setPitch(id, 1);
+					hit.setLooping(id, false);
+					if(enemy.getHealth() == 0)
+					{
+						iter2.remove();
+					}
+				}
+			}
 		}
 	}
 	private void spawnEnemy(float position, float height, EnemyType type)
@@ -157,11 +168,13 @@ public class MyGdxGame extends ApplicationAdapter{
 		enemy.getShip().setY(height);
 		if(enemy.getType().equals(enemylvls.get(0)))
 		{
+			enemy.setHealth(3);
 			enemy.getType().setSize(150);
 			enemy.getShip().setSize(enemy.getType().getSize(), enemy.getType().getSize() - 30);
 		}
 		if(enemy.getType().equals(enemylvls.get(1)))
 		{
+			enemy.setHealth(1);
 			enemy.getType().setSize(70);
 			enemy.getShip().setSize(enemy.getType().getSize(), enemy.getType().getSize());
 		}
@@ -172,6 +185,10 @@ public class MyGdxGame extends ApplicationAdapter{
 		for(Bullet bullet: player1.getBullets())
 		{
 			bullet.getType().getBulletImg().dispose();
+		}
+		for(Enemy enemy: enemies)
+		{
+			enemy.getType().getShipImg().dispose();
 		}
 		player1.getShipImg().dispose();
 		batch.dispose();

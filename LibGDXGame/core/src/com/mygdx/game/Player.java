@@ -14,16 +14,12 @@ public class Player
     private Texture shipImg;
     private Sprite ship;
     private Rectangle area;
-    private long shotSpeed = 750000000;
+    private long shotSpeed = 600000000;
     private long lastShot;
     private BulletType type;
     private static Array<Bullet> bullets;
     
-<<<<<<< Updated upstream
-    public Player(FileHandle img, BulletType bullet)
-=======
     public Player(FileHandle img, BulletType bullet, float x)
->>>>>>> Stashed changes
     {
         this.setType(bullet);
         bullets = new Array<Bullet>();

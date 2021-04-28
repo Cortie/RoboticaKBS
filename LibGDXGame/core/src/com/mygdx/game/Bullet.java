@@ -1,14 +1,13 @@
 package com.mygdx.game;
 
-
-import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.math.Rectangle;
 
 import static com.mygdx.game.MyGdxGame.player1;
 
 public class Bullet
 {
     private BulletType type;
-    private static Ellipse hitbox;
+    private static Rectangle hitbox;
     public float x;
     public float y;
     
@@ -22,16 +21,16 @@ public class Bullet
     }
     public void spawnBullet(float x, float y)
     {
-        hitbox = new Ellipse();
+        hitbox = new Rectangle();
         this.x = x;
         this.y = y;
-        hitbox.width = 64;
-        hitbox.height = 64;
+        hitbox.width = 20;
+        hitbox.height = 60;
         player1.getBullets().add(this);
         //lastShot = TimeUtils.nanoTime();
     }
     
-    public Ellipse getHitbox()
+    public Rectangle getHitbox()
     {
         return hitbox;
     }

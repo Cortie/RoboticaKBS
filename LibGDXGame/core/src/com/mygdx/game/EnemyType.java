@@ -7,7 +7,6 @@ public class EnemyType
 {
     private Texture shipImg;
     private Sprite ship;
-    private int health;
     private float size;
     
     public EnemyType(Texture shipImg)

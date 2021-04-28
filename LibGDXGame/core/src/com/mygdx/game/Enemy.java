@@ -6,12 +6,13 @@ public class Enemy
 {
     private float x;
     private float y;
+    private int health;
     private EnemyType type;
     private Rectangle ship;
     
     public Enemy(EnemyType type)
     {
-        
+        this.health = health;
         this.type = type;
         this.ship = new Rectangle(x, y, type.getSize(), type.getSize());
     }
@@ -42,5 +43,13 @@ public class Enemy
     public void setY(float y)
     {
         this.y = y;
+    }
+    public void setHealth(int health)
+    {
+        this.health = health;
+    }
+    public int getHealth()
+    {
+        return health;
     }
 }
