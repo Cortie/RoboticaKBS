@@ -19,13 +19,17 @@ public class Player
     private BulletType type;
     private static Array<Bullet> bullets;
     
+<<<<<<< Updated upstream
     public Player(FileHandle img, BulletType bullet)
+=======
+    public Player(FileHandle img, BulletType bullet, float x)
+>>>>>>> Stashed changes
     {
         this.setType(bullet);
         bullets = new Array<Bullet>();
         this.shipImg = new Texture(img);
         this.ship = new Sprite(shipImg);
-        this.x = Gdx.graphics.getWidth()/ 2 - 64 / 2;
+        this.x = x;
         this.y = 10;
         this.area = new Rectangle();
         this.area.width = 64;
