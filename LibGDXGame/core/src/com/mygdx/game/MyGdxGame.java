@@ -26,7 +26,7 @@ public class MyGdxGame extends ApplicationAdapter{
 	private static Sprite backgroundSprite;
 	private long lastDropTime;
 	private long lastShot;
-	private int players = 1;
+	private int players = 2;
 	
 	@Override
 	public void create () {
@@ -36,7 +36,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		Texture backgroundTexture = new Texture(Gdx.files.internal("BG.jpg"));
 		backgroundSprite = new Sprite(backgroundTexture);
 		batch = new SpriteBatch();
-		bulletImage = new Texture(Gdx.files.internal("4.png"));
+		bulletImage = new Texture(Gdx.files.internal("Spaceship_01"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))));
@@ -68,7 +68,7 @@ public class MyGdxGame extends ApplicationAdapter{
 		batch.draw(player1.getShipImg(), player1.x, player1.y);
 		if(players == 2)
 		{
-			batch.draw(player1.getShipImg(), player2.x, player2.y);
+			batch.draw(player2.getShipImg(), player2.x, player2.y);
 		}
 		for(Rectangle raindrop: raindrops) {
 			batch.draw(bulletImage, raindrop.x, raindrop.y);
