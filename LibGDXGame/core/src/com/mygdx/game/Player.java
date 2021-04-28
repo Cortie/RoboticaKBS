@@ -19,7 +19,7 @@ public class Player
     private BulletType type;
     private static Array<Bullet> bullets;
     
-    public Player(FileHandle img, BulletType bullet)
+    public Player(FileHandle img, BulletType bulle)
     {
         this.setType(bullet);
         bullets = new Array<Bullet>();
