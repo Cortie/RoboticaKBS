@@ -30,13 +30,16 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
         FlowLayout headLayout = new FlowLayout();
         GridLayout headLayout2 = new GridLayout(1,2);
         JPanel headPanel = new JPanel(headLayout);
-        headLayout.setHgap(50);
+
         jlTitel = new JLabel("Profielen aanpassen");
         jlTitel.setFont(new Font("arial",Font.BOLD,20));
+
         backButton = new BasicArrowButton(BasicArrowButton.WEST);
+        headLayout.setAlignment(FlowLayout.LEFT);
+        headLayout.setHgap(150);
+        backButton.setHorizontalAlignment(SwingConstants.LEFT);
 
-
-        headPanel.add(backButton,RIGHT_ALIGNMENT);
+        headPanel.add(backButton);
         headPanel.add(jlTitel);
         add(headPanel);
 
@@ -53,25 +56,36 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
         GridLayout tabelLayout = new GridLayout(1,2);
         JPanel tablePanel = new JPanel(tabelLayout);
         tabelLayout.setHgap(15);
-        jtTempProfile = new JTable(tempProfile,tempProfileTitel);
-        jtTempProfile.setEnabled(false);
+        jtTempProfile = new JTable(tempProfile,tempProfileTitel){
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
         jtTempProfile.setShowGrid(false);
         jtTempProfile.getCellSelectionEnabled();
         jtTempProfile.setRowHeight(50);
+        jtTempProfile.setRowSelectionAllowed(false);
         jtTempProfile.setBorder(blackline);
 
-        jtLightProfile = new JTable(lightProfile,lightProfileTitel);
 
-        jtLightProfile.setEnabled(false);
+        jtLightProfile = new JTable(lightProfile,lightProfileTitel){
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
         jtLightProfile.setShowGrid(false);
         jtLightProfile.getCellSelectionEnabled();
         jtLightProfile.setRowHeight(50);
+        jtLightProfile.setRowSelectionAllowed(false);
         jtLightProfile.setBorder(blackline);
         jtLightProfile.getColumnModel().getColumnSelectionAllowed();
 
         tablePanel.add(jtTempProfile);
         tablePanel.add(jtLightProfile);
         add(tablePanel);
+
 
 
 
