@@ -1,8 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.math.Rectangle;
-
-import static com.mygdx.game.MyGdxGame.player1;
+import static com.mygdx.game.Gameplay.player1;
 
 public class Bullet
 {
@@ -24,10 +23,8 @@ public class Bullet
         hitbox = new Rectangle();
         this.x = x;
         this.y = y;
-        hitbox.width = 20;
-        hitbox.height = 60;
+        hitbox.setSize(20, 60);
         player1.getBullets().add(this);
-        //lastShot = TimeUtils.nanoTime();
     }
     
     public Rectangle getHitbox()

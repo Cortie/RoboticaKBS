@@ -26,11 +26,11 @@ public class SerialListener implements Runnable
             try{number = Integer.parseInt(data.nextLine());}catch(Exception e){}
             if(number == 500)
             {
-                MyGdxGame.player1.moveLeft();
+                Gameplay.player1.moveLeft();
             }
             if(number == 1000)
             {
-                MyGdxGame.player1.moveRight();
+                Gameplay.player1.moveRight();
             }
         }
     }
