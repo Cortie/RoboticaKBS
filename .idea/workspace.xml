@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update muziekbeheren">
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekBeheren.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MuziekSpeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekSpeler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WachtwoordWijzigen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WachtwoordWijzigen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,9 +63,9 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.KlimaatProfiel">
-    <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Account" />
+  <component name="RunManager" selected="Application.Inloggen">
+    <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -66,13 +78,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KlimaatProfiel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="KlimaatProfiel" />
-      <module name="RoboticaKBS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MuziekBeheren" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MuziekBeheren" />
       <module name="RoboticaKBS" />
@@ -80,8 +85,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WachtwoordWijzigen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="WachtwoordWijzigen" />
+    <configuration name="MuziekSpeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekSpeler" />
+      <module name="RoboticaKBS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersoonlijkeInstellingen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PersoonlijkeInstellingen" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -96,11 +108,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.KlimaatProfiel" />
-        <item itemvalue="Application.Account" />
         <item itemvalue="Application.Inloggen" />
-        <item itemvalue="Application.WachtwoordWijzigen" />
+        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.MuziekBeheren" />
+        <item itemvalue="Application.MuziekSpeler" />
+        <item itemvalue="Application.PersoonlijkeInstellingen" />
       </list>
     </recent_temporary>
   </component>
@@ -141,7 +153,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619615894472</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer">
+      <created>1619623569105</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1619623569105</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan">
+      <created>1619684007990</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1619684007990</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,7 +187,9 @@
     <MESSAGE value="muziek beheren scherm" />
     <MESSAGE value="update inloggen" />
     <MESSAGE value="update muziekbeheren" />
-    <option name="LAST_COMMIT_MESSAGE" value="update muziekbeheren" />
+    <MESSAGE value="update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer" />
+    <MESSAGE value="update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan" />
+    <option name="LAST_COMMIT_MESSAGE" value="update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

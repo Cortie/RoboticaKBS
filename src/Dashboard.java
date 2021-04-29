@@ -6,10 +6,10 @@ public class Dashboard extends JFrame implements ActionListener {
 
   //definitions for labels, buttons and layouts
   JLabel temp = new JLabel("Temperatuur: ");
-  JButton player = new JButton("Muziekspeler");
-  JButton climate = new JButton("Klimaatbeheer");
-  JButton settings = new JButton("Instellingen");
-  JButton out = new JButton("Uitloggen");
+  JButton jbPlayer = new JButton("Muziekspeler");
+  JButton jbClimate = new JButton("Klimaatbeheer");
+  JButton jbSettings = new JButton("Instellingen");
+  JButton jbOut = new JButton("Uitloggen");
 
   FlowLayout buttons = new FlowLayout(FlowLayout.RIGHT, 75, 0);
   FlowLayout standard = new FlowLayout();
@@ -31,21 +31,21 @@ public class Dashboard extends JFrame implements ActionListener {
     
     //panel for the middle buttons
     JPanel btnPnl = new JPanel(buttons);
-    btnPnl.add(player);
-    player.setPreferredSize(new Dimension(150,50));
-    player.setFont(player.getFont().deriveFont(16.0f));
-    btnPnl.add(climate);
-    climate.setPreferredSize(new Dimension(150,50));
-    climate.setFont(climate.getFont().deriveFont(16.0f));
-    btnPnl.add(settings);
-    settings.setPreferredSize(new Dimension(150,50));
-    settings.setFont(settings.getFont().deriveFont(16.0f));
+    btnPnl.add(jbPlayer);
+    jbPlayer.setPreferredSize(new Dimension(150,50));
+    jbPlayer.setFont(jbPlayer.getFont().deriveFont(16.0f));
+    btnPnl.add(jbClimate);
+    jbClimate.setPreferredSize(new Dimension(150,50));
+    jbClimate.setFont(jbClimate.getFont().deriveFont(16.0f));
+    btnPnl.add(jbSettings);
+    jbSettings.setPreferredSize(new Dimension(150,50));
+    jbSettings.setFont(jbSettings.getFont().deriveFont(16.0f));
 
     //panel for logging out
     JPanel outPnl = new JPanel(standard);
-    outPnl.add(out);
-    out.setPreferredSize(new Dimension(150,50));
-    out.setFont(out.getFont().deriveFont(16.0f));
+    outPnl.add(jbOut);
+    jbOut.setPreferredSize(new Dimension(150,50));
+    jbOut.setFont(jbOut.getFont().deriveFont(16.0f));
 
     //border panel serving as collection for the elements
     JPanel borderPnl = new JPanel(collection);
@@ -55,14 +55,41 @@ public class Dashboard extends JFrame implements ActionListener {
     borderPnl.add(outPnl, BorderLayout.SOUTH);
 
     add(borderPnl);
-
+    jbPlayer.addActionListener(this);
+    jbClimate.addActionListener(this);
+    jbOut.addActionListener(this);
+    jbSettings.addActionListener(this);
     setVisible(true);
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e)
+  {
     // TODO Auto-generated method stub
-
+    if (e.getSource()==jbPlayer)
+    {
+      System.out.println("link naar muziekspeler");
+      MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+      this.dispose();
+    }
+    if (e.getSource()==jbClimate)
+    {
+      System.out.println("link naar klimaatbeheer");
+      KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();
+      this.dispose();
+    }
+    if (e.getSource()==jbSettings)
+    {
+      System.out.println("link naar persoonlijke instellingen");
+      PersoonlijkeInstellingen first = new PersoonlijkeInstellingen();
+      this.dispose();
+    }
+    if (e.getSource()==jbOut)
+    {
+      System.out.println("link naar inloggen");
+      Inloggen inloggenscherm= new Inloggen();
+      this.dispose();
+    }
   }
 
   public static void main(String[] args) {

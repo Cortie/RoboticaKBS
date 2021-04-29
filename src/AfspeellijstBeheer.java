@@ -12,7 +12,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
 
   JTextField pName = new JTextField(10);
 
-  JButton makeP = new JButton("Afspeellijst aanmaken");
+  JButton jbMakeP = new JButton("Afspeellijst aanmaken");
 
   FlowLayout standard = new FlowLayout();
   FlowLayout add = new FlowLayout(FlowLayout.RIGHT, 25, 0);
@@ -48,7 +48,8 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     add.setVgap(75);
     addPnl.add(name);
     addPnl.add(pName);
-    addPnl.add(makeP);
+    addPnl.add(jbMakeP);
+    jbMakeP.addActionListener(this);
 
     //sharing of the playlists 
     JPanel shareA = new JPanel(standard);
@@ -79,7 +80,10 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   @Override
   public void actionPerformed(ActionEvent e) {
     // TODO Auto-generated method stub
-    
+    if (e.getSource()==jbMakeP)
+    {
+      System.out.println("doe nog iets met knop");
+    }
   }
 
   public static void main(String[] args) {

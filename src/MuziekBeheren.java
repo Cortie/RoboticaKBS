@@ -66,6 +66,8 @@ public class MuziekBeheren extends JFrame implements ActionListener
         if (e.getSource()==jbAfspeellijstBeheren)
         {
             System.out.println("link naar afspeellijst beheren");
+            AfspeellijstBeheer playlist = new AfspeellijstBeheer();
+            this.dispose();
         }
     }
 
