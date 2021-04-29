@@ -30,7 +30,11 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
+<<<<<<< Updated upstream
     buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
+=======
+        buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
+>>>>>>> Stashed changes
     }
 
     @Override
