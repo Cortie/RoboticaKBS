@@ -38,6 +38,7 @@ public class SerialListener implements Runnable
                 {
                     if(selectedmenu <= 2)
                     {
+                        MainMenuScreen.playSound();
                         selectedmenu++;
                     }
                     else

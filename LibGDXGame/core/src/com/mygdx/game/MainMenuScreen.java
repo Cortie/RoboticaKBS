@@ -1,10 +1,10 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.SerialListener;
 
 public class MainMenuScreen implements Screen {
     MyGdxGame game;
@@ -15,7 +15,7 @@ public class MainMenuScreen implements Screen {
     Texture PlayButtonInactive;
     Texture ExitButtonActive;
     Texture ExitButtonInactive;
-    int ButtonCicle;
+    private static Sound buttonSwitch;
 
     public MainMenuScreen(MyGdxGame game){
         this.game = game;
@@ -29,7 +29,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-    
+        buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
     }
 
     @Override
@@ -79,9 +79,22 @@ public class MainMenuScreen implements Screen {
     public void hide() {
 
     }
+    
+    public static void playSound()
+    {
+        long id = buttonSwitch.play(1.0f);
+        buttonSwitch.setPitch(id, 1);
+        buttonSwitch.setLooping(id, false);
+    }
 
     @Override
     public void dispose() {
-
+        buttonSwitch.dispose();
+        SettingsButtonInactive.dispose();
+        SettingsButtonActive.dispose();
+        PlayButtonActive.dispose();
+        PlayButtonInactive.dispose();
+        ExitButtonActive.dispose();
+        ExitButtonInactive.dispose();
     }
 }
