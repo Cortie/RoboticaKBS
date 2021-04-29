@@ -44,7 +44,6 @@ public class SerialListener implements Runnable
                     {
                         selectedmenu = 0;
                     }
-                    //System.out.println(selectedmenu);
                     speed = TimeUtils.nanoTime();
                 }
                 MyGdxGame.player1.moveRight();
