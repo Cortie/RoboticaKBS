@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,10 +22,19 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
         setSize(800,600);
         setLayout(new GridLayout(4,3));
 
+        //borders
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+
+
         //HeadPanel
-        JPanel headPanel = new JPanel(new FlowLayout());
+        FlowLayout headLayout = new FlowLayout();
+        GridLayout headLayout2 = new GridLayout(1,2);
+        JPanel headPanel = new JPanel(headLayout);
+        headLayout.setHgap(50);
         jlTitel = new JLabel("Profielen aanpassen");
+        jlTitel.setFont(new Font("arial",Font.BOLD,20));
         backButton = new BasicArrowButton(BasicArrowButton.WEST);
+
 
         headPanel.add(backButton,RIGHT_ALIGNMENT);
         headPanel.add(jlTitel);
@@ -48,13 +58,17 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
         jtTempProfile.setShowGrid(false);
         jtTempProfile.getCellSelectionEnabled();
         jtTempProfile.setRowHeight(50);
+        jtTempProfile.setBorder(blackline);
 
         jtLightProfile = new JTable(lightProfile,lightProfileTitel);
 
-        jtLightProfile.setEnabled(true);
+        jtLightProfile.setEnabled(false);
         jtLightProfile.setShowGrid(false);
         jtLightProfile.getCellSelectionEnabled();
         jtLightProfile.setRowHeight(50);
+        jtLightProfile.setBorder(blackline);
+        jtLightProfile.getColumnModel().getColumnSelectionAllowed();
+
         tablePanel.add(jtTempProfile);
         tablePanel.add(jtLightProfile);
         add(tablePanel);
