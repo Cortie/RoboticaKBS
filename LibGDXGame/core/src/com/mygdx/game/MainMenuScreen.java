@@ -86,7 +86,6 @@ public class MainMenuScreen implements Screen {
         buttonSwitch.setPitch(id, 1);
         buttonSwitch.setLooping(id, false);
     }
-
     @Override
     public void dispose() {
         buttonSwitch.dispose();
