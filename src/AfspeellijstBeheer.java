@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.event.*;
 
 public class AfspeellijstBeheer extends JFrame implements ActionListener{
@@ -9,6 +10,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   JLabel name = new JLabel("Afspeellijst naam");
   JLabel share = new JLabel("Afspeellijst delen");
   JLabel addMusic = new JLabel("Muziek toevoegen aan afspeellijst");
+  private BasicArrowButton backButton;
 
   JTextField pName = new JTextField(10);
 
@@ -30,6 +32,8 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
 
     //temperature panel
     JPanel musicTxtPnl = new JPanel(standard);
+    musicTxtPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
+    backButton.addActionListener(this);
     musicTxtPnl.add(music);
     music.setFont(music.getFont().deriveFont(16.0f));
 
@@ -83,6 +87,11 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     if (e.getSource()==jbMakeP)
     {
       System.out.println("doe nog iets met knop");
+    }
+    if (e.getSource()==backButton)
+    {
+      MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+      this.dispose();
     }
   }
 
