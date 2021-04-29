@@ -93,6 +93,8 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         if (e.getSource()==jcPlaylist)
         {
             System.out.println("link naar de echte muziekspeler");
+            MuziekAfspeler muziekAfspelerscherm = new MuziekAfspeler();
+            this.dispose();
         }
     }
 }
