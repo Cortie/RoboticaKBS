@@ -3,30 +3,26 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.Iterator;
 
 public class Gameplay implements Screen
 {
     private Texture bulletImage;
-    public static Player player1;
-    public static Player player2;
     private Array<Rectangle> raindrops;
-    private SerialListener listener = new SerialListener();
     private Sound hit;
     private Array<EnemyType> enemylvls;
     private Array<Enemy> enemies;
+    private BulletType bigBullet;
+    private BulletType standardBullet;
     private long lastDropTime;
     private long lastShot;
+    private long lastEnemyShot;
     private int players = 1;
     private MyGdxGame game;
     
@@ -42,26 +38,26 @@ public class Gameplay implements Screen
         for(int i = 0; i < 4; i++)
         {
             String key = "";
+            long shotSpeed = 0;
             int nummer = i + 2;
             switch(i)
             {
                 case 0:
                     key = "Big";
+                    shotSpeed = 350000000;
                     break;
                 case 1:
                     key = "Standard";
+                    shotSpeed = 600000000;
                     break;
                 case 2:
             
             }
-            enemylvls.add(new EnemyType(new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png"))));
+            enemylvls.add(new EnemyType(new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png")), shotSpeed));
         }
-        Thread listenerThread = new Thread(listener);
-        listenerThread.setDaemon(true);
-        listenerThread.start();
         bulletImage = new Texture(Gdx.files.internal("4.png"));
-        player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))), Gdx.graphics.getWidth()/ 4 - 64 / 2);
-        player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png"))), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
+        standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3);
+        bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3);
         enemies = new Array<Enemy>();
         hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
     }
@@ -69,39 +65,25 @@ public class Gameplay implements Screen
     @Override
     public void render(float delta)
     {
-        //backgroundSprite.setSize(camera.viewportWidth, camera.viewportHeight);
-        // clear the screen with a dark blue color. The
-        // arguments to clear are the red, green
-        // blue and alpha component in the range [0,1]
-        // of the color to be used to clear the screen.
-        ScreenUtils.clear(0, 0, 0, 1);
-    
-        // tell the camera to update its matrices.
-        game.camera.update();
-    
-        // tell the SpriteBatch to render in the
-        // coordinate system specified by the camera.
-        //game.batch.setProjectionMatrix(camera.combined);
-    
-        // begin a new batch and draw the bucket and
-        // all drops
+
+        // begin a new batch and draw all game components (player, bullets, enemies)
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
-        game.batch.draw(player1.getShipImg(), player1.x, player1.y);
+        game.batch.draw(game.player1.getShipImg(), game.player1.x, game.player1.y);
         if(players == 2)
         {
-            game.batch.draw(player2.getShipImg(), player2.x, player2.y);
+            game.batch.draw(game.player2.getShipImg(), game.player2.x, game.player2.y);
         }
         for(Enemy enemy: enemies) {
             game.batch.draw(enemy.getType().getShipImg(), enemy.getShip().getX(), enemy.getShip().getY());
         }
-        for(Bullet bullet: player1.getBullets())
+        for(Bullet bullet: game.player1.getBullets())
         {
             game.batch.draw(bullet.getType().getBulletImg(), bullet.x, bullet.y);
         }
         game.batch.end();
-    
-        // check if we need to create a new raindrop
+
+        // Spawns random enemy types after a certain amount of time has passed
         if(TimeUtils.millis() - lastDropTime > 0)
         {
             float position;
@@ -110,9 +92,9 @@ public class Gameplay implements Screen
             if(rand == 0)
             {
                 position = game.camera.viewportWidth/2 - enemylvls.get(rand).getSize();
-                spawnEnemy(position , screentop, enemylvls.get(rand));
-                spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand));
-                spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand));
+                spawnEnemy(position , screentop, enemylvls.get(rand), bigBullet);
+                spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand), bigBullet);
+                spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand), bigBullet);
                 lastDropTime = TimeUtils.millis() + 5000;
             }
             if(rand == 1)
@@ -120,42 +102,50 @@ public class Gameplay implements Screen
                 position = MathUtils.random(0, Gdx.graphics.getWidth() - 70);
                 for(int i = 0; i < 5; i++)
                 {
-                    spawnEnemy(position, screentop, enemylvls.get(rand));
+                    spawnEnemy(position, screentop, enemylvls.get(rand), standardBullet);
                     if(i == 0)
                     {
-                        spawnEnemy(position + 90, screentop + 50, enemylvls.get(rand));
-                        spawnEnemy(position - 90, screentop + 50, enemylvls.get(rand));
+                        spawnEnemy(position + 90, screentop + 50, enemylvls.get(rand), standardBullet);
+                        spawnEnemy(position - 90, screentop + 50, enemylvls.get(rand), standardBullet);
                     }
                     screentop += 75;
                 }
                 lastDropTime = TimeUtils.millis() + 3500;
             }
         }
-        if(TimeUtils.nanoTime() - lastShot > player1.getShotSpeed())
+        // Spawns a bullet out of the player dependent on player shot speed
+        if(TimeUtils.nanoTime() - lastShot > game.player1.getShotSpeed())
         {
-            Bullet bullet = new Bullet(player1.getType());
-            bullet.spawnBullet(player1.x + 26, player1.y + 64);
+            Bullet bullet = new Bullet(game.player1.getType());
+            bullet.spawnBullet(game.player1.x + 26, game.player1.y + 64);
             lastShot = TimeUtils.nanoTime();
         }
-        // move the raindrops, remove any that are beneath the bottom edge of
-        // the screen or that hit the bucket. In the latter case we play back
-        // a sound effect as well.
+        // move the enemies, remove any that are beneath the bottom edge of
+        // the screen or that hit the player. In the latter case we play back
+        // a sound effect as well, and remove a life/shield from the player.
         for (Iterator<Enemy> iter = enemies.iterator(); iter.hasNext(); ) {
             Enemy enemy = iter.next();
+            if(TimeUtils.nanoTime() - lastEnemyShot > enemy.getType().getShotSpeed())
+            {
+            
+            }
             if(enemy.getType().equals(enemylvls.get(0)))
             {
             
             }
             enemy.getShip().setY(enemy.getShip().getY() - 150 * Gdx.graphics.getDeltaTime());
             if(enemy.getShip().getY() + 64 < 0) iter.remove();
-            if(enemy.getShip().overlaps(player1.getArea())) {
+            if(enemy.getShip().overlaps(game.player1.getArea())) {
                 long id = hit.play(1.0f);
                 hit.setPitch(id, 1);
                 hit.setLooping(id, false);
                 iter.remove();
             }
         }
-        for(Iterator<Bullet> iter = player1.getBullets().iterator(); iter.hasNext();)
+        // moves player's bullets and checks for collision with enemies
+        // when an enemy is hit we remove health from the enemy and if their health
+        // is 0 we remove the enemy from the screen
+        for(Iterator<Bullet> iter = game.player1.getBullets().iterator(); iter.hasNext();)
         {
             Bullet bullet = iter.next();
             bullet.y += 200 * Gdx.graphics.getDeltaTime();
@@ -204,7 +194,7 @@ public class Gameplay implements Screen
     @Override
     public void dispose()
     {
-        for(Bullet bullet: player1.getBullets())
+        for(Bullet bullet: game.player1.getBullets())
         {
             bullet.getType().getBulletImg().dispose();
         }
@@ -212,13 +202,13 @@ public class Gameplay implements Screen
         {
             enemy.getType().getShipImg().dispose();
         }
-        player1.getShipImg().dispose();
+        game.player1.getShipImg().dispose();
         hit.dispose();
         game.batch.dispose();
     }
-    private void spawnEnemy(float position, float height, EnemyType type)
+    private void spawnEnemy(float position, float height, EnemyType type, BulletType btype)
     {
-        Enemy enemy = new Enemy(type);
+        Enemy enemy = new Enemy(type, btype);
         enemy.setX(position);
         enemy.setY(height);
         enemy.getShip().setX(position);

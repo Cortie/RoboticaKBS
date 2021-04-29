@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.math.Rectangle;
-import static com.mygdx.game.Gameplay.player1;
+import static com.mygdx.game.MyGdxGame.player1;
 
 public class Bullet
 {

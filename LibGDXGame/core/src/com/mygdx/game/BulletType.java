@@ -7,9 +7,11 @@ public class BulletType
 {
     private Texture bulletImg;
     private Sprite bullet;
+    private int user;
     
-    public BulletType(Texture img)
+    public BulletType(Texture img, int user)
     {
+        this.user = user;
         this.bulletImg = img;
         this.bullet = new Sprite(img);
     }

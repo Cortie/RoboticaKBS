@@ -63,7 +63,7 @@ public class Player
             this.setX(x - 300 * Gdx.graphics.getDeltaTime());
         }
     }
-
+    
     public void moveRight()
     {
         if(!(this.x > MyGdxGame.camera.viewportWidth - 64))

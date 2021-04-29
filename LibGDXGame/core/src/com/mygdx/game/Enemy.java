@@ -9,9 +9,11 @@ public class Enemy
     private int health;
     private EnemyType type;
     private Rectangle ship;
+    private BulletType btype;
     
-    public Enemy(EnemyType type)
+    public Enemy(EnemyType type, BulletType btype)
     {
+        this.btype = btype;
         this.health = health;
         this.type = type;
         this.ship = new Rectangle(x, y, type.getSize(), type.getSize());

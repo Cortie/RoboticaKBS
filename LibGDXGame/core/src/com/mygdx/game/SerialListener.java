@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.utils.TimeUtils;
 import com.fazecast.jSerialComm.SerialPort;
 
 import java.util.Scanner;
@@ -8,6 +9,9 @@ public class SerialListener implements Runnable
 {
     public SerialPort port;
     public Scanner data;
+    public static int selectedmenu = 1;
+    private long timer = 500000000;
+    private long speed = 0;
     @Override
     public void run()
     {
@@ -26,11 +30,24 @@ public class SerialListener implements Runnable
             try{number = Integer.parseInt(data.nextLine());}catch(Exception e){}
             if(number == 500)
             {
-                Gameplay.player1.moveLeft();
+                MyGdxGame.player1.moveLeft();
             }
             if(number == 1000)
             {
-                Gameplay.player1.moveRight();
+                if(TimeUtils.nanoTime() - speed > timer)
+                {
+                    if(selectedmenu <= 2)
+                    {
+                        selectedmenu++;
+                    }
+                    else
+                    {
+                        selectedmenu = 0;
+                    }
+                    //System.out.println(selectedmenu);
+                    speed = TimeUtils.nanoTime();
+                }
+                MyGdxGame.player1.moveRight();
             }
         }
     }

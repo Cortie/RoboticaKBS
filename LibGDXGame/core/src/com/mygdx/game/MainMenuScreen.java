@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import org.w3c.dom.Text;
+import com.mygdx.game.SerialListener;
 
 public class MainMenuScreen implements Screen {
     MyGdxGame game;
@@ -39,10 +38,24 @@ public class MainMenuScreen implements Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     game.batch.begin();
     game.backgroundSprite.draw(game.batch);
-
-    game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
-    game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
-    game.batch.draw(PlayButtonActive, 100, 500, 330, 150);
+    if(SerialListener.selectedmenu == 1)
+    {
+        game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
+        game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
+        game.batch.draw(PlayButtonActive, 100, 500, 330, 150);
+    }
+    if(SerialListener.selectedmenu == 2)
+    {
+        game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
+        game.batch.draw(SettingsButtonActive, 100, 350, 384, 85);
+        game.batch.draw(PlayButtonInactive, 100, 500, 330, 150);
+    }
+    if(SerialListener.selectedmenu == 3)
+    {
+        game.batch.draw(ExitButtonActive, 100, 100, 330, 150);
+        game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
+        game.batch.draw(PlayButtonInactive, 100, 500, 330, 150);
+    }
 
     game.batch.end();
     }
