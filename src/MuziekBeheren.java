@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -14,6 +15,7 @@ public class MuziekBeheren extends JFrame implements ActionListener
     private JLabel jlLuisteractiviteit;
     private String[] titelLuisterLijst= {"Luisteractiviteit",""};
     private Object[][] data ={{"nummer1", "5 minuten geleden"},{"nummer2", "5 minuten geleden"}};
+    private BasicArrowButton backButton;
 
     public MuziekBeheren()
     {
@@ -21,7 +23,9 @@ public class MuziekBeheren extends JFrame implements ActionListener
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel titelPnl = new JPanel(new FlowLayout());
+        titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
         titelPnl.add(jlTitel=new JLabel("Muziekspeler"));
+        backButton.addActionListener(this);
 
         JPanel subtitel = new JPanel(new FlowLayout());
         subtitel.add(jlSubTitel = new JLabel("Muziek beheren"));
@@ -67,6 +71,11 @@ public class MuziekBeheren extends JFrame implements ActionListener
         {
             System.out.println("link naar afspeellijst beheren");
             AfspeellijstBeheer playlist = new AfspeellijstBeheer();
+            this.dispose();
+        }
+        if (e.getSource()==backButton)
+        {
+            MuziekSpeler musicPlayerGUI = new MuziekSpeler();
             this.dispose();
         }
     }

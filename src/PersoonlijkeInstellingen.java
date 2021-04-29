@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 import java.awt.event.*;
 
@@ -11,6 +12,7 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
   JLabel username = new JLabel("Gebruikersnaam");
   JLabel about = new JLabel("About tekst");
   JLabel song1 = new JLabel("Nummer 1");
+  private BasicArrowButton backButton;
 
   String[][] num = {
     {"nummer 1"},
@@ -83,7 +85,8 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
     JPanel left = new JPanel(privacyBorder);
     privacyBorder.setVgap(20);
     left.setBorder(new EmptyBorder(50,0,0,0));
-    left.add(settings, BorderLayout.NORTH);
+    left.add(backButton = new BasicArrowButton(BasicArrowButton.WEST),BorderLayout.WEST);
+    left.add(settings, BorderLayout.CENTER);
     left.add(privacySettings, BorderLayout.SOUTH);
 
     // username panel
@@ -130,6 +133,7 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
     add(borderPnl);
     setVisible(true);
     jbEdit.addActionListener(this);
+    backButton.addActionListener(this);
   }
 
   @Override
@@ -139,6 +143,13 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
     if (e.getSource()==jbEdit)
     {
       System.out.println("link naar klimaat profielen");
+      KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+      this.dispose();
+    }
+    if (e.getSource()==backButton)
+    {
+      Dashboard dash = new Dashboard();
+      this.dispose();
     }
   }
 

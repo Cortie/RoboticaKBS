@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private JLabel jlLichtsterkteWaarde;
     private int tempWaarde;
     private int lichtsterkteWaarde;
-
+    private BasicArrowButton backButton;
 
     public KlimaatBeheer()
     {
@@ -27,6 +28,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel titelPnl = new JPanel(new FlowLayout());
+        titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
+        backButton.addActionListener(this);
         titelPnl.add(jlTitel = new JLabel("Klimaatbeheer"));
 
         JPanel profielKnopPnl = new JPanel(new FlowLayout());
@@ -71,6 +74,13 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         if (e.getSource()==jbProfielKnop)
         {
             System.out.println("link naar profielen aanpassen");
+            KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+            this.dispose();
+        }
+        if (e.getSource()==backButton)
+        {
+            Dashboard dash = new Dashboard();
+            this.dispose();
         }
     }
 
