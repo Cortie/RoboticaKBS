@@ -9,7 +9,7 @@ public class Inloggen extends JFrame implements ActionListener
     private JLabel jlGebruikersnaam;
     private JLabel jlWachtwoord;
     private JTextField jtGebruikersnaam;
-    private JTextField jtWachtwoord;
+    private JPasswordField jpWachtwoord;
     private JButton jbInloggen;
     private JButton jbNieuwAccount;
     private JButton jbVergetenWachtwoord;
@@ -28,7 +28,7 @@ public class Inloggen extends JFrame implements ActionListener
 
         JPanel wachtwoordPnl = new JPanel(new FlowLayout());
         wachtwoordPnl.add(jlWachtwoord=new JLabel("Wachtwoord"));
-        wachtwoordPnl.add(jtWachtwoord =new JTextField(8));
+        wachtwoordPnl.add(jpWachtwoord =new JPasswordField(8));
 
         JPanel inlogknopPnl = new JPanel(new FlowLayout());
         inlogknopPnl.add(jbInloggen = new JButton("Inloggen"));

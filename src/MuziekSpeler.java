@@ -44,7 +44,8 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         jbManageMusic = new JButton("Muziek beheren");
         buttonPanel.add(jbManageMusic,BorderLayout.NORTH);
         buttonPanel.add(jbManagePlaylist,BorderLayout.CENTER);
-
+        jbManageMusic.addActionListener(this);
+        jbManagePlaylist.addActionListener(this);
 
 
 
@@ -64,12 +65,6 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         add(borderPanel1);
 
         setVisible(true);
-
-
-
-
-
-
     }
 
 
@@ -81,7 +76,15 @@ public class MuziekSpeler extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource()==jbManageMusic)
+        {
+            System.out.println("link naar muziek beheren");
+        }
+        if (e.getSource()==jbManagePlaylist)
+        {
+            System.out.println("link naar afspeellijst beheren");
+        }
     }
 }

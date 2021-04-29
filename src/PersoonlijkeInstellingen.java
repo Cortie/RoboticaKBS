@@ -31,7 +31,7 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
   JLabel playlist1 = new JLabel("Afspeellijst 1");
   JLabel profiles = new JLabel("Klimaatbeheer profielen bewerken");
 
-  JButton edit = new JButton("Profielen aanpassen");
+  JButton jbEdit = new JButton("Profielen aanpassen");
 
   FlowLayout standard = new FlowLayout();
   FlowLayout spacing = new FlowLayout(FlowLayout.RIGHT, 100, 0);
@@ -106,7 +106,7 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
 
     // edit profiles button panel
     JPanel climateButton = new JPanel(standard);
-    climateButton.add(edit);
+    climateButton.add(jbEdit);
 
     // collection borderpanel for climate profiles
     JPanel profile = new JPanel(profiledata);
@@ -129,12 +129,17 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
 
     add(borderPnl);
     setVisible(true);
+    jbEdit.addActionListener(this);
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e)
+  {
     // TODO Auto-generated method stub
-
+    if (e.getSource()==jbEdit)
+    {
+      System.out.println("link naar klimaat profielen");
+    }
   }
 
   public static void main(String[] args) {

@@ -39,7 +39,7 @@ public class Account extends JFrame implements ActionListener {
         passwordPanel.add(jpPassword);
 
         jbCreateAccount = new JButton("Account aanmaken");
-
+        jbCreateAccount.addActionListener(this);
         JPanel jbCreateAccountPanel = new JPanel(new FlowLayout());
         jbCreateAccountPanel.add(jbCreateAccount);
 
@@ -58,8 +58,12 @@ public class Account extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource()==jbCreateAccount)
+        {
+            System.out.println("link naar inloggen");
+        }
     }
 
     public static void main(String[] args)
