@@ -66,6 +66,8 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
         if (e.getSource()==jbWachtwoordWijzigen)
         {
             System.out.println("link naar inloggen");
+            Inloggen inloggenscherm= new Inloggen();
+            this.dispose();
         }
     }
 

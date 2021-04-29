@@ -74,14 +74,20 @@ public class Inloggen extends JFrame implements ActionListener
         if (e.getSource()==jbInloggen)
         {
             System.out.println("link naar dashboard");
+            Dashboard dash = new Dashboard();
+            this.dispose();
         }
         if (e.getSource()==jbNieuwAccount)
         {
             System.out.println("link naar account");
+            Account CreateAccountGUI = new Account();
+            this.dispose();
         }
         if (e.getSource()==jbVergetenWachtwoord)
         {
             System.out.println("link naar wachtwoord wijzigen");
+            WachtwoordWijzigen wachtwoordWijzigenscherm = new WachtwoordWijzigen();
+            this.dispose();
         }
 
     }

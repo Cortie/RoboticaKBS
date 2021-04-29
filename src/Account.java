@@ -63,6 +63,8 @@ public class Account extends JFrame implements ActionListener {
         if (e.getSource()==jbCreateAccount)
         {
             System.out.println("link naar inloggen");
+            Inloggen inloggenscherm= new Inloggen();
+            this.dispose();
         }
     }
 

@@ -69,18 +69,26 @@ public class Dashboard extends JFrame implements ActionListener {
     if (e.getSource()==jbPlayer)
     {
       System.out.println("link naar muziekspeler");
+      MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+      this.dispose();
     }
     if (e.getSource()==jbClimate)
     {
       System.out.println("link naar klimaatbeheer");
+      KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();
+      this.dispose();
     }
     if (e.getSource()==jbSettings)
     {
       System.out.println("link naar persoonlijke instellingen");
+      PersoonlijkeInstellingen first = new PersoonlijkeInstellingen();
+      this.dispose();
     }
     if (e.getSource()==jbOut)
     {
       System.out.println("link naar inloggen");
+      Inloggen inloggenscherm= new Inloggen();
+      this.dispose();
     }
   }
 
