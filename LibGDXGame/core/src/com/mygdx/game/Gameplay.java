@@ -12,14 +12,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Iterator;
 
 public class Gameplay implements Screen
 {
     private Texture bulletImage;
-    public static OrthographicCamera camera;
     public static Player player1;
     public static Player player2;
     private Array<Rectangle> raindrops;
@@ -27,11 +25,9 @@ public class Gameplay implements Screen
     private Sound hit;
     private Array<EnemyType> enemylvls;
     private Array<Enemy> enemies;
-    private static Sprite backgroundSprite;
     private long lastDropTime;
     private long lastShot;
     private int players = 1;
-    private Viewport viewPort;
     private MyGdxGame game;
     
     public Gameplay(MyGdxGame game)
@@ -63,23 +59,17 @@ public class Gameplay implements Screen
         Thread listenerThread = new Thread(listener);
         listenerThread.setDaemon(true);
         listenerThread.start();
-        Texture backgroundTexture = new Texture(Gdx.files.internal("BG.jpg"));
-        backgroundSprite = new Sprite(backgroundTexture);
         bulletImage = new Texture(Gdx.files.internal("4.png"));
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png"))), Gdx.graphics.getWidth()/ 4 - 64 / 2);
         player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png"))), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
         enemies = new Array<Enemy>();
         hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
-        viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-        viewPort.apply();
     }
     
     @Override
     public void render(float delta)
     {
-        backgroundSprite.setSize(camera.viewportWidth, camera.viewportHeight);
+        //backgroundSprite.setSize(camera.viewportWidth, camera.viewportHeight);
         // clear the screen with a dark blue color. The
         // arguments to clear are the red, green
         // blue and alpha component in the range [0,1]
@@ -87,16 +77,16 @@ public class Gameplay implements Screen
         ScreenUtils.clear(0, 0, 0, 1);
     
         // tell the camera to update its matrices.
-        camera.update();
+        game.camera.update();
     
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        game.batch.setProjectionMatrix(camera.combined);
+        //game.batch.setProjectionMatrix(camera.combined);
     
         // begin a new batch and draw the bucket and
         // all drops
         game.batch.begin();
-        backgroundSprite.draw(game.batch);
+        game.backgroundSprite.draw(game.batch);
         game.batch.draw(player1.getShipImg(), player1.x, player1.y);
         if(players == 2)
         {
@@ -116,10 +106,10 @@ public class Gameplay implements Screen
         {
             float position;
             int rand = MathUtils.random(0,2);
-            float screentop = camera.viewportHeight;
+            float screentop = game.camera.viewportHeight;
             if(rand == 0)
             {
-                position = camera.viewportWidth/2 - enemylvls.get(rand).getSize();
+                position = game.camera.viewportWidth/2 - enemylvls.get(rand).getSize();
                 spawnEnemy(position , screentop, enemylvls.get(rand));
                 spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand));
                 spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand));
@@ -190,7 +180,7 @@ public class Gameplay implements Screen
     
     @Override
     public void resize(int width, int height){
-        viewPort.update(width, height, true);
+    
     }
     
     @Override

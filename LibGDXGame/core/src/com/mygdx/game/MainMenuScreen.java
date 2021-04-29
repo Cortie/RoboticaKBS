@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MainMenuScreen implements Screen {
     MyGdxGame game;
@@ -13,19 +14,19 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(MyGdxGame game){
         this.game = game;
         SettingsButtonActive = new Texture("SettingsButtonActive.png");
-        SettingsButtonInactive = new Texture("SettingsButtonActive.png");
+        SettingsButtonInactive = new Texture("SettingsButtonInactive.png");
     }
     @Override
     public void show() {
-
+    
     }
 
     @Override
     public void render(float delta) {
-    Gdx.gl.glClearColor(1,0, 0, 1);
+    Gdx.gl.glClearColor(0,0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     game.batch.begin();
-
+    game.backgroundSprite.draw(game.batch);
     game.batch.draw(SettingsButtonInactive, 100, 100, 300, 150);
 
     game.batch.end();
