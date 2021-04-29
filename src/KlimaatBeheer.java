@@ -74,6 +74,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         if (e.getSource()==jbProfielKnop)
         {
             System.out.println("link naar profielen aanpassen");
+            KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+            this.dispose();
         }
         if (e.getSource()==backButton)
         {

@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update de schermen vooruit aan elkaar gelinkt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekBeheren.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" afterDir="false" />
-    </list>
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="update de schermen achteruit aan elkaar gelinkt" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +47,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.PersoonlijkeInstellingen">
+  <component name="RunManager" selected="Application.KlimaatBeheer">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -102,8 +92,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PersoonlijkeInstellingen" />
         <item itemvalue="Application.KlimaatBeheer" />
+        <item itemvalue="Application.PersoonlijkeInstellingen" />
         <item itemvalue="Application.KlimaatProfiel" />
         <item itemvalue="Application.MuziekSpeler" />
         <item itemvalue="Application.AfspeellijstBeheer" />
@@ -168,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619685756763</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update de schermen achteruit aan elkaar gelinkt">
+      <created>1619688498412</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619688498412</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,7 +188,8 @@
     <MESSAGE value="update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer" />
     <MESSAGE value="update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan" />
     <MESSAGE value="update de schermen vooruit aan elkaar gelinkt" />
-    <option name="LAST_COMMIT_MESSAGE" value="update de schermen vooruit aan elkaar gelinkt" />
+    <MESSAGE value="update de schermen achteruit aan elkaar gelinkt" />
+    <option name="LAST_COMMIT_MESSAGE" value="update de schermen achteruit aan elkaar gelinkt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

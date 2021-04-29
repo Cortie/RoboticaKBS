@@ -143,6 +143,8 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
     if (e.getSource()==jbEdit)
     {
       System.out.println("link naar klimaat profielen");
+      KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+      this.dispose();
     }
     if (e.getSource()==backButton)
     {
