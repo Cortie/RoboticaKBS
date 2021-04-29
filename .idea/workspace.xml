@@ -47,7 +47,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.KlimaatBeheer">
+  <component name="RunManager" selected="Application.KlimaatProfiel">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -84,18 +84,17 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.MuziekBeheren" />
       <item itemvalue="Application.AfspeellijstBeheer" />
-      <item itemvalue="Application.MuziekSpeler" />
       <item itemvalue="Application.KlimaatProfiel" />
       <item itemvalue="Application.KlimaatBeheer" />
       <item itemvalue="Application.PersoonlijkeInstellingen" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.KlimaatProfiel" />
         <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.PersoonlijkeInstellingen" />
-        <item itemvalue="Application.KlimaatProfiel" />
-        <item itemvalue="Application.MuziekSpeler" />
         <item itemvalue="Application.AfspeellijstBeheer" />
       </list>
     </recent_temporary>
@@ -165,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619688498412</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="update de schermen achteruit aan elkaar gelinkt">
+      <created>1619688901165</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619688901165</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -35,6 +35,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
         jlTitel.setFont(new Font("arial",Font.BOLD,20));
 
         backButton = new BasicArrowButton(BasicArrowButton.WEST);
+        backButton.addActionListener(this);
         headLayout.setAlignment(FlowLayout.LEFT);
         headLayout.setHgap(150);
         backButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -98,8 +99,13 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
 
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource()==backButton)
+        {
+            KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();
+            this.dispose();
+        }
     }
 
 
