@@ -4,18 +4,20 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ContainerListener;
 
-public class KlimaatProfiel extends JFrame implements ActionListener {
+public class KlimaatProfiel extends JFrame implements ActionListener
+{
     private JLabel jlTitel;
     private BasicArrowButton backButton;
     private JButton jbCreateTempProfile;
     private JButton jbCreateLightProfile;
     private JTable jtTempProfile;
     private JTable jtLightProfile;
-    private String[] tempProfileTitel = {"Temperatuur Profielen"};
-    private Object[][] tempProfile ={{"temperatuur profiel 1"},{"temperatuur profiel 2"}};
-    private String[] lightProfileTitel = {"Lichtsterkte Profielen"};
-    private Object[][] lightProfile ={{"lichtsterkte profiel 1"},{"lichtsterkte profiel 2"}};
+    private String[] tempProfileTitel = {"Temperatuur Profielen","Knop"};
+    private Object[][] tempProfile ={{"temperatuur profiel 1","knop"},{"temperatuur profiel 2","knop"}};
+    private String[] lightProfileTitel = {"Lichtsterkte Profielen","Knop"};
+    private Object[][] lightProfile ={{"lichtsterkte profiel 1","knop"},{"lichtsterkte profiel 2","knop"}};
 
     public KlimaatProfiel(){
         setTitle("Klimaat Systeem");
