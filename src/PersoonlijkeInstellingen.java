@@ -227,6 +227,7 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener,M
                             if (jtTableNum.getSelectedRow()==4)
                             {
                               System.out.println("row 5");
+
                             }
                         }
                     }
