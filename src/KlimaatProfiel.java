@@ -2,11 +2,9 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ContainerListener;
+import java.awt.event.*;
 
-public class KlimaatProfiel extends JFrame implements ActionListener
+public class KlimaatProfiel extends JFrame implements ActionListener,MouseListener
 {
     private JLabel jlTitel;
     private BasicArrowButton backButton;
@@ -23,7 +21,6 @@ public class KlimaatProfiel extends JFrame implements ActionListener
         setTitle("Klimaat Systeem");
         setSize(800,600);
         setLayout(new GridLayout(4,3));
-
         //borders
         Border blackline = BorderFactory.createLineBorder(Color.black);
 
@@ -64,12 +61,12 @@ public class KlimaatProfiel extends JFrame implements ActionListener
                 return false;
             }
         };
-
         jtTempProfile.setShowGrid(false);
         jtTempProfile.getCellSelectionEnabled();
         jtTempProfile.setRowHeight(50);
         jtTempProfile.setRowSelectionAllowed(false);
         jtTempProfile.setBorder(blackline);
+        jtTempProfile.addMouseListener((MouseListener) this);
 
 
         jtLightProfile = new JTable(lightProfile,lightProfileTitel){
@@ -114,6 +111,39 @@ public class KlimaatProfiel extends JFrame implements ActionListener
     public static void main(String[] args)
     {
         KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {
+//        if (e.getSource()==jtTempProfile)
+//        {
+//            System.out.println("test");
+//        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e)
+    {
 
     }
 }
