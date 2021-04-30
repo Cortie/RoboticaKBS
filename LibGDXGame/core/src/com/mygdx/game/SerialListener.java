@@ -38,8 +38,6 @@ public class SerialListener implements Runnable
             if(number == 1000)
             {
                 if(MyGdxGame.menuActive){
-
-
                 if(TimeUtils.nanoTime() - speed > timer) {
                     if (selectedmenu <= 2) {
                         selectedmenu++;
