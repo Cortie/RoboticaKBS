@@ -12,6 +12,8 @@ public class SerialListener implements Runnable
     public static int selectedmenu = 1;
     private long timer = 500000000;
     private long speed = 0;
+    public static boolean Click;
+
     @Override
     public void run()
     {
@@ -31,21 +33,22 @@ public class SerialListener implements Runnable
             if(number == 500)
             {
                 MyGdxGame.player1.moveLeft();
+                Click = true;
             }
             if(number == 1000)
             {
-                if(TimeUtils.nanoTime() - speed > timer)
-                {
-                    if(selectedmenu <= 2)
-                    {
-                        MainMenuScreen.playSound();
+                if(MyGdxGame.menuActive){
+
+
+                if(TimeUtils.nanoTime() - speed > timer) {
+                    if (selectedmenu <= 2) {
                         selectedmenu++;
-                    }
-                    else
-                    {
+                        MainMenuScreen.playSound();
+                    } else {
                         selectedmenu = 0;
                     }
                     speed = TimeUtils.nanoTime();
+                }
                 }
                 MyGdxGame.player1.moveRight();
             }

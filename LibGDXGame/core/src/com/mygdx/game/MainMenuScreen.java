@@ -26,6 +26,21 @@ public class MainMenuScreen implements Screen {
         ExitButtonActive = new Texture("ExitButtonActive.png");
         ExitButtonInactive = new Texture("ExitButtonInactive.png");
     }
+    public void selectScene(){
+        if (SerialListener.selectedmenu == 1){
+            System.out.println("Play");
+            game.setScreen(new Gameplay(game));
+            MyGdxGame.menuActive= false;
+            SerialListener.Click = false;
+        }
+        if (SerialListener.selectedmenu == 2){
+            System.out.println("Settings");
+        }
+        if (SerialListener.selectedmenu == 3){
+            System.out.println("Exit");
+        }
+    }
+
 
     @Override
     public void show() {
@@ -56,6 +71,11 @@ public class MainMenuScreen implements Screen {
         game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
         game.batch.draw(PlayButtonInactive, 100, 500, 330, 150);
     }
+    if(SerialListener.Click){
+        selectScene();
+
+    }
+
 
     game.batch.end();
     }

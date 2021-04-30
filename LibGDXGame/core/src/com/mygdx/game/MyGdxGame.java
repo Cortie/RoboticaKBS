@@ -19,6 +19,9 @@ public class MyGdxGame extends Game
 	public Sprite backgroundSprite;
 	private SerialListener listener = new SerialListener();
 	public int scene;
+	public static boolean menuActive;
+
+
 	
 	@Override
 	public void create () {
@@ -36,6 +39,7 @@ public class MyGdxGame extends Game
 		viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		viewPort.apply();
 		setScreen(new MainMenuScreen(this));
+		menuActive = true;
 	}
 	@Override
 	public void render ()
