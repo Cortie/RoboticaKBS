@@ -48,7 +48,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         slidersGedeeltePnl.add(jsLichtsterkte = new JSlider());
         jsLichtsterkte.addChangeListener(this);
         lichtsterkteWaarde= jsLichtsterkte.getValue();
-        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtsterkteWaarde)+" cd"));
+        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtsterkteWaarde)+" LM"));
 
         JPanel ondersteGedeeltePnl = new JPanel(new BorderLayout());
         ondersteGedeeltePnl.add(slidersGedeeltePnl,BorderLayout.WEST);
@@ -100,7 +100,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
         if (e.getSource()==jsLichtsterkte)
         {
-            jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde=jsLichtsterkte.getValue())+" cd");
+            jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde=jsLichtsterkte.getValue())+" LM");
         }
     }
 }
