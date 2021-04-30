@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatBeheer">
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatBeheer,muziekspeler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +53,14 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.MuziekSpeler">
+  <component name="RunManager" selected="Application.AfspeellijstBeheer">
+    <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
+      <module name="RoboticaKBS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Inloggen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Inloggen" />
       <module name="RoboticaKBS" />
@@ -60,13 +70,6 @@
     </configuration>
     <configuration name="KlimaatBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="KlimaatBeheer" />
-      <module name="RoboticaKBS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="KlimaatProfiel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="KlimaatProfiel" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -87,19 +90,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.KlimaatProfiel" />
       <item itemvalue="Application.KlimaatBeheer" />
       <item itemvalue="Application.Inloggen" />
       <item itemvalue="Application.MuziekAfspeler" />
       <item itemvalue="Application.MuziekSpeler" />
+      <item itemvalue="Application.AfspeellijstBeheer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.MuziekSpeler" />
         <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.Inloggen" />
-        <item itemvalue="Application.KlimaatProfiel" />
       </list>
     </recent_temporary>
   </component>
@@ -203,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619773864013</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="KlimaatBeheer,muziekspeler">
+      <created>1619776153858</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1619776153858</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,7 +239,8 @@
     <MESSAGE value="update de schermen achteruit aan elkaar gelinkt" />
     <MESSAGE value="MuziekAfspeler" />
     <MESSAGE value="KlimaatBeheer" />
-    <option name="LAST_COMMIT_MESSAGE" value="KlimaatBeheer" />
+    <MESSAGE value="KlimaatBeheer,muziekspeler" />
+    <option name="LAST_COMMIT_MESSAGE" value="KlimaatBeheer,muziekspeler" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
