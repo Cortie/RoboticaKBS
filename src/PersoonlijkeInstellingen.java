@@ -5,7 +5,7 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 import java.awt.event.*;
 
-public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
+public class PersoonlijkeInstellingen extends JFrame implements ActionListener,MouseListener {
   // definitions for labels, buttons and layouts
   JLabel settings = new JLabel("Persoonlijke instellingen");
   JLabel whitespace = new JLabel(" ");
@@ -13,21 +13,23 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
   JLabel about = new JLabel("About tekst");
   JLabel song1 = new JLabel("Nummer 1");
   private BasicArrowButton backButton;
+  private JTable jtTableNum;
+  private JTable jtTablePlaylist;
 
   String[][] num = {
-    {"nummer 1"},
-    {"nummer 2"},
-    {"nummer 3"},
-    {"nummer 4"},
-    {"nummer 5"},
+    {"nummer 1","knop"},
+    {"nummer 2","knop"},
+    {"nummer 3","knop"},
+    {"nummer 4","knop"},
+    {"nummer 5","knop"},
   };
 
   String[][] play = {
-    {"playlist 1"},
-    {"playlist 2"},
-    {"playlist 3"},
-    {"playlist 4"},
-    {"playlist 5"},
+    {"playlist 1","knop"},
+    {"playlist 2","knop"},
+    {"playlist 3","knop"},
+    {"playlist 4","knop"},
+    {"playlist 5","knop"},
   };
 
   JLabel playlist1 = new JLabel("Afspeellijst 1");
@@ -56,24 +58,35 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
     // panel for list of songs
     JPanel NumbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     NumbersPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    String[] headerN = {"nummers"};
-    JTable tableNum = new JTable(num, headerN);
-    tableNum.setCellSelectionEnabled(false);
-    tableNum.setShowGrid(false);
-    tableNum.setEnabled(false);
-    tableNum.setRowHeight(30);
-    NumbersPanel.add(tableNum);
+    String[] headerN = {"nummers","Knoppen"};
+    jtTableNum = new JTable(num, headerN){
+      public boolean isCellEditable(int row, int column){
+                      return false;
+                  }
+    };
+    jtTableNum.addMouseListener(this);
+    jtTableNum.setCellSelectionEnabled(false);
+    jtTableNum.setShowGrid(false);
+    //jtTableNum.setEnabled(false);
+    jtTableNum.setRowHeight(30);
+
+    NumbersPanel.add(jtTableNum);
 
     // panel for list of playlists
     JPanel playlistsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     playlistsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    String[] headerP = {"Playlists"};
-    JTable tablePlay = new JTable(play, headerP);
-    tablePlay.setCellSelectionEnabled(false);
-    tablePlay.setShowGrid(false);
-    tablePlay.setEnabled(false);
-    tablePlay.setRowHeight(30);
-    playlistsPanel.add(tablePlay);
+    String[] headerP = {"Playlists","Knoppen"};
+    jtTablePlaylist = new JTable(play, headerP){
+      public boolean isCellEditable(int row, int column){
+                            return false;
+                        }
+    };
+    jtTablePlaylist.addMouseListener(this);
+    jtTablePlaylist.setCellSelectionEnabled(false);
+    jtTablePlaylist.setShowGrid(false);
+    //jtTablePlaylist.setEnabled(false);
+    jtTablePlaylist.setRowHeight(30);
+    playlistsPanel.add(jtTablePlaylist);
 
     // borderpanel for the collection of both lists
     JPanel privacySettings = new JPanel(privacydetailBorder);
@@ -155,5 +168,92 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener {
 
   public static void main(String[] args) {
     PersoonlijkeInstellingen first = new PersoonlijkeInstellingen();
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e)
+  {
+    if (e.getSource()==jtTablePlaylist)
+            {
+                if (jtTablePlaylist.getSelectedColumn()==1)
+                {
+                    System.out.println("playlist table");
+                    System.out.println("knop column");
+                    if (jtTablePlaylist.getSelectedRow()==0)
+                    {
+                        System.out.println("row 1");
+                    }
+                    if (jtTablePlaylist.getSelectedRow()==1)
+                    {
+                        System.out.println("row 2");
+                    }
+                    if (jtTablePlaylist.getSelectedRow()==2)
+                    {
+                      System.out.println("row 3");
+                    }
+                    if (jtTablePlaylist.getSelectedRow()==3)
+                    {
+                      System.out.println("row 4");
+                    }
+                    if (jtTablePlaylist.getSelectedRow()==4)
+                    {
+                      System.out.println("row 5");
+                    }
+                }
+            }
+            if (e.getSource()==jtTableNum)
+                    {
+
+                        if (jtTableNum.getSelectedColumn()==1)
+                        {
+                            System.out.println("nummer table");
+                            System.out.println("knop column");
+                            if (jtTableNum.getSelectedRow()==0)
+                            {
+                                System.out.println("row 1");
+                            }
+                            if (jtTableNum.getSelectedRow()==1)
+                            {
+                                System.out.println("row 2");
+                            }
+                            if (jtTableNum.getSelectedRow()==2)
+                            {
+                              System.out.println("row 3");
+                            }
+                            if (jtTableNum.getSelectedRow()==3)
+                            {
+                             System.out.println("row 4");
+                            }
+                            if (jtTableNum.getSelectedRow()==4)
+                            {
+                              System.out.println("row 5");
+
+                            }
+                        }
+                    }
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e)
+  {
+
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e)
+  {
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e)
+  {
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e)
+  {
+
   }
 }
