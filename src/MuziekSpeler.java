@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ public class MuziekSpeler extends JFrame implements ActionListener {
     private JButton jbManageMusic;
 
     private String[] selectPlaylist;
+    private BasicArrowButton backButton;
 
     public MuziekSpeler(){
         setTitle("Klimaat Systeem");
@@ -19,6 +21,8 @@ public class MuziekSpeler extends JFrame implements ActionListener {
         setLayout(new FlowLayout());
 
         JPanel TitelPanel = new JPanel(new FlowLayout());
+        TitelPanel.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
+        backButton.addActionListener(this);
         jlMusicPlayer = new JLabel("Muziekspeler");
         TitelPanel.add(jlMusicPlayer);
 
@@ -96,5 +100,11 @@ public class MuziekSpeler extends JFrame implements ActionListener {
             MuziekAfspeler muziekAfspelerscherm = new MuziekAfspeler();
             this.dispose();
         }
+        if (e.getSource() == backButton)
+        {
+            Dashboard dash = new Dashboard();
+            this.dispose();
+        }
+
     }
 }
