@@ -20,6 +20,18 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private int tempWaarde;
     private int lichtsterkteWaarde;
     private BasicArrowButton backButton;
+    private JLabel jlTempprofiel;
+    private String tempProfiel = "zomer";
+    private JLabel jlLichtsterkteprofiel;
+    private String lichtsterkteProfiel="zomer";
+    private JLabel jltempSensor;
+    private int tempSensor = 19;
+    private JLabel jlLuchtdrukSensor;
+    private int luchtdrukSensor= 93;
+    private JLabel jlLuchtvochtigheidSensor;
+    private int luchtvochtigheidSensor= 90;
+    private JLabel jlLichtsterkteSensor;
+    private int lichtsterkteSensor=70;
 
     public KlimaatBeheer()
     {
@@ -48,11 +60,35 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         slidersGedeeltePnl.add(jsLichtsterkte = new JSlider());
         jsLichtsterkte.addChangeListener(this);
         lichtsterkteWaarde= jsLichtsterkte.getValue();
-        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtsterkteWaarde)+" cd"));
+        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtsterkteWaarde)+" LM"));
+
+        JPanel profielenPnl = new JPanel(new GridLayout(2,2));
+        profielenPnl.add(jlTempprofiel=new JLabel("Temperatuurprofiel: "));
+        profielenPnl.add(new JLabel(tempProfiel));
+        profielenPnl.add(jlLichtsterkteprofiel=new JLabel("Lichtsterkteprofiel: "));
+        profielenPnl.add(new JLabel(lichtsterkteProfiel));
+
+        JPanel ondersteGedeelteLinksPnl = new JPanel(new BorderLayout());
+        ondersteGedeelteLinksPnl.add(slidersGedeeltePnl,BorderLayout.CENTER);
+        ondersteGedeelteLinksPnl.add(profielenPnl,BorderLayout.NORTH);
+
+        JPanel sensorgegevenPnl = new JPanel(new GridLayout(4,2));
+        sensorgegevenPnl.add(jltempSensor = new JLabel("Temperatuur: "));
+        sensorgegevenPnl.add(new JLabel(tempSensor+" °C"));
+        sensorgegevenPnl.add(jlLuchtdrukSensor = new JLabel("Luchtdruk: "));
+        sensorgegevenPnl.add(new JLabel(luchtdrukSensor+" hPa"));
+        sensorgegevenPnl.add(jlLuchtvochtigheidSensor = new JLabel("Luchtvochtigheid: "));
+        sensorgegevenPnl.add(new JLabel(luchtvochtigheidSensor+"%"));
+        sensorgegevenPnl.add(jlLichtsterkteSensor = new JLabel("Lichtsterkte: "));
+        sensorgegevenPnl.add(new JLabel(lichtsterkteSensor+" LM"));
+
+        JPanel ondersteGedeelteRechtsPnl = new JPanel(new BorderLayout());
+        ondersteGedeelteRechtsPnl.add(profielKnopPnl,BorderLayout.CENTER);
+        ondersteGedeelteRechtsPnl.add(sensorgegevenPnl,BorderLayout.NORTH);
 
         JPanel ondersteGedeeltePnl = new JPanel(new BorderLayout());
-        ondersteGedeeltePnl.add(slidersGedeeltePnl,BorderLayout.WEST);
-        ondersteGedeeltePnl.add(profielKnopPnl,BorderLayout.EAST);
+        ondersteGedeeltePnl.add(ondersteGedeelteLinksPnl,BorderLayout.WEST);
+        ondersteGedeeltePnl.add(ondersteGedeelteRechtsPnl,BorderLayout.EAST);
 
         JPanel borderPnl = new JPanel(new BorderLayout());
         borderPnl.add(titelPnl, BorderLayout.NORTH);
@@ -100,7 +136,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
         if (e.getSource()==jsLichtsterkte)
         {
-            jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde=jsLichtsterkte.getValue())+" cd");
+            jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde=jsLichtsterkte.getValue())+" LM");
         }
     }
 }

@@ -11,6 +11,11 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   JLabel share = new JLabel("Afspeellijst delen");
   JLabel addMusic = new JLabel("Muziek toevoegen aan afspeellijst");
   private BasicArrowButton backButton;
+  private JButton jbNummer1;
+  private JButton jbNummer2;
+  private JButton jbNummer3;
+  private JButton jbNummer4;
+  private JButton jbNummer5;
 
   JTextField pName = new JTextField(10);
 
@@ -61,9 +66,29 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     share.setFont(share.getFont().deriveFont(16.0f));
 
     //adding songs to playlist
-    JPanel addM = new JPanel(standard);
-    addM.add(addMusic);
+
+    JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(5,2));
+    lijstMusicAanAfspeellijst.add(new JLabel("nummer 1 "));
+    lijstMusicAanAfspeellijst.add(jbNummer1 = new JButton("+"));
+    jbNummer1.addActionListener(this);
+    lijstMusicAanAfspeellijst.add(new JLabel("nummer 2 "));
+    lijstMusicAanAfspeellijst.add(jbNummer2 = new JButton("+"));
+    jbNummer2.addActionListener(this);
+    lijstMusicAanAfspeellijst.add(new JLabel("nummer 3 "));
+    lijstMusicAanAfspeellijst.add(jbNummer3 = new JButton("+"));
+    jbNummer3.addActionListener(this);
+    lijstMusicAanAfspeellijst.add(new JLabel("nummer 4 "));
+    lijstMusicAanAfspeellijst.add(jbNummer4 = new JButton("+"));
+    jbNummer4.addActionListener(this);
+    lijstMusicAanAfspeellijst.add(new JLabel("nummer 5 "));
+    lijstMusicAanAfspeellijst.add(jbNummer5 = new JButton("+"));
+    jbNummer5.addActionListener(this);
+
+    JPanel addM = new JPanel(new BorderLayout());
+    addM.add(addMusic,BorderLayout.NORTH);
     addMusic.setFont(addMusic.getFont().deriveFont(16.0f));
+    addM.add(lijstMusicAanAfspeellijst,BorderLayout.CENTER);
+    addM.setBorder(BorderFactory.createLineBorder(Color.black));
 
     //collection panel for sharing and adding songs panels
     JPanel bottom = new JPanel(select);

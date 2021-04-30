@@ -2,26 +2,25 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class KlimaatProfiel extends JFrame implements ActionListener {
+public class KlimaatProfiel extends JFrame implements ActionListener,MouseListener
+{
     private JLabel jlTitel;
     private BasicArrowButton backButton;
     private JButton jbCreateTempProfile;
     private JButton jbCreateLightProfile;
     private JTable jtTempProfile;
     private JTable jtLightProfile;
-    private String[] tempProfileTitel = {"Temperatuur Profielen"};
-    private Object[][] tempProfile ={{"temperatuur profiel 1"},{"temperatuur profiel 2"}};
-    private String[] lightProfileTitel = {"Lichtsterkte Profielen"};
-    private Object[][] lightProfile ={{"lichtsterkte profiel 1"},{"lichtsterkte profiel 2"}};
+    private String[] tempProfileTitel = {"Temperatuur Profielen","Knoppen"};
+    private Object[][] tempProfile ={{"temperatuur profiel 1","knop"},{"temperatuur profiel 2","knop"}};
+    private String[] lightProfileTitel = {"Lichtsterkte Profielen","Knoppen"};
+    private Object[][] lightProfile ={{"lichtsterkte profiel 1","knop"},{"lichtsterkte profiel 2","knop"}};
 
     public KlimaatProfiel(){
         setTitle("Klimaat Systeem");
         setSize(800,600);
         setLayout(new GridLayout(4,3));
-
         //borders
         Border blackline = BorderFactory.createLineBorder(Color.black);
 
@@ -62,12 +61,12 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
                 return false;
             }
         };
-
         jtTempProfile.setShowGrid(false);
         jtTempProfile.getCellSelectionEnabled();
         jtTempProfile.setRowHeight(50);
         jtTempProfile.setRowSelectionAllowed(false);
         jtTempProfile.setBorder(blackline);
+        jtTempProfile.addMouseListener((MouseListener) this);
 
 
         jtLightProfile = new JTable(lightProfile,lightProfileTitel){
@@ -82,6 +81,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
         jtLightProfile.setRowSelectionAllowed(false);
         jtLightProfile.setBorder(blackline);
         jtLightProfile.getColumnModel().getColumnSelectionAllowed();
+        jtLightProfile.addMouseListener((MouseListener) this);
 
         tablePanel.add(jtTempProfile);
         tablePanel.add(jtLightProfile);
@@ -112,6 +112,68 @@ public class KlimaatProfiel extends JFrame implements ActionListener {
     public static void main(String[] args)
     {
         KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {
+        if (e.getSource()==jtTempProfile)
+        {
+            if (jtTempProfile.getSelectedColumn()==1)
+            {
+                System.out.println("temp table");
+                System.out.println("knop column");
+                if (jtTempProfile.getSelectedRow()==0)
+                {
+                    System.out.println("row 1");
+                }
+                if (jtTempProfile.getSelectedRow()==1)
+                {
+                    System.out.println("row 2");
+                }
+            }
+        }
+        if (e.getSource()==jtLightProfile)
+                {
+
+                    if (jtLightProfile.getSelectedColumn()==1)
+                    {
+                        System.out.println("licht table");
+                        System.out.println("knop column");
+                        if (jtLightProfile.getSelectedRow()==0)
+                        {
+                            System.out.println("row 1");
+                        }
+                        if (jtLightProfile.getSelectedRow()==1)
+                        {
+                            System.out.println("row 2");
+                        }
+                    }
+                }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e)
+    {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e)
+    {
 
     }
 }
