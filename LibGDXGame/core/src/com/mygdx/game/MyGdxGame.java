@@ -20,9 +20,6 @@ public class MyGdxGame extends Game
 	private SerialListener listener = new SerialListener();
 	public int scene;
 	public static boolean menuActive;
-
-
-	
 	@Override
 	public void create () {
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1), Gdx.graphics.getWidth()/ 4 - 64 / 2);
