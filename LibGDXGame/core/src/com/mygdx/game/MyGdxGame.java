@@ -18,12 +18,11 @@ public class MyGdxGame extends Game
 	public FitViewport viewPort;
 	public Sprite backgroundSprite;
 	private SerialListener listener = new SerialListener();
-	public int scene;
 	public static boolean menuActive;
 	@Override
 	public void create () {
-		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1), Gdx.graphics.getWidth()/ 4 - 64 / 2);
-		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
+		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
+		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
 		Thread listenerThread = new Thread(listener);
 		listenerThread.setDaemon(true);
 		listenerThread.start();

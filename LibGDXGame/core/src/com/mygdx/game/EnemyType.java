@@ -9,9 +9,11 @@ public class EnemyType
     private Sprite ship;
     private float size;
     private long shotSpeed;
+    private BulletType btype;
     
-    public EnemyType(Texture shipImg, long shotSpeed)
+    public EnemyType(BulletType btype, Texture shipImg, long shotSpeed)
     {
+        this.btype = btype;
         this.shotSpeed = shotSpeed;
         this.shipImg = shipImg;
         this.ship = new Sprite(shipImg);

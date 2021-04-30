@@ -7,10 +7,14 @@ public class BulletType
 {
     private Texture bulletImg;
     private Sprite bullet;
+    private int width;
+    private int height;
     private int user;
     
-    public BulletType(Texture img, int user)
+    public BulletType(Texture img, int user, int width, int height)
     {
+        this.width = width;
+        this.height = height;
         this.user = user;
         this.bulletImg = img;
         this.bullet = new Sprite(img);
@@ -18,5 +22,30 @@ public class BulletType
     public Texture getBulletImg()
     {
         return bulletImg;
+    }
+    
+    public int getWidth()
+    {
+        return width;
+    }
+    
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+    
+    public int getHeight()
+    {
+        return height;
+    }
+    
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+    
+    public int getUser()
+    {
+        return user;
     }
 }

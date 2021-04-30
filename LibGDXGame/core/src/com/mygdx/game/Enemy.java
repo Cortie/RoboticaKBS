@@ -10,6 +10,7 @@ public class Enemy
     private EnemyType type;
     private Rectangle ship;
     private BulletType btype;
+    private long lastShot;
     
     public Enemy(EnemyType type, BulletType btype)
     {
@@ -53,5 +54,20 @@ public class Enemy
     public int getHealth()
     {
         return health;
+    }
+    
+    public BulletType getBtype()
+    {
+        return btype;
+    }
+    
+    public long getLastShot()
+    {
+        return lastShot;
+    }
+    
+    public void setLastShot(long lastShot)
+    {
+        this.lastShot = lastShot;
     }
 }

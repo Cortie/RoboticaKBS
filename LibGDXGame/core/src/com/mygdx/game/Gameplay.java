@@ -13,8 +13,6 @@ import java.util.Iterator;
 
 public class Gameplay implements Screen
 {
-    private Texture bulletImage;
-    private Array<Rectangle> raindrops;
     private Sound hit;
     private Array<EnemyType> enemylvls;
     private Array<Enemy> enemies;
@@ -22,6 +20,7 @@ public class Gameplay implements Screen
     private BulletType standardBullet;
     private long lastDropTime;
     private long lastShot;
+    private Array<Bullet> bullets;
     private long lastEnemyShot;
     private int players = 1;
     private MyGdxGame game;
@@ -34,30 +33,35 @@ public class Gameplay implements Screen
     @Override
     public void show()
     {
+        bullets = new Array<Bullet>();
         enemylvls = new Array<EnemyType>();
         for(int i = 0; i < 4; i++)
         {
+            standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3, 20, 60);
+            bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3, 30, 90);
             String key = "";
             long shotSpeed = 0;
             int nummer = i + 2;
+            BulletType btype = standardBullet;
             switch(i)
             {
                 case 0:
                     key = "Big";
                     shotSpeed = 350000000;
+                    btype = bigBullet;
                     break;
                 case 1:
                     key = "Standard";
                     shotSpeed = 600000000;
+                    btype = standardBullet;
                     break;
                 case 2:
-            
+                    key = "Expert";
+                    shotSpeed = 750000000;
+                    btype = bigBullet;
             }
-            enemylvls.add(new EnemyType(new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png")), shotSpeed));
+            enemylvls.add(new EnemyType(btype, new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png")), shotSpeed));
         }
-        bulletImage = new Texture(Gdx.files.internal("4.png"));
-        standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3);
-        bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3);
         enemies = new Array<Enemy>();
         hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
     }
@@ -77,7 +81,7 @@ public class Gameplay implements Screen
         for(Enemy enemy: enemies) {
             game.batch.draw(enemy.getType().getShipImg(), enemy.getShip().getX(), enemy.getShip().getY());
         }
-        for(Bullet bullet: game.player1.getBullets())
+        for(Bullet bullet: bullets)
         {
             game.batch.draw(bullet.getType().getBulletImg(), bullet.x, bullet.y);
         }
@@ -116,8 +120,8 @@ public class Gameplay implements Screen
         // Spawns a bullet out of the player dependent on player shot speed
         if(TimeUtils.nanoTime() - lastShot > game.player1.getShotSpeed())
         {
-            Bullet bullet = new Bullet(game.player1.getType());
-            bullet.spawnBullet(game.player1.x + 26, game.player1.y + 64);
+            Bullet bullet = new Bullet(1, game.player1.getType(), new Rectangle(game.player1.x + 26, game.player1.y + 64, game.player1.getType().getWidth(), game.player1.getType().getHeight()), game.player1.x + 26, game.player1.y + 64);
+            spawnBullet(bullet);
             lastShot = TimeUtils.nanoTime();
         }
         // move the enemies, remove any that are beneath the bottom edge of
@@ -125,13 +129,12 @@ public class Gameplay implements Screen
         // a sound effect as well, and remove a life/shield from the player.
         for (Iterator<Enemy> iter = enemies.iterator(); iter.hasNext(); ) {
             Enemy enemy = iter.next();
-            if(TimeUtils.nanoTime() - lastEnemyShot > enemy.getType().getShotSpeed())
+            if(TimeUtils.nanoTime() - enemy.getLastShot() > enemy.getType().getShotSpeed())
             {
-            
-            }
-            if(enemy.getType().equals(enemylvls.get(0)))
-            {
-            
+                if(enemy.getType().equals(enemylvls.get(0)))
+                {
+                
+                }
             }
             enemy.getShip().setY(enemy.getShip().getY() - 150 * Gdx.graphics.getDeltaTime());
             if(enemy.getShip().getY() + 64 < 0) iter.remove();
@@ -145,10 +148,11 @@ public class Gameplay implements Screen
         // moves player's bullets and checks for collision with enemies
         // when an enemy is hit we remove health from the enemy and if their health
         // is 0 we remove the enemy from the screen
-        for(Iterator<Bullet> iter = game.player1.getBullets().iterator(); iter.hasNext();)
+        for(Iterator<Bullet> iter = bullets.iterator(); iter.hasNext();)
         {
             Bullet bullet = iter.next();
             bullet.y += 200 * Gdx.graphics.getDeltaTime();
+            bullet.setHitbox(new Rectangle(bullet.x, bullet.y, bullet.getHitbox().width, bullet.getHitbox().height));
             if(bullet.y + 64 > Gdx.graphics.getHeight()) iter.remove();
             for(Iterator<Enemy> iter2 = enemies.iterator(); iter2.hasNext();)
             {
@@ -159,6 +163,7 @@ public class Gameplay implements Screen
                     long id = hit.play(1.0f);
                     hit.setPitch(id, 1);
                     hit.setLooping(id, false);
+                    iter.remove();
                     if(enemy.getHealth() == 0)
                     {
                         iter2.remove();
@@ -226,5 +231,9 @@ public class Gameplay implements Screen
             enemy.getShip().setSize(enemy.getType().getSize(), enemy.getType().getSize());
         }
         enemies.add(enemy);
+    }
+    public void spawnBullet(Bullet bullet)
+    {
+        bullets.add(bullet);
     }
 }
