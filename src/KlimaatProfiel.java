@@ -12,9 +12,9 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
     private JButton jbCreateLightProfile;
     private JTable jtTempProfile;
     private JTable jtLightProfile;
-    private String[] tempProfileTitel = {"Temperatuur Profielen","Knop"};
+    private String[] tempProfileTitel = {"Temperatuur Profielen","Knoppen"};
     private Object[][] tempProfile ={{"temperatuur profiel 1","knop"},{"temperatuur profiel 2","knop"}};
-    private String[] lightProfileTitel = {"Lichtsterkte Profielen","Knop"};
+    private String[] lightProfileTitel = {"Lichtsterkte Profielen","Knoppen"};
     private Object[][] lightProfile ={{"lichtsterkte profiel 1","knop"},{"lichtsterkte profiel 2","knop"}};
 
     public KlimaatProfiel(){
@@ -81,6 +81,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
         jtLightProfile.setRowSelectionAllowed(false);
         jtLightProfile.setBorder(blackline);
         jtLightProfile.getColumnModel().getColumnSelectionAllowed();
+        jtLightProfile.addMouseListener((MouseListener) this);
 
         tablePanel.add(jtTempProfile);
         tablePanel.add(jtLightProfile);
@@ -117,10 +118,39 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
     @Override
     public void mouseClicked(MouseEvent e)
     {
-//        if (e.getSource()==jtTempProfile)
-//        {
-//            System.out.println("test");
-//        }
+        if (e.getSource()==jtTempProfile)
+        {
+            if (jtTempProfile.getSelectedColumn()==1)
+            {
+                System.out.println("temp table");
+                System.out.println("knop column");
+                if (jtTempProfile.getSelectedRow()==0)
+                {
+                    System.out.println("row 1");
+                }
+                if (jtTempProfile.getSelectedRow()==1)
+                {
+                    System.out.println("row 2");
+                }
+            }
+        }
+        if (e.getSource()==jtLightProfile)
+                {
+
+                    if (jtLightProfile.getSelectedColumn()==1)
+                    {
+                        System.out.println("licht table");
+                        System.out.println("knop column");
+                        if (jtLightProfile.getSelectedRow()==0)
+                        {
+                            System.out.println("row 1");
+                        }
+                        if (jtLightProfile.getSelectedRow()==1)
+                        {
+                            System.out.println("row 2");
+                        }
+                    }
+                }
     }
 
     @Override
