@@ -10,6 +10,8 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   JLabel name = new JLabel("Afspeellijst naam");
   JLabel share = new JLabel("Afspeellijst delen");
   JLabel addMusic = new JLabel("Muziek toevoegen aan afspeellijst");
+  private JRadioButton jrbAfspeelllijst1;
+  private JRadioButton jrbAfspeelllijst2;
   private BasicArrowButton backButton;
   private JButton jbNummer1;
   private JButton jbNummer2;
@@ -60,10 +62,17 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     addPnl.add(jbMakeP);
     jbMakeP.addActionListener(this);
 
-    //sharing of the playlists 
-    JPanel shareA = new JPanel(standard);
-    shareA.add(share);
+    //sharing of the playlists
+    JPanel afspeellijstListPnl = new JPanel(new GridLayout(2,1));
+    afspeellijstListPnl.add(jrbAfspeelllijst1 = new JRadioButton("Afspeellijst1"));
+    jrbAfspeelllijst1.addActionListener(this);
+    afspeellijstListPnl.add(jrbAfspeelllijst2 = new JRadioButton("Afspeellijst2"));
+    jrbAfspeelllijst2.addActionListener(this);
+
+    JPanel shareA = new JPanel(new BorderLayout());
+    shareA.add(share,BorderLayout.NORTH);
     share.setFont(share.getFont().deriveFont(16.0f));
+    shareA.add(afspeellijstListPnl,BorderLayout.CENTER);
 
     //adding songs to playlist
 
@@ -117,6 +126,48 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     {
       MuziekSpeler musicPlayerGUI = new MuziekSpeler();
       this.dispose();
+    }
+    if (e.getSource()==jrbAfspeelllijst1)
+    {
+      if (jrbAfspeelllijst1.isSelected()==true)
+      {
+        jrbAfspeelllijst1.setText("Afspeellijst 1 (gedeeld)");
+      }
+      if (jrbAfspeelllijst1.isSelected()==false)
+      {
+        jrbAfspeelllijst1.setText("Afspeellijst 1");
+      }
+    }
+    if (e.getSource()==jrbAfspeelllijst2)
+    {
+      if (jrbAfspeelllijst2.isSelected()==true)
+      {
+        jrbAfspeelllijst2.setText("Afspeellijst 2 (gedeeld)");
+      }
+      if (jrbAfspeelllijst2.isSelected()==false)
+      {
+        jrbAfspeelllijst2.setText("Afspeellijst 2");
+      }
+    }
+    if (e.getSource()==jbNummer1)
+    {
+      AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
+    }
+    if (e.getSource()==jbNummer2)
+    {
+      AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
+    }
+    if (e.getSource()==jbNummer3)
+    {
+      AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
+    }
+    if (e.getSource()==jbNummer4)
+    {
+      AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
+    }
+    if (e.getSource()==jbNummer5)
+    {
+      AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
     }
   }
 
