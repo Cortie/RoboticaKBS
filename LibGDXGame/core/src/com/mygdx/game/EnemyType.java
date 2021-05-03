@@ -34,4 +34,14 @@ public class EnemyType
     {
         return shotSpeed;
     }
+    
+    public BulletType getBtype()
+    {
+        return btype;
+    }
+    
+    public void setBtype(BulletType btype)
+    {
+        this.btype = btype;
+    }
 }

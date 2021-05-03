@@ -88,4 +88,14 @@ public class Player
     {
         this.type = type;
     }
+    
+    public long getLastShot()
+    {
+        return lastShot;
+    }
+    
+    public void setLastShot(long lastShot)
+    {
+        this.lastShot = lastShot;
+    }
 }

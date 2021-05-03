@@ -9,13 +9,18 @@ public class Enemy
     private int health;
     private EnemyType type;
     private Rectangle ship;
-    private BulletType btype;
     private long lastShot;
+    private long lastmovement;
+    private long movementspeed = 50;
+    private int moved;
     
-    public Enemy(EnemyType type, BulletType btype)
+    public void setLastmovement(long lastmovement)
     {
-        this.btype = btype;
-        this.health = health;
+        this.lastmovement = lastmovement;
+    }
+    
+    public Enemy(EnemyType type)
+    {
         this.type = type;
         this.ship = new Rectangle(x, y, type.getSize(), type.getSize());
     }
@@ -36,6 +41,7 @@ public class Enemy
     public void setX(float x)
     {
         this.x = x;
+        this.ship.x = x;
     }
     
     public float getY()
@@ -43,9 +49,20 @@ public class Enemy
         return y;
     }
     
+    public long getLastmovement()
+    {
+        return lastmovement;
+    }
+    
+    public long getMovementspeed()
+    {
+        return movementspeed;
+    }
+    
     public void setY(float y)
     {
         this.y = y;
+        this.ship.y = y;
     }
     public void setHealth(int health)
     {
@@ -56,10 +73,6 @@ public class Enemy
         return health;
     }
     
-    public BulletType getBtype()
-    {
-        return btype;
-    }
     
     public long getLastShot()
     {
@@ -69,5 +82,15 @@ public class Enemy
     public void setLastShot(long lastShot)
     {
         this.lastShot = lastShot;
+    }
+    
+    public int isMoved()
+    {
+        return moved;
+    }
+    
+    public void setMoved(int number)
+    {
+        this.moved = number;
     }
 }

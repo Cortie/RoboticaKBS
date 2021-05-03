@@ -48,4 +48,5 @@ public class BulletType
     {
         return user;
     }
+
 }
