@@ -11,6 +11,8 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
         private JButton jbBevestigenKnop;
         private JTextField jtVan;
         private JTextField jtTot;
+        private String waardeVan = "0600";
+        private String waardeTot = "1900";
         private JLabel jlWaardeSlider;
         private int waardeSlider;
         private JSlider jsSlider;
@@ -28,8 +30,8 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
                     jbBevestigenKnop.addActionListener(this);
 
                     JPanel sliderPnl = new JPanel(new FlowLayout());
-                    sliderPnl.add(jtVan=new JTextField("0600"));
-                    sliderPnl.add(jtTot=new JTextField("1900"));
+                    sliderPnl.add(jtVan=new JTextField(waardeVan));
+                    sliderPnl.add(jtTot=new JTextField(waardeTot));
                     sliderPnl.add(jsSlider=new JSlider());
                     jsSlider.addChangeListener(this);
                     sliderPnl.add(jlWaardeSlider = new JLabel(String.valueOf(waardeSlider=jsSlider.getValue())+" °C"));
