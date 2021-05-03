@@ -47,6 +47,8 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
         JPanel buttonPanel = new JPanel(new FlowLayout());
         jbCreateTempProfile = new JButton("Temperatuur profiel aanmaken");
         jbCreateLightProfile = new JButton("Lichtsterkte profiel aanmaken");
+        jbCreateTempProfile.addActionListener(this);
+        jbCreateLightProfile.addActionListener(this);
         buttonPanel.add(jbCreateTempProfile);
         buttonPanel.add(jbCreateLightProfile);
         add(buttonPanel);
@@ -106,6 +108,14 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
             KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();
             this.dispose();
         }
+        if (e.getSource()==jbCreateTempProfile)
+        {
+           KlimaatProfielDialoogAanmakenTempProfiel dialoog = new KlimaatProfielDialoogAanmakenTempProfiel(this,true);
+        }
+        if (e.getSource()==jbCreateLightProfile)
+        {
+            KlimaatProfielDialoogAanmakenLichtProfiel dialoog2 = new KlimaatProfielDialoogAanmakenLichtProfiel(this,true);
+        }
     }
 
 
@@ -122,15 +132,17 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
         {
             if (jtTempProfile.getSelectedColumn()==1)
             {
-                System.out.println("temp table");
-                System.out.println("knop column");
+                //System.out.println("temp table");
+                //System.out.println("knop column");
                 if (jtTempProfile.getSelectedRow()==0)
                 {
-                    System.out.println("row 1");
+                    //System.out.println("row 1");
+                    KlimaatProfielDialoogAanpassenTempProfiel dialoog1 = new KlimaatProfielDialoogAanpassenTempProfiel(this,true);
                 }
                 if (jtTempProfile.getSelectedRow()==1)
                 {
-                    System.out.println("row 2");
+                    //System.out.println("row 2");
+                    KlimaatProfielDialoogAanpassenTempProfiel dialoog2 = new KlimaatProfielDialoogAanpassenTempProfiel(this,true);
                 }
             }
         }
@@ -139,15 +151,17 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
 
                     if (jtLightProfile.getSelectedColumn()==1)
                     {
-                        System.out.println("licht table");
-                        System.out.println("knop column");
+                        //System.out.println("licht table");
+                        //System.out.println("knop column");
                         if (jtLightProfile.getSelectedRow()==0)
                         {
-                            System.out.println("row 1");
+                            //System.out.println("row 1");
+                            KlimaatProfielDialoogAanpassenLichtProfiel dialoog1 = new KlimaatProfielDialoogAanpassenLichtProfiel(this,true);
                         }
                         if (jtLightProfile.getSelectedRow()==1)
                         {
-                            System.out.println("row 2");
+                            //System.out.println("row 2");
+                            KlimaatProfielDialoogAanpassenLichtProfiel dialoog2 = new KlimaatProfielDialoogAanpassenLichtProfiel(this,true);
                         }
                     }
                 }
