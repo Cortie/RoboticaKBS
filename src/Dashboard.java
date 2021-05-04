@@ -1,9 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.InputStream;
 
-import com.jcraft.jsch.*;
 
 public class Dashboard extends JFrame implements ActionListener {
 
@@ -18,6 +16,11 @@ public class Dashboard extends JFrame implements ActionListener {
   FlowLayout standard = new FlowLayout();
   BorderLayout collection = new BorderLayout();
 
+  static getTemp Temp1 = new getTemp();
+  static String piTemp = Temp1.Temperature;
+
+  JLabel piTemperature = new JLabel(piTemp);
+
   public Dashboard() {
     // set standard data
     setTitle("Dashboard");
@@ -28,7 +31,7 @@ public class Dashboard extends JFrame implements ActionListener {
     // temperature panel
     JPanel tempPnl = new JPanel(standard);
     tempPnl.add(temp);
-    // tempPnl.add(getTemp());
+    tempPnl.add(piTemperature);
     temp.setFont(temp.getFont().deriveFont(32.0f));
     tempPnl.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
 
@@ -65,54 +68,6 @@ public class Dashboard extends JFrame implements ActionListener {
     setVisible(true);
   }
 
-  public static void getTemp() {
-    String host = "192.168.0.124";
-    String user = "pi";
-    String password = "pi";
-    String command1 = "sudo python3 Desktop/read.py";
-
-    try {
-      java.util.Properties config = new java.util.Properties();
-      config.put("StrictHostKeyChecking", "no");
-      JSch jsch = new JSch();
-      Session session = jsch.getSession(user, host, 22);
-      session.setPassword(password);
-      session.setConfig(config);
-      session.connect();
-      System.out.println("Connected");
-
-      Channel channel = session.openChannel("exec");
-      ((ChannelExec) channel).setCommand(command1);
-      channel.setInputStream(null);
-      ((ChannelExec) channel).setErrStream(System.err);
-
-      InputStream in = channel.getInputStream();
-      channel.connect();
-      byte[] tmp = new byte[1024];
-      while (true) {
-        while (in.available() > 0) {
-          int i = in.read(tmp, 0, 1024);
-          if (i < 0)
-            break;
-          System.out.print(new String(tmp, 0, i));
-        }
-        if (channel.isClosed()) {
-          System.out.println("exit-status: " + channel.getExitStatus());
-          break;
-        }
-        try {
-          Thread.sleep(1000);
-        } catch (Exception ee) {
-        }
-      }
-      channel.disconnect();
-      session.disconnect();
-      System.out.println("DONE");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   @Override
   public void actionPerformed(ActionEvent e) {
     // TODO Auto-generated method stub
@@ -139,6 +94,8 @@ public class Dashboard extends JFrame implements ActionListener {
   }
 
   public static void main(String[] args) {
-    getTemp();
+    //System.out.println(getTemp.Temperature);
+    
+    Dashboard dash = new Dashboard();
   }
 }
