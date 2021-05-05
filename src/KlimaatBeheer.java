@@ -9,8 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListener
-{
+public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListener {
+    // defenitions for getting the current temperature
+    static getSensors sensor = new getSensors();
+    static String piTemp = sensor.Temperature;
+    static String piPress = sensor.Pressure;
+    static String piHumid = sensor.Humidity;
+
     private JLabel jlTitel;
     private JButton jbProfielKnop;
     private JLabel jlTempAanpassen;
@@ -26,27 +31,21 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private JLabel jlTempprofiel;
     private String tempProfiel = "zomer";
     private JLabel jlLichtsterkteprofiel;
-    private String lichtsterkteProfiel="zomer";
+    private String lichtsterkteProfiel = "zomer";
     private JLabel jltempSensor;
     private int tempSensor = 19;
     private JLabel jlLuchtdrukSensor;
-    private int luchtdrukSensor= 93;
+    private int luchtdrukSensor = 93;
     private JLabel jlLuchtvochtigheidSensor;
-    private int luchtvochtigheidSensor= 90;
+    private int luchtvochtigheidSensor = 90;
     private JLabel jlLichtsterkteSensor;
     private JLabel jlLichtsterkteSensorWaarde;
     public SerialPort port;
     public Scanner data;
     private int lichtwaarde;
-    //private int lichtsterkteSensor=70;
+    // private int lichtsterkteSensor=70;
 
-
-
-
-
-
-    public KlimaatBeheer()
-    {
+    public KlimaatBeheer() {
         SerialPort[] availablePorts = SerialPort.getCommPorts();
         for (SerialPort comPort : availablePorts) {
             String naam = comPort.getDescriptivePortName().substring(0, 11);
@@ -63,7 +62,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
         port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         data = new Scanner(port.getInputStream());
-        if(data.hasNextLine()) {
+        if (data.hasNextLine()) {
             lichtwaarde = 0;
             try {
                 lichtwaarde = Integer.parseInt(data.nextLine());
@@ -77,7 +76,6 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         JPanel titelPnl = new JPanel(new FlowLayout());
         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
         backButton.addActionListener(this);
@@ -87,102 +85,85 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         profielKnopPnl.add(jbProfielKnop = new JButton("Profielen aanpassen"));
         jbProfielKnop.addActionListener(this);
 
-        JPanel slidersGedeeltePnl = new JPanel(new GridLayout(4,2));
+        JPanel slidersGedeeltePnl = new JPanel(new GridLayout(4, 2));
         slidersGedeeltePnl.add(jlTempAanpassen = new JLabel("Temperatuur aanpassen"));
-        slidersGedeeltePnl.add(jlEmpty= new JLabel(""));
-        slidersGedeeltePnl.add(jsTempWaarde= new JSlider());
+        slidersGedeeltePnl.add(jlEmpty = new JLabel(""));
+        slidersGedeeltePnl.add(jsTempWaarde = new JSlider());
         tempWaarde = jsTempWaarde.getValue();
         jsTempWaarde.addChangeListener(this);
-        slidersGedeeltePnl.add(jlTempWaarde= new JLabel(String.valueOf(tempWaarde)+" °C"));
+        slidersGedeeltePnl.add(jlTempWaarde = new JLabel(String.valueOf(tempWaarde) + " °C"));
         slidersGedeeltePnl.add(jlLichtsterkteAanpassen = new JLabel("Lichtsterkte aanpassen"));
-        slidersGedeeltePnl.add(jlEmpty= new JLabel(""));
+        slidersGedeeltePnl.add(jlEmpty = new JLabel(""));
         slidersGedeeltePnl.add(jsLichtsterkte = new JSlider());
         jsLichtsterkte.addChangeListener(this);
-        lichtsterkteWaarde= jsLichtsterkte.getValue();
-        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtwaarde)+" LM"));
+        lichtsterkteWaarde = jsLichtsterkte.getValue();
+        slidersGedeeltePnl.add(jlLichtsterkteWaarde = new JLabel(String.valueOf(lichtwaarde) + " LM"));
 
-        JPanel profielenPnl = new JPanel(new GridLayout(2,2));
-        profielenPnl.add(jlTempprofiel=new JLabel("Temperatuurprofiel: "));
+        JPanel profielenPnl = new JPanel(new GridLayout(2, 2));
+        profielenPnl.add(jlTempprofiel = new JLabel("Temperatuurprofiel: "));
         profielenPnl.add(new JLabel(tempProfiel));
-        profielenPnl.add(jlLichtsterkteprofiel=new JLabel("Lichtsterkteprofiel: "));
+        profielenPnl.add(jlLichtsterkteprofiel = new JLabel("Lichtsterkteprofiel: "));
         profielenPnl.add(new JLabel(lichtsterkteProfiel));
 
         JPanel ondersteGedeelteLinksPnl = new JPanel(new BorderLayout());
-        ondersteGedeelteLinksPnl.add(slidersGedeeltePnl,BorderLayout.CENTER);
-        ondersteGedeelteLinksPnl.add(profielenPnl,BorderLayout.NORTH);
+        ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
+        ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
 
-        JPanel sensorgegevenPnl = new JPanel(new GridLayout(4,2));
+        JPanel sensorgegevenPnl = new JPanel(new GridLayout(4, 2));
         sensorgegevenPnl.add(jltempSensor = new JLabel("Temperatuur: "));
-        sensorgegevenPnl.add(new JLabel(tempSensor+" °C"));
+        sensorgegevenPnl.add(new JLabel(piTemp + " °C"));
         sensorgegevenPnl.add(jlLuchtdrukSensor = new JLabel("Luchtdruk: "));
-        sensorgegevenPnl.add(new JLabel(luchtdrukSensor+" hPa"));
+        sensorgegevenPnl.add(new JLabel(piPress + " hPa"));
         sensorgegevenPnl.add(jlLuchtvochtigheidSensor = new JLabel("Luchtvochtigheid: "));
-        sensorgegevenPnl.add(new JLabel(luchtvochtigheidSensor+"%"));
+        sensorgegevenPnl.add(new JLabel(piHumid + "%"));
         sensorgegevenPnl.add(jlLichtsterkteSensor = new JLabel("Lichtsterkte: "));
-        sensorgegevenPnl.add(jlLichtsterkteSensorWaarde = new JLabel(lichtwaarde+" LM"));
+        sensorgegevenPnl.add(jlLichtsterkteSensorWaarde = new JLabel(lichtwaarde + " LM"));
 
         JPanel ondersteGedeelteRechtsPnl = new JPanel(new BorderLayout());
-        ondersteGedeelteRechtsPnl.add(profielKnopPnl,BorderLayout.CENTER);
-        ondersteGedeelteRechtsPnl.add(sensorgegevenPnl,BorderLayout.NORTH);
+        ondersteGedeelteRechtsPnl.add(profielKnopPnl, BorderLayout.CENTER);
+        ondersteGedeelteRechtsPnl.add(sensorgegevenPnl, BorderLayout.NORTH);
 
         JPanel ondersteGedeeltePnl = new JPanel(new BorderLayout());
-        ondersteGedeeltePnl.add(ondersteGedeelteLinksPnl,BorderLayout.WEST);
-        ondersteGedeeltePnl.add(ondersteGedeelteRechtsPnl,BorderLayout.EAST);
+        ondersteGedeeltePnl.add(ondersteGedeelteLinksPnl, BorderLayout.WEST);
+        ondersteGedeeltePnl.add(ondersteGedeelteRechtsPnl, BorderLayout.EAST);
 
         JPanel borderPnl = new JPanel(new BorderLayout());
         borderPnl.add(titelPnl, BorderLayout.NORTH);
-        borderPnl.add(ondersteGedeeltePnl,BorderLayout.CENTER);
+        borderPnl.add(ondersteGedeeltePnl, BorderLayout.CENTER);
 
         add(borderPnl);
         setVisible(true);
 
-
-
-
     }
 
-
-
-
-
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        if (e.getSource()==jbProfielKnop)
-        {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == jbProfielKnop) {
             System.out.println("link naar profielen aanpassen");
             KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
             this.dispose();
         }
-        if (e.getSource()==backButton)
-        {
+        if (e.getSource() == backButton) {
             Dashboard dash = new Dashboard();
             this.dispose();
         }
 
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();
-
-
 
     }
 
     @Override
-    public void stateChanged(ChangeEvent e)
-    {
-        if (e.getSource()==jsTempWaarde)
-        {
-            jlTempWaarde.setText(String.valueOf(tempWaarde=jsTempWaarde.getValue())+" °C");
+    public void stateChanged(ChangeEvent e) {
+        if (e.getSource() == jsTempWaarde) {
+            jlTempWaarde.setText(String.valueOf(tempWaarde = jsTempWaarde.getValue()) + " °C");
         }
-        if (e.getSource()==jsLichtsterkte)
-        {
-            jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde=jsLichtsterkte.getValue())+" LM");
+        if (e.getSource() == jsLichtsterkte) {
+            jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde = jsLichtsterkte.getValue()) + " LM");
         }
 
     }
-
 
 }
