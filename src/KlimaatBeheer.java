@@ -1,3 +1,5 @@
+import com.fazecast.jSerialComm.SerialPort;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -5,6 +7,7 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListener
 {
@@ -32,15 +35,44 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private int luchtvochtigheidSensor= 90;
     private JLabel jlLichtsterkteSensor;
     private JLabel jlLichtsterkteSensorWaarde;
+    public SerialPort port;
+    public Scanner data;
+    private int lichtwaarde;
     //private int lichtsterkteSensor=70;
-   // JserialListener lichtsensor = new JserialListener();
 
 
-    static JserialListener lichtsensor = new JserialListener();
-    static int lichtwaarde = lichtsensor.getLichtwaarde();
+
+
+
 
     public KlimaatBeheer()
     {
+        SerialPort[] availablePorts = SerialPort.getCommPorts();
+        for (SerialPort comPort : availablePorts) {
+            String naam = comPort.getDescriptivePortName().substring(0, 11);
+            if (naam.equalsIgnoreCase("Arduino Uno")) {
+                this.port = comPort;
+            }
+        }
+
+        if (port.openPort()) {
+            System.out.println("Successfully opened the port.");
+        } else {
+            System.out.println("Unable to open the port.");
+            return;
+        }
+        port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
+        data = new Scanner(port.getInputStream());
+        if(data.hasNextLine()) {
+            lichtwaarde = 0;
+            try {
+                lichtwaarde = Integer.parseInt(data.nextLine());
+            } catch (Exception e) {
+                System.out.println("lichtwaarde kon niet worden uitgelezen!");
+                lichtwaarde = 0;
+            }
+        }
+
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,7 +135,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
         add(borderPnl);
         setVisible(true);
-        lichtsensor.run();
+
 
 
 
