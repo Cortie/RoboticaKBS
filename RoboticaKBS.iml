@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/jSerialComm-2.7.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/jSerialComm-2.7.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
