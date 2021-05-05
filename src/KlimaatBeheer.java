@@ -31,13 +31,20 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private JLabel jlLuchtvochtigheidSensor;
     private int luchtvochtigheidSensor= 90;
     private JLabel jlLichtsterkteSensor;
-    private int lichtsterkteSensor=70;
+    private JLabel jlLichtsterkteSensorWaarde;
+    //private int lichtsterkteSensor=70;
+   // JserialListener lichtsensor = new JserialListener();
+
+
+    static JserialListener lichtsensor = new JserialListener();
+    static int lichtwaarde = lichtsensor.getLichtwaarde();
 
     public KlimaatBeheer()
     {
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         JPanel titelPnl = new JPanel(new FlowLayout());
         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
@@ -60,7 +67,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         slidersGedeeltePnl.add(jsLichtsterkte = new JSlider());
         jsLichtsterkte.addChangeListener(this);
         lichtsterkteWaarde= jsLichtsterkte.getValue();
-        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtsterkteWaarde)+" LM"));
+        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtwaarde)+" LM"));
 
         JPanel profielenPnl = new JPanel(new GridLayout(2,2));
         profielenPnl.add(jlTempprofiel=new JLabel("Temperatuurprofiel: "));
@@ -80,7 +87,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         sensorgegevenPnl.add(jlLuchtvochtigheidSensor = new JLabel("Luchtvochtigheid: "));
         sensorgegevenPnl.add(new JLabel(luchtvochtigheidSensor+"%"));
         sensorgegevenPnl.add(jlLichtsterkteSensor = new JLabel("Lichtsterkte: "));
-        sensorgegevenPnl.add(new JLabel(lichtsterkteSensor+" LM"));
+        sensorgegevenPnl.add(jlLichtsterkteSensorWaarde = new JLabel(lichtwaarde+" LM"));
 
         JPanel ondersteGedeelteRechtsPnl = new JPanel(new BorderLayout());
         ondersteGedeelteRechtsPnl.add(profielKnopPnl,BorderLayout.CENTER);
@@ -96,6 +103,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
         add(borderPnl);
         setVisible(true);
+        lichtsensor.run();
+
 
 
     }
@@ -118,11 +127,13 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
             Dashboard dash = new Dashboard();
             this.dispose();
         }
+
     }
 
     public static void main(String[] args)
     {
         KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();
+
 
 
     }
@@ -138,5 +149,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         {
             jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde=jsLichtsterkte.getValue())+" LM");
         }
+
     }
+
+
 }
