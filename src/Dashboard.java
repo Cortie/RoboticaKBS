@@ -2,11 +2,14 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-
 public class Dashboard extends JFrame implements ActionListener {
 
+  //defenitions for getting the current temperature
+  static getSensors Temp1 = new getSensors();
+  static String piTemp = Temp1.Temperature;
+
   // definitions for labels, buttons and layouts
-  JLabel temp = new JLabel("Temperatuur: ");
+  JLabel temp = new JLabel("Temperatuur: " + piTemp);
   JButton jbPlayer = new JButton("Muziekspeler");
   JButton jbClimate = new JButton("Klimaatbeheer");
   JButton jbSettings = new JButton("Instellingen");
@@ -15,11 +18,6 @@ public class Dashboard extends JFrame implements ActionListener {
   FlowLayout buttons = new FlowLayout(FlowLayout.RIGHT, 75, 0);
   FlowLayout standard = new FlowLayout();
   BorderLayout collection = new BorderLayout();
-
-  static getTemp Temp1 = new getTemp();
-  static String piTemp = Temp1.Temperature;
-
-  JLabel piTemperature = new JLabel(piTemp);
 
   public Dashboard() {
     // set standard data
@@ -31,7 +29,6 @@ public class Dashboard extends JFrame implements ActionListener {
     // temperature panel
     JPanel tempPnl = new JPanel(standard);
     tempPnl.add(temp);
-    tempPnl.add(piTemperature);
     temp.setFont(temp.getFont().deriveFont(32.0f));
     tempPnl.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
 
@@ -94,8 +91,6 @@ public class Dashboard extends JFrame implements ActionListener {
   }
 
   public static void main(String[] args) {
-    //System.out.println(getTemp.Temperature);
-    
     Dashboard dash = new Dashboard();
   }
 }
