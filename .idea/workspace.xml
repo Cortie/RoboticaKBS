@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatProfiel dialogen toegevoegt.  KlimaatProfielDialoogAanmakenLichtProfiel toegevoegt, KlimaatProfielDialoogAanmakenTempProfiel toegevoegt, KlimaatProfielDialoogAanpassenLichtProfiel toegevoegt, KlimaatProfielDialoogAanpassenTempProfiel toegevoegt.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JserialListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

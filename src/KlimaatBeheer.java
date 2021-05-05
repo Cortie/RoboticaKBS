@@ -49,10 +49,13 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     {
         SerialPort[] availablePorts = SerialPort.getCommPorts();
         for (SerialPort comPort : availablePorts) {
-            String naam = comPort.getDescriptivePortName().substring(0, 11);
-            if (naam.equalsIgnoreCase("Arduino Uno")) {
-                this.port = comPort;
+            if(comPort.getDescriptivePortName().length() > 10) {
+                  String naam = comPort.getDescriptivePortName().substring(0, 11);
+                  if (naam.equalsIgnoreCase("Arduino Uno")) {
+                   this.port = comPort;
+                }
             }
+
         }
 
         if (port.openPort()) {
@@ -64,13 +67,18 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         data = new Scanner(port.getInputStream());
         if(data.hasNextLine()) {
+
             lichtwaarde = 0;
+
             try {
+
                 lichtwaarde = Integer.parseInt(data.nextLine());
+
             } catch (Exception e) {
                 System.out.println("lichtwaarde kon niet worden uitgelezen!");
                 lichtwaarde = 0;
             }
+            System.out.println(lichtwaarde);
         }
 
         setTitle("Klimaat systeem");
@@ -99,7 +107,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         slidersGedeeltePnl.add(jsLichtsterkte = new JSlider());
         jsLichtsterkte.addChangeListener(this);
         lichtsterkteWaarde= jsLichtsterkte.getValue();
-        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(String.valueOf(lichtwaarde)+" LM"));
+        slidersGedeeltePnl.add(jlLichtsterkteWaarde= new JLabel(50+" LM"));
 
         JPanel profielenPnl = new JPanel(new GridLayout(2,2));
         profielenPnl.add(jlTempprofiel=new JLabel("Temperatuurprofiel: "));
@@ -152,11 +160,13 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         {
             System.out.println("link naar profielen aanpassen");
             KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+            port.closePort();
             this.dispose();
         }
         if (e.getSource()==backButton)
         {
             Dashboard dash = new Dashboard();
+            port.closePort();
             this.dispose();
         }
 
