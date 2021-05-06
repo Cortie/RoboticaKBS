@@ -18,15 +18,17 @@ public class SerialListener implements Runnable
     public void run()
     {
         SerialPort[] availablePorts = SerialPort.getCommPorts();
+        
         for(SerialPort comPort: availablePorts)
         {
+            System.out.println(comPort.getDescriptivePortName());
             String naam = comPort.getDescriptivePortName().substring(0, 11);
+            System.out.println(naam);
             if(naam.equalsIgnoreCase("Arduino Uno"))
             {
                 this.port = comPort;
             }
         }
-        //port = SerialPort.getCommPort("COM4");
         if(port.openPort()) {
             System.out.println("Successfully opened the port.");
         } else {
