@@ -21,7 +21,6 @@ public class Gameplay implements Screen
     private long lastDropTime;
     private long lastShot;
     private Array<Bullet> bullets;
-    private int players = 1;
     private MyGdxGame game;
     
     public Gameplay(MyGdxGame game)
@@ -68,7 +67,7 @@ public class Gameplay implements Screen
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
         game.batch.draw(game.player1.getShipImg(), game.player1.x, game.player1.y);
-        if(players == 2)
+        if( game.getPlayers() == 2)
         {
             game.batch.draw(game.player2.getShipImg(), game.player2.x, game.player2.y);
         }

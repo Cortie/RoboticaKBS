@@ -15,7 +15,8 @@ public class MainMenuScreen implements Screen {
     Texture PlayButtonInactive;
     Texture ExitButtonActive;
     Texture ExitButtonInactive;
-    private static Sound buttonSwitch;
+
+
 
     public MainMenuScreen(MyGdxGame game){
         this.game = game;
@@ -27,24 +28,33 @@ public class MainMenuScreen implements Screen {
         ExitButtonInactive = new Texture("ExitButtonInactive.png");
     }
     public void selectScene(){
-        if (SerialListener.selectedmenu == 1){
+        SerialListener.Click = false;
+        if (SerialListener.MainMenuSelecter == 1){
             System.out.println("Play");
             game.setScreen(new Gameplay(game));
             MyGdxGame.menuActive= false;
             SerialListener.Click = false;
+
         }
-        if (SerialListener.selectedmenu == 2){
+        if (SerialListener.MainMenuSelecter == 2){
             System.out.println("Settings");
+            game.setScreen(new Settings(game));
+            MyGdxGame.SettingsActive = true;
+            SerialListener.Click = false;
+            MyGdxGame.menuActive= false;
+            SerialListener.SettingSelecter = 1;
+
         }
-        if (SerialListener.selectedmenu == 3){
+        if (SerialListener.MainMenuSelecter == 3){
             System.out.println("Exit");
+            Gdx.app.exit();
         }
     }
 
 
     @Override
     public void show() {
-        buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
+
     }
 
     @Override
@@ -53,19 +63,19 @@ public class MainMenuScreen implements Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     game.batch.begin();
     game.backgroundSprite.draw(game.batch);
-    if(SerialListener.selectedmenu == 1)
+    if(SerialListener.MainMenuSelecter == 1)
     {
         game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
         game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
         game.batch.draw(PlayButtonActive, 100, 500, 330, 150);
     }
-    if(SerialListener.selectedmenu == 2)
+    if(SerialListener.MainMenuSelecter == 2)
     {
         game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
         game.batch.draw(SettingsButtonActive, 100, 350, 384, 85);
         game.batch.draw(PlayButtonInactive, 100, 500, 330, 150);
     }
-    if(SerialListener.selectedmenu == 3)
+    if(SerialListener.MainMenuSelecter == 3)
     {
         game.batch.draw(ExitButtonActive, 100, 100, 330, 150);
         game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
@@ -100,12 +110,7 @@ public class MainMenuScreen implements Screen {
 
     }
     
-    public static void playSound()
-    {
-        long id = buttonSwitch.play(1.0f);
-        buttonSwitch.setPitch(id, 1);
-        buttonSwitch.setLooping(id, false);
-    }
+
     @Override
     public void dispose() {
 

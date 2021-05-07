@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,6 +20,17 @@ public class MyGdxGame extends Game
 	public Sprite backgroundSprite;
 	private SerialListener listener = new SerialListener();
 	public static boolean menuActive;
+	public static boolean SettingsActive;
+	private int players = 1;
+
+	public int getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(int players) {
+		this.players = players;
+	}
+
 	@Override
 	public void create () {
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
@@ -36,6 +48,7 @@ public class MyGdxGame extends Game
 		viewPort.apply();
 		setScreen(new MainMenuScreen(this));
 		menuActive = true;
+
 	}
 	@Override
 	public void render ()
@@ -63,5 +76,11 @@ public class MyGdxGame extends Game
 	{
 		viewPort.update(width, height, true);
 		super.resize(width, height);
+	}
+	public static void playSound(Sound s)
+	{
+		long id = s.play(1.0f);
+		s.setPitch(id, 1);
+		s.setLooping(id, false);
 	}
 }

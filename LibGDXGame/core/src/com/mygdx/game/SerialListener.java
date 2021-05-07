@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.fazecast.jSerialComm.SerialPort;
 
@@ -9,14 +11,19 @@ public class SerialListener implements Runnable
 {
     public SerialPort port;
     public Scanner data;
-    public static int selectedmenu = 1;
+    public static int MainMenuSelecter = 1;
     private long timer = 500000000;
     private long speed = 0;
     public static boolean Click;
+    public static int SettingSelecter = 1;
+    private Sound buttonSwitch;
+    private Sound buttonPress;
 
     @Override
     public void run()
     {
+        buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
+        buttonPress = Gdx.audio.newSound(Gdx.files.internal("game_lvlup.wav"));
         SerialPort[] availablePorts = SerialPort.getCommPorts();
         for(SerialPort comPort: availablePorts)
         {
@@ -25,8 +32,16 @@ public class SerialListener implements Runnable
             {
                 this.port = comPort;
             }
+            if(this.port == null)
+            {
+                if(naam.equalsIgnoreCase("USB Serial "))
+                {
+                    this.port = comPort;
+                }
+            }
+            System.out.println(naam);
         }
-        //port = SerialPort.getCommPort("COM4");
+        //port = SerialPort.getCommPort("COM3");
         if(port.openPort()) {
             System.out.println("Successfully opened the port.");
         } else {
@@ -42,20 +57,41 @@ public class SerialListener implements Runnable
             if(number == 500)
             {
                 MyGdxGame.player1.moveLeft();
-                Click = true;
+                if(TimeUtils.nanoTime() - speed > timer) {
+                    Click = true;
+                    if(MyGdxGame.menuActive || MyGdxGame.SettingsActive){
+                        MyGdxGame.playSound(buttonPress);
+                    }
+                }
+                speed = TimeUtils.nanoTime();
             }
             if(number == 1000)
             {
-                if(MyGdxGame.menuActive){
+
                 if(TimeUtils.nanoTime() - speed > timer) {
-                    if (selectedmenu <= 2) {
-                        selectedmenu++;
-                        MainMenuScreen.playSound();
+                    if(MyGdxGame.menuActive){
+
+                    if (MainMenuSelecter <= 2) {
+                        MainMenuSelecter++;
+                        MyGdxGame.playSound(buttonSwitch);
                     } else {
-                        selectedmenu = 0;
+                        MainMenuSelecter = 1;
+                        MyGdxGame.playSound(buttonSwitch);
                     }
                     speed = TimeUtils.nanoTime();
                 }
+                    if(MyGdxGame.SettingsActive){
+                        if(SettingSelecter <= 3){
+                            SettingSelecter++;
+                            MyGdxGame.playSound(buttonSwitch);
+                        }else{
+                            SettingSelecter = 1;
+                            MyGdxGame.playSound(buttonSwitch);
+
+                        }
+
+                    }
+                    speed = TimeUtils.nanoTime();
                 }
                 MyGdxGame.player1.moveRight();
             }
