@@ -166,6 +166,11 @@ public class Gameplay implements Screen
                 hit.setPitch(id, 1);
                 hit.setLooping(id, false);
                 iter.remove();
+                game.setPlayerlives(game.getPlayerlives() -1);
+                if(game.getPlayerlives() == 0)
+                {
+                    gameOver();
+                }
             }
         }
         // moves player's bullets and checks for collision with enemies
@@ -193,6 +198,11 @@ public class Gameplay implements Screen
                         hit.setPitch(id, 1);
                         hit.setLooping(id, false);
                         iter.remove();
+                        game.setPlayerlives(game.getPlayerlives() -1);
+                        if(game.getPlayerlives() == 0)
+                        {
+                            gameOver();
+                        }
                         break;
                     }
                 }
@@ -290,5 +300,12 @@ public class Gameplay implements Screen
     public void spawnBullet(Bullet bullet)
     {
         bullets.add(bullet);
+    }
+    private void gameOver()
+    {
+        SerialListener.Click = false;
+        MyGdxGame.menuActive = true;
+        game.setPlayerlives(3);
+        game.setScreen(new MainMenuScreen(game));
     }
 }

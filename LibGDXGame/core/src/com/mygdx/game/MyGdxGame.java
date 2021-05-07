@@ -22,6 +22,7 @@ public class MyGdxGame extends Game
 	public static boolean menuActive;
 	public static boolean SettingsActive;
 	private int players = 1;
+	private int playerlives = 3;
 
 	public int getPlayers() {
 		return players;
@@ -50,6 +51,17 @@ public class MyGdxGame extends Game
 		menuActive = true;
 
 	}
+	
+	public int getPlayerlives()
+	{
+		return playerlives;
+	}
+	
+	public void setPlayerlives(int playerlives)
+	{
+		this.playerlives = playerlives;
+	}
+	
 	@Override
 	public void render ()
 	{
