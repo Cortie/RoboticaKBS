@@ -31,17 +31,26 @@ public class Gameplay implements Screen
     @Override
     public void show()
     {
+
         font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
         Scoretest = String.valueOf(score);
 
+        //local variables used during gameplay
+        //hit sound effect for any collision between bullets and ships
+        //2 bullet types to be use in the creation of the different enemy types
+        //the 3 arrays of to be rendered objects
         hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
         BulletType standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3, 20, 60);
         BulletType bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3, 30, 90);
         bullets = new Array<>();
         enemylvls = new Array<>();
         enemies = new Array<>();
+        //due to movement being connected to the same function
+        // as the menu screen selection player position must be put in a spawn point here
         MyGdxGame.player1.x = MyGdxGame.camera.viewportWidth /10 + MyGdxGame.player1.getArea().getWidth();
         MyGdxGame.player2.x = MyGdxGame.camera.viewportWidth /3 * 2 + MyGdxGame.player2.getArea().getWidth();
+        //this loop creates an array of different enemy types
+        //that is later used for enemy creation and comparisons
         for(int i = 0; i < 4; i++)
         {
             long shotSpeed = 0;
@@ -139,8 +148,11 @@ public class Gameplay implements Screen
         // a sound effect as well, and remove a life/shield from the player.
         for (Iterator<Enemy> iter = enemies.iterator(); iter.hasNext(); ) {
             Enemy enemy = iter.next();
+            //checks if the lastshot of the enemy has surpassed shotspeed
             if(TimeUtils.millis() - enemy.getLastShot() > enemy.getType().getShotSpeed())
             {
+                //creates a bullet depending on enemy type and then adds the bullet
+                //to the bullet array to be drawn in the batch
                 Bullet bullet = new Bullet(3, enemy.getType().getBtype(), new Rectangle(enemy.getX(), enemy.getY(), enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight()), enemy.getX(), enemy.getY());
                 if(enemy.getType().equals(enemylvls.get(0)))
                 {
@@ -153,6 +165,7 @@ public class Gameplay implements Screen
                 }
                 enemy.setLastShot(TimeUtils.millis());
             }
+            //moves the enemy down speed dependent on framrate
             enemy.setY(enemy.getY() - 150 * Gdx.graphics.getDeltaTime());
             /*if(enemy.getType().equals(enemylvls.get(1)))
             {
@@ -166,7 +179,10 @@ public class Gameplay implements Screen
                         enemy.setX(enemy.getX() - 75 * Gdx.graphics.getDeltaTime());
                     }
             }*/
+            //removes the enemy from the batch when it has reached the bottom of the screen
             if(enemy.getShip().getY() + 64 < 0) iter.remove();
+            //plays the explosion sound as well as removes 1 player life and removes the enemy from the screen
+            //when the enemy collides with the player
             if(enemy.getShip().overlaps(MyGdxGame.player1.getArea())) {
                 long id = hit.play(1.0f);
                 hit.setPitch(id, 1);
@@ -179,9 +195,10 @@ public class Gameplay implements Screen
                 }
             }
         }
-        // moves player's bullets and checks for collision with enemies
+        // moves bullets and checks for collision
         // when an enemy is hit we remove health from the enemy and if their health
         // is 0 we remove the enemy from the screen
+        // when a player is hit by an enemy bullet they will lose a life
         for(Iterator<Bullet> iter = bullets.iterator(); iter.hasNext();)
         {
             Bullet bullet = iter.next();
