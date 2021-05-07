@@ -12,18 +12,15 @@ public class SerialListener implements Runnable
     public SerialPort port;
     public Scanner data;
     public static int MainMenuSelecter = 1;
-    private long timer = 500000000;
     private long speed = 0;
     public static boolean Click;
     public static int SettingSelecter = 1;
-    private Sound buttonSwitch;
-    private Sound buttonPress;
-
+    
     @Override
     public void run()
     {
-        buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
-        buttonPress = Gdx.audio.newSound(Gdx.files.internal("game_lvlup.wav"));
+        Sound buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
+        Sound buttonPress = Gdx.audio.newSound(Gdx.files.internal("game_lvlup.wav"));
         SerialPort[] availablePorts = SerialPort.getCommPorts();
         for(SerialPort comPort: availablePorts)
         {
@@ -41,7 +38,6 @@ public class SerialListener implements Runnable
             }
             System.out.println(naam);
         }
-        //port = SerialPort.getCommPort("COM3");
         if(port.openPort()) {
             System.out.println("Successfully opened the port.");
         } else {
@@ -54,10 +50,11 @@ public class SerialListener implements Runnable
         {
             int number = 0;
             try{number = Integer.parseInt(data.nextLine());}catch(Exception e){}
+            long timer = 500000000;
             if(number == 500)
             {
                 MyGdxGame.player1.moveLeft();
-                if(TimeUtils.nanoTime() - speed > timer) {
+                if(TimeUtils.nanoTime() - speed > timer /5) {
                     Click = true;
                     if(MyGdxGame.menuActive || MyGdxGame.SettingsActive){
                         MyGdxGame.playSound(buttonPress);

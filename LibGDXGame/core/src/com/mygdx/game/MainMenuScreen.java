@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -34,7 +33,6 @@ public class MainMenuScreen implements Screen {
             game.setScreen(new Gameplay(game));
             MyGdxGame.menuActive= false;
             SerialListener.Click = false;
-
         }
         if (SerialListener.MainMenuSelecter == 2){
             System.out.println("Settings");

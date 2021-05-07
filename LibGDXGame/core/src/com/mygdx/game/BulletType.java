@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class BulletType
 {
-    private Texture bulletImg;
+    private final Texture bulletImg;
     private Sprite bullet;
     private int width;
     private int height;
-    private int user;
+    private final int user;
     
     public BulletType(Texture img, int user, int width, int height)
     {

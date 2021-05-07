@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class EnemyType
 {
-    private Texture shipImg;
+    private final Texture shipImg;
     private Sprite ship;
     private float size;
-    private long shotSpeed;
+    private final long shotSpeed;
     private BulletType btype;
-    private int pointValue;
+    private final int pointValue;
     
     public EnemyType(BulletType btype, Texture shipImg, long shotSpeed, int pointValue)
     {
         this.pointValue = pointValue;
-        this.btype = btype;
+        setBtype(btype);
         this.shotSpeed = shotSpeed;
         this.shipImg = shipImg;
         this.ship = new Sprite(shipImg);

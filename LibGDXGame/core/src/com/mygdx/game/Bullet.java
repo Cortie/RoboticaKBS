@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Bullet
 {
-    private BulletType type;
+    private final BulletType type;
     private Rectangle hitbox;
-    private int user;
+    private final int user;
     public float x;
     public float y;
     

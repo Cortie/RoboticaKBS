@@ -11,9 +11,9 @@ public class Player
 {
     public float x;
     public float y;
-    private Texture shipImg;
-    private Sprite ship;
-    private Rectangle area;
+    private final Texture shipImg;
+    private final Sprite ship;
+    private final Rectangle area;
     private long shotSpeed = 600000000;
     private long lastShot;
     private BulletType type;
@@ -39,11 +39,6 @@ public class Player
         this.area.x = x;
     }
     
-    public void setY(float y)
-    {
-        this.y = y;
-        this.area.y = y;
-    }
     public Texture getShipImg()
     {
         return shipImg;

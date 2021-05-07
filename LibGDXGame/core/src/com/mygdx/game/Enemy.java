@@ -7,8 +7,8 @@ public class Enemy
     private float x;
     private float y;
     private int health;
-    private EnemyType type;
-    private Rectangle ship;
+    private final EnemyType type;
+    private final Rectangle ship;
     private long lastShot;
     private long lastmovement;
     private long movementspeed = 50;

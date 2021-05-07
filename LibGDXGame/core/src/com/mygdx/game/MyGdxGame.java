@@ -18,7 +18,7 @@ public class MyGdxGame extends Game
 	public static OrthographicCamera camera;
 	public FitViewport viewPort;
 	public Sprite backgroundSprite;
-	private SerialListener listener = new SerialListener();
+	private final SerialListener listener = new SerialListener();
 	public static boolean menuActive;
 	public static boolean SettingsActive;
 	private int players = 1;
