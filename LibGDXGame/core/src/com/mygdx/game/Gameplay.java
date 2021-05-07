@@ -21,8 +21,13 @@ public class Gameplay implements Screen
     private Array<Bullet> bullets;
     private final MyGdxGame game;
     private int score;
-    BitmapFont font;
-    String Scoretest;
+    private BitmapFont font;
+    private String Scoretest;
+    private Texture oneheart;
+    private Texture twoheart;
+    private Texture threeheart;
+    private Texture hearts;
+    
     public Gameplay(MyGdxGame game)
     {
         this.game = game;
@@ -31,10 +36,12 @@ public class Gameplay implements Screen
     @Override
     public void show()
     {
-
+        oneheart = new Texture(Gdx.files.internal("1live.png"));
+        twoheart = new Texture(Gdx.files.internal("2lives.png"));
+        threeheart = new Texture(Gdx.files.internal("3lives.png"));
+        hearts = threeheart;
         font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
         Scoretest = String.valueOf(score);
-
         //local variables used during gameplay
         //hit sound effect for any collision between bullets and ships
         //2 bullet types to be use in the creation of the different enemy types
@@ -96,7 +103,8 @@ public class Gameplay implements Screen
         {
             game.batch.draw(bullet.getType().getBulletImg(), bullet.x, bullet.y);
         }
-        font.draw(game.batch, Scoretest,50,game.camera.viewportHeight-50);
+        font.draw(game.batch, Scoretest,30,game.camera.viewportHeight-50);
+        game.batch.draw(hearts, 20, game.camera.viewportHeight-150);
         game.batch.end();
 
         // Spawns random enemy types after a certain amount of time has passed
@@ -189,6 +197,14 @@ public class Gameplay implements Screen
                 hit.setLooping(id, false);
                 iter.remove();
                 game.setPlayerlives(game.getPlayerlives() -1);
+                if(game.getPlayerlives() == 2)
+                {
+                    hearts = twoheart;
+                }
+                if(game.getPlayerlives() == 1)
+                {
+                    hearts = oneheart;
+                }
                 if(game.getPlayerlives() == 0)
                 {
                     gameOver();
@@ -222,6 +238,14 @@ public class Gameplay implements Screen
                         hit.setLooping(id, false);
                         iter.remove();
                         game.setPlayerlives(game.getPlayerlives() -1);
+                        if(game.getPlayerlives() == 2)
+                        {
+                            hearts = twoheart;
+                        }
+                        if(game.getPlayerlives() == 1)
+                        {
+                            hearts = oneheart;
+                        }
                         if(game.getPlayerlives() == 0)
                         {
                             gameOver();
