@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -20,7 +21,8 @@ public class Gameplay implements Screen
     private Array<Bullet> bullets;
     private final MyGdxGame game;
     private int score;
-    
+    BitmapFont font;
+    String Scoretest;
     public Gameplay(MyGdxGame game)
     {
         this.game = game;
@@ -29,6 +31,9 @@ public class Gameplay implements Screen
     @Override
     public void show()
     {
+        font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
+        Scoretest = String.valueOf(score);
+
         hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
         BulletType standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3, 20, 60);
         BulletType bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3, 30, 90);
@@ -82,6 +87,7 @@ public class Gameplay implements Screen
         {
             game.batch.draw(bullet.getType().getBulletImg(), bullet.x, bullet.y);
         }
+        font.draw(game.batch, Scoretest,50,game.camera.viewportHeight-50);
         game.batch.end();
 
         // Spawns random enemy types after a certain amount of time has passed
@@ -218,6 +224,7 @@ public class Gameplay implements Screen
                         {
                             score += enemy.getType().getPointValue() / game.getPlayers();
                             iter2.remove();
+                            Scoretest = String.valueOf(score);
                         }
                         iter.remove();
                         break;
