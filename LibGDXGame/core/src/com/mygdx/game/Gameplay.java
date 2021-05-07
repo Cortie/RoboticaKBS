@@ -22,6 +22,7 @@ public class Gameplay implements Screen
     private long lastShot;
     private Array<Bullet> bullets;
     private MyGdxGame game;
+    private int score;
     
     public Gameplay(MyGdxGame game)
     {
@@ -41,22 +42,26 @@ public class Gameplay implements Screen
         {
             long shotSpeed = 0;
             int nummer = i + 2;
+            int pointvalue = 0;
             BulletType btype = standardBullet;
             switch(i)
             {
                 case 0:
+                    pointvalue = 50;
                     shotSpeed = 2500;
                     btype = bigBullet;
                     break;
                 case 1:
                     shotSpeed = 2000;
+                    pointvalue = 25;
                     btype = standardBullet;
                     break;
                 case 2:
+                    pointvalue = 75;
                     shotSpeed = 2000;
                     btype = bigBullet;
             }
-            enemylvls.add(new EnemyType(btype, new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png")), shotSpeed));
+            enemylvls.add(new EnemyType(btype, new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png")), shotSpeed, pointvalue));
         }
     }
     
@@ -202,6 +207,7 @@ public class Gameplay implements Screen
                         hit.setLooping(id, false);
                         if(enemy.getHealth() == 0)
                         {
+                            score += enemy.getType().getPointValue() / players;
                             iter2.remove();
                         }
                         iter.remove();

@@ -10,9 +10,11 @@ public class EnemyType
     private float size;
     private long shotSpeed;
     private BulletType btype;
+    private int pointValue;
     
-    public EnemyType(BulletType btype, Texture shipImg, long shotSpeed)
+    public EnemyType(BulletType btype, Texture shipImg, long shotSpeed, int pointValue)
     {
+        this.pointValue = pointValue;
         this.btype = btype;
         this.shotSpeed = shotSpeed;
         this.shipImg = shipImg;
@@ -38,6 +40,11 @@ public class EnemyType
     public BulletType getBtype()
     {
         return btype;
+    }
+    
+    public int getPointValue()
+    {
+        return pointValue;
     }
     
     public void setBtype(BulletType btype)
