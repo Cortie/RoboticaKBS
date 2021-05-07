@@ -106,7 +106,6 @@ public class Gameplay implements Screen
         font.draw(game.batch, Scoretest,30,game.camera.viewportHeight-50);
         game.batch.draw(hearts, 20, game.camera.viewportHeight-150);
         game.batch.end();
-
         // Spawns random enemy types after a certain amount of time has passed
         if(TimeUtils.millis() - lastDropTime > 0)
         {
