@@ -27,7 +27,6 @@ public class getSensors {
       session.setPassword(password);
       session.setConfig(config);
       session.connect();
-      // System.out.println("Connected");
 
       Channel channel = session.openChannel("exec");
       ((ChannelExec) channel).setCommand(command1);
@@ -43,11 +42,9 @@ public class getSensors {
           int i = in.read(tmp, 0, 1024);
           if (i < 0)
             break;
-          // System.out.print(new String());
           Temperature = new String(tmp, 0, i);
         }
         if (channel.isClosed()) {
-          // System.out.println("exit-status: " + channel.getExitStatus());
           break;
         }
         try {
@@ -57,7 +54,6 @@ public class getSensors {
       }
       channel.disconnect();
       session.disconnect();
-      // System.out.println("DONE");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -74,7 +70,6 @@ public class getSensors {
       session.setPassword(password);
       session.setConfig(config);
       session.connect();
-      // System.out.println("Connected");
 
       Channel channel = session.openChannel("exec");
       ((ChannelExec) channel).setCommand(command1);
@@ -90,11 +85,9 @@ public class getSensors {
           int i = in.read(tmp, 0, 1024);
           if (i < 0)
             break;
-          // System.out.print(new String());
           Humidity = new String(tmp, 0, i);
         }
         if (channel.isClosed()) {
-          // System.out.println("exit-status: " + channel.getExitStatus());
           break;
         }
         try {
@@ -104,7 +97,6 @@ public class getSensors {
       }
       channel.disconnect();
       session.disconnect();
-      // System.out.println("DONE");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -121,7 +113,6 @@ public class getSensors {
       session.setPassword(password);
       session.setConfig(config);
       session.connect();
-      // System.out.println("Connected");
 
       Channel channel = session.openChannel("exec");
       ((ChannelExec) channel).setCommand(command1);
@@ -137,11 +128,9 @@ public class getSensors {
           int i = in.read(tmp, 0, 1024);
           if (i < 0)
             break;
-          // System.out.print(new String());
           Pressure = new String(tmp, 0, i);
         }
         if (channel.isClosed()) {
-          // System.out.println("exit-status: " + channel.getExitStatus());
           break;
         }
         try {
@@ -151,7 +140,6 @@ public class getSensors {
       }
       channel.disconnect();
       session.disconnect();
-      // System.out.println("DONE");
     } catch (Exception e) {
       e.printStackTrace();
     }
