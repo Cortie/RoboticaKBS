@@ -21,6 +21,7 @@ public class MyGdxGame extends Game
 	private final SerialListener listener = new SerialListener();
 	public static boolean menuActive;
 	public static boolean SettingsActive;
+	public static boolean GameOverActive;
 	private int players = 1;
 	private int playerlives = 3;
 

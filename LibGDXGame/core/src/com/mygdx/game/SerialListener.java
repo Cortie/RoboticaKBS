@@ -15,6 +15,7 @@ public class SerialListener implements Runnable
     private long speed = 0;
     public static boolean Click;
     public static int SettingSelecter = 1;
+    public static int GameOverSelecter = 1;
     
     @Override
     public void run()
@@ -56,7 +57,7 @@ public class SerialListener implements Runnable
                 MyGdxGame.player1.moveLeft();
                 if(TimeUtils.nanoTime() - speed > timer /5) {
                     Click = true;
-                    if(MyGdxGame.menuActive || MyGdxGame.SettingsActive){
+                    if(MyGdxGame.menuActive || MyGdxGame.SettingsActive || MyGdxGame.GameOverActive){
                         MyGdxGame.playSound(buttonPress);
                     }
                 }
@@ -77,6 +78,17 @@ public class SerialListener implements Runnable
                     }
                     speed = TimeUtils.nanoTime();
                 }
+                    if(MyGdxGame.GameOverActive){
+
+                        if (GameOverSelecter <= 2) {
+                            GameOverSelecter++;
+                            MyGdxGame.playSound(buttonSwitch);
+                        } else {
+                            GameOverSelecter = 2;
+                            MyGdxGame.playSound(buttonSwitch);
+                        }
+                        speed = TimeUtils.nanoTime();
+                    }
                     if(MyGdxGame.SettingsActive){
                         if(SettingSelecter <= 3){
                             SettingSelecter++;

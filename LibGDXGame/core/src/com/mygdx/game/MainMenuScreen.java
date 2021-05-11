@@ -63,21 +63,21 @@ public class MainMenuScreen implements Screen {
     game.backgroundSprite.draw(game.batch);
     if(SerialListener.MainMenuSelecter == 1)
     {
-        game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
-        game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
-        game.batch.draw(PlayButtonActive, 100, 500, 330, 150);
+        game.batch.draw(ExitButtonInactive, 100, 100, 200, 85);
+        game.batch.draw(SettingsButtonInactive, 100, 350, 480, 85);
+        game.batch.draw(PlayButtonActive, 100, 500, 271, 85);
     }
     if(SerialListener.MainMenuSelecter == 2)
     {
-        game.batch.draw(ExitButtonInactive, 100, 100, 330, 150);
-        game.batch.draw(SettingsButtonActive, 100, 350, 384, 85);
-        game.batch.draw(PlayButtonInactive, 100, 500, 330, 150);
+        game.batch.draw(ExitButtonInactive, 100, 100, 200, 85);
+        game.batch.draw(SettingsButtonActive, 100, 350, 480, 85);
+        game.batch.draw(PlayButtonInactive, 100, 500, 271, 85);
     }
     if(SerialListener.MainMenuSelecter == 3)
     {
-        game.batch.draw(ExitButtonActive, 100, 100, 330, 150);
-        game.batch.draw(SettingsButtonInactive, 100, 350, 384, 85);
-        game.batch.draw(PlayButtonInactive, 100, 500, 330, 150);
+        game.batch.draw(ExitButtonActive, 100, 100, 200, 85);
+        game.batch.draw(SettingsButtonInactive, 100, 350, 480, 85);
+        game.batch.draw(PlayButtonInactive, 100, 500, 271, 85);
     }
     if(SerialListener.Click){
         selectScene();

@@ -351,8 +351,8 @@ public class Gameplay implements Screen
     private void gameOver()
     {
         SerialListener.Click = false;
-        MyGdxGame.menuActive = true;
+        MyGdxGame.GameOverActive = true;
         game.setPlayerlives(3);
-        game.setScreen(new MainMenuScreen(game));
+        game.setScreen(new GameOver(game));
     }
 }
