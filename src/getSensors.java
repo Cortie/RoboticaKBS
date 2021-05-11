@@ -17,9 +17,11 @@ public class getSensors {
   }
 
   public void getTemperature() {
+    //define command to fetch temperature
     String command1 = "sudo python3 Desktop/readTemp.py";
 
     try {
+      //establish connection with raspPi
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "no");
       JSch jsch = new JSch();
@@ -27,27 +29,29 @@ public class getSensors {
       session.setPassword(password);
       session.setConfig(config);
       session.connect();
-      // System.out.println("Connected");
 
+      //execute command to fetch temperature
       Channel channel = session.openChannel("exec");
       ((ChannelExec) channel).setCommand(command1);
       channel.setInputStream(null);
       ((ChannelExec) channel).setErrStream(System.err);
 
+      //store printed result in byte
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       InputStream in = channel.getInputStream();
       channel.connect();
       byte[] tmp = new byte[1024];
       while (true) {
+        //while loop to check if byte is occupied
         while (in.available() > 0) {
+          //convert byte to int
           int i = in.read(tmp, 0, 1024);
           if (i < 0)
             break;
-          // System.out.print(new String());
+          //store byte contents in new String to be stored in String Temperature
           Temperature = new String(tmp, 0, i);
         }
         if (channel.isClosed()) {
-          // System.out.println("exit-status: " + channel.getExitStatus());
           break;
         }
         try {
@@ -55,18 +59,20 @@ public class getSensors {
         } catch (Exception ee) {
         }
       }
+      //disconnect program from raspPi
       channel.disconnect();
       session.disconnect();
-      // System.out.println("DONE");
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   public void getHumidity() {
+    //define command to fetch temperature
     String command1 = "sudo python3 Desktop/readHumid.py";
 
     try {
+      //establish connection with raspPi
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "no");
       JSch jsch = new JSch();
@@ -74,27 +80,28 @@ public class getSensors {
       session.setPassword(password);
       session.setConfig(config);
       session.connect();
-      // System.out.println("Connected");
 
+      //execute command to fetch temperature
       Channel channel = session.openChannel("exec");
       ((ChannelExec) channel).setCommand(command1);
       channel.setInputStream(null);
       ((ChannelExec) channel).setErrStream(System.err);
 
+       //store printed result in byte
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       InputStream in = channel.getInputStream();
       channel.connect();
       byte[] tmp = new byte[1024];
       while (true) {
+        //while loop to check if byte is occupied
         while (in.available() > 0) {
           int i = in.read(tmp, 0, 1024);
           if (i < 0)
             break;
-          // System.out.print(new String());
+          //store byte contents in new String to be stored in String Humidity
           Humidity = new String(tmp, 0, i);
         }
         if (channel.isClosed()) {
-          // System.out.println("exit-status: " + channel.getExitStatus());
           break;
         }
         try {
@@ -102,18 +109,20 @@ public class getSensors {
         } catch (Exception ee) {
         }
       }
+      //disconnect program from raspPi
       channel.disconnect();
       session.disconnect();
-      // System.out.println("DONE");
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   public void getPressure() {
+    //define command to fetch temperature
     String command1 = "sudo python3 Desktop/readPress.py";
 
     try {
+      //establish connection with raspPi
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "no");
       JSch jsch = new JSch();
@@ -121,27 +130,28 @@ public class getSensors {
       session.setPassword(password);
       session.setConfig(config);
       session.connect();
-      // System.out.println("Connected");
 
+      //execute command to fetch temperature
       Channel channel = session.openChannel("exec");
       ((ChannelExec) channel).setCommand(command1);
       channel.setInputStream(null);
       ((ChannelExec) channel).setErrStream(System.err);
 
+      //store printed result in byte
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       InputStream in = channel.getInputStream();
       channel.connect();
       byte[] tmp = new byte[1024];
       while (true) {
+        //while loop to check if byte is occupied
         while (in.available() > 0) {
           int i = in.read(tmp, 0, 1024);
           if (i < 0)
             break;
-          // System.out.print(new String());
+          //store byte contents in new String to be stored in String Pressure
           Pressure = new String(tmp, 0, i);
         }
         if (channel.isClosed()) {
-          // System.out.println("exit-status: " + channel.getExitStatus());
           break;
         }
         try {
@@ -149,9 +159,9 @@ public class getSensors {
         } catch (Exception ee) {
         }
       }
+      //disconnect program from raspPi
       channel.disconnect();
       session.disconnect();
-      // System.out.println("DONE");
     } catch (Exception e) {
       e.printStackTrace();
     }
