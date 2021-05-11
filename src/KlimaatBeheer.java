@@ -40,6 +40,9 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private int luchtvochtigheidSensor = 90;
     private JLabel jlLichtsterkteSensor;
     private JLabel jlLichtsterkteSensorWaarde;
+    private String lampStatus;
+    private JLabel jlLampStatus;
+    private JLabel jlLampStatusWaarde;
     public SerialPort port;
     public Scanner data;
     private int lichtwaarde;
@@ -69,14 +72,22 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
             lichtwaarde = 0;
 
             try {
+                if(data.nextLine().length() == 2 || data.nextLine().length() == 3){
+                    lichtwaarde = Integer.parseInt(data.nextLine());
 
-                lichtwaarde = Integer.parseInt(data.nextLine());
+                }
+
+               if(lichtwaarde == 0){
+                    lichtwaarde = Integer.parseInt(data.nextLine());
+                }
+
 
             } catch (Exception e) {
                 System.out.println("lichtwaarde kon niet worden uitgelezen!");
                 lichtwaarde = 0;
             }
             System.out.println(lichtwaarde);
+
         }
 
         setTitle("Klimaat systeem");
@@ -101,10 +112,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         slidersGedeeltePnl.add(jlTempWaarde = new JLabel(String.valueOf(tempWaarde) + " °C"));
         slidersGedeeltePnl.add(jlLichtsterkteAanpassen = new JLabel("Lichtsterkte aanpassen"));
         slidersGedeeltePnl.add(jlEmpty = new JLabel(""));
-        slidersGedeeltePnl.add(jsLichtsterkte = new JSlider());
+        slidersGedeeltePnl.add(jsLichtsterkte = new JSlider(0,500));
         jsLichtsterkte.addChangeListener(this);
         lichtsterkteWaarde = jsLichtsterkte.getValue();
-        slidersGedeeltePnl.add(jlLichtsterkteWaarde = new JLabel(String.valueOf(lichtwaarde) + " LM"));
+        slidersGedeeltePnl.add(jlLichtsterkteWaarde = new JLabel(String.valueOf(lichtsterkteWaarde) + " LM"));
 
         JPanel profielenPnl = new JPanel(new GridLayout(2, 2));
         profielenPnl.add(jlTempprofiel = new JLabel("Temperatuurprofiel: "));
@@ -116,7 +127,14 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
         ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
 
-        JPanel sensorgegevenPnl = new JPanel(new GridLayout(4, 2));
+        if(lichtwaarde >= jsLichtsterkte.getValue()){
+            lampStatus = "aan";
+        }
+        if(lichtwaarde < jsLichtsterkte.getValue()){
+            lampStatus = "uit";
+        }
+
+        JPanel sensorgegevenPnl = new JPanel(new GridLayout(5, 2));
         sensorgegevenPnl.add(jltempSensor = new JLabel("Temperatuur: "));
         sensorgegevenPnl.add(new JLabel(piTemp + " °C"));
         sensorgegevenPnl.add(jlLuchtdrukSensor = new JLabel("Luchtdruk: "));
@@ -125,6 +143,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         sensorgegevenPnl.add(new JLabel(piHumid + "%"));
         sensorgegevenPnl.add(jlLichtsterkteSensor = new JLabel("Lichtsterkte: "));
         sensorgegevenPnl.add(jlLichtsterkteSensorWaarde = new JLabel(lichtwaarde + " LM"));
+        sensorgegevenPnl.add(jlLampStatus = new JLabel("Lampstatus: "));
+        sensorgegevenPnl.add(jlLampStatusWaarde = new JLabel(lampStatus));
 
         JPanel ondersteGedeelteRechtsPnl = new JPanel(new BorderLayout());
         ondersteGedeelteRechtsPnl.add(profielKnopPnl, BorderLayout.CENTER);
@@ -140,6 +160,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
         add(borderPnl);
         setVisible(true);
+
+
 
     }
 
@@ -171,6 +193,15 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
         if (e.getSource() == jsLichtsterkte) {
             jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde = jsLichtsterkte.getValue()) + " LM");
+            if(lichtwaarde >= jsLichtsterkte.getValue()){
+                lampStatus = "aan";
+                jlLampStatusWaarde.setText(lampStatus);
+            }
+            if(lichtwaarde < jsLichtsterkte.getValue()){
+                lampStatus = "uit";
+                jlLampStatusWaarde.setText(lampStatus);
+            }
+
         }
 
     }
