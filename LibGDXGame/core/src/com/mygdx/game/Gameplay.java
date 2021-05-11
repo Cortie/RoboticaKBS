@@ -20,9 +20,6 @@ public class Gameplay implements Screen
     private long lastDropTime;
     private Array<Bullet> bullets;
     private final MyGdxGame game;
-    private int score;
-    private BitmapFont font;
-    private String Scoretest;
     private Texture oneheart;
     private Texture twoheart;
     private Texture threeheart;
@@ -40,8 +37,7 @@ public class Gameplay implements Screen
         twoheart = new Texture(Gdx.files.internal("2lives.png"));
         threeheart = new Texture(Gdx.files.internal("3lives.png"));
         hearts = threeheart;
-        font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
-        Scoretest = String.valueOf(score);
+
         //local variables used during gameplay
         //hit sound effect for any collision between bullets and ships
         //2 bullet types to be use in the creation of the different enemy types
@@ -103,7 +99,7 @@ public class Gameplay implements Screen
         {
             game.batch.draw(bullet.getType().getBulletImg(), bullet.x, bullet.y);
         }
-        font.draw(game.batch, Scoretest,30,game.camera.viewportHeight-50);
+        game.getFont().draw(game.batch, game.getScoretext(),30,game.camera.viewportHeight-50);
         game.batch.draw(hearts, 20, game.camera.viewportHeight-150);
         game.batch.end();
         // Spawns random enemy types after a certain amount of time has passed
@@ -262,9 +258,9 @@ public class Gameplay implements Screen
                         hit.setLooping(id, false);
                         if(enemy.getHealth() == 0)
                         {
-                            score += enemy.getType().getPointValue() / game.getPlayers();
+                            game.setScore(game.getScore()+enemy.getType().getPointValue());
                             iter2.remove();
-                            Scoretest = String.valueOf(score);
+                            game.setScoretext(String.valueOf(game.getScore()));
                         }
                         iter.remove();
                         break;

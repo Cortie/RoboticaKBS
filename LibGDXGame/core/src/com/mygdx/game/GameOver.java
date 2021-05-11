@@ -35,6 +35,8 @@ public class GameOver implements Screen {
             game.setScreen(new Gameplay(game));
             MyGdxGame.GameOverActive = false;
             SerialListener.GameOverSelecter = 1;
+            game.setScoretext("0");
+            game.setScore(0);
 
         }
         if (SerialListener.GameOverSelecter == 3) {
@@ -44,6 +46,8 @@ public class GameOver implements Screen {
             MyGdxGame.GameOverActive = false;
             MyGdxGame.menuActive = true;
             SerialListener.Click = false;
+            game.setScoretext("0");
+            game.setScore(0);
         }
 
     }
@@ -59,6 +63,7 @@ public class GameOver implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
+        game.getBigfont().draw(game.batch, game.getScoretext(),235,650);
         if(SerialListener.GameOverSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 200, 277, 85);

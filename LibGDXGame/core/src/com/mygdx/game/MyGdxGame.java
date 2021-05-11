@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -24,6 +25,36 @@ public class MyGdxGame extends Game
 	public static boolean GameOverActive;
 	private int players = 1;
 	private int playerlives = 3;
+	private int score = 0;
+	private String Scoretext = "0";
+	private BitmapFont font;
+	private BitmapFont Bigfont;
+
+	public BitmapFont getFont() {
+		return font;
+	}
+
+	public BitmapFont getBigfont() {
+		return Bigfont;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public String getScoretext() {
+		return Scoretext;
+	}
+
+	public void setScoretext(String scoretext) {
+		Scoretext = scoretext;
+	}
+
+
 
 	public int getPlayers() {
 		return players;
@@ -37,6 +68,8 @@ public class MyGdxGame extends Game
 	public void create () {
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
 		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
+		font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
+		Bigfont = new BitmapFont(Gdx.files.internal("BigScorefont.fnt"));
 		Thread listenerThread = new Thread(listener);
 		listenerThread.setDaemon(true);
 		listenerThread.start();
@@ -50,6 +83,7 @@ public class MyGdxGame extends Game
 		viewPort.apply();
 		setScreen(new MainMenuScreen(this));
 		menuActive = true;
+
 
 	}
 	
