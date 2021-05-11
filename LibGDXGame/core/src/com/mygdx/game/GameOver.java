@@ -34,11 +34,13 @@ public class GameOver implements Screen {
             System.out.println("PlayAgain");
             game.setScreen(new Gameplay(game));
             MyGdxGame.GameOverActive = false;
+            SerialListener.GameOverSelecter = 1;
 
         }
         if (SerialListener.GameOverSelecter == 3) {
             System.out.println("Back");
             game.setScreen(new MainMenuScreen(game));
+            SerialListener.GameOverSelecter = 1;
             MyGdxGame.GameOverActive = false;
             MyGdxGame.menuActive = true;
             SerialListener.Click = false;
