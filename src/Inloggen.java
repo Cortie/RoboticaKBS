@@ -14,6 +14,9 @@ public class Inloggen extends JFrame implements ActionListener
     private JButton jbNieuwAccount;
     private JButton jbVergetenWachtwoord;
 
+    private String gebruikersnaam = "";
+    private String wachtwoord = "";
+
     public Inloggen()
     {
         setTitle("Klimaat systeem");
@@ -74,6 +77,10 @@ public class Inloggen extends JFrame implements ActionListener
         if (e.getSource()==jbInloggen)
         {
             System.out.println("link naar dashboard");
+            gebruikersnaam= jtGebruikersnaam.getText();
+            wachtwoord=jpWachtwoord.getText();
+            System.out.println(gebruikersnaam);
+            System.out.println(wachtwoord);
             Dashboard dash = new Dashboard();
             this.dispose();
         }
