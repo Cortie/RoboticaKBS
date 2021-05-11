@@ -45,7 +45,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private JLabel jlLampStatusWaarde;
     public SerialPort port;
     public Scanner data;
-    private int lichtwaarde;
+    private int lightvalue;
     // private int lichtsterkteSensor=70;
 
     public KlimaatBeheer() {
@@ -69,24 +69,24 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         data = new Scanner(port.getInputStream());
         if (data.hasNextLine()) {
-            lichtwaarde = 0;
+            lightvalue = 0;
 
             try {
                 if(data.nextLine().length() == 2 || data.nextLine().length() == 3){
-                    lichtwaarde = Integer.parseInt(data.nextLine());
+                    lightvalue = Integer.parseInt(data.nextLine());
 
                 }
 
-               if(lichtwaarde == 0){
-                    lichtwaarde = Integer.parseInt(data.nextLine());
+               if(lightvalue == 0){
+                    lightvalue = Integer.parseInt(data.nextLine());
                 }
 
 
             } catch (Exception e) {
                 System.out.println("lichtwaarde kon niet worden uitgelezen!");
-                lichtwaarde = 0;
+                lightvalue = 0;
             }
-            System.out.println(lichtwaarde);
+            System.out.println(lightvalue);
 
         }
 
@@ -127,10 +127,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
         ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
 
-        if(lichtwaarde >= jsLichtsterkte.getValue()){
+        if(lightvalue >= jsLichtsterkte.getValue()){
             lampStatus = "aan";
         }
-        if(lichtwaarde < jsLichtsterkte.getValue()){
+        if(lightvalue < jsLichtsterkte.getValue()){
             lampStatus = "uit";
         }
 
@@ -142,7 +142,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         sensorgegevenPnl.add(jlLuchtvochtigheidSensor = new JLabel("Luchtvochtigheid: "));
         sensorgegevenPnl.add(new JLabel(piHumid + "%"));
         sensorgegevenPnl.add(jlLichtsterkteSensor = new JLabel("Lichtsterkte: "));
-        sensorgegevenPnl.add(jlLichtsterkteSensorWaarde = new JLabel(lichtwaarde + " LM"));
+        sensorgegevenPnl.add(jlLichtsterkteSensorWaarde = new JLabel(lightvalue + " LM"));
         sensorgegevenPnl.add(jlLampStatus = new JLabel("Lampstatus: "));
         sensorgegevenPnl.add(jlLampStatusWaarde = new JLabel(lampStatus));
 
@@ -193,11 +193,13 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
         if (e.getSource() == jsLichtsterkte) {
             jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde = jsLichtsterkte.getValue()) + " LM");
-            if(lichtwaarde >= jsLichtsterkte.getValue()){
+            lightvalue = Integer.parseInt(data.nextLine());
+            jlLichtsterkteSensorWaarde.setText(lightvalue + " LM");
+            if(lightvalue >= jsLichtsterkte.getValue()){
                 lampStatus = "aan";
                 jlLampStatusWaarde.setText(lampStatus);
             }
-            if(lichtwaarde < jsLichtsterkte.getValue()){
+            if(lightvalue < jsLichtsterkte.getValue()){
                 lampStatus = "uit";
                 jlLampStatusWaarde.setText(lampStatus);
             }
