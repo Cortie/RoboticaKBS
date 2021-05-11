@@ -13,7 +13,8 @@ public class Account extends JFrame implements ActionListener {
     private JPasswordField jpPassword;
     private JButton jbCreateAccount;
 
-
+    private String gebruikersnaam = "";
+    private String wachtwoord = "";
 
     public Account(){
         setTitle("Klimaat Systeem");
@@ -63,6 +64,10 @@ public class Account extends JFrame implements ActionListener {
         if (e.getSource()==jbCreateAccount)
         {
             System.out.println("link naar inloggen");
+            gebruikersnaam= jtUsername.getText();
+            wachtwoord=jpPassword.getText();
+            System.out.println(gebruikersnaam);
+            System.out.println(wachtwoord);
             Inloggen inloggenscherm= new Inloggen();
             this.dispose();
         }
