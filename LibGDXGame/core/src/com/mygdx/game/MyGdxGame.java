@@ -32,7 +32,17 @@ public class MyGdxGame extends Game
 	private String Scoretext = "0";
 	private BitmapFont font;
 	private BitmapFont Bigfont;
+	private Array<PowerUp> powers = new Array<>();
 	
+	public Array<PowerUp> getPowers()
+	{
+		return powers;
+	}
+	
+	public void setPowers(Array<PowerUp> powers)
+	{
+		this.powers = powers;
+	}
 	
 	public BitmapFont getFont() {
 		return font;
