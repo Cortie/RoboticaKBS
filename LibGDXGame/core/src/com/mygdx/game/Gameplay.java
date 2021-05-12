@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 public class Gameplay implements Screen
 {
     private Sound explode;
+    private Sound pickup;
     private Array<EnemyType> enemylvls;
     private Array<Enemy> enemies;
     private long lastEnemySpawn;
@@ -23,7 +25,9 @@ public class Gameplay implements Screen
     private Texture heart;
     private Sound Lazer;
     private Sound hit;
-
+    private Texture forcefieldImg;
+    private Rectangle forcefieldHitbox;
+    
     
     public Gameplay(MyGdxGame game)
     {
@@ -34,11 +38,13 @@ public class Gameplay implements Screen
     public void show()
     {
         heart = new Texture(Gdx.files.internal("1live.png"));
+        forcefieldImg = new Texture(Gdx.files.internal("ForceField.png"));
         //local variables used during gameplay
         //hit sound effect for any collision between bullets and ships
         //2 bullet types to be use in the creation of the different enemy types
         //the 3 arrays of to be rendered objects
         explode = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
+        pickup = Gdx.audio.newSound(Gdx.files.internal("game_powerup.wav"));
         Lazer = Gdx.audio.newSound(Gdx.files.internal("game_lazer.wav"));
         hit = Gdx.audio.newSound(Gdx.files.internal("game_hit.wav"));
         BulletType standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3, 20, 60);
@@ -89,9 +95,17 @@ public class Gameplay implements Screen
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
         game.batch.draw(MyGdxGame.player1.getShipImg(), MyGdxGame.player1.x, MyGdxGame.player1.y);
+        if(MyGdxGame.player1.isForcefield())
+        {
+            game.batch.draw(forcefieldImg, MyGdxGame.player1.x, MyGdxGame.player1.y + 75);
+        }
         if( game.getPlayercount() == 2)
         {
             game.batch.draw(MyGdxGame.player2.getShipImg(), MyGdxGame.player2.x, MyGdxGame.player2.y);
+            if(MyGdxGame.player2.isForcefield())
+            {
+                game.batch.draw(forcefieldImg, MyGdxGame.player2.x, MyGdxGame.player2.y + 75);
+            }
         }
         for(Enemy enemy: enemies) {
             game.batch.draw(enemy.getType().getShipImg(), enemy.getShip().getX(), enemy.getShip().getY());
@@ -169,18 +183,68 @@ public class Gameplay implements Screen
             
             if(power.getArea().overlaps(game.player1.getArea()))
             {
+                long id = pickup.play(1.0f);
+                pickup.setPitch(id, 1);
+                pickup.setLooping(id, false);
+                if(power.getType() == 2)
+                {
+                    game.setPlayerlives(game.getPlayerlives() +1);
+                }
+                if(power.getType() == 5)
+                {
+                    MyGdxGame.player1.setType(new BulletType(new Texture(Gdx.files.internal("2.png")), 1, 60, 125));
+                }
+                if(power.getType() == 1)
+                {
+                    MyGdxGame.player1.setForcefield(true);
+                }
+                if(power.getType() == 4)
+                {
+                    MyGdxGame.player1.setShotSpeed(MyGdxGame.player1.getShotSpeed() - 25000000);
+                }
+                if(power.getType() == 3)
+                {
+                
+                }
                 iter.remove();
                 break;
             }
             if(game.getPlayercount() == 2)
             {
+                long id = pickup.play(1.0f);
+                pickup.setPitch(id, 1);
+                pickup.setLooping(id, false);
                 if( power.getArea().overlaps(game.player2.getArea()))
                 {
+                    if(power.getType() == 2)
+                    {
+                        game.setPlayerlives(game.getPlayerlives() +1);
+                    }
+                    if(power.getType() == 5)
+                    {
+                        MyGdxGame.player2.setType(new BulletType(new Texture(Gdx.files.internal("3.png")), 2, 60, 125));
+                    }
+                    if(power.getType() == 1)
+                    {
+                        MyGdxGame.player2.setForcefield(true);
+                    }
+                    if(power.getType() == 4)
+                    {
+                        MyGdxGame.player2.setShotSpeed(MyGdxGame.player2.getShotSpeed() - 25000000);
+                    }
+                    if(power.getType() == 3)
+                    {
+        
+                    }
                     iter.remove();
                     break;
                 }
             }
-            if(power.y + 32 < 0) iter.remove();
+            power.setY(power.y - 250 * Gdx.graphics.getDeltaTime());
+            if(power.y + 32 < 0){
+                iter.remove();
+                break;
+            }
         }
         // move the enemies, remove any that are beneath the bottom edge of
         // the screen or that hit the player. In the latter case we play back
@@ -219,33 +283,69 @@ public class Gameplay implements Screen
                     }
             }*/
             //removes the enemy from the batch when it has reached the bottom of the screen
-            if(enemy.getShip().getY() + 64 < 0) iter.remove();
+            if(enemy.getShip().getY() + 64 < 0) {
+                iter.remove();
+                break;
+            }
             //plays the explosion sound as well as removes 1 player life and removes the enemy from the screen
             //when the enemy collides with the player
+            if(MyGdxGame.player1.isForcefield())
+            {
+                if(enemy.getShip().overlaps(MyGdxGame.player1.getShieldBox()))
+                {
+                    long id = explode.play(1.0f);
+                    explode.setPitch(id, 1);
+                    explode.setLooping(id, false);
+                    if(game.getPlayerlives() == 0)
+                    {
+                        gameOver();
+                    }
+                    MyGdxGame.player1.setForcefield(false);
+                    iter.remove();
+                    break;
+                }
+            }
+            
             if(enemy.getShip().overlaps(MyGdxGame.player1.getArea())) {
                 long id = explode.play(1.0f);
                 explode.setPitch(id, 1);
                 explode.setLooping(id, false);
-                iter.remove();
                 game.setPlayerlives(game.getPlayerlives() -1);
                 if(game.getPlayerlives() == 0)
                 {
                     gameOver();
                 }
+                iter.remove();
                 break;
             }
             if(game.getPlayercount() == 2){
+                if(MyGdxGame.player2.isForcefield())
+                {
+                    if(enemy.getShip().overlaps(MyGdxGame.player2.getShieldBox()))
+                    {
+                        long id = explode.play(1.0f);
+                        explode.setPitch(id, 1);
+                        explode.setLooping(id, false);
+                        if(game.getPlayerlives() == 0)
+                        {
+                            gameOver();
+                        }
+                        MyGdxGame.player2.setForcefield(false);
+                        iter.remove();
+                        break;
+                    }
+                }
                 if(enemy.getShip().overlaps(MyGdxGame.player2.getArea()))
                 {
                     long id = explode.play(1.0f);
                     explode.setPitch(id, 1);
                     explode.setLooping(id, false);
-                    iter.remove();
                     game.setPlayerlives(game.getPlayerlives() -1);
                     if(game.getPlayerlives() == 0)
                     {
                         gameOver();
                     }
+                    iter.remove();
                     break;
                 }
             }
@@ -270,32 +370,80 @@ public class Gameplay implements Screen
                 Enemy enemy = iter2.next();
                 if(bullet.getType().getUser() == 3)
                 {
+                    if(MyGdxGame.player1.isForcefield())
+                    {
+                        if(bullet.getHitbox().overlaps(MyGdxGame.player1.getShieldBox()))
+                        {
+                            long id = explode.play(1.0f);
+                            explode.setPitch(id, 1);
+                            explode.setLooping(id, false);
+                            if(game.getPlayerlives() == 0)
+                            {
+                                gameOver();
+                            }
+                            MyGdxGame.player1.setForcefield(false);
+                            iter.remove();
+                            break;
+                        }
+                    }
                     if(bullet.getHitbox().overlaps(MyGdxGame.player1.getArea()))
                     {
                         long id = explode.play(1.0f);
                         explode.setPitch(id, 1);
                         explode.setLooping(id, false);
-                        iter.remove();
                         game.setPlayerlives(game.getPlayerlives() -1);
                         if(game.getPlayerlives() == 0)
                         {
                             gameOver();
                         }
+                        iter.remove();
                         break;
                     }
                     if(game.getPlayercount() == 2)
                     {
+                        if(MyGdxGame.player2.isForcefield())
+                        {
+                            if(bullet.getHitbox().overlaps(MyGdxGame.player2.getShieldBox()))
+                            {
+                                long id = explode.play(1.0f);
+                                explode.setPitch(id, 1);
+                                explode.setLooping(id, false);
+                                if(game.getPlayerlives() == 0)
+                                {
+                                    gameOver();
+                                }
+                                MyGdxGame.player2.setForcefield(false);
+                                iter.remove();
+                                break;
+                            }
+                        }
+                        if(MyGdxGame.player1.isForcefield())
+                        {
+                            if(enemy.getShip().overlaps(MyGdxGame.player1.getShieldBox()))
+                            {
+                                long id = explode.play(1.0f);
+                                explode.setPitch(id, 1);
+                                explode.setLooping(id, false);
+                                if(game.getPlayerlives() == 0)
+                                {
+                                    gameOver();
+                                }
+                                MyGdxGame.player1.setForcefield(false);
+                                iter.remove();
+                                break;
+                            }
+                        }
                         if(bullet.getHitbox().overlaps(MyGdxGame.player2.getArea()))
                         {
                             long id = explode.play(1.0f);
                             explode.setPitch(id, 1);
                             explode.setLooping(id, false);
-                            iter.remove();
                             game.setPlayerlives(game.getPlayerlives() -1);
                             if(game.getPlayerlives() == 0)
                             {
                                 gameOver();
                             }
+                            iter.remove();
                             break;
                         }
                     }
@@ -311,7 +459,6 @@ public class Gameplay implements Screen
                         if(enemy.getHealth() == 0)
                         {
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
-                            iter2.remove();
                             game.setScoretext(String.valueOf(game.getScore()));
                             int rand = MathUtils.random(1,5);
                             {
@@ -323,6 +470,7 @@ public class Gameplay implements Screen
                                     }
                                 }
                             }
+                            iter2.remove();
                         }
                         iter.remove();
                         break;
@@ -373,6 +521,9 @@ public class Gameplay implements Screen
         }
         MyGdxGame.player1.getShipImg().dispose();
         explode.dispose();
+        Lazer.dispose();
+        pickup.dispose();
+        MyGdxGame.player2.getShipImg().dispose();
         game.batch.dispose();
     }
     private void spawnEnemy(float position, float height, EnemyType type)

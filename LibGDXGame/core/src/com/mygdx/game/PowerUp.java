@@ -22,7 +22,7 @@ public class PowerUp
         this.x = x;
         this. y = y;
         this.area = new Rectangle(x, y, 75, 75);
-        String text = "powerup" + rand;
+        String text = "powerup" + rand + ".png";
         this.texture = new Texture(Gdx.files.internal(text));
         this.type = rand;
     }
@@ -42,4 +42,9 @@ public class PowerUp
         this.area = area;
     }
     
+    public void setY(float y)
+    {
+        this.y = y;
+        this.area.y = y;
+    }
 }
