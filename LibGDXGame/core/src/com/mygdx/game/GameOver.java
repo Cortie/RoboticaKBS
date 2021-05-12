@@ -46,8 +46,6 @@ public class GameOver implements Screen {
             MyGdxGame.GameOverActive = false;
             MyGdxGame.menuActive = true;
             SerialListener.Click = false;
-            game.setScoretext("0");
-            game.setScore(0);
         }
 
     }

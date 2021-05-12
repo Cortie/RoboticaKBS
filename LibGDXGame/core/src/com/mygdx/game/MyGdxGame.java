@@ -23,6 +23,7 @@ public class MyGdxGame extends Game
 	public static boolean menuActive;
 	public static boolean SettingsActive;
 	public static boolean GameOverActive;
+	public static boolean HighscoreActive;
 	private int players = 1;
 	private int playerlives = 3;
 	private int score = 0;

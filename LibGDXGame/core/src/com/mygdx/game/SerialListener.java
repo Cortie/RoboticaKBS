@@ -16,6 +16,7 @@ public class SerialListener implements Runnable
     public static boolean Click;
     public static int SettingSelecter = 1;
     public static int GameOverSelecter = 1;
+    public static int HighscoreSelecter = 1;
     
     @Override
     public void run()
@@ -57,7 +58,7 @@ public class SerialListener implements Runnable
                 MyGdxGame.player1.moveLeft();
                 if(TimeUtils.nanoTime() - speed > timer /5) {
                     Click = true;
-                    if(MyGdxGame.menuActive || MyGdxGame.SettingsActive || MyGdxGame.GameOverActive){
+                    if(MyGdxGame.menuActive || MyGdxGame.SettingsActive || MyGdxGame.GameOverActive || MyGdxGame.HighscoreActive){
                         MyGdxGame.playSound(buttonPress);
                     }
                 }
@@ -69,7 +70,7 @@ public class SerialListener implements Runnable
                 if(TimeUtils.nanoTime() - speed > timer) {
                     if(MyGdxGame.menuActive){
 
-                    if (MainMenuSelecter <= 2) {
+                    if (MainMenuSelecter <= 3) {
                         MainMenuSelecter++;
                         MyGdxGame.playSound(buttonSwitch);
                     } else {
@@ -85,6 +86,17 @@ public class SerialListener implements Runnable
                             MyGdxGame.playSound(buttonSwitch);
                         } else {
                             GameOverSelecter = 2;
+                            MyGdxGame.playSound(buttonSwitch);
+                        }
+                        speed = TimeUtils.nanoTime();
+                    }
+                    if(MyGdxGame.HighscoreActive){
+
+                        if (HighscoreSelecter <= 2) {
+                            HighscoreSelecter++;
+                            MyGdxGame.playSound(buttonSwitch);
+                        } else {
+                            HighscoreSelecter = 1;
                             MyGdxGame.playSound(buttonSwitch);
                         }
                         speed = TimeUtils.nanoTime();

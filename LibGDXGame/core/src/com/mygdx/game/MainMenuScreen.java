@@ -14,6 +14,8 @@ public class MainMenuScreen implements Screen {
     Texture PlayButtonInactive;
     Texture ExitButtonActive;
     Texture ExitButtonInactive;
+    Texture HighscoreButtonActive;
+    Texture HighscoreButtonInactive;
 
 
 
@@ -25,6 +27,8 @@ public class MainMenuScreen implements Screen {
         PlayButtonInactive = new Texture("PlayButtonInactive.png");
         ExitButtonActive = new Texture("ExitButtonActive.png");
         ExitButtonInactive = new Texture("ExitButtonInactive.png");
+        HighscoreButtonActive = new Texture("HighscoreButtonActive.png");
+        HighscoreButtonInactive = new Texture("HighscoreButtonInactive.png");
     }
     public void selectScene(){
         SerialListener.Click = false;
@@ -33,6 +37,8 @@ public class MainMenuScreen implements Screen {
             game.setScreen(new Gameplay(game));
             MyGdxGame.menuActive= false;
             SerialListener.Click = false;
+            game.setScoretext("0");
+            game.setScore(0);
         }
         if (SerialListener.MainMenuSelecter == 2){
             System.out.println("Settings");
@@ -43,7 +49,14 @@ public class MainMenuScreen implements Screen {
             SerialListener.SettingSelecter = 1;
 
         }
-        if (SerialListener.MainMenuSelecter == 3){
+        if(SerialListener.MainMenuSelecter == 3){
+            System.out.println("Highscore");
+            game.setScreen(new Highscore(game));
+            MyGdxGame.menuActive = false;
+            SerialListener.Click = false;
+            MyGdxGame.HighscoreActive = true;
+        }
+        if (SerialListener.MainMenuSelecter == 4){
             System.out.println("Exit");
             Gdx.app.exit();
         }
@@ -63,22 +76,32 @@ public class MainMenuScreen implements Screen {
     game.backgroundSprite.draw(game.batch);
     if(SerialListener.MainMenuSelecter == 1)
     {
-        game.batch.draw(ExitButtonInactive, 100, 100, 200, 85);
-        game.batch.draw(SettingsButtonInactive, 100, 350, 480, 85);
-        game.batch.draw(PlayButtonActive, 100, 500, 271, 85);
+        game.batch.draw(ExitButtonInactive, 50, 100, 200, 85);
+        game.batch.draw(HighscoreButtonInactive, 50,250, 579, 85);
+        game.batch.draw(SettingsButtonInactive, 50, 400, 480, 85);
+        game.batch.draw(PlayButtonActive, 50, 550, 271, 85);
     }
-    if(SerialListener.MainMenuSelecter == 2)
-    {
-        game.batch.draw(ExitButtonInactive, 100, 100, 200, 85);
-        game.batch.draw(SettingsButtonActive, 100, 350, 480, 85);
-        game.batch.draw(PlayButtonInactive, 100, 500, 271, 85);
-    }
-    if(SerialListener.MainMenuSelecter == 3)
-    {
-        game.batch.draw(ExitButtonActive, 100, 100, 200, 85);
-        game.batch.draw(SettingsButtonInactive, 100, 350, 480, 85);
-        game.batch.draw(PlayButtonInactive, 100, 500, 271, 85);
-    }
+        if(SerialListener.MainMenuSelecter == 2)
+        {
+            game.batch.draw(ExitButtonInactive, 50, 100, 200, 85);
+            game.batch.draw(HighscoreButtonInactive, 50,250, 579, 85);
+            game.batch.draw(SettingsButtonActive, 50, 400, 480, 85);
+            game.batch.draw(PlayButtonInactive, 50, 550, 271, 85);
+        }
+        if(SerialListener.MainMenuSelecter == 3)
+        {
+            game.batch.draw(ExitButtonInactive, 50, 100, 200, 85);
+            game.batch.draw(HighscoreButtonActive, 50,250, 579, 85);
+            game.batch.draw(SettingsButtonInactive, 50, 400, 480, 85);
+            game.batch.draw(PlayButtonInactive, 50, 550, 271, 85);
+        }
+        if(SerialListener.MainMenuSelecter == 4)
+        {
+            game.batch.draw(ExitButtonActive, 50, 100, 200, 85);
+            game.batch.draw(HighscoreButtonInactive, 50,250, 579, 85);
+            game.batch.draw(SettingsButtonInactive, 50, 400, 480, 85);
+            game.batch.draw(PlayButtonInactive, 50, 550, 271, 85);
+        }
     if(SerialListener.Click){
         selectScene();
 

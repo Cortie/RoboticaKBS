@@ -68,31 +68,31 @@ public class Settings implements Screen {
         game.backgroundSprite.draw(game.batch);
         if(SerialListener.SettingSelecter == 1)
         {
-            game.batch.draw(BackButtonInactive, 100, 200, 277, 85);
-            game.batch.draw(TwoPlayerButtonInactive, 100, 350, 554, 85);
-            game.batch.draw(OnePlayerButtonInactive, 100, 500, 519, 85);
-            game.batch.draw(SoundButtonActive, 100, 650, 415, 85);
+            game.batch.draw(BackButtonInactive, 50, 200, 277, 85);
+            game.batch.draw(TwoPlayerButtonInactive, 50, 350, 554, 85);
+            game.batch.draw(OnePlayerButtonInactive, 50, 500, 519, 85);
+            game.batch.draw(SoundButtonActive, 50, 650, 415, 85);
         }
         if(SerialListener.SettingSelecter == 2)
         {
-            game.batch.draw(BackButtonInactive, 100, 200, 277, 85);
-            game.batch.draw(TwoPlayerButtonInactive, 100, 350, 554, 85);
-            game.batch.draw(OnePlayerButtonActive, 100, 500, 519, 85);
-            game.batch.draw(SoundButtonInactive, 100, 650, 415, 85);
+            game.batch.draw(BackButtonInactive, 50, 200, 277, 85);
+            game.batch.draw(TwoPlayerButtonInactive, 50, 350, 554, 85);
+            game.batch.draw(OnePlayerButtonActive, 50, 500, 519, 85);
+            game.batch.draw(SoundButtonInactive, 50, 650, 415, 85);
         }
         if(SerialListener.SettingSelecter == 3)
         {
-            game.batch.draw(BackButtonInactive, 100, 200, 277, 85);
-            game.batch.draw(TwoPlayerButtonActive, 100, 350, 554, 85);
-            game.batch.draw(OnePlayerButtonInactive, 100, 500, 519, 85);
-            game.batch.draw(SoundButtonInactive, 100, 650, 415, 85);
+            game.batch.draw(BackButtonInactive, 50, 200, 277, 85);
+            game.batch.draw(TwoPlayerButtonActive, 50, 350, 554, 85);
+            game.batch.draw(OnePlayerButtonInactive, 50, 500, 519, 85);
+            game.batch.draw(SoundButtonInactive, 50, 650, 415, 85);
         }
         if(SerialListener.SettingSelecter == 4)
         {
-            game.batch.draw(BackButtonActive, 100, 200, 277, 85);
-            game.batch.draw(TwoPlayerButtonInactive, 100, 350, 554, 85);
-            game.batch.draw(OnePlayerButtonInactive, 100, 500, 519, 85);
-            game.batch.draw(SoundButtonInactive, 100, 650, 415, 85);
+            game.batch.draw(BackButtonActive, 50, 200, 277, 85);
+            game.batch.draw(TwoPlayerButtonInactive, 50, 350, 554, 85);
+            game.batch.draw(OnePlayerButtonInactive, 50, 500, 519, 85);
+            game.batch.draw(SoundButtonInactive, 50, 650, 415, 85);
         }
         if(SerialListener.Click){
             selectScene();
