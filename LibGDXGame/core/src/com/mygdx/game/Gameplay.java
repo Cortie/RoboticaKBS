@@ -22,6 +22,7 @@ public class Gameplay implements Screen
     private final MyGdxGame game;
     private Texture heart;
     private Sound Lazer;
+    private Sound hit;
 
     
     public Gameplay(MyGdxGame game)
@@ -39,6 +40,7 @@ public class Gameplay implements Screen
         //the 3 arrays of to be rendered objects
         explode = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
         Lazer = Gdx.audio.newSound(Gdx.files.internal("game_lazer.wav"));
+        hit = Gdx.audio.newSound(Gdx.files.internal("game_hit.wav"));
         BulletType standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3, 20, 60);
         BulletType bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3, 30, 90);
         bullets = new Array<>();
