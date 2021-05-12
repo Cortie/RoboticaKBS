@@ -17,7 +17,7 @@ public class Gameplay implements Screen
     private Sound explode;
     private Array<EnemyType> enemylvls;
     private Array<Enemy> enemies;
-    private long lastDropTime;
+    private long lastEnemySpawn;
     private Array<Bullet> bullets;
     private final MyGdxGame game;
     private Texture heart;
@@ -103,9 +103,13 @@ public class Gameplay implements Screen
         {
             game.batch.draw(heart, 20 + i*50, game.camera.viewportHeight-150);
         }
+        for(PowerUp power: game.getPowers())
+        {
+            game.batch.draw(power.getTexture(), power.x, power.y);
+        }
         game.batch.end();
         // Spawns random enemy types after a certain amount of time has passed
-        if(TimeUtils.millis() - lastDropTime > 0)
+        if(TimeUtils.millis() - lastEnemySpawn > 0)
         {
             float position;
             int rand = MathUtils.random(0,2);
@@ -115,7 +119,7 @@ public class Gameplay implements Screen
                 position = MyGdxGame.camera.viewportWidth/2 - enemylvls.get(rand).getSize();
                 spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand));
                 spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand));
-                lastDropTime = TimeUtils.millis() + 5000;
+                lastEnemySpawn = TimeUtils.millis() + 5000;
             }
             if(rand == 1)
             {
@@ -130,7 +134,7 @@ public class Gameplay implements Screen
                     }
                     screentop += 75;
                 }
-                lastDropTime = TimeUtils.millis() + 3500;
+                lastEnemySpawn = TimeUtils.millis() + 3500;
             }
             if(rand == 2)
             {
@@ -138,7 +142,7 @@ public class Gameplay implements Screen
                 spawnEnemy(position , screentop, enemylvls.get(rand));
                 spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand));
                 spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand));
-                lastDropTime = TimeUtils.millis() + 5000;
+                lastEnemySpawn = TimeUtils.millis() + 5000;
             }
         }
         // Spawns a bullet out of the player dependent on player shot speed
@@ -157,6 +161,24 @@ public class Gameplay implements Screen
                 spawnBullet(bullet);
                 MyGdxGame.player2.setLastShot(TimeUtils.nanoTime());
             }
+        }
+        for(Iterator<PowerUp> iter = game.getPowers().iterator(); iter.hasNext();){
+            PowerUp power = iter.next();
+            
+            if(power.getArea().overlaps(game.player1.getArea()))
+            {
+                iter.remove();
+                break;
+            }
+            if(game.getPlayercount() == 2)
+            {
+                if( power.getArea().overlaps(game.player2.getArea()))
+                {
+                    iter.remove();
+                    break;
+                }
+            }
+            if(power.y + 32 < 0) iter.remove();
         }
         // move the enemies, remove any that are beneath the bottom edge of
         // the screen or that hit the player. In the latter case we play back
@@ -289,6 +311,16 @@ public class Gameplay implements Screen
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
                             iter2.remove();
                             game.setScoretext(String.valueOf(game.getScore()));
+                            int rand = MathUtils.random(1,5);
+                            {
+                                if(rand == 1)
+                                {
+                                    int rand2 = MathUtils.random(1,5);
+                                    {
+                                        spawnPowerUp(rand2, enemy.getX(), enemy.getY());
+                                    }
+                                }
+                            }
                         }
                         iter.remove();
                         break;
@@ -378,5 +410,10 @@ public class Gameplay implements Screen
         MyGdxGame.GameOverActive = true;
         game.setPlayerlives(3);
         game.setScreen(new GameOver(game));
+    }
+    private void spawnPowerUp(int rand, float x, float y)
+    {
+        PowerUp power = new PowerUp(rand, x, y);
+        game.getPowers().add(power);
     }
 }
