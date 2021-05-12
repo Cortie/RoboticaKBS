@@ -9,17 +9,19 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+
 import java.util.Iterator;
 
 public class Gameplay implements Screen
 {
-    private Sound hit;
+    private Sound explode;
     private Array<EnemyType> enemylvls;
     private Array<Enemy> enemies;
     private long lastDropTime;
     private Array<Bullet> bullets;
     private final MyGdxGame game;
     private Texture heart;
+    private Sound Lazer;
 
     
     public Gameplay(MyGdxGame game)
@@ -35,7 +37,8 @@ public class Gameplay implements Screen
         //hit sound effect for any collision between bullets and ships
         //2 bullet types to be use in the creation of the different enemy types
         //the 3 arrays of to be rendered objects
-        hit = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
+        explode = Gdx.audio.newSound(Gdx.files.internal("game_explosion.wav"));
+        Lazer = Gdx.audio.newSound(Gdx.files.internal("game_lazer.wav"));
         BulletType standardBullet = new BulletType(new Texture(Gdx.files.internal("4.png")), 3, 20, 60);
         BulletType bigBullet = new BulletType(new Texture(Gdx.files.internal("1.png")), 3, 30, 90);
         bullets = new Array<>();
@@ -143,6 +146,7 @@ public class Gameplay implements Screen
         {
             Bullet bullet = new Bullet(1, MyGdxGame.player1.getType(), new Rectangle(MyGdxGame.player1.x + 26, MyGdxGame.player1.y + 64, MyGdxGame.player1.getType().getWidth(), MyGdxGame.player1.getType().getHeight()), MyGdxGame.player1.x + 26, MyGdxGame.player1.y + 64);
             spawnBullet(bullet);
+            MyGdxGame.playSound(Lazer);
             MyGdxGame.player1.setLastShot(TimeUtils.nanoTime());
         }
         if(game.getPlayercount() == 2)
@@ -195,9 +199,9 @@ public class Gameplay implements Screen
             //plays the explosion sound as well as removes 1 player life and removes the enemy from the screen
             //when the enemy collides with the player
             if(enemy.getShip().overlaps(MyGdxGame.player1.getArea())) {
-                long id = hit.play(1.0f);
-                hit.setPitch(id, 1);
-                hit.setLooping(id, false);
+                long id = explode.play(1.0f);
+                explode.setPitch(id, 1);
+                explode.setLooping(id, false);
                 iter.remove();
                 game.setPlayerlives(game.getPlayerlives() -1);
                 if(game.getPlayerlives() == 0)
@@ -209,9 +213,9 @@ public class Gameplay implements Screen
             if(game.getPlayercount() == 2){
                 if(enemy.getShip().overlaps(MyGdxGame.player2.getArea()))
                 {
-                    long id = hit.play(1.0f);
-                    hit.setPitch(id, 1);
-                    hit.setLooping(id, false);
+                    long id = explode.play(1.0f);
+                    explode.setPitch(id, 1);
+                    explode.setLooping(id, false);
                     iter.remove();
                     game.setPlayerlives(game.getPlayerlives() -1);
                     if(game.getPlayerlives() == 0)
@@ -244,9 +248,9 @@ public class Gameplay implements Screen
                 {
                     if(bullet.getHitbox().overlaps(MyGdxGame.player1.getArea()))
                     {
-                        long id = hit.play(1.0f);
-                        hit.setPitch(id, 1);
-                        hit.setLooping(id, false);
+                        long id = explode.play(1.0f);
+                        explode.setPitch(id, 1);
+                        explode.setLooping(id, false);
                         iter.remove();
                         game.setPlayerlives(game.getPlayerlives() -1);
                         if(game.getPlayerlives() == 0)
@@ -259,9 +263,9 @@ public class Gameplay implements Screen
                     {
                         if(bullet.getHitbox().overlaps(MyGdxGame.player2.getArea()))
                         {
-                            long id = hit.play(1.0f);
-                            hit.setPitch(id, 1);
-                            hit.setLooping(id, false);
+                            long id = explode.play(1.0f);
+                            explode.setPitch(id, 1);
+                            explode.setLooping(id, false);
                             iter.remove();
                             game.setPlayerlives(game.getPlayerlives() -1);
                             if(game.getPlayerlives() == 0)
@@ -277,9 +281,9 @@ public class Gameplay implements Screen
                     if(enemy.getShip().overlaps(bullet.getHitbox()))
                     {
                         enemy.setHealth(enemy.getHealth() - 1);
-                        long id = hit.play(1.0f);
-                        hit.setPitch(id, 1);
-                        hit.setLooping(id, false);
+                        long id = explode.play(1.0f);
+                        explode.setPitch(id, 1);
+                        explode.setLooping(id, false);
                         if(enemy.getHealth() == 0)
                         {
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
@@ -334,7 +338,7 @@ public class Gameplay implements Screen
             enemy.getType().getShipImg().dispose();
         }
         MyGdxGame.player1.getShipImg().dispose();
-        hit.dispose();
+        explode.dispose();
         game.batch.dispose();
     }
     private void spawnEnemy(float position, float height, EnemyType type)
