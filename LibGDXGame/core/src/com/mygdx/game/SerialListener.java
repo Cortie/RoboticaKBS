@@ -23,7 +23,13 @@ public class SerialListener implements Runnable
     {
         Sound buttonSwitch = Gdx.audio.newSound(Gdx.files.internal("Game_menu.wav"));
         Sound buttonPress = Gdx.audio.newSound(Gdx.files.internal("game_lvlup.wav"));
+        //gets all available ports in the system and sets them in an array
         SerialPort[] availablePorts = SerialPort.getCommPorts();
+        // goes through the array of available ports and selects the
+        // one with the name that suggests it's the connected arduino
+        // Arduino Uno is the usual name however some systems do not give this name
+        // Therefore if the port is empty after checking for Arduino Uno name
+        // it then checks if the USB Serial name is available
         for(SerialPort comPort: availablePorts)
         {
             String naam = comPort.getDescriptivePortName().substring(0, 11);
@@ -40,19 +46,25 @@ public class SerialListener implements Runnable
             }
             System.out.println(naam);
         }
+        // checks the status of the selected port and prints a message
+        // confirming the status
         if(port.openPort()) {
             System.out.println("Successfully opened the port.");
         } else {
             System.out.println("Unable to open the port.");
             return;
         }
+        // sets the type of timeout usage for the port
         port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
+        // puts the inputstream into a variable that can be read
         data = new Scanner(port.getInputStream());
         while(data.hasNextLine())
         {
             int number = 0;
+            //makes sure that the next line of the data can be parsed into an int
             try{number = Integer.parseInt(data.nextLine());}catch(Exception e){}
             long timer = 500000000;
+            //checks if the left button is pressed
             if(number == 500)
             {
                 MyGdxGame.player1.moveLeft();
@@ -64,6 +76,7 @@ public class SerialListener implements Runnable
                 }
                 speed = TimeUtils.nanoTime();
             }
+            //checks if the right button is pressed
             if(number == 1000)
             {
 

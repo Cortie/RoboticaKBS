@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.io.DataOutputStream;
+import java.net.Socket;
+
 public class MyGdxGame extends Game
 {
 	public static Player player1;
@@ -20,11 +23,12 @@ public class MyGdxGame extends Game
 	public FitViewport viewPort;
 	public Sprite backgroundSprite;
 	private final SerialListener listener = new SerialListener();
+	private final PiListener PiListener = new PiListener();
 	public static boolean menuActive;
 	public static boolean SettingsActive;
 	public static boolean GameOverActive;
 	public static boolean HighscoreActive;
-	private int players = 1;
+	private int players = 2;
 	private int playerlives = 3;
 	private int score = 0;
 	private String Scoretext = "0";
@@ -74,6 +78,9 @@ public class MyGdxGame extends Game
 		Thread listenerThread = new Thread(listener);
 		listenerThread.setDaemon(true);
 		listenerThread.start();
+		Thread PiListenerThread = new Thread(PiListener);
+		PiListenerThread.setDaemon(true);
+		PiListenerThread.start();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

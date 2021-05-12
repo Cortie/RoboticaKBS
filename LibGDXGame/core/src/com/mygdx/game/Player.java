@@ -55,7 +55,13 @@ public class Player
     {
         if(!(this.x < 0))
         {
-            this.setX(x - 300 * Gdx.graphics.getDeltaTime());
+            if(this.equals(MyGdxGame.player2))
+            {
+                this.setX(x - 1500 *Gdx.graphics.getDeltaTime());
+            }else
+            {
+                this.setX(x - 300 * Gdx.graphics.getDeltaTime());
+            }
         }
     }
     
@@ -63,7 +69,13 @@ public class Player
     {
         if(!(this.x > MyGdxGame.camera.viewportWidth - 64))
         {
-            this.setX(x + 300 * Gdx.graphics.getDeltaTime());
+            if(this.equals(MyGdxGame.player2))
+            {
+                this.setX(x + 1500 * Gdx.graphics.getDeltaTime());
+            }
+            else{
+                this.setX(x + 300 * Gdx.graphics.getDeltaTime());
+            }
         }
     }
     public Array<Bullet> getBullets()
