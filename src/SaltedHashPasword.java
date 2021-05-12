@@ -25,7 +25,7 @@ public class SaltedHashPasword
         String generatedPassword = null;
         try {
             // Create MessageDigest instance for SHA-512
-            MessageDigest md = MessageDigest.getInstance("SHA-1");//SHA-512
+            MessageDigest md = MessageDigest.getInstance("SHA-256");//SHA-512
             //Add password bytes to digest
             md.update(salt);
             //Get the hash's bytes
