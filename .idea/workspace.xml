@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatProfiel dialogen toegevoegt.  KlimaatProfielDialoogAanmakenLichtProfiel toegevoegt, KlimaatProfielDialoogAanmakenTempProfiel toegevoegt, KlimaatProfielDialoogAanpassenLichtProfiel toegevoegt, KlimaatProfielDialoogAanpassenTempProfiel toegevoegt.">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RoboticaKBS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RoboticaKBS.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/getSensors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/getSensors.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,12 +48,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.25.jar" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/jSerialComm-2.7.0.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.KlimaatBeheer">
+  <component name="RunManager" selected="Application.Account">
     <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Account" />
       <module name="RoboticaKBS" />
@@ -97,11 +98,12 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.Account" />
         <item itemvalue="Application.Inloggen" />
+        <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.Dashboard" />
+        <item itemvalue="Application.KlimaatProfiel" />
       </list>
     </recent_temporary>
   </component>
