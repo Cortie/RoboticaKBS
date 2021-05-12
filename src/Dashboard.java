@@ -4,12 +4,14 @@ import java.awt.event.*;
 
 public class Dashboard extends JFrame implements ActionListener {
 
-  //defenitions for getting the current temperature
-  static getSensors Temp1 = new getSensors();
-  static String piTemp = Temp1.Temperature;
+  // defenitions for getting the current temperature
+  // static getSensors Temp1 = new getSensors();
+  private final static PiListener PiListener = new PiListener();
+
+  static String piTemp = PiListener.Temp;
 
   // definitions for labels, buttons and layouts
-  JLabel temp = new JLabel("Temperatuur: " + piTemp);
+  JLabel temp = new JLabel(piTemp);
   JButton jbPlayer = new JButton("Muziekspeler");
   JButton jbClimate = new JButton("Klimaatbeheer");
   JButton jbSettings = new JButton("Instellingen");
@@ -20,6 +22,10 @@ public class Dashboard extends JFrame implements ActionListener {
   BorderLayout collection = new BorderLayout();
 
   public Dashboard() {
+    Thread PiListenerThread = new Thread(PiListener);
+    PiListenerThread.setDaemon(true);
+    PiListenerThread.start();
+
     // set standard data
     setTitle("Dashboard");
     setLayout(new FlowLayout(FlowLayout.CENTER));
