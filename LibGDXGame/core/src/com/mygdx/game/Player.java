@@ -18,6 +18,35 @@ public class Player
     private long lastShot;
     private BulletType type;
     private static Array<Bullet> bullets;
+    private boolean forcefield = false;
+    
+    public Rectangle getShieldBox()
+    {
+        return shieldBox;
+    }
+    
+    private Rectangle shieldBox;
+    public void setForcefield(boolean forcefield)
+    {
+        this.forcefield = forcefield;
+        if(forcefield)
+        {
+            this.shieldBox = new Rectangle(x, y + 150, 100, 25);
+        }
+        else{
+            this.shieldBox = null;
+        }
+    }
+    
+    public boolean isForcefield()
+    {
+        return forcefield;
+    }
+
+    public void setShotSpeed(long shotSpeed)
+    {
+        this.shotSpeed = shotSpeed;
+    }
     
     public Player(FileHandle img, BulletType bullet, float x)
     {
@@ -58,9 +87,15 @@ public class Player
             if(this.equals(MyGdxGame.player2))
             {
                 this.setX(x - 1500 *Gdx.graphics.getDeltaTime());
+                if(this.isForcefield()){
+                    this.shieldBox.setX(this.shieldBox.x - 1500 * Gdx.graphics.getDeltaTime());
+                }
             }else
             {
                 this.setX(x - 300 * Gdx.graphics.getDeltaTime());
+                if(this.isForcefield()){
+                    this.shieldBox.setX(this.shieldBox.x - 300 * Gdx.graphics.getDeltaTime());
+                }
             }
         }
     }
@@ -72,9 +107,15 @@ public class Player
             if(this.equals(MyGdxGame.player2))
             {
                 this.setX(x + 1500 * Gdx.graphics.getDeltaTime());
+                if(this.isForcefield()){
+                    this.shieldBox.setX(this.shieldBox.x + 1500 * Gdx.graphics.getDeltaTime());
+                }
             }
             else{
                 this.setX(x + 300 * Gdx.graphics.getDeltaTime());
+                if(this.isForcefield()){
+                    this.shieldBox.setX(this.shieldBox.x + 300 * Gdx.graphics.getDeltaTime());
+                }
             }
         }
     }
