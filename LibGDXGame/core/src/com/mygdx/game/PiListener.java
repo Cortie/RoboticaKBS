@@ -19,8 +19,6 @@ public class PiListener implements Runnable
             int read;
             while((read = is.read(buffer)) != -1) {
                 String output = new String(buffer, 0, read);
-                System.out.print(output);
-                System.out.flush();
                 if(output.length() > 1)
                 {
                     output = output.substring(0,1);
@@ -33,7 +31,8 @@ public class PiListener implements Runnable
                 {
                     MyGdxGame.player2.moveRight();
                 }
-            };
+                System.out.flush();
+            }
             clientSocket.close();
         }catch(IOException ioe)
         {

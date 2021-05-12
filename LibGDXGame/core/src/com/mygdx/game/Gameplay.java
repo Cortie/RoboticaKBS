@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -20,10 +19,8 @@ public class Gameplay implements Screen
     private long lastDropTime;
     private Array<Bullet> bullets;
     private final MyGdxGame game;
-    private Texture oneheart;
-    private Texture twoheart;
-    private Texture threeheart;
-    private Texture hearts;
+    private Texture heart;
+
     
     public Gameplay(MyGdxGame game)
     {
@@ -33,11 +30,7 @@ public class Gameplay implements Screen
     @Override
     public void show()
     {
-        oneheart = new Texture(Gdx.files.internal("1live.png"));
-        twoheart = new Texture(Gdx.files.internal("2lives.png"));
-        threeheart = new Texture(Gdx.files.internal("3lives.png"));
-        hearts = threeheart;
-
+        heart = new Texture(Gdx.files.internal("1live.png"));
         //local variables used during gameplay
         //hit sound effect for any collision between bullets and ships
         //2 bullet types to be use in the creation of the different enemy types
@@ -51,7 +44,10 @@ public class Gameplay implements Screen
         //due to movement being connected to the same function
         // as the menu screen selection player position must be put in a spawn point here
         MyGdxGame.player1.x = MyGdxGame.camera.viewportWidth /10 + MyGdxGame.player1.getArea().getWidth();
-        MyGdxGame.player2.x = MyGdxGame.camera.viewportWidth /3 * 2 + MyGdxGame.player2.getArea().getWidth();
+        if(game.getPlayercount() == 2)
+        {
+            MyGdxGame.player2.x = MyGdxGame.camera.viewportWidth /3 * 2 + MyGdxGame.player2.getArea().getWidth();
+        }
         //this loop creates an array of different enemy types
         //that is later used for enemy creation and comparisons
         for(int i = 0; i < 4; i++)
@@ -88,7 +84,7 @@ public class Gameplay implements Screen
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
         game.batch.draw(MyGdxGame.player1.getShipImg(), MyGdxGame.player1.x, MyGdxGame.player1.y);
-        if( game.getPlayers() == 2)
+        if( game.getPlayercount() == 2)
         {
             game.batch.draw(MyGdxGame.player2.getShipImg(), MyGdxGame.player2.x, MyGdxGame.player2.y);
         }
@@ -100,7 +96,10 @@ public class Gameplay implements Screen
             game.batch.draw(bullet.getType().getBulletImg(), bullet.x, bullet.y);
         }
         game.getFont().draw(game.batch, game.getScoretext(),30,game.camera.viewportHeight-50);
-        game.batch.draw(hearts, 20, game.camera.viewportHeight-150);
+        for(int i = 0; i < game.getPlayerlives(); i++)
+        {
+            game.batch.draw(heart, 20 + i*50, game.camera.viewportHeight-150);
+        }
         game.batch.end();
         // Spawns random enemy types after a certain amount of time has passed
         if(TimeUtils.millis() - lastDropTime > 0)
@@ -145,6 +144,15 @@ public class Gameplay implements Screen
             Bullet bullet = new Bullet(1, MyGdxGame.player1.getType(), new Rectangle(MyGdxGame.player1.x + 26, MyGdxGame.player1.y + 64, MyGdxGame.player1.getType().getWidth(), MyGdxGame.player1.getType().getHeight()), MyGdxGame.player1.x + 26, MyGdxGame.player1.y + 64);
             spawnBullet(bullet);
             MyGdxGame.player1.setLastShot(TimeUtils.nanoTime());
+        }
+        if(game.getPlayercount() == 2)
+        {
+            if(TimeUtils.nanoTime() - MyGdxGame.player2.getLastShot() > MyGdxGame.player2.getShotSpeed())
+            {
+                Bullet bullet = new Bullet(1, MyGdxGame.player2.getType(), new Rectangle(MyGdxGame.player2.x + 26, MyGdxGame.player2.y + 64, MyGdxGame.player2.getType().getWidth(), MyGdxGame.player2.getType().getHeight()), MyGdxGame.player2.x + 26, MyGdxGame.player1.y + 64);
+                spawnBullet(bullet);
+                MyGdxGame.player2.setLastShot(TimeUtils.nanoTime());
+            }
         }
         // move the enemies, remove any that are beneath the bottom edge of
         // the screen or that hit the player. In the latter case we play back
@@ -192,17 +200,25 @@ public class Gameplay implements Screen
                 hit.setLooping(id, false);
                 iter.remove();
                 game.setPlayerlives(game.getPlayerlives() -1);
-                if(game.getPlayerlives() == 2)
-                {
-                    hearts = twoheart;
-                }
-                if(game.getPlayerlives() == 1)
-                {
-                    hearts = oneheart;
-                }
                 if(game.getPlayerlives() == 0)
                 {
                     gameOver();
+                }
+                break;
+            }
+            if(game.getPlayercount() == 2){
+                if(enemy.getShip().overlaps(MyGdxGame.player2.getArea()))
+                {
+                    long id = hit.play(1.0f);
+                    hit.setPitch(id, 1);
+                    hit.setLooping(id, false);
+                    iter.remove();
+                    game.setPlayerlives(game.getPlayerlives() -1);
+                    if(game.getPlayerlives() == 0)
+                    {
+                        gameOver();
+                    }
+                    break;
                 }
             }
         }
@@ -233,19 +249,27 @@ public class Gameplay implements Screen
                         hit.setLooping(id, false);
                         iter.remove();
                         game.setPlayerlives(game.getPlayerlives() -1);
-                        if(game.getPlayerlives() == 2)
-                        {
-                            hearts = twoheart;
-                        }
-                        if(game.getPlayerlives() == 1)
-                        {
-                            hearts = oneheart;
-                        }
                         if(game.getPlayerlives() == 0)
                         {
                             gameOver();
                         }
                         break;
+                    }
+                    if(game.getPlayercount() == 2)
+                    {
+                        if(bullet.getHitbox().overlaps(MyGdxGame.player2.getArea()))
+                        {
+                            long id = hit.play(1.0f);
+                            hit.setPitch(id, 1);
+                            hit.setLooping(id, false);
+                            iter.remove();
+                            game.setPlayerlives(game.getPlayerlives() -1);
+                            if(game.getPlayerlives() == 0)
+                            {
+                                gameOver();
+                            }
+                            break;
+                        }
                     }
                 }
                 if(bullet.getType().getUser() == 1 || bullet.getType().getUser() ==2)

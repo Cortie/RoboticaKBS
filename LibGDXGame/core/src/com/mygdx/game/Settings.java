@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -38,12 +37,12 @@ public class Settings implements Screen {
         }
         if (SerialListener.SettingSelecter == 2) {
             System.out.println("1 player");
-            game.setPlayers(1);
+            game.setPlayercount(1);
             SerialListener.Click = false;
         }
         if (SerialListener.SettingSelecter == 3) {
             System.out.println("2 Player");
-            game.setPlayers(2);
+            game.setPlayercount(2);
             SerialListener.Click = false;
         }
         if (SerialListener.SettingSelecter == 4) {

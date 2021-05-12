@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
-import java.io.DataOutputStream;
-import java.net.Socket;
 
 public class MyGdxGame extends Game
 {
@@ -28,13 +26,14 @@ public class MyGdxGame extends Game
 	public static boolean SettingsActive;
 	public static boolean GameOverActive;
 	public static boolean HighscoreActive;
-	private int players = 2;
+	private int playercount = 1;
 	private int playerlives = 3;
 	private int score = 0;
 	private String Scoretext = "0";
 	private BitmapFont font;
 	private BitmapFont Bigfont;
-
+	
+	
 	public BitmapFont getFont() {
 		return font;
 	}
@@ -61,18 +60,21 @@ public class MyGdxGame extends Game
 
 
 
-	public int getPlayers() {
-		return players;
+	public int getPlayercount() {
+		return playercount;
 	}
 
-	public void setPlayers(int players) {
-		this.players = players;
+	public void setPlayercount(int playercount) {
+		this.playercount = playercount;
 	}
 
 	@Override
 	public void create () {
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
-		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
+		if(playercount == 2)
+		{
+			player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
+		}
 		font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
 		Bigfont = new BitmapFont(Gdx.files.internal("BigScorefont.fnt"));
 		Thread listenerThread = new Thread(listener);
