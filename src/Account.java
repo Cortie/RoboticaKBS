@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class Account extends JFrame implements ActionListener {
     private String name;
@@ -16,6 +18,9 @@ public class Account extends JFrame implements ActionListener {
     private String gebruikersnaam = "";
     private String wachtwoord = "";
 
+    private String hashdWachtwoord;
+    private String checkHashdWachtwoord;
+    private byte[] salt;
     public Account(){
         setTitle("Klimaat Systeem");
         setSize(800,600);
@@ -68,8 +73,23 @@ public class Account extends JFrame implements ActionListener {
             wachtwoord=jpPassword.getText();
             System.out.println(gebruikersnaam);
             System.out.println(wachtwoord);
-            Inloggen inloggenscherm= new Inloggen();
-            this.dispose();
+            try
+            {
+                salt = SaltedHashPasword.getSalt();
+            } catch (NoSuchAlgorithmException | NoSuchProviderException noSuchAlgorithmException)
+            {
+                noSuchAlgorithmException.printStackTrace();
+            }
+            hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,salt);
+
+            System.out.println(hashdWachtwoord);
+            checkHashdWachtwoord=hashdWachtwoord;//verander checkww naar die uit database
+            if (hashdWachtwoord.equals(checkHashdWachtwoord))
+            {
+                Inloggen inloggenscherm= new Inloggen();
+                this.dispose();
+            }
+
         }
     }
 

@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class WachtwoordWijzigen extends JFrame implements ActionListener
 {
@@ -10,10 +12,17 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
     private JLabel jlWachtwoord;
     private JLabel jlWachtwoordBevestigen;
     private JTextField jtGebruikersnaam;
-    private JTextField jtWachtwoord;
-    private JTextField jtWachtwoordBevestigen;
+    private JPasswordField jpWachtwoord;
+    private JPasswordField jpWachtwoordBevestigen;
     private JButton jbWachtwoordWijzigen;
 
+    private String gebruikersnaam="";
+    private String checkGebruikersnaam;
+    private String wachtwoord="";
+    private String bevestigWachtwoord="";
+
+    private byte[] salt;
+    private String hashdWachtwoord;
     public WachtwoordWijzigen()
     {
         setTitle("Klimaat systeem");
@@ -28,11 +37,11 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
 
         JPanel wachtwoordPnl = new JPanel(new FlowLayout());
         wachtwoordPnl.add(jlWachtwoord = new JLabel("Wachtwoord"));
-        wachtwoordPnl.add(jtWachtwoord = new JTextField(8));
+        wachtwoordPnl.add(jpWachtwoord = new JPasswordField(8));
 
         JPanel wachtwoordBevestigenPnl = new JPanel(new FlowLayout());
         wachtwoordBevestigenPnl.add(jlWachtwoordBevestigen = new JLabel("Wachtwoord bevestigen"));
-        wachtwoordBevestigenPnl.add(jtWachtwoordBevestigen = new JTextField(8));
+        wachtwoordBevestigenPnl.add(jpWachtwoordBevestigen = new JPasswordField(8));
 
         JPanel wachtwoordWijzigenKnopPnl = new JPanel(new FlowLayout());
         wachtwoordWijzigenKnopPnl.add(jbWachtwoordWijzigen = new JButton("Wachtwoord wijzigen"));
@@ -66,8 +75,31 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
         if (e.getSource()==jbWachtwoordWijzigen)
         {
             System.out.println("link naar inloggen");
-            Inloggen inloggenscherm= new Inloggen();
-            this.dispose();
+            gebruikersnaam=jtGebruikersnaam.getText();
+            wachtwoord=jpWachtwoord.getText();
+            bevestigWachtwoord=jpWachtwoordBevestigen.getText();
+            checkGebruikersnaam=gebruikersnaam;//verander checkGB naar die uit database
+            if (gebruikersnaam.equals(checkGebruikersnaam))
+            {
+                if (wachtwoord.equals(bevestigWachtwoord))
+                {
+                    try
+                    {
+                        salt = SaltedHashPasword.getSalt();
+                    } catch (NoSuchAlgorithmException | NoSuchProviderException noSuchAlgorithmException)
+                    {
+                        noSuchAlgorithmException.printStackTrace();
+                    }
+                    hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,salt);
+
+                    Inloggen inloggenscherm= new Inloggen();
+                    this.dispose();
+                }else {
+                    System.out.println("wachtwoorden komen niet overeen");
+
+                }
+            }
+
         }
     }
 

@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Scanner;
+import java.sql.*;
+
 
 public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListener {
     // defenitions for getting the current temperature
@@ -77,7 +79,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
                 }
 
-               if(lightvalue == 0){
+               if(lightvalue == 0 || data.nextLine().length() == 1){
                     lightvalue = Integer.parseInt(data.nextLine());
                 }
 
@@ -89,6 +91,38 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
             System.out.println(lightvalue);
 
         }
+
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost/mydb";
+            String username="root", password="";
+
+            Connection connection = DriverManager.getConnection( url,username,password );
+            PreparedStatement statement = connection.prepareStatement("Insert into climate_log Values (?,?,?,?);");
+            Double tempPi = Double.parseDouble(piTemp);
+            Double humidPi = Double.parseDouble(piHumid);
+            Double pressPi = Double.parseDouble(piPress);
+
+            statement.setDouble(1,tempPi);
+            statement.setDouble(2,humidPi);
+            statement.setDouble(3,pressPi);
+            statement.setInt(4,lightvalue);
+
+            int i= statement.executeUpdate();
+            System.out.println(i+" records inserted");
+
+            connection.close();
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+            System.out.println("geen verbinding met de database!");
+        }
+
+
+
+
+
+
 
         setTitle("Klimaat systeem");
         setSize(800, 600);
