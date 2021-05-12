@@ -25,15 +25,9 @@ public class PiListener implements Runnable
             int read;
             while((read = is.read(buffer)) != -1) {
               String output = new String(buffer, 0, read);
-              if(output.contains("Temperatuur:")){
-                Temp = output;
-              }
-              else if(output.contains("Pressure:")){
-                Press = output;
-              }
-              else if(output.contains("Humidity:")){
-                Humid = output;
-              }
+              Temp = output.substring(0, 17);
+              Press = output.substring(17, 33);
+              Humid = output.substring(33);
               break;
             };
             clientSocket.close();
