@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -61,7 +60,7 @@ public class Gameplay implements Screen
         }
         //this loop creates an array of different enemy types
         //that is later used for enemy creation and comparisons
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 5; i++)
         {
             long shotSpeed = 0;
             int nummer = i + 2;
@@ -83,6 +82,17 @@ public class Gameplay implements Screen
                     pointvalue = 75;
                     shotSpeed = 2000;
                     btype = bigBullet;
+                    break;
+                case 3:
+                    pointvalue = 250;
+                    shotSpeed = 2500;
+                    btype = bigBullet;
+                    break;
+                case 4:
+                    pointvalue = 250;
+                    shotSpeed = 1250;
+                    btype = bigBullet;
+                    break;
             }
             enemylvls.add(new EnemyType(btype, new Texture(Gdx.files.internal("Spaceship_0" + nummer + "_RED.png")), shotSpeed, pointvalue));
         }
@@ -104,7 +114,7 @@ public class Gameplay implements Screen
             game.batch.draw(MyGdxGame.player2.getShipImg(), MyGdxGame.player2.x, MyGdxGame.player2.y);
             if(MyGdxGame.player2.isForcefield())
             {
-                game.batch.draw(forcefieldImg, MyGdxGame.player2.x, MyGdxGame.player2.y + 75);
+                game.batch.draw(forcefieldImg, MyGdxGame.player2.x - 20, MyGdxGame.player2.y + 75);
             }
         }
         for(Enemy enemy: enemies) {
@@ -125,6 +135,7 @@ public class Gameplay implements Screen
         }
         game.batch.end();
         // Spawns random enemy types after a certain amount of time has passed
+        // after a certain score is reached one of the 2 minibosses is spawned
         if(TimeUtils.millis() - lastEnemySpawn > 0)
         {
             float position;
@@ -139,7 +150,7 @@ public class Gameplay implements Screen
             }
             if(rand == 1)
             {
-                position = MathUtils.random(0, Gdx.graphics.getWidth() - 70);
+                position = MathUtils.random(0, Gdx.graphics.getWidth() - 160);
                 for(int i = 0; i < 5; i++)
                 {
                     spawnEnemy(position, screentop, enemylvls.get(rand));
@@ -159,6 +170,15 @@ public class Gameplay implements Screen
                 spawnEnemy(position + 150, screentop + 150, enemylvls.get(rand));
                 spawnEnemy(position - 150, screentop + 150, enemylvls.get(rand));
                 lastEnemySpawn = TimeUtils.millis() + 5000;
+            }
+            //this will spawn one of the two minibosses and set the spawntimer to
+            // 30 seconds to give the player time to fight the miniboss
+            if(game.getScore()>= 1000)
+            {
+                int miniboss = MathUtils.random(3,4);
+                position = MyGdxGame.camera.viewportWidth/2 - enemylvls.get(miniboss).getSize();
+                spawnEnemy(position, screentop, enemylvls.get(miniboss));
+                lastEnemySpawn = TimeUtils.millis() + 30000;
             }
         }
         // Spawns a bullet out of the player dependent on player shot speed
@@ -256,20 +276,77 @@ public class Gameplay implements Screen
             {
                 //creates a bullet depending on enemy type and then adds the bullet
                 //to the bullet array to be drawn in the batch
-                Bullet bullet = new Bullet(3, enemy.getType().getBtype(), new Rectangle(enemy.getX(), enemy.getY(), enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight()), enemy.getX(), enemy.getY());
                 if(enemy.getType().equals(enemylvls.get(0)))
                 {
+                    Rectangle bullethitbox = new Rectangle(enemy.getX(), enemy.getY()-25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox, enemy.getX(), enemy.getY()-25);
                     spawnBullet(bullet);
-                    bullet = new Bullet(3, enemy.getType().getBtype(), new Rectangle(enemy.getX() + 100, enemy.getY(), enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight()), enemy.getX() + 100, enemy.getY());
+                    bullethitbox =  new Rectangle(enemy.getX() + enemy.getShip().getWidth(), enemy.getY() -25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + enemy.getShip().getWidth(), enemy.getY() -25);
                     spawnBullet(bullet);
-                }else
+                }
+                if(enemy.getType().equals(enemylvls.get(1)))
                 {
+                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25);
+                    spawnBullet(bullet);
+                }
+                if(enemy.getType().equals(enemylvls.get(2)))
+                {
+                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox,enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25);
+                    spawnBullet(bullet);
+                }
+                if(enemy.getType().equals(enemylvls.get(3)))
+                {
+                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox,enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25);
+                    spawnBullet(bullet);
+                    bullethitbox =  new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2) + 75, enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2) + 75, enemy.getY() - 25);
+                    spawnBullet(bullet);
+                    bullethitbox =  new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2) - 75, enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2) - 75, enemy.getY() - 25);
+                    spawnBullet(bullet);
+                }
+                if(enemy.getType().equals(enemylvls.get(4)))
+                {
+                    Rectangle bullethitbox =  new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2) + 75, enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2) + 75, enemy.getY() - 25);
+                    spawnBullet(bullet);
+                    bullethitbox =  new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2) - 75, enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2) - 75, enemy.getY() - 25);
                     spawnBullet(bullet);
                 }
                 enemy.setLastShot(TimeUtils.millis());
             }
             //moves the enemy down speed dependent on framrate
-            enemy.setY(enemy.getY() - 150 * Gdx.graphics.getDeltaTime());
+            if(enemy.getType().equals(enemylvls.get(0)))
+            {
+                enemy.setY(enemy.getY() - 100 * Gdx.graphics.getDeltaTime());
+            }
+            if(enemy.getType().equals(enemylvls.get(1)))
+            {
+                enemy.setY(enemy.getY() - 125 * Gdx.graphics.getDeltaTime());
+            }
+            if(enemy.getType().equals(enemylvls.get(2)))
+            {
+                enemy.setY(enemy.getY() - 175 * Gdx.graphics.getDeltaTime());
+            }
+            if(enemy.getType().equals(enemylvls.get(3)))
+            {
+                if(enemy.getY() > MyGdxGame.camera.viewportHeight - 600)
+                {
+                    enemy.setY(enemy.getY() - 50 * Gdx.graphics.getDeltaTime());
+                }
+            }
+            if(enemy.getType().equals(enemylvls.get(4)))
+            {
+                if(enemy.getY() > MyGdxGame.camera.viewportHeight - 600)
+                {
+                    enemy.setY(enemy.getY() - 50 * Gdx.graphics.getDeltaTime());
+                }
+            }
             /*if(enemy.getType().equals(enemylvls.get(1)))
             {
                     int randMovement = MathUtils.random(0,1);
@@ -550,6 +627,18 @@ public class Gameplay implements Screen
             enemy.setHealth(3);
             enemy.getType().setSize(100);
             enemy.getShip().setSize(enemy.getType().getSize(), enemy.getType().getSize());
+        }
+        if(enemy.getType().equals(enemylvls.get(3)))
+        {
+            enemy.setHealth(15);
+            enemy.getType().setSize(450);
+            enemy.getShip().setSize(enemy.getType().getSize(), enemy.getType().getSize() - 100);
+        }
+        if(enemy.getType().equals(enemylvls.get(4)))
+        {
+            enemy.setHealth(15);
+            enemy.getType().setSize(450);
+            enemy.getShip().setSize(enemy.getType().getSize(), enemy.getType().getSize() - 125);
         }
         enemies.add(enemy);
     }
