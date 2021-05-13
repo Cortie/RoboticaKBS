@@ -15,20 +15,20 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
             setSize(800, 500);
             setTitle("Muziek toevoegen aan afspeellijst pop-up");
 
-            JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(2,2));
+            JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(5,2));
             lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 1 "));
             lijstMusicAanAfspeellijst.add(jbNummer1 = new JButton("+"));
             jbNummer1.addActionListener(this);
             lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 2 "));
             lijstMusicAanAfspeellijst.add(jbNummer2 = new JButton("+"));
             jbNummer2.addActionListener(this);
-//            lijstMusicAanAfspeellijst.add(new JLabel("nummer 3 "));
+//            lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 3 "));
 //            lijstMusicAanAfspeellijst.add(jbNummer3 = new JButton("+"));
 //            jbNummer3.addActionListener(this);
-//            lijstMusicAanAfspeellijst.add(new JLabel("nummer 4 "));
+//            lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 4 "));
 //            lijstMusicAanAfspeellijst.add(jbNummer4 = new JButton("+"));
 //            jbNummer4.addActionListener(this);
-//            lijstMusicAanAfspeellijst.add(new JLabel("nummer 5 "));
+//            lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 5 "));
 //            lijstMusicAanAfspeellijst.add(jbNummer5 = new JButton("+"));
 //            jbNummer5.addActionListener(this);
 
