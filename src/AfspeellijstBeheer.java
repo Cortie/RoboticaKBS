@@ -29,6 +29,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   BorderLayout Bname = new BorderLayout();
   BorderLayout Badd = new BorderLayout();
   BorderLayout collection = new BorderLayout();
+  private String speellijstnaam;
 
   public AfspeellijstBeheer(){
     //set standard data
@@ -120,7 +121,8 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     // TODO Auto-generated method stub
     if (e.getSource()==jbMakeP)
     {
-      System.out.println("doe nog iets met knop");
+      speellijstnaam=pName.getText();
+      System.out.println(speellijstnaam);
     }
     if (e.getSource()==backButton)
     {

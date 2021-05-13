@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="WachtwoordWijzigen checkt of de wachtwoorden overeen komen en hasht het wachtwoord">
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="variabelen toegevoegt om het naar de database zetten makkelijker te maken.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/getSensors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/getSensors.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +52,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.KlimaatProfiel">
+  <component name="RunManager" selected="Application.AfspeellijstBeheer">
     <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Account" />
       <module name="RoboticaKBS" />
@@ -65,15 +60,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Dashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Dashboard" />
+    <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Inloggen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Inloggen" />
+    <configuration name="Dashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Dashboard" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -94,19 +89,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Inloggen" />
       <item itemvalue="Application.Account" />
       <item itemvalue="Application.WachtwoordWijzigen" />
       <item itemvalue="Application.Dashboard" />
       <item itemvalue="Application.KlimaatProfiel" />
+      <item itemvalue="Application.AfspeellijstBeheer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.KlimaatProfiel" />
         <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.Account" />
         <item itemvalue="Application.WachtwoordWijzigen" />
-        <item itemvalue="Application.Inloggen" />
       </list>
     </recent_temporary>
   </component>
@@ -294,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620825484090</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="variabelen toegevoegt om het naar de database zetten makkelijker te maken.">
+      <created>1620907735614</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1620907735614</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -329,7 +331,8 @@
     <MESSAGE value="hashen wachtwoord in inloggen en Account en check gb en ww in Inloggen" />
     <MESSAGE value="hash beter gemaakt" />
     <MESSAGE value="WachtwoordWijzigen checkt of de wachtwoorden overeen komen en hasht het wachtwoord" />
-    <option name="LAST_COMMIT_MESSAGE" value="WachtwoordWijzigen checkt of de wachtwoorden overeen komen en hasht het wachtwoord" />
+    <MESSAGE value="variabelen toegevoegt om het naar de database zetten makkelijker te maken." />
+    <option name="LAST_COMMIT_MESSAGE" value="variabelen toegevoegt om het naar de database zetten makkelijker te maken." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
