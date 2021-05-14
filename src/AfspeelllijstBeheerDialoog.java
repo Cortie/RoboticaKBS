@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListener
 {
-    private JButton jbNummer1;
-    private JButton jbNummer2;
-    private JButton jbNummer3;
-    private JButton jbNummer4;
-    private JButton jbNummer5;
+    private JButton jbAfspeellijst1;
+    private JButton jbAfspeellijst2;
+    private JButton jbAfspeellijst3;
+    private JButton jbAfspeellijst4;
+    private JButton jbAfspeellijst5;
         public AfspeelllijstBeheerDialoog(JFrame frame, boolean modal){
             super(frame, modal);
             setSize(800, 500);
@@ -17,18 +17,18 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
 
             JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(2,2));
             lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 1 "));
-            lijstMusicAanAfspeellijst.add(jbNummer1 = new JButton("+"));
-            jbNummer1.addActionListener(this);
+            lijstMusicAanAfspeellijst.add(jbAfspeellijst1 = new JButton("+"));
+            jbAfspeellijst1.addActionListener(this);
             lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 2 "));
-            lijstMusicAanAfspeellijst.add(jbNummer2 = new JButton("+"));
-            jbNummer2.addActionListener(this);
-//            lijstMusicAanAfspeellijst.add(new JLabel("nummer 3 "));
+            lijstMusicAanAfspeellijst.add(jbAfspeellijst2 = new JButton("+"));
+            jbAfspeellijst2.addActionListener(this);
+//            lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 3 "));
 //            lijstMusicAanAfspeellijst.add(jbNummer3 = new JButton("+"));
 //            jbNummer3.addActionListener(this);
-//            lijstMusicAanAfspeellijst.add(new JLabel("nummer 4 "));
+//            lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 4 "));
 //            lijstMusicAanAfspeellijst.add(jbNummer4 = new JButton("+"));
 //            jbNummer4.addActionListener(this);
-//            lijstMusicAanAfspeellijst.add(new JLabel("nummer 5 "));
+//            lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 5 "));
 //            lijstMusicAanAfspeellijst.add(jbNummer5 = new JButton("+"));
 //            jbNummer5.addActionListener(this);
 
@@ -42,24 +42,29 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if (e.getSource()==jbNummer1)
+        if (e.getSource()== jbAfspeellijst1)
         {
+            System.out.println("voeg nummer toe aan afspeellijst");
             dispose();
         }
-        if (e.getSource()==jbNummer2)
+        if (e.getSource()== jbAfspeellijst2)
         {
+            System.out.println("voeg nummer toe aan afspeellijst");
             dispose();
         }
-        if (e.getSource()==jbNummer3)
+        if (e.getSource()== jbAfspeellijst3)
         {
+            System.out.println("voeg nummer toe aan afspeellijst");
             dispose();
         }
-        if (e.getSource()==jbNummer4)
+        if (e.getSource()== jbAfspeellijst4)
         {
+            System.out.println("voeg nummer toe aan afspeellijst");
             dispose();
         }
-        if (e.getSource()==jbNummer5)
+        if (e.getSource()==jbAfspeellijst5)
         {
+            System.out.println("voeg nummer toe aan afspeellijst");
             dispose();
         }
     }

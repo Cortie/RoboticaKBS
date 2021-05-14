@@ -7,15 +7,18 @@ import java.awt.event.ActionListener;
 
 public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implements ActionListener, ChangeListener
 {
-    private JTextField jtProfielNaam;
+            private JTextField jtProfielNaam;//haal waarde uit database
             private JButton jbBevestigenKnop;
             private JTextField jtVan;
             private JTextField jtTot;
-            private String waardeVan = "1900";
-            private String waardeTot = "2300";
+            private String waardeVan = "1900";//haal waarde uit database
+            private String waardeTot = "2300";//haal waarde uit database
             private JLabel jlWaardeSlider;
-            private int waardeSlider;
+            private int waardeSlider=10;//haal waarde uit database
             private JSlider jsSlider;
+            private String profielnaam;
+            private String vanWaarde;
+            private String totWaarde;
             public KlimaatProfielDialoogAanpassenLichtProfiel(JFrame frame, boolean modal) {
                         super(frame, modal);
                         setSize(800, 500);
@@ -33,6 +36,7 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
                         sliderPnl.add(jtVan=new JTextField(waardeVan));
                         sliderPnl.add(jtTot=new JTextField(waardeTot));
                         sliderPnl.add(jsSlider=new JSlider());
+                        jsSlider.setValue(waardeSlider);
                         jsSlider.addChangeListener(this);
                         sliderPnl.add(jlWaardeSlider = new JLabel(String.valueOf(waardeSlider=jsSlider.getValue())+" LM"));
 
@@ -53,6 +57,13 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
             {
                 if (e.getSource()==jbBevestigenKnop)
                 {
+                    profielnaam=jtProfielNaam.getText();
+                    vanWaarde=jtVan.getText();
+                    totWaarde=jtTot.getText();
+                    System.out.println(profielnaam);
+                    System.out.println(vanWaarde);
+                    System.out.println(totWaarde);
+                    System.out.println(waardeSlider);
                     dispose();
                 }
             }

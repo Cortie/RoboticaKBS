@@ -14,8 +14,12 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
     private String waardeVan = "van";
     private String waardeTot = "tot";
     private JLabel jlWaardeSlider;
-    private int waardeSlider;
     private JSlider jsSlider;
+
+    private int waardeSlider;
+    private String profielnaam;
+    private String vanWaarde;
+    private String totWaarde;
     public KlimaatProfielDialoogAanmakenTempProfiel(JFrame frame, boolean modal){
                 super(frame, modal);
                 setSize(800, 500);
@@ -53,6 +57,13 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
     {
         if (e.getSource()==jbBevestigenKnop)
         {
+            profielnaam=jtProfielNaam.getText();
+            vanWaarde=jtVan.getText();
+            totWaarde=jtTot.getText();
+            System.out.println(profielnaam);
+            System.out.println(vanWaarde);
+            System.out.println(totWaarde);
+            System.out.println(waardeSlider);
             dispose();
         }
     }
