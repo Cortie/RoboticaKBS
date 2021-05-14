@@ -84,7 +84,7 @@ public class Gameplay implements Screen
                     break;
                 case 3:
                     pointvalue = 200;
-                    shotSpeed = 1500;
+                    shotSpeed = 1200;
                     btype = bigBullet;
                     break;
                 case 4:
@@ -172,11 +172,12 @@ public class Gameplay implements Screen
             }
             //this will spawn one of the two minibosses and set the spawntimer to
             // 30 seconds to give the player time to fight the miniboss
-            if(game.getScore()>= 250)
+            if(game.getBossScore()>= 2000)
             {
                 int miniboss = MathUtils.random(3,4);
                 position = MyGdxGame.camera.viewportWidth/2 - 250;
-                spawnEnemy(position, screentop, enemylvls.get(4));
+                spawnEnemy(position, screentop, enemylvls.get(miniboss));
+                game.setBossScore(0);
                 lastEnemySpawn = TimeUtils.millis() + 30000;
             }
         }

@@ -33,6 +33,17 @@ public class MyGdxGame extends Game
 	private BitmapFont font;
 	private BitmapFont Bigfont;
 	private Array<PowerUp> powers = new Array<>();
+	private int bossScore;
+	
+	public int getBossScore()
+	{
+		return bossScore;
+	}
+	
+	public void setBossScore(int bossScore)
+	{
+		this.bossScore = bossScore;
+	}
 	
 	public Array<PowerUp> getPowers()
 	{
@@ -57,6 +68,7 @@ public class MyGdxGame extends Game
 	}
 
 	public void setScore(int score) {
+		bossScore = bossScore + (score - this.score);
 		this.score = score;
 	}
 
