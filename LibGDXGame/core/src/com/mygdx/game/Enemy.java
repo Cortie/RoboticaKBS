@@ -14,6 +14,17 @@ public class Enemy
     private long movementspeed = 50;
     private int moved;
     private boolean shot = false;
+    private int shotNumber= 0;
+    
+    public int getShotNumber()
+    {
+        return shotNumber;
+    }
+    
+    public void setShotNumber(int shotNumber)
+    {
+        this.shotNumber = shotNumber;
+    }
     
     public void setLastmovement(long lastmovement)
     {
