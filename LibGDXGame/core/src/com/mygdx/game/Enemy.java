@@ -13,6 +13,7 @@ public class Enemy
     private long lastmovement;
     private long movementspeed = 50;
     private int moved;
+    private boolean shot = false;
     
     public void setLastmovement(long lastmovement)
     {
@@ -92,5 +93,15 @@ public class Enemy
     public void setMoved(int number)
     {
         this.moved = number;
+    }
+    
+    public boolean isShot()
+    {
+        return shot;
+    }
+    
+    public void setShot(boolean shot)
+    {
+        this.shot = shot;
     }
 }

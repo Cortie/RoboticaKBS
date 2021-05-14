@@ -19,10 +19,21 @@ public class Player
     private BulletType type;
     private static Array<Bullet> bullets;
     private boolean forcefield = false;
+    private boolean tripleshot = false;
     
     public Rectangle getShieldBox()
     {
         return shieldBox;
+    }
+    
+    public void setTripleshot(Boolean tripleshot)
+    {
+        this.tripleshot = tripleshot;
+    }
+    
+    public boolean isTripleshot()
+    {
+        return tripleshot;
     }
     
     private Rectangle shieldBox;
