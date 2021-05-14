@@ -227,6 +227,7 @@ public class Gameplay implements Screen
                 long id = pickup.play(1.0f);
                 pickup.setPitch(id, 1);
                 pickup.setLooping(id, false);
+                game.setScore(game.getScore() + 100);
                 if(power.getType() == 2)
                 {
                     game.setPlayerlives(game.getPlayerlives() +1);
@@ -600,13 +601,17 @@ public class Gameplay implements Screen
                         {
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
                             game.setScoretext(String.valueOf(game.getScore()));
-                            int rand = MathUtils.random(1,5);
+                            if(enemy.getType().equals(enemylvls.get(3)) || enemy.getType().equals(enemylvls.get(4)))
+                            {
+                                spawnPowerUp(2, enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY());
+                            }
+                            int rand = MathUtils.random(1,20);
                             {
                                 if(rand == 1)
                                 {
                                     int rand2 = MathUtils.random(1,5);
                                     {
-                                        spawnPowerUp(5, enemy.getX(), enemy.getY());
+                                        spawnPowerUp(rand2, enemy.getX(), enemy.getY());
                                     }
                                 }
                             }
