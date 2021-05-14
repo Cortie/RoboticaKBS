@@ -95,7 +95,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost/mydb";
+            String url = "jdbc:mysql://localhost/domotica_database";
             String username="root", password="";
 
             Connection connection = DriverManager.getConnection( url,username,password );
