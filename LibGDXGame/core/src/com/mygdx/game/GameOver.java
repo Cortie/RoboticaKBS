@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.sql.*;
+import java.time.LocalDateTime;
+
 public class GameOver implements Screen {
     MyGdxGame game;
 
@@ -28,6 +31,28 @@ public class GameOver implements Screen {
         BackButtonActive = new Texture("BackButtonActive.png");
     }
     public void selectScene() {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+
+            String url = "jdbc:mysql://localhost/mydb";
+            String username="root", password="";
+
+            Connection conn=
+                    DriverManager.getConnection(url, username, password);
+
+
+            PreparedStatement pstatement = conn.prepareStatement( "insert into highscore (Score, DateTime)" + "values (?, ?)" );
+            //pstatement.setString(1,"");
+            pstatement.setInt(2,game.getScore());
+            LocalDateTime time = LocalDateTime.now();
+            pstatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            ResultSet pstatement.executeQuery();
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
         SerialListener.Click = false;
         if (SerialListener.GameOverSelecter == 2) {
