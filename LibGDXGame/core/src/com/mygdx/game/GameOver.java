@@ -1,13 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.TimeUtils;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+
 
 public class GameOver implements Screen {
     MyGdxGame game;
@@ -34,8 +34,6 @@ public class GameOver implements Screen {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-
             String url = "jdbc:mysql://localhost/mydb";
             String username="root", password="";
 
@@ -45,9 +43,11 @@ public class GameOver implements Screen {
             PreparedStatement pstatement = conn.prepareStatement( "insert into highscore (Score, DateTime)" + "values (?, ?)" );
             //pstatement.setString(1,"");
             pstatement.setInt(2,game.getScore());
-            LocalDateTime time = LocalDateTime.now();
-            pstatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            ResultSet pstatement.executeQuery();
+            Timestamp time = new Timestamp(TimeUtils.millis());
+            pstatement.setTimestamp(3, time);
+            ResultSet rs=  pstatement.executeQuery();
+            pstatement.close();
+            conn.close();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

@@ -48,15 +48,11 @@ public class Highscore implements Screen {
         game.backgroundSprite.draw(game.batch);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-        
-        
             String url = "jdbc:mysql://localhost/mydb";
             String username="root", password="";
-        
             Connection conn=
-                    DriverManager.getConnection(url, username, password);
-        
-        
+                DriverManager.getConnection(url, username, password);
+                
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery( "SELECT Score, DateTime highscore (Score, DateTime) ORDER BY Score DESC LIMIT 5" );
             int rank = 1;
