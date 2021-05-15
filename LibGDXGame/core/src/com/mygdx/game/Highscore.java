@@ -59,7 +59,6 @@ public class Highscore implements Screen {
         
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery( "SELECT Score, DateTime highscore (Score, DateTime) ORDER BY Score DESC LIMIT 5" );
-            
             int rank = 1;
             int step = 150;
             while(rs.next())

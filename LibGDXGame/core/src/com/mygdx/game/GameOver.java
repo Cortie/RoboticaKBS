@@ -41,7 +41,6 @@ public class GameOver implements Screen {
             Connection conn=
                     DriverManager.getConnection(url, username, password);
 
-
             PreparedStatement pstatement = conn.prepareStatement( "insert into highscore (Score, DateTime)" + "values (?, ?)" );
             //pstatement.setString(1,"");
             pstatement.setInt(2,game.getScore());
