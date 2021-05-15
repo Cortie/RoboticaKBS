@@ -411,18 +411,6 @@ public class Gameplay implements Screen
                     enemy.setY(enemy.getY() - 50 * Gdx.graphics.getDeltaTime());
                 }
             }
-            /*if(enemy.getType().equals(enemylvls.get(1)))
-            {
-                    int randMovement = MathUtils.random(0,1);
-                    if(randMovement == 0)
-                    {
-                        enemy.setX(enemy.getX() + 75 * Gdx.graphics.getDeltaTime());
-                    }
-                    if(randMovement == 1)
-                    {
-                        enemy.setX(enemy.getX() - 75 * Gdx.graphics.getDeltaTime());
-                    }
-            }*/
             //removes the enemy from the batch when it has reached the bottom of the screen
             if(enemy.getShip().getY() + 64 < 0) {
                 iter.remove();
