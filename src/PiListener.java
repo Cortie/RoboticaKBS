@@ -6,6 +6,8 @@ public class PiListener implements Runnable
   public String Temp;
   public String Press;
   public String Humid;
+  public Integer lights = 0;//aanpassen zodat dit de variable inhoud van lichtsterkte bevat
+  
 
   public PiListener(){
     run();
@@ -16,6 +18,9 @@ public class PiListener implements Runnable
     {
         try{
             Socket clientSocket = new Socket("192.168.0.124", 8080);
+            OutputStream send = clientSocket.getOutputStream();
+            byte b = lights.byteValue();
+            send.write(b);
             InputStream is = clientSocket.getInputStream();
             PrintWriter pw = new PrintWriter(clientSocket.getOutputStream());
             pw.println("GET / HTTP/1.0");

@@ -14,23 +14,26 @@ humidity = sense.get_humidity()
 humidity = round(humidity,1)
 humidity = str(humidity)
 
-def my_temp():
+def my_Sensors():
     Temp = "Temperatuur: " + temp
     print(Temp)
     Tdata = Temp.encode()
-    conn.send(Tdata)
     
-def my_pressure():
     Pressure = "Pressure: " + pressure
     print(Pressure)
     Pdata = Pressure.encode()
-    conn.send(Pdata)
     
-def my_humidity():
     Humid = "Humidity: " + humidity
     print(Humid)
     Hdata = Humid.encode()
-    conn.send(Hdata)
+    
+    data = Tdata + Pdata + Hdata
+    conn.send(data)
+    
+def switch_lights_on():
+    sense.clear(255,255,255)
+def switch_lights_off():
+    sense.clear()
 
 soc = socket.socket()
 host = "192.168.0.124"
@@ -40,7 +43,12 @@ soc.listen(5)
 
 while True:
     conn, addr = soc.accept()
+    data = conn.recv(1024)
+    data = int.from_bytes(data, "big")
+    print("light Int value: ", data)
+    if data == 1:
+        switch_lights_on()
+    else:
+        switch_lights_off()
     print ("Got connection from", addr)
-    my_temp()
-    my_pressure()
-    my_humidity()
+    my_Sensors()
