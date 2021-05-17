@@ -6,7 +6,7 @@ public class PiListener implements Runnable
   public String Temp;
   public String Press;
   public String Humid;
-  public Integer lights = 0;//aanpassen zodat dit de variable inhoud van lichtsterkte bevat
+  public Integer lights = 151;
   
 
   public PiListener(){
