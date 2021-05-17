@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import java.sql.*;
 
-
 public class GameOver implements Screen {
     MyGdxGame game;
 
@@ -19,6 +18,9 @@ public class GameOver implements Screen {
     Texture PlayAgainButtonActive;
     Texture BackButtonInactive;
     Texture BackButtonActive;
+    static final String DB_URL = "jdbc:mysql://localhost/TUTORIALSPOINT";
+    static final String USER = "root";
+    static final String PASS = "";
 
     public GameOver(MyGdxGame game){
         this.game = game;
@@ -31,24 +33,14 @@ public class GameOver implements Screen {
         BackButtonActive = new Texture("BackButtonActive.png");
     }
     public void selectScene() {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost/mydb";
-            String username="root", password="";
-
-            Connection conn=
-                    DriverManager.getConnection(url, username, password);
-
-            PreparedStatement pstatement = conn.prepareStatement( "insert into highscore (Score, DateTime)" + "values (?, ?)" );
-            //pstatement.setString(1,"");
-            pstatement.setInt(2,game.getScore());
-            Timestamp time = new Timestamp(TimeUtils.millis());
-            pstatement.setTimestamp(3, time);
-            ResultSet rs=  pstatement.executeQuery();
-            pstatement.close();
-            conn.close();
-
+    
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+        ) {
+            // Execute a query
+            System.out.println("Inserting records into the table...");
+            String sql = "INSERT INTO highscore (score) VALUES (" +game.getScore()+ ")";
+            stmt.executeUpdate(sql);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
