@@ -32,7 +32,7 @@ public class PiListener implements Runnable
               String output = new String(buffer, 0, read);
               Temp = output.substring(0, 17);
               Press = output.substring(17, 33);
-              Humid = output.substring(33);
+              Humid = output.substring(33, 42);
               break;
             };
             clientSocket.close();

@@ -4,11 +4,12 @@ import java.awt.event.*;
 
 public class Dashboard extends JFrame implements ActionListener {
 
-  // defenitions for getting the current temperature
-  // static getSensors Temp1 = new getSensors();
+  // defenitions for getting the current temperature and light value
   private final static PiListener PiListener = new PiListener();
+  private GetLights lampje = new GetLights();
 
   static String piTemp = PiListener.Temp;
+  
 
   // definitions for labels, buttons and layouts
   JLabel temp = new JLabel(piTemp);
@@ -22,6 +23,9 @@ public class Dashboard extends JFrame implements ActionListener {
   BorderLayout collection = new BorderLayout();
 
   public Dashboard() {
+    
+    PiListener.lights = lampje.lichtwaarde;
+
     Thread PiListenerThread = new Thread(PiListener);
     PiListenerThread.setDaemon(true);
     PiListenerThread.start();

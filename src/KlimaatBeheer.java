@@ -10,13 +10,15 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 import java.sql.*;
 
-
 public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListener {
     // defenitions for getting the current temperature
-    static getSensors sensor = new getSensors();
-    static String piTemp = sensor.Temperature;
-    static String piPress = sensor.Pressure;
-    static String piHumid = sensor.Humidity;
+    static PiListener sensor = new PiListener();
+    static String piTemp = sensor.Temp.substring(13);
+    static String piPress = sensor.Press.substring(10);
+    static String piHumid = sensor.Humid;
+
+    private GetLights lampje = new GetLights();
+    private int lightvalue;
 
     private JLabel jlTitel;
     private JButton jbProfielKnop;
@@ -45,84 +47,37 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private String lampStatus;
     private JLabel jlLampStatus;
     private JLabel jlLampStatusWaarde;
-    public SerialPort port;
     public Scanner data;
-    private int lightvalue;
+    
     // private int lichtsterkteSensor=70;
 
     public KlimaatBeheer() {
-        SerialPort[] availablePorts = SerialPort.getCommPorts();
-        for (SerialPort comPort : availablePorts) {
-            if(comPort.getDescriptivePortName().length() > 10) {
-                  String naam = comPort.getDescriptivePortName().substring(0, 11);
-                  if (naam.equalsIgnoreCase("Arduino Uno")) {
-                   this.port = comPort;
-                }
-            }
-
-        }
-
-        if (port.openPort()) {
-            System.out.println("Successfully opened the port.");
-        } else {
-            System.out.println("Unable to open the port.");
-            return;
-        }
-        port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
-        data = new Scanner(port.getInputStream());
-        if (data.hasNextLine()) {
-            lightvalue = 0;
-
-            try {
-                if(data.nextLine().length() == 2 || data.nextLine().length() == 3){
-                    lightvalue = Integer.parseInt(data.nextLine());
-
-                }
-
-               if(lightvalue == 0 || data.nextLine().length() == 1){
-                    lightvalue = Integer.parseInt(data.nextLine());
-                }
-
-
-            } catch (Exception e) {
-                System.out.println("lichtwaarde kon niet worden uitgelezen!");
-                lightvalue = 0;
-            }
-            System.out.println(lightvalue);
-
-        }
-
-        try{
+        lightvalue = lampje.lichtwaarde;
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             String url = "jdbc:mysql://localhost/domotica_database";
-            String username="root", password="";
+            String username = "root", password = "";
 
-            Connection connection = DriverManager.getConnection( url,username,password );
+            Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement statement = connection.prepareStatement("Insert into climate_log Values (?,?,?,?);");
             Double tempPi = Double.parseDouble(piTemp);
             Double humidPi = Double.parseDouble(piHumid);
             Double pressPi = Double.parseDouble(piPress);
 
-            statement.setDouble(1,tempPi);
-            statement.setDouble(2,humidPi);
-            statement.setDouble(3,pressPi);
-            statement.setInt(4,lightvalue);
+            statement.setDouble(1, tempPi);
+            statement.setDouble(2, humidPi);
+            statement.setDouble(3, pressPi);
+            statement.setInt(4, lightvalue);
 
-            int i= statement.executeUpdate();
-            System.out.println(i+" records inserted");
+            int i = statement.executeUpdate();
+            System.out.println(i + " records inserted");
 
             connection.close();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
             System.out.println("geen verbinding met de database!");
         }
-
-
-
-
-
-
 
         setTitle("Klimaat systeem");
         setSize(800, 600);
@@ -146,7 +101,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         slidersGedeeltePnl.add(jlTempWaarde = new JLabel(String.valueOf(tempWaarde) + " °C"));
         slidersGedeeltePnl.add(jlLichtsterkteAanpassen = new JLabel("Lichtsterkte aanpassen"));
         slidersGedeeltePnl.add(jlEmpty = new JLabel(""));
-        slidersGedeeltePnl.add(jsLichtsterkte = new JSlider(0,500));
+        slidersGedeeltePnl.add(jsLichtsterkte = new JSlider(0, 500));
         jsLichtsterkte.addChangeListener(this);
         lichtsterkteWaarde = jsLichtsterkte.getValue();
         slidersGedeeltePnl.add(jlLichtsterkteWaarde = new JLabel(String.valueOf(lichtsterkteWaarde) + " LM"));
@@ -161,10 +116,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
         ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
 
-        if(lightvalue >= jsLichtsterkte.getValue()){
+        if (lightvalue >= jsLichtsterkte.getValue()) {
             lampStatus = "aan";
         }
-        if(lightvalue < jsLichtsterkte.getValue()){
+        if (lightvalue < jsLichtsterkte.getValue()) {
             lampStatus = "uit";
         }
 
@@ -195,8 +150,6 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         add(borderPnl);
         setVisible(true);
 
-
-
     }
 
     @Override
@@ -204,12 +157,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         if (e.getSource() == jbProfielKnop) {
             System.out.println("link naar profielen aanpassen");
             KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
-            port.closePort();
             this.dispose();
         }
         if (e.getSource() == backButton) {
             Dashboard dash = new Dashboard();
-            port.closePort();
             this.dispose();
         }
 
@@ -229,11 +180,11 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
             jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde = jsLichtsterkte.getValue()) + " LM");
             lightvalue = Integer.parseInt(data.nextLine());
             jlLichtsterkteSensorWaarde.setText(lightvalue + " LM");
-            if(lightvalue >= jsLichtsterkte.getValue()){
+            if (lightvalue >= jsLichtsterkte.getValue()) {
                 lampStatus = "aan";
                 jlLampStatusWaarde.setText(lampStatus);
             }
-            if(lightvalue < jsLichtsterkte.getValue()){
+            if (lightvalue < jsLichtsterkte.getValue()) {
                 lampStatus = "uit";
                 jlLampStatusWaarde.setText(lampStatus);
             }

@@ -45,10 +45,11 @@ while True:
     conn, addr = soc.accept()
     data = conn.recv(1024)
     data = int.from_bytes(data, "big")
+    my_Sensors()
     print("light Int value: ", data)
-    if data == 1:
+    if data < 150:
         switch_lights_on()
     else:
         switch_lights_off()
     print ("Got connection from", addr)
-    my_Sensors()
+    
