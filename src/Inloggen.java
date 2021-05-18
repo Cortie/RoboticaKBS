@@ -22,8 +22,7 @@ public class Inloggen extends JFrame implements ActionListener
 
     private String hashdWachtwoord;
     private String checkHashedPassword;
-    private String checkGebruikersnaam;
-    private byte[] salt;
+
     public Inloggen()
     {
         setTitle("Klimaat systeem");
@@ -88,17 +87,10 @@ public class Inloggen extends JFrame implements ActionListener
             wachtwoord=jpWachtwoord.getText();
             System.out.println(gebruikersnaam);
             System.out.println(wachtwoord);
-            try
-            {
-                salt = SaltedHashPasword.getSalt();
-            } catch (NoSuchAlgorithmException | NoSuchProviderException noSuchAlgorithmException)
-            {
-                noSuchAlgorithmException.printStackTrace();
-            }
-            hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,salt);
 
 
-            System.out.println(hashdWachtwoord);
+
+
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -108,15 +100,19 @@ public class Inloggen extends JFrame implements ActionListener
 
                 Connection connection = DriverManager.getConnection(url, username, password);
 
-                PreparedStatement userstmt = connection.prepareStatement("select username,password from account where username = ?");
+                PreparedStatement userstmt = connection.prepareStatement("select username,password,salt from account where username = ?");
                 userstmt.setString(1, gebruikersnaam);
                 ResultSet inlogrs = userstmt.executeQuery();
                 inlogrs.next();
                 String checkUsername = inlogrs.getString(1);
                 Blob pass = inlogrs.getBlob(2);
+                byte[] passwordSalt  = inlogrs.getBytes(3);
                 checkHashedPassword = new String(pass.getBytes(1L, (int) pass.length()));
                 System.out.println(checkHashedPassword);
                 System.out.println(checkUsername);
+
+                hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,passwordSalt);
+
 
                 if (hashdWachtwoord.equals(checkHashedPassword)&&gebruikersnaam.equals(checkUsername))
                 {
