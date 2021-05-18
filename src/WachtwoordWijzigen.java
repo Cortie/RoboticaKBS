@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.sql.*;
 
 public class WachtwoordWijzigen extends JFrame implements ActionListener
 {
@@ -23,6 +24,8 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
 
     private byte[] salt;
     private String hashdWachtwoord;
+    private boolean errorCheck = false;
+    private JLabel jlErrorMessage;
     public WachtwoordWijzigen()
     {
         setTitle("Klimaat systeem");
@@ -59,9 +62,14 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
         gegevensPnl.add(gebruikergegevensPnl,BorderLayout.NORTH);
         gegevensPnl.add(wachtwoordCheckPnl,BorderLayout.CENTER);
 
+        JPanel onderstegedeelte = new JPanel(new BorderLayout());
+        jlErrorMessage = new JLabel("");
+        onderstegedeelte.add(jlErrorMessage, BorderLayout.SOUTH);
+        onderstegedeelte.add(gegevensPnl,BorderLayout.CENTER);
+
         JPanel borderPnl = new JPanel(new BorderLayout());
         borderPnl.add(titelPnl, BorderLayout.NORTH);
-        borderPnl.add(gegevensPnl,BorderLayout.CENTER);
+        borderPnl.add(onderstegedeelte,BorderLayout.CENTER);
 
 
 
@@ -74,31 +82,94 @@ public class WachtwoordWijzigen extends JFrame implements ActionListener
     {
         if (e.getSource()==jbWachtwoordWijzigen)
         {
-            System.out.println("link naar inloggen");
+            //System.out.println("link naar inloggen");
             gebruikersnaam=jtGebruikersnaam.getText();
             wachtwoord=jpWachtwoord.getText();
             bevestigWachtwoord=jpWachtwoordBevestigen.getText();
-            checkGebruikersnaam=gebruikersnaam;//verander checkGB naar die uit database
-            if (gebruikersnaam.equals(checkGebruikersnaam))
+
+            //checkGebruikersnaam=gebruikersnaam;//verander checkGB naar die uit database
+
+            if (!gebruikersnaam.equals("") && !wachtwoord.equals("")&& !bevestigWachtwoord.equals(""))
             {
-                if (wachtwoord.equals(bevestigWachtwoord))
-                {
-                    try
-                    {
-                        salt = SaltedHashPasword.getSalt();
-                    } catch (NoSuchAlgorithmException | NoSuchProviderException noSuchAlgorithmException)
-                    {
-                        noSuchAlgorithmException.printStackTrace();
-                    }
-                    hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,salt);
+                try {
+                                    Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    Inloggen inloggenscherm= new Inloggen();
-                    this.dispose();
-                }else {
-                    System.out.println("wachtwoorden komen niet overeen");
+                                    String url = "jdbc:mysql://localhost/domotica_database";
+                                    String username = "root", password = "";
 
-                }
+                                    Connection connection = DriverManager.getConnection(url, username, password);
+
+                                    PreparedStatement userstmt = connection.prepareStatement("select username from account where username = ?");
+                                    userstmt.setString(1, gebruikersnaam);
+                                    ResultSet userrs = userstmt.executeQuery();
+                                    userrs.next();
+                                    String checkUsername = userrs.getString(1);
+
+                                    if (gebruikersnaam.equals(checkUsername))
+                                    {
+                                        if (wachtwoord.equals(bevestigWachtwoord))
+                                        {
+                                            try
+                                            {
+                                                salt = SaltedHashPasword.getSalt();
+                                            } catch (NoSuchAlgorithmException | NoSuchProviderException noSuchAlgorithmException)
+                                            {
+                                                noSuchAlgorithmException.printStackTrace();
+                                            }
+                                            hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,salt);
+                                            try {
+                                                    Class.forName("com.mysql.cj.jdbc.Driver");
+//                                                    String url = "jdbc:mysql://localhost/domotica_database";
+//                                                    String username = "root", password = "";
+//                                                    Connection connection = DriverManager.getConnection(url, username, password);
+                                                    PreparedStatement statement = connection.prepareStatement("UPDATE account SET password = ?, salt = ? WHERE username = ?;");
+                                                    statement.setString(3, gebruikersnaam);
+                                                    statement.setString(1, hashdWachtwoord);
+                                                    statement.setBytes(2, salt);
+                                                    int i = statement.executeUpdate();
+                                                    System.out.println(i + " records inserted");
+                                                    connection.close();
+
+                                            } catch (SQLException sqle) {
+                                                System.out.println(sqle.getMessage());
+                                                System.out.println("problemen met SQL");
+
+                                            } catch (Exception ex) {
+                                                System.out.println(ex.getMessage());
+
+                                            }
+
+                                            Inloggen inloggenscherm= new Inloggen();
+                                            this.dispose();
+                                        }else
+                                            {
+                                                System.out.println("wachtwoorden komen niet overeen");
+
+                                            }
+                                    }
+
+                                    userrs.close();
+                                    connection.close();
+                                } catch (SQLException sqlEx) {
+                                    //als er geen gebruiker in de database is gevonden met de opgegeven gebruikersnaam, wordt er geen foutmelding weergegeven
+                                    System.out.println("gebruikersnaam bestaat niet");
+                                    //System.out.println(hashdWachtwoord);
+                                } catch (ClassNotFoundException cnfEx) {
+                                    System.out.println(cnfEx.getMessage());
+                               }
+
+            }else {
+                //als een van de drie inlogvelden leeg is wordt er foutmelding weergegeven.
+                errorCheck = true;
             }
+                if (errorCheck)
+                {
+                    jlErrorMessage.setText("ongeldige inloggegevens!");
+                    SwingUtilities.updateComponentTreeUI(this);
+                    errorCheck = false;
+                }
+
+
 
         }
     }
