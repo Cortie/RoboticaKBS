@@ -21,7 +21,6 @@ public class Account extends JFrame implements ActionListener {
     private String wachtwoord = "";
 
     private String hashdWachtwoord;
-    private String checkHashdWachtwoord;
     private byte[] salt;
     private boolean errorCheck = false;
     private boolean usernameErrorCheck = false;
@@ -122,8 +121,7 @@ public class Account extends JFrame implements ActionListener {
                 } catch (ClassNotFoundException cnfEx) {
                     System.out.println(cnfEx.getMessage());
                }
-                //de accountsgegevens worden in de database gezet en er word gecontroleerd of het wachtwoord correct in de database staat,
-                // mits de gebruikersnaam nog niet bestaat.
+                //de accountgegevens worden toegevoegd aan de database, mits er een geldige gebruikersnaam wordt ingevoerd.
                 if (!usernameErrorCheck) {
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -142,16 +140,7 @@ public class Account extends JFrame implements ActionListener {
                         int i = statement.executeUpdate();
                         System.out.println(i + " records inserted");
 
-                        //wachtwoord ophalen uit de database voor wachtwoordcheck
-                        PreparedStatement stmt = connection.prepareStatement("select password from account where username = ?;");
-                        stmt.setString(1, gebruikersnaam);
-                        ResultSet rs = stmt.executeQuery();
-                        rs.next();
-                        Blob pass = rs.getBlob(1);
-                        checkHashdWachtwoord = new String(pass.getBytes(1L, (int) pass.length()));
 
-
-                        rs.close();
                         connection.close();
 
                     } catch (SQLException sqle) {
@@ -162,13 +151,14 @@ public class Account extends JFrame implements ActionListener {
                         System.out.println(ex.getMessage());
 
                     }
-                }
-
-                //als het wachtwoord correct in de database is gezet wordt de inlogpagina weergegeven.
-                if (hashdWachtwoord.equals(checkHashdWachtwoord)) {
                     Inloggen inloggenscherm = new Inloggen();
                     this.dispose();
                 }
+
+
+
+
+
             } else {
                 //als een van de twee inlogvelden leeg is wordt er foutmelding weergegeven.
                 errorCheck = true;
