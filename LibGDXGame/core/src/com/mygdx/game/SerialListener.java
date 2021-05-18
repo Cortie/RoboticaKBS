@@ -105,7 +105,7 @@ public class SerialListener implements Runnable
                     }
                     if(MyGdxGame.HighscoreActive){
 
-                        if (HighscoreSelecter <= 2) {
+                        if (HighscoreSelecter <= 1) {
                             HighscoreSelecter++;
                             MyGdxGame.playSound(buttonSwitch);
                         } else {

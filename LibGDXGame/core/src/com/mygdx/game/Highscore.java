@@ -54,16 +54,17 @@ public class Highscore implements Screen {
                 DriverManager.getConnection(url, username, password);
                 
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery( "SELECT Score, DateTime highscore (Score, DateTime) ORDER BY Score DESC LIMIT 5" );
+            ResultSet rs = statement.executeQuery( "SELECT Score, Time FROM highscore ORDER BY Score DESC LIMIT 5" );
             int rank = 1;
             int step = 150;
             while(rs.next())
             {
-                Timestamp time = rs.getTimestamp("DateTime");
+                Timestamp time = rs.getTimestamp("Time");
                 int score = rs.getInt("Score");
-                game.getBigfont().draw(game.batch, rank + ": ", 50, 1150 - step * rank);
-                game.getBigfont().draw(game.batch, String.valueOf(score),250,1150 - step * rank);
-                game.getBigfont().draw(game.batch, time.toString(), 450, 1150 - step * rank);
+                game.getFont().draw(game.batch, rank + ": ", 50, 1150 - step * rank);
+                game.getFont().draw(game.batch, String.valueOf(score),250,1150 - step * rank);
+                game.getFont().draw(game.batch, time.toString(), 50, 1075 - step * rank);
+                rank++;
             }
             statement.close();
             conn.close();
