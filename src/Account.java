@@ -118,10 +118,10 @@ public class Account extends JFrame implements ActionListener {
                     //en gaat het systeem verder met het toevoegen van de gebruiker.
                     System.out.println("gebruikersnaam is nog niet bezet");
                     usernameErrorCheck = false;
-                     System.out.println(sqlEx.getMessage());
+                    System.out.println(hashdWachtwoord);
                 } catch (ClassNotFoundException cnfEx) {
                     System.out.println(cnfEx.getMessage());
-                }
+               }
                 //de accountsgegevens worden in de database gezet en er word gecontroleerd of het wachtwoord correct in de database staat,
                 // mits de gebruikersnaam nog niet bestaat.
                 if (!usernameErrorCheck) {

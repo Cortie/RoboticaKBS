@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.sql.*;
 
 public class Inloggen extends JFrame implements ActionListener
 {
@@ -20,7 +21,7 @@ public class Inloggen extends JFrame implements ActionListener
     private String wachtwoord = "";
 
     private String hashdWachtwoord;
-    private String checkHashdWachtwoord;
+    private String checkHashedPassword;
     private String checkGebruikersnaam;
     private byte[] salt;
     public Inloggen()
@@ -96,14 +97,50 @@ public class Inloggen extends JFrame implements ActionListener
             }
             hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord,salt);
 
+
             System.out.println(hashdWachtwoord);
-            checkHashdWachtwoord=hashdWachtwoord;//verander checkww naar die uit database
-            checkGebruikersnaam = gebruikersnaam;//verander checkGB naar die uit database
-            if (hashdWachtwoord.equals(checkHashdWachtwoord)&&gebruikersnaam.equals(checkGebruikersnaam))
-            {
-                Dashboard dash = new Dashboard();
-                this.dispose();
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                String url = "jdbc:mysql://localhost/domotica_database";
+                String username = "root", password = "";
+
+                Connection connection = DriverManager.getConnection(url, username, password);
+
+                PreparedStatement userstmt = connection.prepareStatement("select username,password from account where username = ?");
+                userstmt.setString(1, gebruikersnaam);
+                ResultSet inlogrs = userstmt.executeQuery();
+                inlogrs.next();
+                String checkUsername = inlogrs.getString(1);
+                Blob pass = inlogrs.getBlob(2);
+                checkHashedPassword = new String(pass.getBytes(1L, (int) pass.length()));
+                System.out.println(checkHashedPassword);
+                System.out.println(checkUsername);
+
+                if (hashdWachtwoord.equals(checkHashedPassword)&&gebruikersnaam.equals(checkUsername))
+                {
+                    Dashboard dash = new Dashboard();
+                    this.dispose();
+                }
+                if (!hashdWachtwoord.equals(checkHashedPassword) || !gebruikersnaam.equals(checkUsername)){
+                    System.out.println("onjuiste gegevens");
+                }
+
+                inlogrs.close();
+                connection.close();
+            }catch(SQLException sqle){
+                System.out.println(sqle.getMessage());
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
             }
+
+
+
+
+           // checkHashdWachtwoord=hashdWachtwoord;//verander checkww naar die uit database
+            //checkGebruikersnaam = gebruikersnaam;//verander checkGB naar die uit database
+
 
         }
         if (e.getSource()==jbNieuwAccount)
