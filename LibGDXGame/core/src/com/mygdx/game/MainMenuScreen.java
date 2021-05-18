@@ -18,7 +18,7 @@ public class MainMenuScreen implements Screen {
     Texture HighscoreButtonInactive;
 
 
-
+// texures aan de buttons geven
     public MainMenuScreen(MyGdxGame game){
         this.game = game;
         SettingsButtonActive = new Texture("SettingsButtonActive.png");
@@ -30,10 +30,11 @@ public class MainMenuScreen implements Screen {
         HighscoreButtonActive = new Texture("HighscoreButtonActive.png");
         HighscoreButtonInactive = new Texture("HighscoreButtonInactive.png");
     }
+    //hier wordt functies aan de buttons geven
+    // als op de linker knop wordt gedrukt word deze functie uitgevoerd
     public void selectScene(){
         SerialListener.Click = false;
         if (SerialListener.MainMenuSelecter == 1){
-            System.out.println("Play");
             game.setScreen(new Gameplay(game));
             MyGdxGame.menuActive= false;
             SerialListener.Click = false;
@@ -41,7 +42,6 @@ public class MainMenuScreen implements Screen {
             game.setScore(0);
         }
         if (SerialListener.MainMenuSelecter == 2){
-            System.out.println("Settings");
             game.setScreen(new Settings(game));
             MyGdxGame.SettingsActive = true;
             SerialListener.Click = false;
@@ -50,14 +50,12 @@ public class MainMenuScreen implements Screen {
 
         }
         if(SerialListener.MainMenuSelecter == 3){
-            System.out.println("Highscore");
             game.setScreen(new Highscore(game));
             MyGdxGame.menuActive = false;
             SerialListener.Click = false;
             MyGdxGame.HighscoreActive = true;
         }
         if (SerialListener.MainMenuSelecter == 4){
-            System.out.println("Exit");
             Gdx.app.exit();
         }
     }
@@ -69,11 +67,13 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
+    // hier worden alle buttons + background gedrawed
     public void render(float delta) {
     Gdx.gl.glClearColor(0,0, 0, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     game.batch.begin();
     game.backgroundSprite.draw(game.batch);
+    // cicle voor de active en inactive buttons
     if(SerialListener.MainMenuSelecter == 1)
     {
         game.batch.draw(ExitButtonInactive, 50, 100, 200, 85);

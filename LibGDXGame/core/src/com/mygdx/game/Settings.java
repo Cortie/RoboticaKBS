@@ -17,6 +17,7 @@ public class Settings implements Screen {
     Texture TwoPlayerButtonInactive;
     Texture TwoPlayerButtonActive;
 
+    // texures aan de buttons geven
     public Settings(MyGdxGame game){
         this.game = game;
         BackButtonInactive = new Texture("BackButtonInactive.png");
@@ -28,6 +29,8 @@ public class Settings implements Screen {
         TwoPlayerButtonInactive = new Texture("2PlayerButtonInactive.png");
         TwoPlayerButtonActive = new Texture("2PlayerButtonActive.png");
     }
+    //hier wordt functies aan de buttons geven
+    // als op de linker knop wordt gedrukt word deze functie uitgevoerd
     public void selectScene() {
 
         SerialListener.Click = false;
@@ -61,10 +64,12 @@ public class Settings implements Screen {
 
     @Override
     public void render(float delta) {
+        // hier worden alle buttons + background gedrawed
         Gdx.gl.glClearColor(0,0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
+        // cicle voor de active en inactive buttons
         if(SerialListener.SettingSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 200, 277, 85);

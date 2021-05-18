@@ -13,7 +13,7 @@ public class Enemy
     private long lastmovement;
     private long movementspeed = 50;
     private int moved;
-    private boolean shot = false;
+    private boolean shot = true;
     private int shotNumber= 0;
     
     public int getShotNumber()

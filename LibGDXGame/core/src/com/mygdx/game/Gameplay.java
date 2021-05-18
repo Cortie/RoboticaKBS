@@ -84,7 +84,7 @@ public class Gameplay implements Screen
                     break;
                 case 3:
                     pointvalue = 200;
-                    shotSpeed = 1200;
+                    shotSpeed = 1500;
                     btype = bigBullet;
                     break;
                 case 4:
@@ -172,12 +172,11 @@ public class Gameplay implements Screen
             }
             //this will spawn one of the two minibosses and set the spawntimer to
             // 30 seconds to give the player time to fight the miniboss
-            if(game.getBossScore()>= 2000)
+            if(game.getScore()>= 250)
             {
                 int miniboss = MathUtils.random(3,4);
                 position = MyGdxGame.camera.viewportWidth/2 - 250;
-                spawnEnemy(position, screentop, enemylvls.get(miniboss));
-                game.setBossScore(0);
+                spawnEnemy(position, screentop, enemylvls.get(4));
                 lastEnemySpawn = TimeUtils.millis() + 30000;
             }
         }
@@ -227,7 +226,6 @@ public class Gameplay implements Screen
                 long id = pickup.play(1.0f);
                 pickup.setPitch(id, 1);
                 pickup.setLooping(id, false);
-                game.setScore(game.getScore() + 100);
                 if(power.getType() == 2)
                 {
                     game.setPlayerlives(game.getPlayerlives() +1);
@@ -411,6 +409,18 @@ public class Gameplay implements Screen
                     enemy.setY(enemy.getY() - 50 * Gdx.graphics.getDeltaTime());
                 }
             }
+            /*if(enemy.getType().equals(enemylvls.get(1)))
+            {
+                    int randMovement = MathUtils.random(0,1);
+                    if(randMovement == 0)
+                    {
+                        enemy.setX(enemy.getX() + 75 * Gdx.graphics.getDeltaTime());
+                    }
+                    if(randMovement == 1)
+                    {
+                        enemy.setX(enemy.getX() - 75 * Gdx.graphics.getDeltaTime());
+                    }
+            }*/
             //removes the enemy from the batch when it has reached the bottom of the screen
             if(enemy.getShip().getY() + 64 < 0) {
                 iter.remove();
@@ -589,17 +599,13 @@ public class Gameplay implements Screen
                         {
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
                             game.setScoretext(String.valueOf(game.getScore()));
-                            if(enemy.getType().equals(enemylvls.get(3)) || enemy.getType().equals(enemylvls.get(4)))
-                            {
-                                spawnPowerUp(2, enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY());
-                            }
-                            int rand = MathUtils.random(1,20);
+                            int rand = MathUtils.random(1,5);
                             {
                                 if(rand == 1)
                                 {
                                     int rand2 = MathUtils.random(1,5);
                                     {
-                                        spawnPowerUp(rand2, enemy.getX(), enemy.getY());
+                                        spawnPowerUp(5, enemy.getX(), enemy.getY());
                                     }
                                 }
                             }
