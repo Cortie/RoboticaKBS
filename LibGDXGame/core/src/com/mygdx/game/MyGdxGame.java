@@ -20,7 +20,7 @@ public class MyGdxGame extends Game
 	public static OrthographicCamera camera;
 	public FitViewport viewPort;
 	public Sprite backgroundSprite;
-	private final SerialListener listener = new SerialListener();
+	private final SerialListener listener = new SerialListener(this);
 	private final PiListener PiListener = new PiListener();
 	public static boolean menuActive;
 	public static boolean SettingsActive;
@@ -34,62 +34,9 @@ public class MyGdxGame extends Game
 	private BitmapFont Bigfont;
 	private Array<PowerUp> powers = new Array<>();
 	private int bossScore;
+	private float volume = 1.0f;
+	private float pitch = 1;
 	
-	public int getBossScore()
-	{
-		return bossScore;
-	}
-	
-	public void setBossScore(int bossScore)
-	{
-		this.bossScore = bossScore;
-	}
-	
-	public Array<PowerUp> getPowers()
-	{
-		return powers;
-	}
-	
-	public void setPowers(Array<PowerUp> powers)
-	{
-		this.powers = powers;
-	}
-	
-	public BitmapFont getFont() {
-		return font;
-	}
-
-	public BitmapFont getBigfont() {
-		return Bigfont;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		bossScore = bossScore + (score - this.score);
-		this.score = score;
-	}
-
-	public String getScoretext() {
-		return Scoretext;
-	}
-
-	public void setScoretext(String scoretext) {
-		Scoretext = scoretext;
-	}
-
-
-
-	public int getPlayercount() {
-		return playercount;
-	}
-
-	public void setPlayercount(int playercount) {
-		this.playercount = playercount;
-	}
-
 	@Override
 	public void create () {
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
@@ -115,18 +62,6 @@ public class MyGdxGame extends Game
 		viewPort.apply();
 		setScreen(new MainMenuScreen(this));
 		menuActive = true;
-
-
-	}
-	
-	public int getPlayerlives()
-	{
-		return playerlives;
-	}
-	
-	public void setPlayerlives(int playerlives)
-	{
-		this.playerlives = playerlives;
 	}
 	
 	@Override
@@ -148,18 +83,66 @@ public class MyGdxGame extends Game
 	}
 	@Override
 	public void dispose () {
-	
 	}
+	//sets view when window is resized
 	@Override
 	public void resize(int width, int height)
 	{
 		viewPort.update(width, height, true);
 		super.resize(width, height);
 	}
-	public static void playSound(Sound s)
+	//plays a given sound at the current game volume
+	public void playSound(Sound s)
 	{
-		long id = s.play(1.0f);
-		s.setPitch(id, 1);
+		long id = s.play(volume);
+		s.setPitch(id, pitch);
 		s.setLooping(id, false);
+	}
+	
+	
+	public int getPlayerlives()
+	{
+		return playerlives;
+	}
+	public void setPlayerlives(int playerlives)
+	{
+		this.playerlives = playerlives;
+	}
+	public Array<PowerUp> getPowers()
+	{
+		return powers;
+	}
+	public BitmapFont getFont() {
+		return font;
+	}
+	public BitmapFont getBigfont() {
+		return Bigfont;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		bossScore = bossScore + (score - this.score);
+		this.score = score;
+	}
+	public String getScoretext() {
+		return Scoretext;
+	}
+	public void setScoretext(String scoretext) {
+		Scoretext = scoretext;
+	}
+	public int getPlayercount() {
+		return playercount;
+	}
+	public void setPlayercount(int playercount) {
+		this.playercount = playercount;
+	}
+	public float getVolume()
+	{
+		return volume;
+	}
+	public void setVolume(float volume)
+	{
+		this.volume = volume;
 	}
 }

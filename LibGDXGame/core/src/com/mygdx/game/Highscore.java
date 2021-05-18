@@ -72,18 +72,6 @@ public class Highscore implements Screen {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        /*
-        game.getBigfont().draw(game.batch, "1: ",50,1000);
-        game.getBigfont().draw(game.batch, game.getScoretext(),250,1000);
-        game.getBigfont().draw(game.batch, "2: ",50,850);
-        game.getBigfont().draw(game.batch, game.getScoretext(),250,850);
-        game.getBigfont().draw(game.batch, "3: ",50,700);
-        game.getBigfont().draw(game.batch, game.getScoretext(),250,700);
-        game.getBigfont().draw(game.batch, "4: ",50,550);
-        game.getBigfont().draw(game.batch, game.getScoretext(),250,550);
-        game.getBigfont().draw(game.batch, "5: ",50,400);
-        game.getBigfont().draw(game.batch, game.getScoretext(),250,400);
-        */
         if(SerialListener.HighscoreSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 150, 277, 85);

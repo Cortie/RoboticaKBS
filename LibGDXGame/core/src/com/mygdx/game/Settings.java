@@ -36,7 +36,14 @@ public class Settings implements Screen {
         SerialListener.Click = false;
         if (SerialListener.SettingSelecter == 1) {
             System.out.println("Sounds");
-
+            if(game.getVolume() == 1.0f)
+            {
+                game.setVolume(0);
+            }
+            else if(game.getVolume() == 0)
+            {
+                game.setVolume(1.0f);
+            }
         }
         if (SerialListener.SettingSelecter == 2) {
             System.out.println("1 player");

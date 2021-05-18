@@ -195,7 +195,7 @@ public class Gameplay implements Screen
                 bullet = new Bullet(1, MyGdxGame.player1.getType(),rec, bullet.x - (MyGdxGame.player1.getType().getWidth() *4), MyGdxGame.player1.y + 64);
                 spawnBullet(bullet);
             }
-            MyGdxGame.playSound(Lazer);
+            game.playSound(Lazer);
             MyGdxGame.player1.setLastShot(TimeUtils.nanoTime());
         }
         if(game.getPlayercount() == 2)
@@ -214,7 +214,7 @@ public class Gameplay implements Screen
                     bullet = new Bullet(1, MyGdxGame.player2.getType(),rec, MyGdxGame.player2.x - 76, MyGdxGame.player2.y + 64);
                     spawnBullet(bullet);
                 }
-                MyGdxGame.playSound(Lazer);
+                game.playSound(Lazer);
                 MyGdxGame.player2.setLastShot(TimeUtils.nanoTime());
             }
         }
@@ -223,9 +223,7 @@ public class Gameplay implements Screen
             
             if(power.getArea().overlaps(game.player1.getArea()))
             {
-                long id = pickup.play(1.0f);
-                pickup.setPitch(id, 1);
-                pickup.setLooping(id, false);
+                game.playSound(pickup);
                 if(power.getType() == 2)
                 {
                     game.setPlayerlives(game.getPlayerlives() +1);
@@ -251,9 +249,7 @@ public class Gameplay implements Screen
             }
             if(game.getPlayercount() == 2)
             {
-                long id = pickup.play(1.0f);
-                pickup.setPitch(id, 1);
-                pickup.setLooping(id, false);
+                game.playSound(pickup);
                 if( power.getArea().overlaps(game.player2.getArea()))
                 {
                     if(power.getType() == 2)
@@ -432,9 +428,7 @@ public class Gameplay implements Screen
             {
                 if(enemy.getShip().overlaps(MyGdxGame.player1.getShieldBox()))
                 {
-                    long id = hit.play(1.0f);
-                    hit.setPitch(id, 1);
-                    hit.setLooping(id, false);
+                    game.playSound(hit);
                     if(game.getPlayerlives() == 0)
                     {
                         gameOver();
@@ -446,9 +440,7 @@ public class Gameplay implements Screen
             }
             
             if(enemy.getShip().overlaps(MyGdxGame.player1.getArea())) {
-                long id = hit.play(1.0f);
-                hit.setPitch(id, 1);
-                hit.setLooping(id, false);
+                game.playSound(hit);
                 game.setPlayerlives(game.getPlayerlives() -1);
                 if(game.getPlayerlives() == 0)
                 {
@@ -462,9 +454,7 @@ public class Gameplay implements Screen
                 {
                     if(enemy.getShip().overlaps(MyGdxGame.player2.getShieldBox()))
                     {
-                        long id = hit.play(1.0f);
-                        hit.setPitch(id, 1);
-                        hit.setLooping(id, false);
+                        game.playSound(hit);
                         if(game.getPlayerlives() == 0)
                         {
                             gameOver();
@@ -476,9 +466,7 @@ public class Gameplay implements Screen
                 }
                 if(enemy.getShip().overlaps(MyGdxGame.player2.getArea()))
                 {
-                    long id = hit.play(1.0f);
-                    hit.setPitch(id, 1);
-                    hit.setLooping(id, false);
+                    game.playSound(hit);
                     game.setPlayerlives(game.getPlayerlives() -1);
                     if(game.getPlayerlives() == 0)
                     {
@@ -513,9 +501,7 @@ public class Gameplay implements Screen
                     {
                         if(bullet.getHitbox().overlaps(MyGdxGame.player1.getShieldBox()))
                         {
-                            long id = explode.play(1.0f);
-                            explode.setPitch(id, 1);
-                            explode.setLooping(id, false);
+                            game.playSound(explode);
                             if(game.getPlayerlives() == 0)
                             {
                                 gameOver();
@@ -527,9 +513,7 @@ public class Gameplay implements Screen
                     }
                     if(bullet.getHitbox().overlaps(MyGdxGame.player1.getArea()))
                     {
-                        long id = explode.play(1.0f);
-                        explode.setPitch(id, 1);
-                        explode.setLooping(id, false);
+                        game.playSound(explode);
                         game.setPlayerlives(game.getPlayerlives() -1);
                         if(game.getPlayerlives() == 0)
                         {
@@ -544,9 +528,7 @@ public class Gameplay implements Screen
                         {
                             if(bullet.getHitbox().overlaps(MyGdxGame.player2.getShieldBox()))
                             {
-                                long id = explode.play(1.0f);
-                                explode.setPitch(id, 1);
-                                explode.setLooping(id, false);
+                                game.playSound(explode);
                                 if(game.getPlayerlives() == 0)
                                 {
                                     gameOver();
@@ -560,9 +542,7 @@ public class Gameplay implements Screen
                         {
                             if(enemy.getShip().overlaps(MyGdxGame.player1.getShieldBox()))
                             {
-                                long id = explode.play(1.0f);
-                                explode.setPitch(id, 1);
-                                explode.setLooping(id, false);
+                                game.playSound(explode);
                                 if(game.getPlayerlives() == 0)
                                 {
                                     gameOver();
@@ -574,9 +554,7 @@ public class Gameplay implements Screen
                         }
                         if(bullet.getHitbox().overlaps(MyGdxGame.player2.getArea()))
                         {
-                            long id = explode.play(1.0f);
-                            explode.setPitch(id, 1);
-                            explode.setLooping(id, false);
+                            game.playSound(explode);
                             game.setPlayerlives(game.getPlayerlives() -1);
                             if(game.getPlayerlives() == 0)
                             {
@@ -592,9 +570,7 @@ public class Gameplay implements Screen
                     if(enemy.getShip().overlaps(bullet.getHitbox()))
                     {
                         enemy.setHealth(enemy.getHealth() - 1);
-                        long id = explode.play(1.0f);
-                        explode.setPitch(id, 1);
-                        explode.setLooping(id, false);
+                        game.playSound(explode);
                         if(enemy.getHealth() == 0)
                         {
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
