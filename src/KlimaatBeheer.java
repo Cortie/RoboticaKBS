@@ -11,12 +11,13 @@ import java.util.Scanner;
 import java.sql.*;
 
 public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListener {
-    // defenitions for getting the current temperature
+    // definitions for getting the current temperature
     static PiListener sensor = new PiListener();
     static String piTemp = sensor.Temp.substring(13);
     static String piPress = sensor.Press.substring(10);
     static String piHumid = sensor.Humid;
 
+    //fetch lightsensor value
     private GetLights lampje = new GetLights();
     private int lightvalue;
 
@@ -48,8 +49,6 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private JLabel jlLampStatus;
     private JLabel jlLampStatusWaarde;
     public Scanner data;
-    
-    // private int lichtsterkteSensor=70;
 
     public KlimaatBeheer() {
         lightvalue = lampje.lichtwaarde;
