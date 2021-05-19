@@ -117,7 +117,7 @@ public class Account extends JFrame implements ActionListener {
                     //en gaat het systeem verder met het toevoegen van de gebruiker.
                     System.out.println("gebruikersnaam is nog niet bezet");
                     usernameErrorCheck = false;
-                    System.out.println(hashdWachtwoord);
+
                 } catch (ClassNotFoundException cnfEx) {
                     System.out.println(cnfEx.getMessage());
                }
@@ -140,7 +140,6 @@ public class Account extends JFrame implements ActionListener {
                         int i = statement.executeUpdate();
                         System.out.println(i + " records inserted");
 
-
                         connection.close();
 
                     } catch (SQLException sqle) {
@@ -154,9 +153,6 @@ public class Account extends JFrame implements ActionListener {
                     Inloggen inloggenscherm = new Inloggen();
                     this.dispose();
                 }
-
-
-
 
 
             } else {
