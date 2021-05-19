@@ -76,13 +76,12 @@ public class Account extends JFrame implements ActionListener {
             gebruikersnaam = jtUsername.getText();
             wachtwoord = jpPassword.getText();
 
-
-            //de gebruiker wordt pas toegevoegd als beide inlogvelden gevuld zijn.
+            // de gebruiker wordt pas toegevoegd als beide inlogvelden gevuld zijn.
             if (!gebruikersnaam.equals("") && !wachtwoord.equals("")) {
                 System.out.println(gebruikersnaam);
                 System.out.println(wachtwoord);
 
-                //het wachtwoord wordt gehashed.
+                // het wachtwoord wordt gehashed.
                 try {
                     salt = SaltedHashPasword.getSalt();
                 } catch (NoSuchAlgorithmException | NoSuchProviderException noSuchAlgorithmException) {
@@ -90,7 +89,8 @@ public class Account extends JFrame implements ActionListener {
                 }
                 hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord, salt);
 
-                //het vergelijken van de gebruikersnaam om te controleren of de gebruiker al bestaat.
+                // het vergelijken van de gebruikersnaam om te controleren of de gebruiker al
+                // bestaat.
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -99,13 +99,15 @@ public class Account extends JFrame implements ActionListener {
 
                     Connection connection = DriverManager.getConnection(url, username, password);
 
-                    PreparedStatement userstmt = connection.prepareStatement("select username from account where username = ?");
+                    PreparedStatement userstmt = connection
+                            .prepareStatement("select username from account where username = ?");
                     userstmt.setString(1, gebruikersnaam);
                     ResultSet userrs = userstmt.executeQuery();
                     userrs.next();
                     String checkUsername = userrs.getString(1);
 
-                    //als er al een gebruiker met deze gebruikersnaam in de database staat, wordt er een foutmelding weergegeven.
+                    // als er al een gebruiker met deze gebruikersnaam in de database staat, wordt
+                    // er een foutmelding weergegeven.
                     if (gebruikersnaam.equals(checkUsername)) {
                         usernameErrorCheck = true;
                     }
@@ -113,15 +115,17 @@ public class Account extends JFrame implements ActionListener {
                     userrs.close();
                     connection.close();
                 } catch (SQLException sqlEx) {
-                    //als er geen gebruiker in de database is gevonden met de opgegeven gebruikersnaam, wordt er geen foutmelding weergegeven
-                    //en gaat het systeem verder met het toevoegen van de gebruiker.
+                    // als er geen gebruiker in de database is gevonden met de opgegeven
+                    // gebruikersnaam, wordt er geen foutmelding weergegeven
+                    // en gaat het systeem verder met het toevoegen van de gebruiker.
                     System.out.println("gebruikersnaam is nog niet bezet");
                     usernameErrorCheck = false;
 
                 } catch (ClassNotFoundException cnfEx) {
                     System.out.println(cnfEx.getMessage());
-               }
-                //de accountgegevens worden toegevoegd aan de database, mits er een geldige gebruikersnaam wordt ingevoerd.
+                }
+                // de accountgegevens worden toegevoegd aan de database, mits er een geldige
+                // gebruikersnaam wordt ingevoerd.
                 if (!usernameErrorCheck) {
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -131,11 +135,12 @@ public class Account extends JFrame implements ActionListener {
 
                         Connection connection = DriverManager.getConnection(url, username, password);
 
-                        PreparedStatement statement = connection.prepareStatement("Insert into account Values (?,?,?);");
+                        PreparedStatement statement = connection
+                                .prepareStatement("Insert into account Values (?,?,?);");
 
                         statement.setString(1, gebruikersnaam);
                         statement.setString(2, hashdWachtwoord);
-                        statement.setBytes(3,salt);
+                        statement.setBytes(3, salt);
 
                         int i = statement.executeUpdate();
                         System.out.println(i + " records inserted");
@@ -154,34 +159,30 @@ public class Account extends JFrame implements ActionListener {
                     this.dispose();
                 }
 
-
             } else {
-                //als een van de twee inlogvelden leeg is wordt er foutmelding weergegeven.
+                // als een van de twee inlogvelden leeg is wordt er foutmelding weergegeven.
                 errorCheck = true;
 
             }
-        //geeft melding als een van de twee velden niet zijn ingevuld.
-        if (errorCheck) {
-            jlErrorMessage.setText("ongeldige inloggegevens!");
-            SwingUtilities.updateComponentTreeUI(this);
-            errorCheck = false;
-        }
-        //geeft melding als de gebruikersnaam al bestaat.
-        if (usernameErrorCheck) {
-            jlErrorMessage.setText("Gebruikersnaam bestaat al!");
-            SwingUtilities.updateComponentTreeUI(this);
-            usernameErrorCheck = false;
-        }
+            // geeft melding als een van de twee velden niet zijn ingevuld.
+            if (errorCheck) {
+                jlErrorMessage.setText("ongeldige inloggegevens!");
+                SwingUtilities.updateComponentTreeUI(this);
+                errorCheck = false;
+            }
+            // geeft melding als de gebruikersnaam al bestaat.
+            if (usernameErrorCheck) {
+                jlErrorMessage.setText("Gebruikersnaam bestaat al!");
+                SwingUtilities.updateComponentTreeUI(this);
+                usernameErrorCheck = false;
+            }
 
+        }
 
     }
 
-}
-
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Account CreateAccountGUI = new Account();
-
 
     }
 

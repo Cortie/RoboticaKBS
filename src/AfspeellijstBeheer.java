@@ -3,8 +3,8 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.event.*;
 
-public class AfspeellijstBeheer extends JFrame implements ActionListener{
-  //definitions for labels, buttons and layouts
+public class AfspeellijstBeheer extends JFrame implements ActionListener {
+  // definitions for labels, buttons and layouts
   JLabel music = new JLabel("Muziekspeler");
   JLabel manage = new JLabel("Afspeellijst beheren");
   JLabel name = new JLabel("Afspeellijst naam");
@@ -31,31 +31,31 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   BorderLayout collection = new BorderLayout();
   private String speellijstnaam;
 
-  public AfspeellijstBeheer(){
-    //set standard data
+  public AfspeellijstBeheer() {
+    // set standard data
     setTitle("Afspeellijst beheren");
     setLayout(new FlowLayout(FlowLayout.CENTER));
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-    //temperature panel
+    // temperature panel
     JPanel musicTxtPnl = new JPanel(standard);
     musicTxtPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
     backButton.addActionListener(this);
     musicTxtPnl.add(music);
     music.setFont(music.getFont().deriveFont(16.0f));
 
-    //manage panel
+    // manage panel
     JPanel manageTxtPnl = new JPanel(standard);
     manageTxtPnl.add(manage);
     manage.setFont(manage.getFont().deriveFont(16.0f));
 
-    //collection panel for temperature and managa texts
+    // collection panel for temperature and managa texts
     JPanel musicPnl = new JPanel(Bname);
     musicPnl.add(musicTxtPnl, BorderLayout.NORTH);
     musicPnl.add(manageTxtPnl, BorderLayout.SOUTH);
 
-    //panel to give the playlist new name
+    // panel to give the playlist new name
     JPanel addPnl = new JPanel(add);
     add.setVgap(75);
     addPnl.add(name);
@@ -63,21 +63,21 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     addPnl.add(jbMakeP);
     jbMakeP.addActionListener(this);
 
-    //sharing of the playlists
-    JPanel afspeellijstListPnl = new JPanel(new GridLayout(2,1));
+    // sharing of the playlists
+    JPanel afspeellijstListPnl = new JPanel(new GridLayout(2, 1));
     afspeellijstListPnl.add(jrbAfspeelllijst1 = new JRadioButton("Afspeellijst1"));
     jrbAfspeelllijst1.addActionListener(this);
     afspeellijstListPnl.add(jrbAfspeelllijst2 = new JRadioButton("Afspeellijst2"));
     jrbAfspeelllijst2.addActionListener(this);
 
     JPanel shareA = new JPanel(new BorderLayout());
-    shareA.add(share,BorderLayout.NORTH);
+    shareA.add(share, BorderLayout.NORTH);
     share.setFont(share.getFont().deriveFont(16.0f));
-    shareA.add(afspeellijstListPnl,BorderLayout.CENTER);
+    shareA.add(afspeellijstListPnl, BorderLayout.CENTER);
 
-    //adding songs to playlist
+    // adding songs to playlist
 
-    JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(5,2));
+    JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(5, 2));
     lijstMusicAanAfspeellijst.add(new JLabel("nummer 1 "));
     lijstMusicAanAfspeellijst.add(jbNummer1 = new JButton("+"));
     jbNummer1.addActionListener(this);
@@ -95,17 +95,17 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
     jbNummer5.addActionListener(this);
 
     JPanel addM = new JPanel(new BorderLayout());
-    addM.add(addMusic,BorderLayout.NORTH);
+    addM.add(addMusic, BorderLayout.NORTH);
     addMusic.setFont(addMusic.getFont().deriveFont(16.0f));
-    addM.add(lijstMusicAanAfspeellijst,BorderLayout.CENTER);
+    addM.add(lijstMusicAanAfspeellijst, BorderLayout.CENTER);
     addM.setBorder(BorderFactory.createLineBorder(Color.black));
 
-    //collection panel for sharing and adding songs panels
+    // collection panel for sharing and adding songs panels
     JPanel bottom = new JPanel(select);
     bottom.add(shareA);
     bottom.add(addM);
 
-    //collection panel for all elements
+    // collection panel for all elements
     JPanel borderPnl = new JPanel(collection);
     borderPnl.add(musicPnl, BorderLayout.NORTH);
     borderPnl.add(addPnl, BorderLayout.CENTER);
@@ -119,56 +119,43 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener{
   @Override
   public void actionPerformed(ActionEvent e) {
     // TODO Auto-generated method stub
-    if (e.getSource()==jbMakeP)
-    {
-      speellijstnaam=pName.getText();
+    if (e.getSource() == jbMakeP) {
+      speellijstnaam = pName.getText();
       System.out.println(speellijstnaam);
     }
-    if (e.getSource()==backButton)
-    {
+    if (e.getSource() == backButton) {
       MuziekSpeler musicPlayerGUI = new MuziekSpeler();
       this.dispose();
     }
-    if (e.getSource()==jrbAfspeelllijst1)
-    {
-      if (jrbAfspeelllijst1.isSelected()==true)
-      {
+    if (e.getSource() == jrbAfspeelllijst1) {
+      if (jrbAfspeelllijst1.isSelected() == true) {
         jrbAfspeelllijst1.setText("Afspeellijst 1 (gedeeld)");
       }
-      if (jrbAfspeelllijst1.isSelected()==false)
-      {
+      if (jrbAfspeelllijst1.isSelected() == false) {
         jrbAfspeelllijst1.setText("Afspeellijst 1");
       }
     }
-    if (e.getSource()==jrbAfspeelllijst2)
-    {
-      if (jrbAfspeelllijst2.isSelected()==true)
-      {
+    if (e.getSource() == jrbAfspeelllijst2) {
+      if (jrbAfspeelllijst2.isSelected() == true) {
         jrbAfspeelllijst2.setText("Afspeellijst 2 (gedeeld)");
       }
-      if (jrbAfspeelllijst2.isSelected()==false)
-      {
+      if (jrbAfspeelllijst2.isSelected() == false) {
         jrbAfspeelllijst2.setText("Afspeellijst 2");
       }
     }
-    if (e.getSource()==jbNummer1)
-    {
+    if (e.getSource() == jbNummer1) {
       AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
     }
-    if (e.getSource()==jbNummer2)
-    {
+    if (e.getSource() == jbNummer2) {
       AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
     }
-    if (e.getSource()==jbNummer3)
-    {
+    if (e.getSource() == jbNummer3) {
       AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
     }
-    if (e.getSource()==jbNummer4)
-    {
+    if (e.getSource() == jbNummer4) {
       AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
     }
-    if (e.getSource()==jbNummer5)
-    {
+    if (e.getSource() == jbNummer5) {
       AfspeelllijstBeheerDialoog dialoog = new AfspeelllijstBeheerDialoog(this, true);
     }
   }

@@ -17,7 +17,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     static String piPress = sensor.Press.substring(10);
     static String piHumid = sensor.Humid;
 
-    //fetch lightsensor value
+    // fetch lightsensor value
     private GetLights lampje = new GetLights();
     private int lightvalue;
 
