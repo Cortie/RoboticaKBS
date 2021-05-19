@@ -3,7 +3,7 @@ import java.io.InputStream;
 import com.jcraft.jsch.*;
 
 public class getSensors {
-  String host = "192.168.0.124";
+  String host = "10.80.17.1";
   String user = "pi";
   String password = "pi";
   public static String Temperature = "15";

@@ -12,10 +12,10 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
     private JButton jbCreateLightProfile;
     private JTable jtTempProfile;
     private JTable jtLightProfile;
-    private String[] tempProfileTitel = {"Temperatuur Profielen","Knoppen"};
-    private Object[][] tempProfile ={{"temperatuur profiel 1","knop"},{"temperatuur profiel 2","knop"}};
-    private String[] lightProfileTitel = {"Lichtsterkte Profielen","Knoppen"};
-    private Object[][] lightProfile ={{"lichtsterkte profiel 1","knop"},{"lichtsterkte profiel 2","knop"}};
+    private String[] tempProfileTitel = {"Temperatuur Profielen"};
+    private Object[][] tempProfile ={{"temperatuur profiel 1"},{"temperatuur profiel 2"}};
+    private String[] lightProfileTitel = {"Lichtsterkte Profielen"};
+    private Object[][] lightProfile ={{"lichtsterkte profiel 1"},{"lichtsterkte profiel 2"}};
 
     public KlimaatProfiel(){
         setTitle("Klimaat Systeem");
@@ -130,7 +130,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
     {
         if (e.getSource()==jtTempProfile)
         {
-            if (jtTempProfile.getSelectedColumn()==1)
+            if (jtTempProfile.getSelectedColumn()==0)
             {
                 //System.out.println("temp table");
                 //System.out.println("knop column");
@@ -149,7 +149,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener,MouseListen
         if (e.getSource()==jtLightProfile)
                 {
 
-                    if (jtLightProfile.getSelectedColumn()==1)
+                    if (jtLightProfile.getSelectedColumn()==0)
                     {
                         //System.out.println("licht table");
                         //System.out.println("knop column");
