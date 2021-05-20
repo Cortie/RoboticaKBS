@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="hashen wachtwoord in inloggen en Account en check gb en ww in Inloggen">
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatProfiel tweede collum verwijderd">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,15 +57,8 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Application.KlimaatBeheer">
-    <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Account" />
-      <module name="RoboticaKBS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Inloggen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Inloggen" />
+    <configuration name="Dashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Dashboard" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -84,6 +78,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MuziekSpeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekSpeler" />
+      <module name="RoboticaKBS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WachtwoordWijzigen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="WachtwoordWijzigen" />
       <module name="RoboticaKBS" />
@@ -92,19 +93,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Account" />
-      <item itemvalue="Application.Inloggen" />
       <item itemvalue="Application.KlimaatBeheer" />
       <item itemvalue="Application.WachtwoordWijzigen" />
       <item itemvalue="Application.KlimaatProfiel" />
+      <item itemvalue="Application.Dashboard" />
+      <item itemvalue="Application.MuziekSpeler" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.KlimaatBeheer" />
+        <item itemvalue="Application.MuziekSpeler" />
+        <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.KlimaatProfiel" />
-        <item itemvalue="Application.Account" />
         <item itemvalue="Application.WachtwoordWijzigen" />
-        <item itemvalue="Application.Inloggen" />
       </list>
     </recent_temporary>
   </component>
@@ -366,9 +367,5 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

@@ -82,10 +82,18 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel titelPnl = new JPanel(new FlowLayout());
-        titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
+        JPanel backbuttenPnl = new JPanel(new FlowLayout());
+        backbuttenPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
         backButton.addActionListener(this);
-        titelPnl.add(jlTitel = new JLabel("Klimaatbeheer"));
+
+        JPanel titelTekstPnl = new JPanel(new BorderLayout());
+        titelTekstPnl.add(jlTitel = new JLabel("Klimaatbeheer"),BorderLayout.NORTH);
+
+//        JPanel titelPnl = new JPanel(new BorderLayout());
+//        titelPnl.add(backbuttenPnl,BorderLayout.WEST);
+//        titelPnl.add(titelTekstPnl,BorderLayout.CENTER);
+        //titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST),BorderLayout.WEST);
+        //titelPnl.add(jlTitel = new JLabel("Klimaatbeheer"),BorderLayout.NORTH);
 
         JPanel profielKnopPnl = new JPanel(new FlowLayout());
         profielKnopPnl.add(jbProfielKnop = new JButton("Profielen aanpassen"));
@@ -105,15 +113,15 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         lichtsterkteWaarde = jsLichtsterkte.getValue();
         slidersGedeeltePnl.add(jlLichtsterkteWaarde = new JLabel(String.valueOf(lichtsterkteWaarde) + " LM"));
 
-        JPanel profielenPnl = new JPanel(new GridLayout(2, 2));
-        profielenPnl.add(jlTempprofiel = new JLabel("Temperatuurprofiel: "));
-        profielenPnl.add(new JLabel(tempProfiel));
-        profielenPnl.add(jlLichtsterkteprofiel = new JLabel("Lichtsterkteprofiel: "));
-        profielenPnl.add(new JLabel(lichtsterkteProfiel));
+//        JPanel profielenPnl = new JPanel(new GridLayout(2, 2));
+//        profielenPnl.add(jlTempprofiel = new JLabel("Temperatuurprofiel: "));
+//        profielenPnl.add(new JLabel(tempProfiel));
+//        profielenPnl.add(jlLichtsterkteprofiel = new JLabel("Lichtsterkteprofiel: "));
+//        profielenPnl.add(new JLabel(lichtsterkteProfiel));
 
-        JPanel ondersteGedeelteLinksPnl = new JPanel(new BorderLayout());
-        ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
-        ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
+//        JPanel ondersteGedeelteLinksPnl = new JPanel(new BorderLayout());
+        //ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
+        //ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
 
         if (lightvalue >= jsLichtsterkte.getValue()) {
             lampStatus = "aan";
@@ -138,13 +146,17 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         ondersteGedeelteRechtsPnl.add(profielKnopPnl, BorderLayout.CENTER);
         ondersteGedeelteRechtsPnl.add(sensorgegevenPnl, BorderLayout.NORTH);
 
-        JPanel ondersteGedeeltePnl = new JPanel(new BorderLayout());
-        ondersteGedeeltePnl.add(ondersteGedeelteLinksPnl, BorderLayout.WEST);
-        ondersteGedeeltePnl.add(ondersteGedeelteRechtsPnl, BorderLayout.EAST);
+        JPanel onderstegedeeltePnl = new JPanel(new BorderLayout());
+       // ondersteGedeeltePnl.add(ondersteGedeelteLinksPnl, BorderLayout.WEST);
+        onderstegedeeltePnl.add(ondersteGedeelteRechtsPnl, BorderLayout.CENTER);
+
+        JPanel rechterkantPnl = new JPanel(new BorderLayout());
+        rechterkantPnl.add(titelTekstPnl,BorderLayout.NORTH);
+        rechterkantPnl.add(onderstegedeeltePnl,BorderLayout.CENTER);
 
         JPanel borderPnl = new JPanel(new BorderLayout());
-        borderPnl.add(titelPnl, BorderLayout.NORTH);
-        borderPnl.add(ondersteGedeeltePnl, BorderLayout.CENTER);
+        borderPnl.add(backbuttenPnl, BorderLayout.WEST);
+        borderPnl.add(rechterkantPnl, BorderLayout.CENTER);
 
         add(borderPnl);
         setVisible(true);
