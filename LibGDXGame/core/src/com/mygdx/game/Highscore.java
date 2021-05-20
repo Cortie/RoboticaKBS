@@ -47,13 +47,20 @@ public class Highscore implements Screen {
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
         try {
+            Connection conn1 = DriverManager.getConnection("jdbc:mysql://localhost", "root", "");
+            PreparedStatement stmt = conn1.prepareStatement("CREATE DATABASE IF NOT EXISTS mydb");
+            stmt.execute();
+            conn1.close();
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost/mydb";
             String username="root", password="";
-            Connection conn=
+            Connection conn2=
                 DriverManager.getConnection(url, username, password);
-                
-            Statement statement = conn.createStatement();
+
+            PreparedStatement stmt2 = conn2.prepareStatement("CREATE TABLE IF NOT EXISTS " + "highscore (id INTEGER(3), Score INTEGER(255), Time DateTime)");
+            stmt2.execute();
+            Statement statement = conn2.createStatement();
             ResultSet rs = statement.executeQuery( "SELECT Score, Time FROM highscore ORDER BY Score DESC LIMIT 5" );
             int rank = 1;
             int step = 150;
@@ -67,7 +74,7 @@ public class Highscore implements Screen {
                 rank++;
             }
             statement.close();
-            conn.close();
+            conn2.close();
         
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
