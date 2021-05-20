@@ -155,7 +155,7 @@ public class Gameplay implements Screen
 
                     if(i == 0)
                     {
-;                       spawnEnemy(position, screentop + 50, enemylvls.get(rand));
+                        spawnEnemy(position, screentop + 50, enemylvls.get(rand));
                     }
                     if(i == 1)
                     {
@@ -186,11 +186,11 @@ public class Gameplay implements Screen
             }
             //this will spawn one of the two minibosses and set the spawntimer to
             // 30 seconds to give the player time to fight the miniboss
-            if(game.getScore()>= 250)
+            if(game.getScore()>= 500)
             {
                 int miniboss = MathUtils.random(3,4);
                 position = MyGdxGame.camera.viewportWidth/2 - 250;
-                spawnEnemy(position, screentop, enemylvls.get(4));
+                spawnEnemy(position, screentop, enemylvls.get(miniboss));
                 lastEnemySpawn = TimeUtils.millis() + 30000;
             }
         }

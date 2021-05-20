@@ -21,13 +21,10 @@ public class GameOver implements Screen {
     Texture PlayAgainButtonActive;
     Texture BackButtonInactive;
     Texture BackButtonActive;
-    static final String NO_URL = "jdbc:mysql://localhost";
-    static final String SQLdb = "CREATE DATABASE IF NOT EXISTS mydb";
-    static final String SQLtable = "CREATE TABLE IF NOT EXISTS " + "highscore (id INTEGER(3), Score INTEGER(255), Time DateTime)";
     static final String DB_URL = "jdbc:mysql://localhost/mydb";
     static final String USER = "root";
     static final String PASS = "";
-
+    // Settings the sprites for the buttons
     public GameOver(MyGdxGame game){
         this.game = game;
         GameOverButtonActive = new Texture("GameOverButtonActive.png");
@@ -38,24 +35,18 @@ public class GameOver implements Screen {
         BackButtonInactive = new Texture("BackButtonInactive.png");
         BackButtonActive = new Texture("BackButtonActive.png");
     }
-
+    // Giving functions to the buttons
+    // This gets activated when you left click
     public void selectScene() {
-
+            // inserting the score, date and time into the database
         try{
-            Connection conn1 = DriverManager.getConnection(NO_URL, USER, PASS);
-            PreparedStatement stmt = conn1.prepareStatement(SQLdb);
-                stmt.execute();
-                conn1.close();
-
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Calendar cal = Calendar.getInstance();
             java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn2= DriverManager.getConnection(DB_URL, USER, PASS);
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             // Execute a query
-            PreparedStatement stmt2 = conn2.prepareStatement(SQLtable);
-            stmt2.execute();
-            PreparedStatement statement = conn2.prepareStatement("INSERT INTO highscore (score, time) VALUES(?, ?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO highscore (score, time) VALUES(?, ?)");
             statement.setInt(1, game.getScore());
             statement.setTimestamp(2, timestamp);
             int i = statement.executeUpdate();
@@ -95,7 +86,9 @@ public class GameOver implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
+        // Draw Score of the game
         game.getBigfont().draw(game.batch, game.getScoretext(),235,650);
+        // Cicle through active and inactive buttons
         if(SerialListener.GameOverSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 200, 277, 85);

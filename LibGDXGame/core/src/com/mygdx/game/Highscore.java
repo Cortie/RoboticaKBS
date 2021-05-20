@@ -10,16 +10,20 @@ import com.badlogic.gdx.utils.TimeUtils;
 import java.sql.*;
 
 public class Highscore implements Screen {
-    MyGdxGame game;
 
+    MyGdxGame game;
     Texture BackButtonInactive;
     Texture BackButtonActive;
 
+    // Settings the sprites for the buttons
     public Highscore(MyGdxGame game){
         this.game = game;
         BackButtonInactive = new Texture("BackButtonInactive.png");
         BackButtonActive = new Texture("BackButtonActive.png");
     }
+
+    // Giving functions to the buttons
+    // This gets activated when you left click
     public void selectScene() {
 
         SerialListener.Click = false;
@@ -46,6 +50,7 @@ public class Highscore implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
+        // Selecting the information from the database and drawing it on the screen
         try {
             Connection conn1 = DriverManager.getConnection("jdbc:mysql://localhost", "root", "");
             PreparedStatement stmt = conn1.prepareStatement("CREATE DATABASE IF NOT EXISTS mydb");
@@ -79,6 +84,7 @@ public class Highscore implements Screen {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+        // Cicle through active and inactive buttons
         if(SerialListener.HighscoreSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 150, 277, 85);

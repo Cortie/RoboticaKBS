@@ -17,7 +17,7 @@ public class Settings implements Screen {
     Texture TwoPlayerButtonInactive;
     Texture TwoPlayerButtonActive;
 
-    // texures aan de buttons geven
+    // Settings the sprites for the buttons
     public Settings(MyGdxGame game){
         this.game = game;
         BackButtonInactive = new Texture("BackButtonInactive.png");
@@ -29,8 +29,8 @@ public class Settings implements Screen {
         TwoPlayerButtonInactive = new Texture("2PlayerButtonInactive.png");
         TwoPlayerButtonActive = new Texture("2PlayerButtonActive.png");
     }
-    //hier wordt functies aan de buttons geven
-    // als op de linker knop wordt gedrukt word deze functie uitgevoerd
+    // Giving functions to the buttons
+    // This gets activated when you left click
     public void selectScene() {
 
         SerialListener.Click = false;
@@ -45,6 +45,7 @@ public class Settings implements Screen {
                 game.setVolume(1.0f);
             }
         }
+
         if (SerialListener.SettingSelecter == 2) {
             System.out.println("1 player");
             game.setPlayercount(1);
@@ -76,7 +77,7 @@ public class Settings implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
-        // cicle voor de active en inactive buttons
+        // Cicle through active and inactive buttons
         if(SerialListener.SettingSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 200, 277, 85);
