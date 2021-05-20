@@ -9,7 +9,6 @@ public class Dashboard extends JFrame implements ActionListener {
   private GetLights lampje = new GetLights();
 
   static String piTemp = PiListener.Temp;
-  
 
   // definitions for labels, buttons and layouts
   JLabel temp = new JLabel(piTemp);
@@ -23,7 +22,7 @@ public class Dashboard extends JFrame implements ActionListener {
   BorderLayout collection = new BorderLayout();
 
   public Dashboard() {
-    
+
     PiListener.lights = lampje.lichtwaarde;
 
     Thread PiListenerThread = new Thread(PiListener);

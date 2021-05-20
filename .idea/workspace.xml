@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="hashen wachtwoord in inloggen en Account en check gb en ww in Inloggen">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfiel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/getSensors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/getSensors.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +55,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.KlimaatBeheer">
+  <component name="RunManager" selected="Application.KlimaatProfiel">
     <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Account" />
       <module name="RoboticaKBS" />
@@ -99,10 +100,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.KlimaatProfiel" />
-        <item itemvalue="Application.Account" />
         <item itemvalue="Application.WachtwoordWijzigen" />
+        <item itemvalue="Application.Account" />
+        <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.Inloggen" />
       </list>
     </recent_temporary>
@@ -365,9 +366,5 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
