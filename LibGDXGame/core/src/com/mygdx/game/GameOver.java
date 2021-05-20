@@ -24,7 +24,7 @@ public class GameOver implements Screen {
     static final String DB_URL = "jdbc:mysql://localhost/mydb";
     static final String USER = "root";
     static final String PASS = "";
-
+    // Settings the sprites for the buttons
     public GameOver(MyGdxGame game){
         this.game = game;
         GameOverButtonActive = new Texture("GameOverButtonActive.png");
@@ -35,8 +35,10 @@ public class GameOver implements Screen {
         BackButtonInactive = new Texture("BackButtonInactive.png");
         BackButtonActive = new Texture("BackButtonActive.png");
     }
+    // Giving functions to the buttons
+    // This gets activated when you left click
     public void selectScene() {
-    
+            // inserting the score, date and time into the database
         try{
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Calendar cal = Calendar.getInstance();
@@ -84,7 +86,9 @@ public class GameOver implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
         game.backgroundSprite.draw(game.batch);
+        // Draw Score of the game
         game.getBigfont().draw(game.batch, game.getScoretext(),235,650);
+        // Cicle through active and inactive buttons
         if(SerialListener.GameOverSelecter == 1)
         {
             game.batch.draw(BackButtonInactive, 50, 200, 277, 85);
