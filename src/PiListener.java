@@ -27,12 +27,11 @@ public class PiListener implements Runnable {
       int read;
       while ((read = is.read(buffer)) != -1) {
         String output = new String(buffer, 0, read);
-        Temp = output.substring(0, 17);
-        Press = output.substring(17, 33);
-        Humid = output.substring(42);
+        Temp = output.substring(0,17) ;
+        Press = output.substring(output.indexOf("(") + 1, output.indexOf(")"));
+        Humid = output.substring(output.indexOf("|") + 1);
         break;
       }
-      ;
       clientSocket.close();
     } catch (IOException ioe) {
 

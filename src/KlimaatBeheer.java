@@ -14,7 +14,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     // definitions for getting the current temperature
     static PiListener sensor = new PiListener();
     static String piTemp = sensor.Temp.substring(13);
-    static String piPress = sensor.Press.substring(10);
+    static String piPress = sensor.Press;
     static String piHumid = sensor.Humid;
 
     // fetch lightsensor value
