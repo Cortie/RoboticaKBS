@@ -63,22 +63,25 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
             Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement statement = connection.prepareStatement("Insert into climate_log Values (?,?,?,?);");
-            Double tempPi = Double.parseDouble(piTemp);
-            Double humidPi = Double.parseDouble(piHumid);
-            Double pressPi = Double.parseDouble(piPress);
+            try {
+                Double tempPi = Double.parseDouble(piTemp);
+                Double humidPi = Double.parseDouble(piHumid);
+                Double pressPi = Double.parseDouble(piPress);
 
-            statement.setDouble(1, tempPi);
-            statement.setDouble(2, humidPi);
-            statement.setDouble(3, pressPi);
-            statement.setInt(4, lightvalue);
+                statement.setDouble(1, tempPi);
+                statement.setDouble(2, humidPi);
+                statement.setDouble(3, pressPi);
+                statement.setInt(4, lightvalue);
 
-            int i = statement.executeUpdate();
-            System.out.println(i + " records inserted");
-
+                int i = statement.executeUpdate();
+                System.out.println(i + " records inserted");
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
             connection.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            System.out.println("geen verbinding met de database!");
+
         }
 
         setTitle("Klimaat systeem");
