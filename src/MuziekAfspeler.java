@@ -11,9 +11,9 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
     private JLabel jlTitel;
     private JLabel jlAfspeellijst;
     private JLabel jlNummer;
-    private JSlider jsNumerTijd;
-    private JLabel jlNummerTijdWaarde;
-    private int nummerTijdWaarde;
+//    private JSlider jsNumerTijd;
+//    private JLabel jlNummerTijdWaarde;
+//    private int nummerTijdWaarde;
     private JButton jbVorigeAfspelen;
     private JButton jbPauzeAfspelen;
     private JButton jbVolgendeAfspelen;
