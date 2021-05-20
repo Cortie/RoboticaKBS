@@ -35,15 +35,11 @@ public class MyGdxGame extends Game
 	private Array<PowerUp> powers = new Array<>();
 	private int bossScore;
 	private float volume = 1.0f;
-	private float pitch = 1;
 	
 	@Override
 	public void create () {
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
-		if(playercount == 2)
-		{
-			player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
-		}
+		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
 		font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
 		Bigfont = new BitmapFont(Gdx.files.internal("BigScorefont.fnt"));
 		Thread listenerThread = new Thread(listener);
@@ -95,7 +91,7 @@ public class MyGdxGame extends Game
 	public void playSound(Sound s)
 	{
 		long id = s.play(volume);
-		s.setPitch(id, pitch);
+		s.setPitch(id, 1);
 		s.setLooping(id, false);
 	}
 	
