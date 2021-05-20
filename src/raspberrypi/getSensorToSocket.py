@@ -19,11 +19,11 @@ def my_Sensors():
     print(Temp)
     Tdata = Temp.encode()
     
-    Pressure = "Pressure: " + pressure
+    Pressure = "Pressure: (" + pressure + ")"
     print(Pressure)
     Pdata = Pressure.encode()
     
-    Humid = "Humidity: " + humidity
+    Humid = "Humidity: |" + humidity
     print(Humid)
     Hdata = Humid.encode()
     
