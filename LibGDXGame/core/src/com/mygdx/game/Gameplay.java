@@ -152,11 +152,25 @@ public class Gameplay implements Screen
                 position = MathUtils.random(0, MyGdxGame.camera.viewportWidth - (enemylvls.get(rand).getSize() + 90));
                 for(int i = 0; i < 5; i++)
                 {
-                    spawnEnemy(position, screentop, enemylvls.get(rand));
+
                     if(i == 0)
                     {
-                        spawnEnemy(position + 90, screentop + 50, enemylvls.get(rand));
-                        spawnEnemy(position - 90, screentop + 50, enemylvls.get(rand));
+;                       spawnEnemy(position, screentop + 50, enemylvls.get(rand));
+                    }
+                    if(i == 1)
+                    {
+                        spawnEnemy(position + 50, screentop + 50, enemylvls.get(rand));
+                        spawnEnemy(position - 50, screentop + 50, enemylvls.get(rand));
+                    }
+                    if(i == 2)
+                    {
+                        spawnEnemy(position + 100, screentop + 50, enemylvls.get(rand));
+                        spawnEnemy(position - 100, screentop + 50, enemylvls.get(rand));
+                    }
+                    if(i == 3)
+                    {
+                        spawnEnemy(position + 150, screentop + 50, enemylvls.get(rand));
+                        spawnEnemy(position - 150, screentop + 50, enemylvls.get(rand));
                     }
                     screentop += 75;
                 }
@@ -294,23 +308,23 @@ public class Gameplay implements Screen
                 //to the bullet array to be drawn in the batch
                 if(enemy.getType().equals(enemylvls.get(0)))
                 {
-                    Rectangle bullethitbox = new Rectangle(enemy.getX(), enemy.getY()-25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
-                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox, enemy.getX(), enemy.getY()-25);
+                    Rectangle bullethitbox = new Rectangle(enemy.getX() + 10, enemy.getY()-50, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox, enemy.getX() + 10, enemy.getY()-50);
                     spawnBullet(bullet);
-                    bullethitbox =  new Rectangle(enemy.getX() + enemy.getShip().getWidth(), enemy.getY() -25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
-                    bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + enemy.getShip().getWidth(), enemy.getY() -25);
+                    bullethitbox =  new Rectangle(enemy.getX() + enemy.getShip().getWidth() - 50, enemy.getY() -50, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    bullet = new Bullet(3, enemy.getType().getBtype(),bullethitbox, enemy.getX() + enemy.getShip().getWidth()- 50, enemy.getY() -50);
                     spawnBullet(bullet);
                 }
                 if(enemy.getType().equals(enemylvls.get(1)))
                 {
-                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
-                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25);
+                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2) - 8, enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox, enemy.getX() + (enemy.getShip().getWidth()/2 - 8), enemy.getY() - 25);
                     spawnBullet(bullet);
                 }
                 if(enemy.getType().equals(enemylvls.get(2)))
                 {
-                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
-                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox,enemy.getX() + (enemy.getShip().getWidth()/2), enemy.getY() - 25);
+                    Rectangle bullethitbox = new Rectangle(enemy.getX() + (enemy.getShip().getWidth()/2)+ 13, enemy.getY() - 50, enemy.getType().getBtype().getWidth(), enemy.getType().getBtype().getHeight());
+                    Bullet bullet = new Bullet(3, enemy.getType().getBtype(), bullethitbox,enemy.getX() + (enemy.getShip().getWidth()/2) - 13, enemy.getY() - 50);
                     spawnBullet(bullet);
                 }
                 if(enemy.getType().equals(enemylvls.get(3)))
