@@ -111,8 +111,10 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
                    System.out.println(vanWaarde);
                    System.out.println(totWaarde);
                    System.out.println(waardeSlider);
+
                    dispose();
                }
+
             }
 
 

@@ -99,8 +99,7 @@ public class Account extends JFrame implements ActionListener {
 
                     Connection connection = DriverManager.getConnection(url, username, password);
 
-                    PreparedStatement userstmt = connection
-                            .prepareStatement("select username from account where username = ?");
+                    PreparedStatement userstmt = connection.prepareStatement("select username from account where username = ?");
                     userstmt.setString(1, gebruikersnaam);
                     ResultSet userrs = userstmt.executeQuery();
                     userrs.next();
@@ -135,8 +134,7 @@ public class Account extends JFrame implements ActionListener {
 
                         Connection connection = DriverManager.getConnection(url, username, password);
 
-                        PreparedStatement statement = connection
-                                .prepareStatement("Insert into account Values (?,?,?);");
+                        PreparedStatement statement = connection.prepareStatement("Insert into account Values (?,?,?);");
 
                         statement.setString(1, gebruikersnaam);
                         statement.setString(2, hashdWachtwoord);

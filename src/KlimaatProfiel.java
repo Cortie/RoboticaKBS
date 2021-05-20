@@ -1,8 +1,13 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.*;
 
 public class KlimaatProfiel extends JFrame implements ActionListener, MouseListener {
     private JLabel jlTitel;
@@ -11,10 +16,11 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
     private JButton jbCreateLightProfile;
     private JTable jtTempProfile;
     private JTable jtLightProfile;
-    private String[] tempProfileTitel = { "Temperatuur Profielen" };
-    private Object[][] tempProfile = { { "temperatuur profiel 1" }, { "temperatuur profiel 2" } };
-    private String[] lightProfileTitel = { "Lichtsterkte Profielen" };
-    private Object[][] lightProfile = { { "lichtsterkte profiel 1" }, { "lichtsterkte profiel 2" } };
+    private String[] TempcolumnNames = {"Temperature profiles"};
+    private String[] lightColumnNames = {"Light strength profiles"};
+
+    DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
+    DefaultTableModel lightTableModel = new DefaultTableModel(lightColumnNames, 0);
 
     public KlimaatProfiel() {
         setTitle("Klimaat Systeem");
@@ -51,15 +57,64 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
         buttonPanel.add(jbCreateLightProfile);
         add(buttonPanel);
 
-        // tablePanel
+
+
+        // tablePanel tempprofile + ophalen data
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost/domotica_database";
+            String username = "root", password = "";
+
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            Statement stmt = connection.createStatement();
+            ResultSet temprs = stmt.executeQuery("select temp_profile_name from temperature_profile");
+
+
+
+            while (temprs.next()) {
+                String tempTitle = temprs.getString("temp_profile_name");
+                String[] tempData = { tempTitle } ;
+
+                tempTableModel.addRow(tempData);
+
+            }
+            Statement lightstmt = connection.createStatement();
+            ResultSet lightrs = lightstmt.executeQuery("select light_strength_profile_name from light_strength_profile");
+
+
+
+            while (lightrs.next()) {
+                String lightTitle = lightrs.getString("light_strength_profile_name");
+                String[] lightdata = { lightTitle } ;
+
+                lightTableModel.addRow(lightdata);
+
+            }
+
+
+                lightrs.close();
+                temprs.close();
+                connection.close();
+
+        }catch(SQLException sqleEx){
+            System.out.println(sqleEx.getMessage());
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+
         GridLayout tabelLayout = new GridLayout(1, 2);
         JPanel tablePanel = new JPanel(tabelLayout);
         tabelLayout.setHgap(15);
-        jtTempProfile = new JTable(tempProfile, tempProfileTitel) {
+        jtTempProfile = new JTable(tempTableModel) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+
         };
+
         jtTempProfile.setShowGrid(false);
         jtTempProfile.getCellSelectionEnabled();
         jtTempProfile.setRowHeight(50);
@@ -67,7 +122,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
         jtTempProfile.setBorder(blackline);
         jtTempProfile.addMouseListener((MouseListener) this);
 
-        jtLightProfile = new JTable(lightProfile, lightProfileTitel) {
+        jtLightProfile = new JTable(lightTableModel) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -81,8 +136,11 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
         jtLightProfile.getColumnModel().getColumnSelectionAllowed();
         jtLightProfile.addMouseListener((MouseListener) this);
 
-        tablePanel.add(jtTempProfile);
-        tablePanel.add(jtLightProfile);
+        JScrollPane tempscrollpane = new JScrollPane(jtTempProfile);
+        JScrollPane lightscrollpane = new JScrollPane(jtLightProfile);
+
+        tablePanel.add(tempscrollpane);
+        tablePanel.add(lightscrollpane);
         add(tablePanel);
 
         setVisible(true);

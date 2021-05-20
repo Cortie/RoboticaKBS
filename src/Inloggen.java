@@ -90,8 +90,7 @@ public class Inloggen extends JFrame implements ActionListener {
 
                 Connection connection = DriverManager.getConnection(url, username, password);
 
-                PreparedStatement userstmt = connection
-                        .prepareStatement("select username,password,salt from account where username = ?");
+                PreparedStatement userstmt = connection.prepareStatement("select username,password,salt from account where username = ?");
                 userstmt.setString(1, gebruikersnaam);
                 ResultSet inlogrs = userstmt.executeQuery();
                 inlogrs.next();

@@ -14,7 +14,7 @@ public class PiListener implements Runnable {
   @Override
   public void run() {
     try {
-      Socket clientSocket = new Socket("192.168.0.124", 8080);
+      Socket clientSocket = new Socket("10.80.17.1", 8080);
       OutputStream send = clientSocket.getOutputStream();
       byte b = lights.byteValue();
       send.write(b);
