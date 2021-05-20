@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatProfiel tweede collum verwijderd">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatBeheer layout wijzigingen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
@@ -56,7 +55,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.KlimaatBeheer">
+  <component name="RunManager" selected="Application.MuziekAfspeler">
     <configuration name="Dashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Dashboard" />
       <module name="RoboticaKBS" />
@@ -78,6 +77,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MuziekAfspeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekAfspeler" />
+      <module name="RoboticaKBS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MuziekSpeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MuziekSpeler" />
       <module name="RoboticaKBS" />
@@ -85,27 +91,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WachtwoordWijzigen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="WachtwoordWijzigen" />
-      <module name="RoboticaKBS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.KlimaatBeheer" />
-      <item itemvalue="Application.WachtwoordWijzigen" />
       <item itemvalue="Application.KlimaatProfiel" />
       <item itemvalue="Application.Dashboard" />
       <item itemvalue="Application.MuziekSpeler" />
+      <item itemvalue="Application.MuziekAfspeler" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.MuziekSpeler" />
         <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.KlimaatProfiel" />
-        <item itemvalue="Application.WachtwoordWijzigen" />
       </list>
     </recent_temporary>
   </component>
@@ -314,8 +313,18 @@
       <option name="project" value="LOCAL" />
       <updated>1620909513034</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="KlimaatBeheer layout wijzigingen">
+      <created>1621510072993</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1621510072993</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.py" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -352,7 +361,8 @@
     <MESSAGE value="variabelen toegevoegt om het naar de database zetten makkelijker te maken." />
     <MESSAGE value="variabelen toegevoegt om het naar de database zetten" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="KlimaatBeheer layout wijzigingen" />
+    <option name="LAST_COMMIT_MESSAGE" value="KlimaatBeheer layout wijzigingen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
