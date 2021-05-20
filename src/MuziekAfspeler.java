@@ -11,9 +11,9 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
     private JLabel jlTitel;
     private JLabel jlAfspeellijst;
     private JLabel jlNummer;
-    private JSlider jsNumerTijd;
-    private JLabel jlNummerTijdWaarde;
-    private int nummerTijdWaarde;
+//    private JSlider jsNumerTijd;
+//    private JLabel jlNummerTijdWaarde;
+//    private int nummerTijdWaarde;
     private JButton jbVorigeAfspelen;
     private JButton jbPauzeAfspelen;
     private JButton jbVolgendeAfspelen;
@@ -37,10 +37,10 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
         titelsPnl.add(titelPnl, BorderLayout.NORTH);
         titelsPnl.add(subTitels, BorderLayout.CENTER);
 
-        JPanel nummertijdPnl = new JPanel(new FlowLayout());
-        nummertijdPnl.add(jsNumerTijd = new JSlider());
-        nummertijdPnl.add(
-                jlNummerTijdWaarde = new JLabel(String.valueOf(nummerTijdWaarde = jsNumerTijd.getValue()) + " sec"));
+//        JPanel nummertijdPnl = new JPanel(new FlowLayout());
+//        nummertijdPnl.add(jsNumerTijd = new JSlider());
+//        nummertijdPnl.add(
+//                jlNummerTijdWaarde = new JLabel(String.valueOf(nummerTijdWaarde = jsNumerTijd.getValue()) + " sec"));
 
         JPanel nummerKnoppenPnl = new JPanel(new FlowLayout());
         nummerKnoppenPnl.add(jbVorigeAfspelen = new JButton("Vorige afspelen"));
@@ -61,7 +61,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
         knoppenPnl.add(muziekKnoppenPnl, BorderLayout.CENTER);
 
         JPanel ondersteGedeeltePnl = new JPanel(new BorderLayout());
-        ondersteGedeeltePnl.add(nummertijdPnl, BorderLayout.NORTH);
+//        ondersteGedeeltePnl.add(nummertijdPnl, BorderLayout.NORTH);
         ondersteGedeeltePnl.add(knoppenPnl, BorderLayout.CENTER);
 
         JPanel borderPnl = new JPanel(new BorderLayout());

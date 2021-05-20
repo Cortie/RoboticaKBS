@@ -6,6 +6,7 @@ public class GetLights {
   private int lightvalue;
   public int lichtwaarde;
   public SerialPort port;
+
   public Scanner data;
 
   public GetLights() {
@@ -19,23 +20,27 @@ public class GetLights {
         String naam = comPort.getDescriptivePortName().substring(0, 11);
         if (naam.equalsIgnoreCase("Arduino Uno")) {
           this.port = comPort;
+        } else {
+          this.port = SerialPort.getCommPort("COM3");//temporary fix if the comPort cannot be found with the method used above
+          //if the comPort cannot be found, change the value of the getCommPort in the else statement according to the port on your system
         }
       }
+      
     }
 
-    if (port.isOpen()) {
+    if (this.port.isOpen()) {
       System.out.println("Port Already Opened");
     } else {
       for (SerialPort comPort : availablePorts) {
         if (comPort.getDescriptivePortName().length() > 10) {
           String naam = comPort.getDescriptivePortName().substring(0, 11);
           if (naam.equalsIgnoreCase("Arduino Uno")) {
-            this.port = comPort;
+            port = comPort;
           }
         }
       }
 
-      if (port.openPort()) {
+      if (this.port.openPort()) {
         System.out.println("Successfully opened the port.");
       } else {
         System.out.println("Unable to open the port.");
@@ -43,8 +48,8 @@ public class GetLights {
       }
     }
 
-    port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
-    data = new Scanner(port.getInputStream());
+    this.port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
+    data = new Scanner(this.port.getInputStream());
     if (data.hasNextLine()) {
       lightvalue = 0;
 
@@ -64,7 +69,7 @@ public class GetLights {
       }
 
     }
-    port.closePort();
+    this.port.closePort();
     return lightvalue;
   }
 }
