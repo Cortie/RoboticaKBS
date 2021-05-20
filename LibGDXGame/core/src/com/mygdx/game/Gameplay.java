@@ -263,9 +263,9 @@ public class Gameplay implements Screen
             }
             if(game.getPlayercount() == 2)
             {
-                game.playSound(pickup);
                 if( power.getArea().overlaps(game.player2.getArea()))
                 {
+                    game.playSound(pickup);
                     if(power.getType() == 2)
                     {
                         game.setPlayerlives(game.getPlayerlives() +1);
@@ -419,18 +419,6 @@ public class Gameplay implements Screen
                     enemy.setY(enemy.getY() - 50 * Gdx.graphics.getDeltaTime());
                 }
             }
-            /*if(enemy.getType().equals(enemylvls.get(1)))
-            {
-                    int randMovement = MathUtils.random(0,1);
-                    if(randMovement == 0)
-                    {
-                        enemy.setX(enemy.getX() + 75 * Gdx.graphics.getDeltaTime());
-                    }
-                    if(randMovement == 1)
-                    {
-                        enemy.setX(enemy.getX() - 75 * Gdx.graphics.getDeltaTime());
-                    }
-            }*/
             //removes the enemy from the batch when it has reached the bottom of the screen
             if(enemy.getShip().getY() + 64 < 0) {
                 iter.remove();
@@ -589,13 +577,13 @@ public class Gameplay implements Screen
                         {
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
                             game.setScoretext(String.valueOf(game.getScore()));
-                            int rand = MathUtils.random(1,5);
+                            int rand = MathUtils.random(1,20);
                             {
                                 if(rand == 1)
                                 {
                                     int rand2 = MathUtils.random(1,5);
                                     {
-                                        spawnPowerUp(5, enemy.getX(), enemy.getY());
+                                        spawnPowerUp(rand2, enemy.getX(), enemy.getY());
                                     }
                                 }
                             }
@@ -606,7 +594,7 @@ public class Gameplay implements Screen
                     }
                 }
             }
-            if(bullet.y + 64 > Gdx.graphics.getHeight() || bullet.y <= 0)
+            if(bullet.y + bullet.getHitbox().getHeight() >= Gdx.graphics.getHeight() || bullet.y + bullet.getHitbox().getHeight() <= 0)
             {
                 iter.remove();
                 break;
@@ -648,9 +636,14 @@ public class Gameplay implements Screen
         {
             enemy.getType().getShipImg().dispose();
         }
+        for(PowerUp power: game.getPowers())
+        {
+            power.getTexture().dispose();
+        }
         MyGdxGame.player1.getShipImg().dispose();
         explode.dispose();
         Lazer.dispose();
+        hit.dispose();
         pickup.dispose();
         MyGdxGame.player2.getShipImg().dispose();
         game.batch.dispose();
