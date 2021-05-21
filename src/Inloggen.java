@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.sql.*;
 
 public class Inloggen extends JFrame implements ActionListener {
@@ -21,6 +19,11 @@ public class Inloggen extends JFrame implements ActionListener {
 
     private String hashdWachtwoord;
     private String checkHashedPassword;
+
+    private static int accountID = 0;
+    private static String accountname = "";
+    private Boolean errorCheck = false;
+    private JLabel jlErrorMessage;
 
     public Inloggen() {
         setTitle("Klimaat systeem");
@@ -61,9 +64,14 @@ public class Inloggen extends JFrame implements ActionListener {
         gebruikergegevensPnl.add(gebruikersnaamPnl, BorderLayout.NORTH);
         gebruikergegevensPnl.add(wachtwoordPnl, BorderLayout.CENTER);
 
+        JPanel errorPanel = new JPanel(new FlowLayout());
+        jlErrorMessage = new JLabel();
+        errorPanel.add(jlErrorMessage);
+
         JPanel inlogPnl = new JPanel(new BorderLayout());
         inlogPnl.add(gebruikergegevensPnl, BorderLayout.NORTH);
         inlogPnl.add(knoppenPnl, BorderLayout.CENTER);
+        inlogPnl.add(errorPanel,BorderLayout.SOUTH);
 
         JPanel borderPnl = new JPanel(new BorderLayout());
         borderPnl.add(titelPnl, BorderLayout.NORTH);
@@ -76,7 +84,7 @@ public class Inloggen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbInloggen) {
-            System.out.println("link naar dashboard");
+
             gebruikersnaam = jtGebruikersnaam.getText();
             wachtwoord = jpWachtwoord.getText();
             System.out.println(gebruikersnaam);
@@ -90,13 +98,14 @@ public class Inloggen extends JFrame implements ActionListener {
 
                 Connection connection = DriverManager.getConnection(url, username, password);
 
-                PreparedStatement userstmt = connection.prepareStatement("select username,password,salt from account where username = ?");
+                PreparedStatement userstmt = connection.prepareStatement("select account_id,username,password,salt from account where username = ?");
                 userstmt.setString(1, gebruikersnaam);
                 ResultSet inlogrs = userstmt.executeQuery();
                 inlogrs.next();
-                String checkUsername = inlogrs.getString(1);
-                Blob pass = inlogrs.getBlob(2);
-                byte[] passwordSalt = inlogrs.getBytes(3);
+                int accountIdNummer = inlogrs.getInt(1);
+                String checkUsername = inlogrs.getString(2);
+                Blob pass = inlogrs.getBlob(3);
+                byte[] passwordSalt = inlogrs.getBytes(4);
                 checkHashedPassword = new String(pass.getBytes(1L, (int) pass.length()));
                 System.out.println(checkHashedPassword);
                 System.out.println(checkUsername);
@@ -104,6 +113,9 @@ public class Inloggen extends JFrame implements ActionListener {
                 hashdWachtwoord = SaltedHashPasword.getSecurePassword(wachtwoord, passwordSalt);
 
                 if (hashdWachtwoord.equals(checkHashedPassword) && gebruikersnaam.equals(checkUsername)) {
+
+                    accountname = gebruikersnaam;
+                    accountID = accountIdNummer;
                     Dashboard dash = new Dashboard();
                     this.dispose();
                 }
@@ -114,7 +126,8 @@ public class Inloggen extends JFrame implements ActionListener {
                 inlogrs.close();
                 connection.close();
             } catch (SQLException sqle) {
-                System.out.println(sqle.getMessage());
+                errorCheck = true;
+
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
@@ -134,6 +147,26 @@ public class Inloggen extends JFrame implements ActionListener {
             this.dispose();
         }
 
+        if(errorCheck){
+
+            if(jtGebruikersnaam.getText().equals("") || jpWachtwoord.getText().equals("")){
+                jlErrorMessage.setText("een of meerdere velden zijn niet ingevuld!");
+            }
+            else {
+                jlErrorMessage.setText("Er zijn geen accounts gevonden, maak eerst een account aan!");
+            }
+            SwingUtilities.updateComponentTreeUI(this);
+            errorCheck = false;
+        }
+
+    }
+
+    public static int getAccountID(){
+        return accountID;
+    }
+
+    public static String getAccountName(){
+        return accountname;
     }
 
     public static void main(String[] args) {

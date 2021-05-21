@@ -92,12 +92,13 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
 
                        Connection connection = DriverManager.getConnection(url, username, password);
 
-                       PreparedStatement statement = connection.prepareStatement("Insert into temperature_profile (temp_profile_name, temp_start_time, temp_end_time, profile_temperature) Values (?,?,?,?);");
+                       PreparedStatement statement = connection.prepareStatement("Insert into temperature_profile (temp_profile_name, temp_start_time, temp_end_time, profile_temperature, account_id) Values (?,?,?,?,?);");
 
                        statement.setString(1, profielnaam);
                        statement.setTime(2, Time.valueOf(vanWaarde));
                        statement.setTime(3, Time.valueOf(totWaarde));
                        statement.setInt(4, waardeSlider);
+                       statement.setInt(5,Inloggen.getAccountID());
 
                        int i = statement.executeUpdate();
                        System.out.println(i + " records inserted");

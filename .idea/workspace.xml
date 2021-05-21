@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatBeheer layout veranderd en wanneer licht aan gaat aangepast">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekBeheren.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.AfspeellijstBeheer">
+  <component name="RunManager" selected="Application.KlimaatProfiel">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -64,8 +65,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Dashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Dashboard" />
+    <configuration name="Inloggen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Inloggen" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,27 +93,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersoonlijkeInstellingen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="PersoonlijkeInstellingen" />
-      <module name="RoboticaKBS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.KlimaatBeheer" />
-      <item itemvalue="Application.KlimaatProfiel" />
-      <item itemvalue="Application.Dashboard" />
       <item itemvalue="Application.MuziekBeheren" />
       <item itemvalue="Application.AfspeellijstBeheer" />
+      <item itemvalue="Application.Inloggen" />
+      <item itemvalue="Application.KlimaatProfiel" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.KlimaatProfiel" />
+        <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.MuziekBeheren" />
         <item itemvalue="Application.KlimaatBeheer" />
-        <item itemvalue="Application.Dashboard" />
-        <item itemvalue="Application.KlimaatProfiel" />
       </list>
     </recent_temporary>
   </component>

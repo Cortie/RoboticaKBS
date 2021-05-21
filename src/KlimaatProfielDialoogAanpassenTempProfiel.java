@@ -28,6 +28,7 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
     private JLabel jlErrorMessage;
 
 
+
     public KlimaatProfielDialoogAanpassenTempProfiel(JFrame frame, boolean modal) {
         super(frame, modal);
         setSize(800, 500);
