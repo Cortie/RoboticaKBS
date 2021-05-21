@@ -18,6 +18,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
     private JTable jtLightProfile;
     private String[] TempcolumnNames = {"Temperature profiles"};
     private String[] lightColumnNames = {"Light strength profiles"};
+    private static String profilename;
 
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
     DefaultTableModel lightTableModel = new DefaultTableModel(lightColumnNames, 0);
@@ -154,11 +155,25 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
             this.dispose();
         }
         if (e.getSource() == jbCreateTempProfile) {
-            KlimaatProfielDialoogAanmakenTempProfiel dialoog = new KlimaatProfielDialoogAanmakenTempProfiel(this, true);
+            KlimaatProfielDialoogAanmakenTempProfiel createTempDialog = new KlimaatProfielDialoogAanmakenTempProfiel(this, true);
+
+            if(!createTempDialog.isVisible()){
+
+                KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+                this.dispose();
+
+            }
+
         }
         if (e.getSource() == jbCreateLightProfile) {
-            KlimaatProfielDialoogAanmakenLichtProfiel dialoog2 = new KlimaatProfielDialoogAanmakenLichtProfiel(this,
+            KlimaatProfielDialoogAanmakenLichtProfiel createLightDialog = new KlimaatProfielDialoogAanmakenLichtProfiel(this,
                     true);
+            if(!createLightDialog.isVisible()){
+
+                KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+                this.dispose();
+
+            }
         }
     }
 
@@ -170,38 +185,41 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == jtTempProfile) {
-            if (jtTempProfile.getSelectedColumn() == 0) {
-                // System.out.println("temp table");
-                // System.out.println("knop column");
-                if (jtTempProfile.getSelectedRow() == 0) {
-                    // System.out.println("row 1");
-                    KlimaatProfielDialoogAanpassenTempProfiel dialoog1 = new KlimaatProfielDialoogAanpassenTempProfiel(
-                            this, true);
-                }
-                if (jtTempProfile.getSelectedRow() == 1) {
-                    // System.out.println("row 2");
-                    KlimaatProfielDialoogAanpassenTempProfiel dialoog2 = new KlimaatProfielDialoogAanpassenTempProfiel(
-                            this, true);
-                }
+
+           int column = jtTempProfile.getSelectedColumn();
+           int row = jtTempProfile.getSelectedRow();
+           profilename = jtTempProfile.getModel().getValueAt(row, column).toString();
+            KlimaatProfielDialoogAanpassenTempProfiel changeTempDialog = new KlimaatProfielDialoogAanpassenTempProfiel(
+                    this, true);
+
+            if(!changeTempDialog.isVisible()){
+
+                KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+                this.dispose();
+
             }
+
         }
         if (e.getSource() == jtLightProfile) {
 
-            if (jtLightProfile.getSelectedColumn() == 0) {
-                // System.out.println("licht table");
-                // System.out.println("knop column");
-                if (jtLightProfile.getSelectedRow() == 0) {
-                    // System.out.println("row 1");
-                    KlimaatProfielDialoogAanpassenLichtProfiel dialoog1 = new KlimaatProfielDialoogAanpassenLichtProfiel(
-                            this, true);
-                }
-                if (jtLightProfile.getSelectedRow() == 1) {
-                    // System.out.println("row 2");
-                    KlimaatProfielDialoogAanpassenLichtProfiel dialoog2 = new KlimaatProfielDialoogAanpassenLichtProfiel(
-                            this, true);
-                }
+            int column = jtLightProfile.getSelectedColumn();
+            int row = jtLightProfile.getSelectedRow();
+            profilename = jtLightProfile.getModel().getValueAt(row, column).toString();
+            KlimaatProfielDialoogAanpassenLichtProfiel changeLightDialog = new KlimaatProfielDialoogAanpassenLichtProfiel(
+                    this, true);
+
+            if(!changeLightDialog.isVisible()){
+
+                KlimaatProfiel klimaatProfiel1 = new KlimaatProfiel();
+                this.dispose();
+
+
             }
         }
+    }
+
+    public static String getProfilename() {
+        return profilename;
     }
 
     @Override

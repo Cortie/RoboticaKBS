@@ -71,8 +71,11 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
     {
         if (e.getSource()==jbBevestigenKnop)
         {
-            profielnaam=jtProfielNaam.getText();
-
+            if(!jtProfielNaam.getText().equals("")) {
+                profielnaam = jtProfielNaam.getText();
+            }   else{
+                errorCheck = true;
+            }
             try {
                 vanWaarde = LocalTime.parse(jtVan.getText(), DateTimeFormatter.ofPattern("HH:mm"));
                 totWaarde = LocalTime.parse(jtTot.getText(), DateTimeFormatter.ofPattern("HH:mm"));
@@ -99,6 +102,7 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
                        int i = statement.executeUpdate();
                        System.out.println(i + " records inserted");
 
+                       statement.close();
                        connection.close();
 
                    } catch (SQLException sqle) {

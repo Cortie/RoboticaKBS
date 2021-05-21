@@ -42,7 +42,7 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
                     JPanel sliderPnl = new JPanel(new FlowLayout());
                     sliderPnl.add(jtVan=new JTextField(waardeVan,5));
                     sliderPnl.add(jtTot=new JTextField(waardeTot,5));
-                    sliderPnl.add(jsSlider=new JSlider());
+                    sliderPnl.add(jsSlider=new JSlider(0,500));
                     jsSlider.addChangeListener(this);
                     sliderPnl.add(jlWaardeSlider = new JLabel(String.valueOf(waardeSlider=jsSlider.getValue())+" LM"));
 
