@@ -63,7 +63,7 @@ public class Highscore implements Screen {
             Connection conn2=
                 DriverManager.getConnection(url, username, password);
 
-            PreparedStatement stmt2 = conn2.prepareStatement("CREATE TABLE IF NOT EXISTS " + "highscore (id INTEGER(3), Score INTEGER(255), Time DateTime)");
+            PreparedStatement stmt2 = conn2.prepareStatement("CREATE TABLE IF NOT EXISTS " + "highscore (id INTEGER(3), Score INTEGER(255) NOT NULL, Time DateTime PRIMARY KEY NOT NULL)");
             stmt2.execute();
             Statement statement = conn2.createStatement();
             ResultSet rs = statement.executeQuery( "SELECT Score, Time FROM highscore ORDER BY Score DESC LIMIT 5" );

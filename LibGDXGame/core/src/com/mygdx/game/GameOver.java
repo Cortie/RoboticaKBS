@@ -23,7 +23,7 @@ public class GameOver implements Screen {
     Texture BackButtonActive;
     static final String NO_URL = "jdbc:mysql://localhost";
     static final String SQLdb = "CREATE DATABASE IF NOT EXISTS mydb";
-    static final String SQLtable = "CREATE TABLE IF NOT EXISTS " + "highscore (id INTEGER(3), Score INTEGER(255), Time DateTime)";
+    static final String SQLtable = "CREATE TABLE IF NOT EXISTS " + "highscore (id INTEGER(3), Score INTEGER(255) NOT NULL, Time DateTime PRIMARY KEY NOT NULL)";
     static final String DB_URL = "jdbc:mysql://localhost/mydb";
     static final String USER = "root";
     static final String PASS = "";
