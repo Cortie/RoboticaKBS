@@ -39,10 +39,10 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     // temperature panel
-    JPanel musicTxtPnl = new JPanel(standard);
-    musicTxtPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
+    JPanel musicTxtPnl = new JPanel(new BorderLayout());
+    musicTxtPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST),BorderLayout.WEST);
     backButton.addActionListener(this);
-    musicTxtPnl.add(music);
+    musicTxtPnl.add(music,BorderLayout.CENTER);
     music.setFont(music.getFont().deriveFont(16.0f));
 
     // manage panel

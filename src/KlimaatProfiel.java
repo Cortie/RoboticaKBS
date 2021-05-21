@@ -18,6 +18,10 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
     private JTable jtLightProfile;
     private String[] TempcolumnNames = {"Temperature profiles"};
     private String[] lightColumnNames = {"Light strength profiles"};
+    private static String profilename;
+    private Boolean errorCheck = false;
+    private JLabel jlErrorMessage;
+
 
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
     DefaultTableModel lightTableModel = new DefaultTableModel(lightColumnNames, 0);
@@ -43,8 +47,13 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
         headLayout.setHgap(150);
         backButton.setHorizontalAlignment(SwingConstants.LEFT);
 
+        JPanel errorPanel = new JPanel(new FlowLayout());
+        jlErrorMessage = new JLabel();
+        errorPanel.add(jlErrorMessage);
+
         headPanel.add(backButton);
         headPanel.add(jlTitel);
+
         add(headPanel);
 
         // buttonPanel
@@ -59,49 +68,56 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
 
 
 
-        // tablePanel tempprofile + ophalen data
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        //ophalen van de profielen uit de database
+        if(Inloggen.getAccountID() != 0 ) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost/domotica_database";
-            String username = "root", password = "";
+                String url = "jdbc:mysql://localhost/domotica_database";
+                String username = "root", password = "";
 
-            Connection connection = DriverManager.getConnection(url, username, password);
+                Connection connection = DriverManager.getConnection(url, username, password);
 
-            Statement stmt = connection.createStatement();
-            ResultSet temprs = stmt.executeQuery("select temp_profile_name from temperature_profile");
+                PreparedStatement stmt = connection.prepareStatement("select temp_profile_name from temperature_profile where account_id = ?");
 
-
-
-            while (temprs.next()) {
-                String tempTitle = temprs.getString("temp_profile_name");
-                String[] tempData = { tempTitle } ;
-
-                tempTableModel.addRow(tempData);
-
-            }
-            Statement lightstmt = connection.createStatement();
-            ResultSet lightrs = lightstmt.executeQuery("select light_strength_profile_name from light_strength_profile");
+                stmt.setInt(1, Inloggen.getAccountID());
+                ResultSet temprs = stmt.executeQuery();
 
 
+                while (temprs.next()) {
+                    String tempTitle = temprs.getString("temp_profile_name");
+                    String[] tempData = {tempTitle};
 
-            while (lightrs.next()) {
-                String lightTitle = lightrs.getString("light_strength_profile_name");
-                String[] lightdata = { lightTitle } ;
+                    tempTableModel.addRow(tempData);
 
-                lightTableModel.addRow(lightdata);
+                }
+                PreparedStatement lightstmt = connection.prepareStatement("select light_strength_profile_name from light_strength_profile where account_id = ?");
 
-            }
+                lightstmt.setInt(1, Inloggen.getAccountID());
+                ResultSet lightrs = lightstmt.executeQuery();
+
+
+                while (lightrs.next()) {
+                    String lightTitle = lightrs.getString("light_strength_profile_name");
+                    String[] lightdata = {lightTitle};
+
+                    lightTableModel.addRow(lightdata);
+
+                }
 
 
                 lightrs.close();
                 temprs.close();
                 connection.close();
 
-        }catch(SQLException sqleEx){
-            System.out.println(sqleEx.getMessage());
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
+            } catch (SQLException sqleEx) {
+                System.out.println("hier gaat het mis(1)");
+                System.out.println(sqleEx.getMessage());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }else{
+            errorCheck = true;
         }
 
 
@@ -142,6 +158,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
         tablePanel.add(tempscrollpane);
         tablePanel.add(lightscrollpane);
         add(tablePanel);
+        add(errorPanel);
 
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -154,11 +171,41 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
             this.dispose();
         }
         if (e.getSource() == jbCreateTempProfile) {
-            KlimaatProfielDialoogAanmakenTempProfiel dialoog = new KlimaatProfielDialoogAanmakenTempProfiel(this, true);
+
+            if(Inloggen.getAccountID() != 0) {
+                KlimaatProfielDialoogAanmakenTempProfiel createTempDialog = new KlimaatProfielDialoogAanmakenTempProfiel(this, true);
+
+                if (!createTempDialog.isVisible()) {
+
+                    KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+                    this.dispose();
+
+                }
+            }else{
+                errorCheck = true;
+            }
+
         }
         if (e.getSource() == jbCreateLightProfile) {
-            KlimaatProfielDialoogAanmakenLichtProfiel dialoog2 = new KlimaatProfielDialoogAanmakenLichtProfiel(this,
-                    true);
+
+            if(Inloggen.getAccountID() != 0) {
+                KlimaatProfielDialoogAanmakenLichtProfiel createLightDialog = new KlimaatProfielDialoogAanmakenLichtProfiel(this,
+                        true);
+                if (!createLightDialog.isVisible()) {
+
+                    KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+                    this.dispose();
+
+                }
+            }else{
+                errorCheck = true;
+            }
+        }
+
+        if(errorCheck){
+            jlErrorMessage.setText("je bent niet ingelogd");
+            SwingUtilities.updateComponentTreeUI(this);
+            errorCheck = false;
         }
     }
 
@@ -167,41 +214,46 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
 
     }
 
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == jtTempProfile) {
-            if (jtTempProfile.getSelectedColumn() == 0) {
-                // System.out.println("temp table");
-                // System.out.println("knop column");
-                if (jtTempProfile.getSelectedRow() == 0) {
-                    // System.out.println("row 1");
-                    KlimaatProfielDialoogAanpassenTempProfiel dialoog1 = new KlimaatProfielDialoogAanpassenTempProfiel(
-                            this, true);
-                }
-                if (jtTempProfile.getSelectedRow() == 1) {
-                    // System.out.println("row 2");
-                    KlimaatProfielDialoogAanpassenTempProfiel dialoog2 = new KlimaatProfielDialoogAanpassenTempProfiel(
-                            this, true);
-                }
+
+           int column = jtTempProfile.getSelectedColumn();
+           int row = jtTempProfile.getSelectedRow();
+           profilename = jtTempProfile.getModel().getValueAt(row, column).toString();
+            KlimaatProfielDialoogAanpassenTempProfiel changeTempDialog = new KlimaatProfielDialoogAanpassenTempProfiel(
+                    this, true);
+
+            if(!changeTempDialog.isVisible()){
+
+                KlimaatProfiel klimaatProfiel = new KlimaatProfiel();
+                this.dispose();
+
             }
+
         }
         if (e.getSource() == jtLightProfile) {
 
-            if (jtLightProfile.getSelectedColumn() == 0) {
-                // System.out.println("licht table");
-                // System.out.println("knop column");
-                if (jtLightProfile.getSelectedRow() == 0) {
-                    // System.out.println("row 1");
-                    KlimaatProfielDialoogAanpassenLichtProfiel dialoog1 = new KlimaatProfielDialoogAanpassenLichtProfiel(
-                            this, true);
-                }
-                if (jtLightProfile.getSelectedRow() == 1) {
-                    // System.out.println("row 2");
-                    KlimaatProfielDialoogAanpassenLichtProfiel dialoog2 = new KlimaatProfielDialoogAanpassenLichtProfiel(
-                            this, true);
-                }
+            int column = jtLightProfile.getSelectedColumn();
+            int row = jtLightProfile.getSelectedRow();
+            profilename = jtLightProfile.getModel().getValueAt(row, column).toString();
+            KlimaatProfielDialoogAanpassenLichtProfiel changeLightDialog = new KlimaatProfielDialoogAanpassenLichtProfiel(
+                    this, true);
+
+            if(!changeLightDialog.isVisible()){
+
+                KlimaatProfiel klimaatProfiel1 = new KlimaatProfiel();
+                this.dispose();
+
+
             }
         }
+    }
+
+    public static String getProfilename() {
+        return profilename;
     }
 
     @Override
