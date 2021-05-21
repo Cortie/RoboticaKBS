@@ -20,9 +20,10 @@ public class GetLights {
         String naam = comPort.getDescriptivePortName().substring(0, 11);
         if (naam.equalsIgnoreCase("Arduino Uno")) {
           this.port = comPort;
-        } else {
-          this.port = SerialPort.getCommPort("COM3");//temporary fix if the comPort cannot be found with the method used above
-          //if the comPort cannot be found, change the value of the getCommPort in the else statement according to the port on your system
+        }
+  
+        if (this.port == null && naam.equalsIgnoreCase("USB Serial ")) {
+          this.port = comPort;
         }
       }
       

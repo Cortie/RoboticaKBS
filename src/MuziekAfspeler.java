@@ -1,10 +1,12 @@
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
+import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
-
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+
 
 public class MuziekAfspeler extends JFrame implements ActionListener {
     private BasicArrowButton backButton;
@@ -19,8 +21,51 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
     private JButton jbVolgendeAfspelen;
     private JButton jbAfspeellijstBeheren;
     private JButton jbMuziekBeheren;
-
+    private JTable jtTempSong;
+    private String[] TempcolumnNames = {"Muziek nummers"};
+    DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
+    private final Music listener = new Music(this);
+    
+    
     public MuziekAfspeler() {
+        Thread listenerThread = new Thread(this.listener);
+        listenerThread.setDaemon(true);
+        listenerThread.start();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        
+            String url = "jdbc:mysql://localhost/domotica_database";
+            String username = "root", password = "";
+        
+            Connection connection = DriverManager.getConnection(url, username, password);
+        
+            PreparedStatement userstmt = connection.prepareStatement("select song_name from song");
+            ResultSet songs = userstmt.executeQuery();
+            while(songs.next())
+            {
+                String tempTitle = songs.getString("song_name");
+                String[] tempData = { tempTitle } ;
+    
+                tempTableModel.addRow(tempData);
+            }
+            songs.close();
+            /*PreparedStatement userstmt2 = connection.prepareStatement("select song_name from song");
+            ResultSet playlists = userstmt.executeQuery();
+            while(playlists.next())
+            {
+                String tempTitle = songs.getString("song_name");
+                String[] tempData = { tempTitle } ;
+        
+                tempTableModel.addRow(tempData);
+            }*/
+            
+            
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,8 +76,23 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
 
         JPanel subTitels = new JPanel(new BorderLayout());
         subTitels.add(jlAfspeellijst = new JLabel("naam afspeellijst"), BorderLayout.NORTH);
-        subTitels.add(jlNummer = new JLabel("naam nummer"), BorderLayout.CENTER);
-
+        GridLayout tabelLayout = new GridLayout(1, 2);
+        JPanel tablePanel = new JPanel(tabelLayout);
+        tabelLayout.setHgap(15);
+        jtTempSong = new JTable(tempTableModel) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        
+        };
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        jtTempSong.setShowGrid(false);
+        jtTempSong.getCellSelectionEnabled();
+        jtTempSong.setRowHeight(50);
+        jtTempSong.setRowSelectionAllowed(false);
+        jtTempSong.setBorder(blackline);
+        
+        subTitels.add(jtTempSong);
         JPanel titelsPnl = new JPanel(new BorderLayout());
         titelsPnl.add(titelPnl, BorderLayout.NORTH);
         titelsPnl.add(subTitels, BorderLayout.CENTER);
@@ -99,5 +159,6 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         MuziekAfspeler muziekAfspelerscherm = new MuziekAfspeler();
+        
     }
 }
