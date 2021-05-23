@@ -1,15 +1,11 @@
-import arduino.Arduino;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.time.Clock;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Scanner;
 
 import static java.lang.Math.abs;
 public class Music implements Runnable
@@ -18,18 +14,15 @@ public class Music implements Runnable
     {
         this.afspeler = afspeler;
     }
-    private MuziekAfspeler afspeler;
-    private int currentSong = 1;
-    private Clock clock = Clock.systemDefaultZone();
-    private int wholeNote = (60000*4)/100;
+    private final MuziekAfspeler afspeler;
+    private final int currentSong = 1;
+    private final Clock clock = Clock.systemDefaultZone();
     private long musicTiming = 0;
     private int divider = 0;
-    private int noteDuration = 0;
+    private int noteDuration = 500;
     private int thisNote = 1;
     private int tone;
-    private String note;
     private SerialPort port;
-    private Arduino musicplayer = new Arduino();
     private int songLength;
     @Override
     public void run()
@@ -53,10 +46,28 @@ public class Music implements Runnable
         }
         port.setComPortParameters(9600, 8, 1, SerialPort.NO_PARITY);
         port.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+        port.addDataListener(new SerialPortDataListener() {
+            @Override
+            public int getListeningEvents() {
+                return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
+            }
+        
+            @Override
+            public void serialEvent(SerialPortEvent event) {
+                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) {
+                    return;
+                }
+                byte[] newData = new byte[port.bytesAvailable()];
+                int numRead = port.readBytes(newData, newData.length);
+                String test = new String(newData);
+                System.out.println(test);
+                System.out.println("Read " + numRead + " bytes. " + newData[0]);
+            }
+        });
         String url = "jdbc:mysql://localhost/domotica_database";
         String username = "root", password = "";
     
-        Connection connection = null;
+        Connection connection;
         try
         {
             connection = DriverManager.getConnection(url, username, password);
@@ -68,27 +79,8 @@ public class Music implements Runnable
         {
             throwables.printStackTrace();
         }
-        for(int i = 1; i <= songLength; i++)
+        for(thisNote = 1; thisNote <= songLength; thisNote++)
         {
-            getMusic();
-            if((clock.millis() - musicTiming) > 0)
-            {
-                if (divider > 0) {
-                    // regular note, just proceed
-                    noteDuration = (wholeNote) / divider;
-                }
-                else if (divider < 0)
-                {
-                    // dotted notes are represented with negative durations!!
-                    noteDuration = (wholeNote) / abs(divider);
-                    noteDuration *= 1.5; // increases the duration in half for dotted notes
-                }
-                //System.out.println(tone);
-                //System.out.println(noteDuration);
-                sendMusic(tone, noteDuration);
-                thisNote++;
-            }
-            musicTiming = clock.millis() + noteDuration;
             try
             {
                 Thread.sleep(noteDuration);
@@ -96,7 +88,20 @@ public class Music implements Runnable
             {
                 e.printStackTrace();
             }
-            i++;
+            getMusic();
+            int wholeNote = (60000 * 4) / 150;
+            if (divider > 0) {
+                // regular note, just proceed
+                noteDuration = (wholeNote) / divider;
+            }
+            else if (divider < 0)
+            {
+                // dotted notes are represented with negative durations!!
+                noteDuration = (wholeNote) / abs(divider);
+                noteDuration *= 1.5; // increases the duration in half for dotted notes
+            }
+            System.out.println(tone + "|" + noteDuration);
+            sendMusic(tone, noteDuration);
         }
     }
     public void getMusic(){
@@ -111,7 +116,7 @@ public class Music implements Runnable
             ResultSet duration = userstmt.executeQuery();
             duration.next();
             divider = duration.getInt(1);
-            note = duration.getString(2);
+            String note = duration.getString(2);
             duration.close();
             PreparedStatement userstmt2 = connection.prepareStatement("select tone from notes where note ='" + note + "'");
             ResultSet noteTone = userstmt2.executeQuery();
@@ -127,14 +132,12 @@ public class Music implements Runnable
     }
     public void sendMusic(int tone, int noteDuration)
     {
-    
-        String info = tone + "|" + noteDuration;
         port.addDataListener(new SerialPortDataListener() {
             @Override
             public int getListeningEvents() {
                 return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
             }
-            
+        
             @Override
             public void serialEvent(SerialPortEvent event) {
                 if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) {
@@ -147,24 +150,8 @@ public class Music implements Runnable
                 System.out.println("Read " + numRead + " bytes. " + newData[0]);
             }
         });
-        
-        try
-        {
-            Thread.sleep(noteDuration);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-        System.out.println(info);
-        byte[] sendData = info.getBytes();
-        try
-        {
-            port.getOutputStream().write(sendData);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        //port.writeBytes(sendData, 1);
-        port.closePort();
+        String info ="<"  + tone + ", " + noteDuration + ">";
+        PrintWriter out = new PrintWriter(port.getOutputStream(), true);
+        out.println(info);
     }
 }

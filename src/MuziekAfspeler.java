@@ -9,20 +9,20 @@ import java.sql.*;
 
 
 public class MuziekAfspeler extends JFrame implements ActionListener {
-    private BasicArrowButton backButton;
-    private JLabel jlTitel;
-    private JLabel jlAfspeellijst;
+    private final BasicArrowButton backButton;
+    private final JLabel jlTitel;
+    private final JLabel jlAfspeellijst;
     private JLabel jlNummer;
 //    private JSlider jsNumerTijd;
 //    private JLabel jlNummerTijdWaarde;
 //    private int nummerTijdWaarde;
-    private JButton jbVorigeAfspelen;
-    private JButton jbPauzeAfspelen;
-    private JButton jbVolgendeAfspelen;
-    private JButton jbAfspeellijstBeheren;
-    private JButton jbMuziekBeheren;
-    private JTable jtTempSong;
-    private String[] TempcolumnNames = {"Muziek nummers"};
+    private final JButton jbVorigeAfspelen;
+    private final JButton jbPauzeAfspelen;
+    private final JButton jbVolgendeAfspelen;
+    private final JButton jbAfspeellijstBeheren;
+    private final JButton jbMuziekBeheren;
+    private final JTable jtTempSong;
+    private final String[] TempcolumnNames = {"Muziek nummers"};
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
     private final Music listener = new Music(this);
     
@@ -49,16 +49,6 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
                 tempTableModel.addRow(tempData);
             }
             songs.close();
-            /*PreparedStatement userstmt2 = connection.prepareStatement("select song_name from song");
-            ResultSet playlists = userstmt.executeQuery();
-            while(playlists.next())
-            {
-                String tempTitle = songs.getString("song_name");
-                String[] tempData = { tempTitle } ;
-        
-                tempTableModel.addRow(tempData);
-            }*/
-            
             
             connection.close();
         } catch (SQLException sqle) {
