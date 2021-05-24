@@ -127,6 +127,7 @@ public class Inloggen extends JFrame implements ActionListener {
                 connection.close();
             } catch (SQLException sqle) {
                 errorCheck = true;
+                System.out.println(sqle);
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

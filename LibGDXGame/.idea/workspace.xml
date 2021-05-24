@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0fee9aae-8eef-4f46-8197-ce68f941c8ce" name="Default Changelist" comment="merge fix">
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../out/production/RoboticaKBS/GetLights.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/RoboticaKBS/GetLights.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Inloggen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +47,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
