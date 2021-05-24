@@ -12,6 +12,47 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Music.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MuziekAfspeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekAfspeler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/configuration-cache/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/libraries-with-intellij-classes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/libraries/jSerialComm_2_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/assets/bucket.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/assets/drop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/classes/java/main/com/mygdx/game/MyGdxGame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/libs/core-1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/src/com/mygdx/game/MyGdxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/core/src/com/mygdx/game/MyGdxGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/classes/java/main/com/mygdx/game/desktop/DesktopLauncher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/resources/main/badlogic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/resources/main/bucket.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/resources/main/drop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" afterDir="false" />
     </list>
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,6 +154,10 @@
         <item itemvalue="Application.MuziekBeheren" />
       </list>
     </recent_temporary>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/LibGDXGame/build.gradle" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.41795105" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
