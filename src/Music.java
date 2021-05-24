@@ -63,8 +63,8 @@ public class Music implements Runnable
                 byte[] newData = new byte[port.bytesAvailable()];
                 int numRead = port.readBytes(newData, newData.length);
                 String test = new String(newData);
-                System.out.println(test);
-                System.out.println("Read " + numRead + " bytes. " + newData[0]);
+                //System.out.println(test);
+                //System.out.println("Read " + numRead + " bytes. " + newData[0]);
             }
         });
         String url = "jdbc:mysql://localhost/domotica_database";
@@ -146,24 +146,6 @@ public class Music implements Runnable
     }
     public void sendMusic(int tone, int noteDuration)
     {
-        port.addDataListener(new SerialPortDataListener() {
-            @Override
-            public int getListeningEvents() {
-                return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
-            }
-        
-            @Override
-            public void serialEvent(SerialPortEvent event) {
-                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) {
-                    return;
-                }
-                byte[] newData = new byte[port.bytesAvailable()];
-                int numRead = port.readBytes(newData, newData.length);
-                String test = new String(newData);
-                System.out.println(test);
-                System.out.println("Read " + numRead + " bytes. " + newData[0]);
-            }
-        });
         String info ="<"  + tone + ", " + noteDuration + ">";
         PrintWriter out = new PrintWriter(port.getOutputStream(), true);
         out.println(info);

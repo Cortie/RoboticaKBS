@@ -431,10 +431,6 @@ public class Gameplay implements Screen
                 if(enemy.getShip().overlaps(MyGdxGame.player1.getShieldBox()))
                 {
                     game.playSound(hit);
-                    if(game.getPlayerlives() == 0)
-                    {
-                        gameOver();
-                    }
                     MyGdxGame.player1.setForcefield(false);
                     iter.remove();
                     break;
@@ -694,6 +690,12 @@ public class Gameplay implements Screen
     private void gameOver()
     {
         SerialListener.Click = false;
+        MyGdxGame.player1.setTripleshot(false);
+        MyGdxGame.player1.setForcefield(false);
+        MyGdxGame.player1.setShotSpeed(600000000);
+        MyGdxGame.player2.setTripleshot(false);
+        MyGdxGame.player2.setForcefield(false);
+        MyGdxGame.player2.setShotSpeed(600000000);
         MyGdxGame.GameOverActive = true;
         game.setPlayerlives(3);
         game.setScreen(new GameOver(game));

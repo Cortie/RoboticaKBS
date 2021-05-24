@@ -227,7 +227,6 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     {
         listener.currentSong = num;
         thisNote = 1;
-        System.out.println("song selected");
     }
     
     
