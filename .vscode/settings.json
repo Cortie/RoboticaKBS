@@ -1,0 +1,13 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "jsch-0.1.55.jar",
+    "jSerialComm-2.7.0.jar"
+  ],
+  "cSpell.words": [
+    "Inloggen"
+  ],
+  "java.project.sourcePaths": [
+    "src"
+  ]
+}
