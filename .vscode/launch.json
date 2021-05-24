@@ -1,0 +1,91 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "Launch Account",
+      "request": "launch",
+      "mainClass": "Account",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch AfspeellijstBeheer",
+      "request": "launch",
+      "mainClass": "AfspeellijstBeheer",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch Dashboard",
+      "request": "launch",
+      "mainClass": "Dashboard",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch Inloggen",
+      "request": "launch",
+      "mainClass": "Inloggen",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch KlimaatBeheer",
+      "request": "launch",
+      "mainClass": "KlimaatBeheer",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch KlimaatProfiel",
+      "request": "launch",
+      "mainClass": "KlimaatProfiel",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch MuziekAfspeler",
+      "request": "launch",
+      "mainClass": "MuziekAfspeler",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch MuziekBeheren",
+      "request": "launch",
+      "mainClass": "MuziekBeheren",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch MuziekSpeler",
+      "request": "launch",
+      "mainClass": "MuziekSpeler",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch PersoonlijkeInstellingen",
+      "request": "launch",
+      "mainClass": "PersoonlijkeInstellingen",
+      "projectName": "RoboticaKBS_be803516"
+    },
+    {
+      "type": "java",
+      "name": "Launch WachtwoordWijzigen",
+      "request": "launch",
+      "mainClass": "WachtwoordWijzigen",
+      "projectName": "RoboticaKBS_be803516"
+    }
+  ]
+}
