@@ -1,26 +1,33 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.*;
+import java.sql.*;
 
 public class PersoonlijkeInstellingen extends JFrame implements ActionListener, MouseListener {
   // definitions for labels, buttons and layouts
   JLabel settings = new JLabel("Persoonlijke instellingen");
   JLabel whitespace = new JLabel(" ");
-  JLabel username = new JLabel("Gebruikersnaam");
+  JLabel username = new JLabel(Inloggen.getAccountName());
   JLabel about = new JLabel("About tekst");
   JLabel song1 = new JLabel("Nummer 1");
   private BasicArrowButton backButton;
-  private JTable jtTableNum;
-  private JTable jtTablePlaylist;
+  private JTable jtTempProfile;
+  private JTable jtLightProfile;
+  private String[] TempcolumnNames = {"Temperature profiles"};
+  private String[] lightColumnNames = {"Light strength profiles"};
+  DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
+  DefaultTableModel lightTableModel = new DefaultTableModel(lightColumnNames, 0);
 
-  String[][] num = { { "nummer 1", "knop" }, { "nummer 2", "knop" }, { "nummer 3", "knop" }, { "nummer 4", "knop" },
-      { "nummer 5", "knop" }, };
-
-  String[][] play = { { "playlist 1", "knop" }, { "playlist 2", "knop" }, { "playlist 3", "knop" },
-      { "playlist 4", "knop" }, { "playlist 5", "knop" }, };
+//  String[][] num = { { "nummer 1"}, { "nummer 2"}, { "nummer 3" }, { "nummer 4" },
+//      { "nummer 5" }, };
+//
+//  String[][] profiel = { { "profiel 1" }, { "profiel 2" }, { "profiel 3" },
+//      { "profiel 4" }, { "profiel 5" }, };
 
   JLabel playlist1 = new JLabel("Afspeellijst 1");
   JLabel profiles = new JLabel("Klimaatbeheer profielen bewerken");
@@ -42,47 +49,133 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
     // set standard data
     setTitle("Persoonlijke instellingen");
     setLayout(new FlowLayout(FlowLayout.LEFT));
-    setSize(800, 600);
+    setSize(1900, 800);//800 600
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    // borders
+    Border blackline = BorderFactory.createLineBorder(Color.black);
 
-    // panel for list of songs
-    JPanel NumbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    NumbersPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    String[] headerN = { "nummers", "Knoppen" };
-    jtTableNum = new JTable(num, headerN) {
-      public boolean isCellEditable(int row, int column) {
-        return false;
-      }
-    };
-    jtTableNum.addMouseListener(this);
-    jtTableNum.setCellSelectionEnabled(false);
-    jtTableNum.setShowGrid(false);
-    // jtTableNum.setEnabled(false);
-    jtTableNum.setRowHeight(30);
+    try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
 
-    NumbersPanel.add(jtTableNum);
+                    String url = "jdbc:mysql://localhost/domotica_database";
+                    String username = "root", password = "";
+
+                    Connection connection = DriverManager.getConnection(url, username, password);
+
+                    PreparedStatement stmt = connection.prepareStatement("select temp_profile_name from temperature_profile where account_id = ?");
+
+                    stmt.setInt(1, Inloggen.getAccountID());
+                    ResultSet temprs = stmt.executeQuery();
+
+
+                    while (temprs.next()) {
+                        String tempTitle = temprs.getString("temp_profile_name");
+                        String[] tempData = {tempTitle};
+
+                        tempTableModel.addRow(tempData);
+
+                    }
+                    PreparedStatement lightstmt = connection.prepareStatement("select light_strength_profile_name from light_strength_profile where account_id = ?");
+
+                    lightstmt.setInt(1, Inloggen.getAccountID());
+                    ResultSet lightrs = lightstmt.executeQuery();
+
+
+                    while (lightrs.next()) {
+                        String lightTitle = lightrs.getString("light_strength_profile_name");
+                        String[] lightdata = {lightTitle};
+
+                        lightTableModel.addRow(lightdata);
+
+                    }
+
+
+                    lightrs.close();
+                    temprs.close();
+                    connection.close();
+
+                } catch (SQLException sqleEx) {
+                    System.out.println("hier gaat het mis(1)");
+                    System.out.println(sqleEx.getMessage());
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+    GridLayout tabelLayout = new GridLayout(1, 2);
+            JPanel tablePanel = new JPanel(tabelLayout);
+            tabelLayout.setHgap(15);
+            jtTempProfile = new JTable(tempTableModel) {
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+
+            };
+
+            jtTempProfile.setShowGrid(false);
+            jtTempProfile.getCellSelectionEnabled();
+            jtTempProfile.setRowHeight(50);
+            jtTempProfile.setRowSelectionAllowed(false);
+            jtTempProfile.setBorder(blackline);
+
+    jtLightProfile = new JTable(lightTableModel) {
+               public boolean isCellEditable(int row, int column) {
+                   return false;
+               }
+           };
+
+           jtLightProfile.setShowGrid(false);
+           jtLightProfile.getCellSelectionEnabled();
+           jtLightProfile.setRowHeight(50);
+           jtLightProfile.setRowSelectionAllowed(false);
+           jtLightProfile.setBorder(blackline);
+           jtLightProfile.getColumnModel().getColumnSelectionAllowed();
+    JScrollPane tempscrollpane = new JScrollPane(jtTempProfile);
+            JScrollPane lightscrollpane = new JScrollPane(jtLightProfile);
+
+            tablePanel.add(tempscrollpane);
+            tablePanel.add(lightscrollpane);
+            add(tablePanel);
+
+
+
+      // panel for list of songs
+//    JPanel NumbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//    NumbersPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//    String[] headerN = { "nummers" };
+//    jtTableNum = new JTable(num, headerN) {
+//      public boolean isCellEditable(int row, int column) {
+//        return false;
+//      }
+//    };
+//    jtTableNum.addMouseListener(this);
+//    jtTableNum.setCellSelectionEnabled(false);
+//    jtTableNum.setShowGrid(false);
+//    // jtTableNum.setEnabled(false);
+//    jtTableNum.setRowHeight(30);
+//
+//    NumbersPanel.add(jtTableNum);
 
     // panel for list of playlists
-    JPanel playlistsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    playlistsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    String[] headerP = { "Playlists", "Knoppen" };
-    jtTablePlaylist = new JTable(play, headerP) {
-      public boolean isCellEditable(int row, int column) {
-        return false;
-      }
-    };
-    jtTablePlaylist.addMouseListener(this);
-    jtTablePlaylist.setCellSelectionEnabled(false);
-    jtTablePlaylist.setShowGrid(false);
-    // jtTablePlaylist.setEnabled(false);
-    jtTablePlaylist.setRowHeight(30);
-    playlistsPanel.add(jtTablePlaylist);
+//    JPanel playlistsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+//    playlistsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//    String[] headerP = { "profiel" };
+//    jtTableProfiel = new JTable(profiel, headerP) {
+//      public boolean isCellEditable(int row, int column) {
+//        return false;
+//      }
+//    };
+//    jtTableProfiel.addMouseListener(this);
+//    jtTableProfiel.setCellSelectionEnabled(false);
+//    jtTableProfiel.setShowGrid(false);
+//    // jtTablePlaylist.setEnabled(false);
+//    jtTableProfiel.setRowHeight(30);
+//    playlistsPanel.add(jtTableProfiel);
 
     // borderpanel for the collection of both lists
     JPanel privacySettings = new JPanel(privacydetailBorder);
     privacydetailBorder.setVgap(30);
-    privacySettings.add(NumbersPanel, BorderLayout.NORTH);
-    privacySettings.add(playlistsPanel, BorderLayout.SOUTH);
+    privacySettings.add(tablePanel,BorderLayout.SOUTH);
+    //privacySettings.add(NumbersPanel, BorderLayout.NORTH);
+    //privacySettings.add(playlistsPanel, BorderLayout.SOUTH);
 
     // borderpanel for the left section of the GUI
     JPanel left = new JPanel(privacyBorder);
@@ -159,50 +252,52 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if (e.getSource() == jtTablePlaylist) {
-      if (jtTablePlaylist.getSelectedColumn() == 1) {
-        System.out.println("playlist table");
-        System.out.println("knop column");
-        if (jtTablePlaylist.getSelectedRow() == 0) {
-          System.out.println("row 1");
-        }
-        if (jtTablePlaylist.getSelectedRow() == 1) {
-          System.out.println("row 2");
-        }
-        if (jtTablePlaylist.getSelectedRow() == 2) {
-          System.out.println("row 3");
-        }
-        if (jtTablePlaylist.getSelectedRow() == 3) {
-          System.out.println("row 4");
-        }
-        if (jtTablePlaylist.getSelectedRow() == 4) {
-          System.out.println("row 5");
-        }
-      }
-    }
-    if (e.getSource() == jtTableNum) {
-
-      if (jtTableNum.getSelectedColumn() == 1) {
-        System.out.println("nummer table");
-        System.out.println("knop column");
-        if (jtTableNum.getSelectedRow() == 0) {
-          System.out.println("row 1");
-        }
-        if (jtTableNum.getSelectedRow() == 1) {
-          System.out.println("row 2");
-        }
-        if (jtTableNum.getSelectedRow() == 2) {
-          System.out.println("row 3");
-        }
-        if (jtTableNum.getSelectedRow() == 3) {
-          System.out.println("row 4");
-        }
-        if (jtTableNum.getSelectedRow() == 4) {
-          System.out.println("row 5");
-
-        }
-      }
-    }
+//    if (e.getSource() == jtTableProfiel) {
+//      if (jtTableProfiel.getSelectedColumn() == 1) {
+//        System.out.println("playlist table");
+//        System.out.println("knop column");
+//        if (jtTableProfiel.getSelectedRow() == 0) {
+//          System.out.println("row 1");
+//        }
+//        if (jtTableProfiel.getSelectedRow() == 1) {
+//          System.out.println("row 2");
+//        }
+//        if (jtTableProfiel.getSelectedRow() == 2) {
+//          System.out.println("row 3");
+//        }
+//        if (jtTableProfiel.getSelectedRow() == 3) {
+//          System.out.println("row 4");
+//        }
+//        if (jtTableProfiel.getSelectedRow() == 4) {
+//          System.out.println("row 5");
+//        }
+//      }
+//    }
+//    if (e.getSource() == jtTableNum) {
+//
+////      if (jtTableNum.getSelectedColumn() == 1) {
+////
+////
+//////        System.out.println("nummer table");
+//////        System.out.println("knop column");
+//////        if (jtTableNum.getSelectedRow() == 0) {
+//////          System.out.println("row 1");
+//////        }
+//////        if (jtTableNum.getSelectedRow() == 1) {
+//////          System.out.println("row 2");
+//////        }
+//////        if (jtTableNum.getSelectedRow() == 2) {
+//////          System.out.println("row 3");
+//////        }
+//////        if (jtTableNum.getSelectedRow() == 3) {
+//////          System.out.println("row 4");
+//////        }
+//////        if (jtTableNum.getSelectedRow() == 4) {
+//////          System.out.println("row 5");
+//////        }
+////
+////      }
+//    }
   }
 
   @Override
