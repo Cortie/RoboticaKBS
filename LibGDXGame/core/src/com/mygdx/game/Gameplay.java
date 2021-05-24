@@ -25,7 +25,7 @@ public class Gameplay implements Screen
     private Sound Lazer;
     private Sound hit;
     private Texture forcefieldImg;
-    private int bossScore = 500;
+    private int bossScore = 1500;
     
     
     public Gameplay(MyGdxGame game)
@@ -193,7 +193,7 @@ public class Gameplay implements Screen
                 position = MyGdxGame.camera.viewportWidth/2 - 250;
                 spawnEnemy(position, screentop, enemylvls.get(miniboss));
                 lastEnemySpawn = TimeUtils.millis() + 30000;
-                bossScore += 500;
+                bossScore += 1500;
             }
         }
         // Spawns a bullet out of the player dependent on player shot speed
