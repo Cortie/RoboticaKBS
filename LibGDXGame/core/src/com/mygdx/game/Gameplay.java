@@ -573,9 +573,17 @@ public class Gameplay implements Screen
                         game.playSound(explode);
                         if(enemy.getHealth() == 0)
                         {
+                            if(enemy.getType().equals(enemylvls.get(4) ) || enemy.getType().equals(enemylvls.get(3)))
+                            {
+                                spawnPowerUp(2, enemy.getX() - 100, enemy.getY());
+                                int rand = MathUtils.random(1,5);
+                                {
+                                    spawnPowerUp(rand, enemy.getX() + 100, enemy.getY() + 100);
+                                }
+                            }
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
                             game.setScoretext(String.valueOf(game.getScore()));
-                            int rand = MathUtils.random(1,20);
+                            int rand = MathUtils.random(1,10);
                             {
                                 if(rand == 1)
                                 {
