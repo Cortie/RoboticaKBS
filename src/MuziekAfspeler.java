@@ -5,10 +5,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.*;
 
 
-public class MuziekAfspeler extends JFrame implements ActionListener {
+public class MuziekAfspeler extends JFrame implements ActionListener, MouseListener
+{
     private final BasicArrowButton backButton;
     private final JLabel jlTitel;
     private final JLabel jlAfspeellijst;
@@ -23,45 +26,36 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
     private final JButton jbMuziekBeheren;
     private final JTable jtTempSong;
     private final String[] TempcolumnNames = {"Muziek nummers"};
+    public int finalSong;
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
     private final Music listener = new Music(this);
+    private boolean play;
+    private int thisNote;
+    private Thread listenerThread;
     
+    public int getThisNote()
+    {
+        return thisNote;
+    }
+    
+    public void setThisNote(int thisNote)
+    {
+        this.thisNote = thisNote;
+    }
+    
+    public boolean isPlay()
+    {
+        return play;
+    }
     
     public MuziekAfspeler() {
-        Thread listenerThread = new Thread(this.listener);
-        listenerThread.setDaemon(true);
-        listenerThread.start();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        
-            String url = "jdbc:mysql://localhost/domotica_database";
-            String username = "root", password = "";
-        
-            Connection connection = DriverManager.getConnection(url, username, password);
-        
-            PreparedStatement userstmt = connection.prepareStatement("select song_name from song");
-            ResultSet songs = userstmt.executeQuery();
-            while(songs.next())
-            {
-                String tempTitle = songs.getString("song_name");
-                String[] tempData = { tempTitle } ;
-    
-                tempTableModel.addRow(tempData);
-            }
-            songs.close();
-            
-            connection.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        songData();
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel titelPnl = new JPanel(new FlowLayout());
         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
-        titelPnl.add(jlTitel = new JLabel("Muziekspeler"));
+        titelPnl.add(jlTitel = new JLabel("Dashboard"));
         backButton.addActionListener(this);
 
         JPanel subTitels = new JPanel(new BorderLayout());
@@ -73,14 +67,15 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        
+            
         };
         Border blackline = BorderFactory.createLineBorder(Color.black);
-        jtTempSong.setShowGrid(false);
+        jtTempSong.setShowGrid(true);
         jtTempSong.getCellSelectionEnabled();
         jtTempSong.setRowHeight(50);
-        jtTempSong.setRowSelectionAllowed(false);
+        jtTempSong.setRowSelectionAllowed(true);
         jtTempSong.setBorder(blackline);
+        jtTempSong.addMouseListener(this);
         
         subTitels.add(jtTempSong);
         JPanel titelsPnl = new JPanel(new BorderLayout());
@@ -125,13 +120,13 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbVorigeAfspelen) {
-            System.out.println("ga naar vorige nummer");
+            previousSong();
         }
         if (e.getSource() == jbPauzeAfspelen) {
-            System.out.println("pauzeren/afspelen nummer");
+            pauseButton();
         }
         if (e.getSource() == jbVolgendeAfspelen) {
-            System.out.println("ga naar volgende nummer");
+            nextSong();
         }
         if (e.getSource() == jbAfspeellijstBeheren) {
             AfspeellijstBeheer playlist = new AfspeellijstBeheer();
@@ -142,7 +137,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
             this.dispose();
         }
         if (e.getSource() == backButton) {
-            MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+            Dashboard musicPlayerGUI = new Dashboard();
             this.dispose();
         }
     }
@@ -150,5 +145,135 @@ public class MuziekAfspeler extends JFrame implements ActionListener {
     public static void main(String[] args) {
         MuziekAfspeler muziekAfspelerscherm = new MuziekAfspeler();
         
+    }
+    public void nextSong()
+    {
+        if(listener.currentSong < listener.songLength)
+        {
+            listener.currentSong++;
+        }else
+        {
+            listener.currentSong = 1;
+        }
+        thisNote = 1;
+    }
+    public void previousSong()
+    {
+        if(listener.currentSong > 1)
+        {
+            listener.currentSong--;
+        }else
+        {
+            listener.currentSong = listener.songLength;
+        }
+        thisNote =1;
+    }
+    public void pauseButton()
+    {
+        play = !play;
+        if(play)
+        {
+            listenerThread = new Thread(this.listener);
+            listenerThread.setDaemon(true);
+            listenerThread.start();
+            try
+            {
+                Thread.sleep(100);
+            } catch (InterruptedException interruptedException)
+            {
+                interruptedException.printStackTrace();
+            }
+        }
+        if(!play)
+        {
+            listener.port.closePort();
+            listenerThread.stop();
+        }
+    }
+    public void songData()
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        
+            String url = "jdbc:mysql://localhost/domotica_database";
+            String username = "root", password = "";
+        
+            Connection connection = DriverManager.getConnection(url, username, password);
+        
+            PreparedStatement userstmt = connection.prepareStatement("select song_name from song ORDER BY song_id ASC");
+            ResultSet songs = userstmt.executeQuery();
+            while(songs.next())
+            {
+                String tempTitle = songs.getString("song_name");
+                String[] tempData = { tempTitle } ;
+            
+                tempTableModel.addRow(tempData);
+            }
+            songs.close();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(song_id) FROM song");
+            while(rs.next())
+            {
+                finalSong = rs.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    public void setSong(int num)
+    {
+        listener.currentSong = num;
+        thisNote = 1;
+        System.out.println("song selected");
+    }
+    
+    
+    @Override
+    public void mouseClicked(MouseEvent e)
+    {
+        if(e.getSource() == jtTempSong)
+        {
+            if(jtTempSong.getSelectedColumn() == 0)
+            {
+                if(jtTempSong.getSelectedRow() == 1)
+                {
+                    setSong(2);
+                }
+                switch (jtTempSong.getSelectedRow())
+                {
+                    case 0 -> setSong(1);
+                    case 1 -> setSong(2);
+                    case 2 -> setSong(3);
+                    case 3 -> setSong(4);
+                    case 4 -> setSong(5);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void mousePressed(MouseEvent e)
+    {
+    
+    }
+    
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+    
+    }
+    @Override
+    public void mouseEntered(MouseEvent e)
+    {
+    
+    }
+    
+    @Override
+    public void mouseExited(MouseEvent e)
+    {
+    
     }
 }

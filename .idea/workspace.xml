@@ -2,59 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaCom_lichtsensor/JavaCom_lichtsensor.ino" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaCom_lichtsensor.ino" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Music$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Music$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Music$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Music$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Music.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Music.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekSpeler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Music.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MuziekAfspeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekAfspeler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LibGDXGame/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/configuration-cache/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/libraries-with-intellij-classes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/libraries/jSerialComm_2_7_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/assets/bucket.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/assets/drop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/classes/java/main/com/mygdx/game/MyGdxGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/libs/core-1.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/core/src/com/mygdx/game/MyGdxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/core/src/com/mygdx/game/MyGdxGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/classes/java/main/com/mygdx/game/desktop/DesktopLauncher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/resources/main/badlogic.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/resources/main/bucket.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/resources/main/drop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekBeheren.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MuziekSpeler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
     </list>
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,9 +72,16 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.MuziekAfspeler">
+  <component name="RunManager" selected="Application.Dashboard">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
+      <module name="RoboticaKBS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Dashboard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Dashboard" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -131,33 +108,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MuziekBeheren" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MuziekBeheren" />
-      <module name="RoboticaKBS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="Application.MuziekBeheren" />
       <item itemvalue="Application.AfspeellijstBeheer" />
       <item itemvalue="Application.Inloggen" />
       <item itemvalue="Application.KlimaatProfiel" />
       <item itemvalue="Application.MuziekAfspeler" />
+      <item itemvalue="Application.Dashboard" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.KlimaatProfiel" />
         <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.AfspeellijstBeheer" />
-        <item itemvalue="Application.MuziekBeheren" />
       </list>
     </recent_temporary>
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/LibGDXGame/build.gradle" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.41795105" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

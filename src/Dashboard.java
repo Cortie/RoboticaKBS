@@ -79,7 +79,7 @@ public class Dashboard extends JFrame implements ActionListener {
     // TODO Auto-generated method stub
     if (e.getSource() == jbPlayer) {
       System.out.println("link naar muziekspeler");
-      MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+      MuziekAfspeler musicPlayerGUI = new MuziekAfspeler();
       this.dispose();
     }
     if (e.getSource() == jbClimate) {

@@ -70,7 +70,7 @@ public class MuziekBeheren extends JFrame implements ActionListener {
             this.dispose();
         }
         if (e.getSource() == backButton) {
-            MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+            MuziekAfspeler musicPlayerGUI = new MuziekAfspeler();
             this.dispose();
         }
     }

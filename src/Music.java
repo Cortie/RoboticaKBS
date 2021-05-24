@@ -15,15 +15,14 @@ public class Music implements Runnable
         this.afspeler = afspeler;
     }
     private final MuziekAfspeler afspeler;
-    private final int currentSong = 1;
+    public int currentSong = 1;
     private final Clock clock = Clock.systemDefaultZone();
     private long musicTiming = 0;
     private int divider = 0;
     private int noteDuration = 500;
-    private int thisNote = 1;
     private int tone;
-    private SerialPort port;
-    private int songLength;
+    public SerialPort port;
+    public int songLength;
     @Override
     public void run()
     {
@@ -43,6 +42,10 @@ public class Music implements Runnable
         if(port.openPort())
         {
             System.out.println("port open");
+        }
+        else
+        {
+            System.out.println("Something wrong with Arduino connection");
         }
         port.setComPortParameters(9600, 8, 1, SerialPort.NO_PARITY);
         port.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
@@ -79,7 +82,7 @@ public class Music implements Runnable
         {
             throwables.printStackTrace();
         }
-        for(thisNote = 1; thisNote <= songLength; thisNote++)
+        while (afspeler.isPlay())
         {
             try
             {
@@ -102,6 +105,17 @@ public class Music implements Runnable
             }
             System.out.println(tone + "|" + noteDuration);
             sendMusic(tone, noteDuration);
+            afspeler.setThisNote(afspeler.getThisNote() + 1);
+            if(afspeler.getThisNote() == songLength)
+            {
+                if(currentSong == afspeler.finalSong)
+                {
+                    afspeler.setSong(1);
+                }
+                else{
+                    afspeler.nextSong();
+                }
+            }
         }
     }
     public void getMusic(){
@@ -112,7 +126,7 @@ public class Music implements Runnable
             String username = "root", password = "";
             
             Connection connection = DriverManager.getConnection(url, username, password);
-            PreparedStatement userstmt = connection.prepareStatement("select duration, note from song_note where song_id =" + currentSong +" AND position =" + thisNote );
+            PreparedStatement userstmt = connection.prepareStatement("select duration, note from song_note where song_id =" + currentSong +" AND position =" + afspeler.getThisNote());
             ResultSet duration = userstmt.executeQuery();
             duration.next();
             divider = duration.getInt(1);

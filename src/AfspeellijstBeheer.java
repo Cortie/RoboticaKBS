@@ -124,7 +124,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener {
       System.out.println(speellijstnaam);
     }
     if (e.getSource() == backButton) {
-      MuziekSpeler musicPlayerGUI = new MuziekSpeler();
+      MuziekAfspeler musicPlayerGUI = new MuziekAfspeler();
       this.dispose();
     }
     if (e.getSource() == jrbAfspeelllijst1) {
