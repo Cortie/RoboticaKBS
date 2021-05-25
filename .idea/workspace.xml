@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="demo klaar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/.gradle/6.8/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibGDXGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LibGDXGame/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +52,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.Inloggen">
+  <component name="RunManager" selected="Application.MuziekAfspeler">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -78,8 +74,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KlimaatProfiel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="KlimaatProfiel" />
+    <configuration name="MuziekAfspeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekAfspeler" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -95,17 +91,17 @@
     <list>
       <item itemvalue="Application.AfspeellijstBeheer" />
       <item itemvalue="Application.Inloggen" />
-      <item itemvalue="Application.KlimaatProfiel" />
       <item itemvalue="Application.PersoonlijkeInstellingen" />
       <item itemvalue="Application.Dashboard" />
+      <item itemvalue="Application.MuziekAfspeler" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.PersoonlijkeInstellingen" />
         <item itemvalue="Application.AfspeellijstBeheer" />
-        <item itemvalue="Application.KlimaatProfiel" />
       </list>
     </recent_temporary>
   </component>
