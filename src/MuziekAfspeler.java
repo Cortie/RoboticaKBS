@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,14 +21,17 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
 //    private JLabel jlNummerTijdWaarde;
 //    private int nummerTijdWaarde;
     private final JButton jbVorigeAfspelen;
-    private final JButton jbPauzeAfspelen;
+    private JButton jbPauzeAfspelen;
     private final JButton jbVolgendeAfspelen;
     private final JButton jbAfspeellijstBeheren;
     private final JButton jbMuziekBeheren;
+    public int finalSong;
     private final JTable jtTempSong;
     private final String[] TempcolumnNames = {"Muziek nummers"};
-    public int finalSong;
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
+    private JTable jtPlaylists;
+    private final String[] playlistColumns = {"Playlists"};
+    DefaultTableModel plTableModel = new DefaultTableModel(playlistColumns, 0);
     private final Music listener = new Music(this);
     private boolean play;
     private int thisNote;
@@ -50,6 +54,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     
     public MuziekAfspeler() {
         songData();
+        playlistData();
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,13 +68,27 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         GridLayout tabelLayout = new GridLayout(1, 2);
         JPanel tablePanel = new JPanel(tabelLayout);
         tabelLayout.setHgap(15);
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        jtPlaylists = new JTable(plTableModel)
+        {
+            public boolean isCellEditable(int row, int collumn){
+                return false;
+            }
+        };
+        jtPlaylists.setShowGrid(true);
+        jtPlaylists.getCellSelectionEnabled();
+        jtPlaylists.setRowHeight(50);
+        jtPlaylists.setRowSelectionAllowed(true);
+        jtPlaylists.setBorder(blackline);
+        jtPlaylists.addMouseListener(this);
+
+        subTitels.add(jtPlaylists);
         jtTempSong = new JTable(tempTableModel) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
             
         };
-        Border blackline = BorderFactory.createLineBorder(Color.black);
         jtTempSong.setShowGrid(true);
         jtTempSong.getCellSelectionEnabled();
         jtTempSong.setRowHeight(50);
@@ -82,16 +101,19 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         titelsPnl.add(titelPnl, BorderLayout.NORTH);
         titelsPnl.add(subTitels, BorderLayout.CENTER);
 
-//        JPanel nummertijdPnl = new JPanel(new FlowLayout());
-//        nummertijdPnl.add(jsNumerTijd = new JSlider());
-//        nummertijdPnl.add(
-//                jlNummerTijdWaarde = new JLabel(String.valueOf(nummerTijdWaarde = jsNumerTijd.getValue()) + " sec"));
-
         JPanel nummerKnoppenPnl = new JPanel(new FlowLayout());
         nummerKnoppenPnl.add(jbVorigeAfspelen = new JButton("Vorige afspelen"));
         jbVorigeAfspelen.addActionListener(this);
-        nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton("Pauzeren/afspelen"));
-        jbPauzeAfspelen.addActionListener(this);
+        if(play)
+        {
+            nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton("Pauze"));
+            jbPauzeAfspelen.addActionListener(this);
+        }
+        else if(!play)
+        {
+            nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton("Afspelen"));
+            jbPauzeAfspelen.addActionListener(this);
+        }
         nummerKnoppenPnl.add(jbVolgendeAfspelen = new JButton("Volgende afspelen"));
         jbVolgendeAfspelen.addActionListener(this);
 
@@ -188,6 +210,33 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         {
             listener.port.closePort();
             listenerThread.stop();
+        }
+    }
+    public void playlistData()
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost/domotica_database";
+            String username = "root", password = "";
+
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            PreparedStatement userstmt = connection.prepareStatement("select playlist_name from playlist WHERE account_id =" + Inloggen.getAccountID() +" ORDER BY playlist_name ASC ");
+            ResultSet playlists = userstmt.executeQuery();
+            while(playlists.next())
+            {
+                String tempTitle = playlists.getString("playlist_name");
+                String[] tempData = { tempTitle } ;
+
+                plTableModel.addRow(tempData);
+            }
+            playlists.close();
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
     public void songData()

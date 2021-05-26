@@ -14,7 +14,7 @@ public class PiListener implements Runnable {
   @Override
   public void run() {
     try {
-      Socket clientSocket = new Socket("10.80.17.1", 8080);
+      Socket clientSocket = new Socket("145.44.64.184", 8080);
       OutputStream send = clientSocket.getOutputStream();
       byte b = lights.byteValue();
       send.write(b);
@@ -30,9 +30,9 @@ public class PiListener implements Runnable {
         Temp = output.substring(0,17);
         Press = output.substring(output.indexOf("(") + 1, output.indexOf(")"));
         Humid = output.substring(output.indexOf("|") + 1);
-        break;
+        //break;
       }
-      clientSocket.close();
+      //clientSocket.close();
     } catch (IOException ioe) {
 
     }
