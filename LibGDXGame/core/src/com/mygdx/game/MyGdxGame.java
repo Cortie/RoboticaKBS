@@ -38,25 +38,34 @@ public class MyGdxGame extends Game
 	
 	@Override
 	public void create () {
+		//creates the 2 players that can be played
 		player1 = new Player(Gdx.files.internal("Spaceship_01_GREEN.png"), new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60), Gdx.graphics.getWidth()/ 4 - 64 / 2);
 		player2 = new Player(Gdx.files.internal("Spaceship_01_BLUE.png"), new BulletType(new Texture(Gdx.files.internal("5.png")), 2, 20, 60), Gdx.graphics.getWidth() - Gdx.graphics.getWidth()/ 4 - 64 / 2);
+		//creates 2 fonts that will be used in different screens throughout the game
 		font = new BitmapFont(Gdx.files.internal("Scorefont.fnt"));
 		Bigfont = new BitmapFont(Gdx.files.internal("BigScorefont.fnt"));
+		//starts the Arduino listener for the player 1 controller commands
 		Thread listenerThread = new Thread(listener);
 		listenerThread.setDaemon(true);
 		listenerThread.start();
+		//starts the Raspberry Pi listener for the player 2 controller commands
 		Thread PiListenerThread = new Thread(PiListener);
 		PiListenerThread.setDaemon(true);
 		PiListenerThread.start();
+		//creates the camera and spritebatch that will view the screens
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//sets the background of the screen to space
 		Texture backgroundTexture = new Texture(Gdx.files.internal("BG.jpg"));
 		backgroundSprite = new Sprite(backgroundTexture);
 		backgroundSprite.setSize(camera.viewportWidth, camera.viewportHeight);
+		//fixes the viewport to the screen size so that window resizing will always have the same aspect ratios
 		viewPort = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		viewPort.apply();
+		//sets the first screen to be shown when starting the game (main menu)
 		setScreen(new MainMenuScreen(this));
+		//sets a boolean that is used in the controller code to check which function the controller should perform
 		menuActive = true;
 	}
 	
@@ -94,7 +103,6 @@ public class MyGdxGame extends Game
 		s.setPitch(id, 1);
 		s.setLooping(id, false);
 	}
-	
 	
 	public int getPlayerlives()
 	{
