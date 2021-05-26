@@ -58,6 +58,9 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
         JPanel titelPnl = new JPanel(new FlowLayout());
         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
         titelPnl.add(jlTitel = new JLabel("Dashboard"));

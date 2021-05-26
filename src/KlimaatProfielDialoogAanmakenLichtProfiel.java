@@ -24,8 +24,10 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
         public KlimaatProfielDialoogAanmakenLichtProfiel(JFrame frame, boolean modal){
                     super(frame, modal);
                     setSize(800, 500);
-                    setTitle("Lichtsterkte profiel aanmaken pop-up");
+                    setTitle("Lichtsterkte profiel aanmaken");
                     setLocationRelativeTo(null);
+            Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+                this.setIconImage(icon);
 
                     JPanel profielNaamPnl = new JPanel(new FlowLayout());
                     profielNaamPnl.add(new JLabel("Profiel naam"));

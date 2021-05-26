@@ -31,6 +31,9 @@ public class Inloggen extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel titelPnl = new JPanel(new FlowLayout());
         titelPnl.add(jlTitel = new JLabel("Inloggen Klimaat systeem"));
+        setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
 
         JPanel gebruikersnaamPnl = new JPanel(new FlowLayout());
         gebruikersnaamPnl.add(jlGebruikersnaam = new JLabel("Gebruikersnaam"));
