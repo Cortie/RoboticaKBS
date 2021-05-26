@@ -24,7 +24,7 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
     public KlimaatProfielDialoogAanmakenTempProfiel(JFrame frame, boolean modal){
                 super(frame, modal);
                 setSize(800, 500);
-                setTitle("Temperatuur profiel aanmaken pop-up");
+                setTitle("Temperatuur profiel aanmaken");
                 setLocationRelativeTo(null);
 
                 JPanel profielNaamPnl = new JPanel(new FlowLayout());

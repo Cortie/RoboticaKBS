@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="WachtwoordWijzigen verwijderd">
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="Dashboard de knop naam verranderd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/WachtwoordWijzigen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenLichtProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenLichtProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenTempProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenTempProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenLichtProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenLichtProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenTempProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenTempProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,15 +76,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MuziekAfspeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MuziekAfspeler" />
+    <configuration name="KlimaatBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="KlimaatBeheer" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PersoonlijkeInstellingen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="PersoonlijkeInstellingen" />
+    <configuration name="MuziekAfspeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekAfspeler" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,18 +99,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Inloggen" />
-      <item itemvalue="Application.PersoonlijkeInstellingen" />
       <item itemvalue="Application.Dashboard" />
       <item itemvalue="Application.MuziekAfspeler" />
       <item itemvalue="Application.WachtwoordWijzigen" />
+      <item itemvalue="Application.KlimaatBeheer" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Dashboard" />
+        <item itemvalue="Application.KlimaatBeheer" />
         <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.WachtwoordWijzigen" />
         <item itemvalue="Application.MuziekAfspeler" />
-        <item itemvalue="Application.PersoonlijkeInstellingen" />
       </list>
     </recent_temporary>
   </component>
@@ -340,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622033685672</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Dashboard de knop naam verranderd">
+      <created>1622034046671</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1622034046671</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -360,7 +374,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="muziek beheren scherm" />
     <MESSAGE value="update inloggen" />
     <MESSAGE value="update muziekbeheren" />
     <MESSAGE value="update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer" />
@@ -385,7 +398,8 @@
     <MESSAGE value="MuziekAfspeler slider weg gehaald" />
     <MESSAGE value="Wachtwoord vergeten knop weg gehaald uit inlog scherm" />
     <MESSAGE value="WachtwoordWijzigen verwijderd" />
-    <option name="LAST_COMMIT_MESSAGE" value="WachtwoordWijzigen verwijderd" />
+    <MESSAGE value="Dashboard de knop naam verranderd" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dashboard de knop naam verranderd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

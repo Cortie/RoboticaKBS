@@ -22,7 +22,7 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
     public KlimaatProfielDialoogAanpassenLichtProfiel(JFrame frame, boolean modal) {
         super(frame, modal);
         setSize(800, 500);
-        setTitle("Lichtsterkte profiel aanpassen pop-up");
+        setTitle("Lichtsterkte profiel aanpassen");
         setLocationRelativeTo(null);
 
 

@@ -38,6 +38,7 @@ public class Dashboard extends JFrame implements ActionListener {
     // temperature panel
     JPanel tempPnl = new JPanel(standard);
     tempPnl.add(temp);
+    temp.setText(piTemp+" °C");
     temp.setFont(temp.getFont().deriveFont(32.0f));
     tempPnl.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
 
