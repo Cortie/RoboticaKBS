@@ -25,6 +25,7 @@ public class Gameplay implements Screen
     private Sound Lazer;
     private Sound hit;
     private Texture forcefieldImg;
+    private int bossScore = 1500;
     
     
     public Gameplay(MyGdxGame game)
@@ -186,12 +187,13 @@ public class Gameplay implements Screen
             }
             //this will spawn one of the two minibosses and set the spawntimer to
             // 30 seconds to give the player time to fight the miniboss
-            if(game.getScore()>= 500)
+            if(game.getScore() >= bossScore)
             {
                 int miniboss = MathUtils.random(3,4);
                 position = MyGdxGame.camera.viewportWidth/2 - 250;
                 spawnEnemy(position, screentop, enemylvls.get(miniboss));
                 lastEnemySpawn = TimeUtils.millis() + 30000;
+                bossScore += 1500;
             }
         }
         // Spawns a bullet out of the player dependent on player shot speed
@@ -571,9 +573,17 @@ public class Gameplay implements Screen
                         game.playSound(explode);
                         if(enemy.getHealth() == 0)
                         {
+                            if(enemy.getType().equals(enemylvls.get(4) ) || enemy.getType().equals(enemylvls.get(3)))
+                            {
+                                spawnPowerUp(2, enemy.getX() - 100, enemy.getY());
+                                int rand = MathUtils.random(1,5);
+                                {
+                                    spawnPowerUp(rand, enemy.getX() + 100, enemy.getY() + 100);
+                                }
+                            }
                             game.setScore(game.getScore()+enemy.getType().getPointValue());
                             game.setScoretext(String.valueOf(game.getScore()));
-                            int rand = MathUtils.random(1,20);
+                            int rand = MathUtils.random(1,10);
                             {
                                 if(rand == 1)
                                 {
@@ -693,9 +703,11 @@ public class Gameplay implements Screen
         MyGdxGame.player1.setTripleshot(false);
         MyGdxGame.player1.setForcefield(false);
         MyGdxGame.player1.setShotSpeed(600000000);
+        MyGdxGame.player1.setType(new BulletType(new Texture(Gdx.files.internal("6.png")), 1, 20, 60));
         MyGdxGame.player2.setTripleshot(false);
         MyGdxGame.player2.setForcefield(false);
         MyGdxGame.player2.setShotSpeed(600000000);
+        MyGdxGame.player2.setType(new BulletType(new Texture(Gdx.files.internal("5.png")), 1, 20, 60));
         MyGdxGame.GameOverActive = true;
         game.setPlayerlives(3);
         game.setScreen(new GameOver(game));

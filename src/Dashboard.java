@@ -14,7 +14,7 @@ public class Dashboard extends JFrame implements ActionListener {
   JLabel temp = new JLabel(piTemp);
   JButton jbPlayer = new JButton("Muziekspeler");
   JButton jbClimate = new JButton("Klimaatbeheer");
-  JButton jbSettings = new JButton("Instellingen");
+  JButton jbSettings = new JButton("Profiel");
   JButton jbOut = new JButton("Uitloggen");
 
   FlowLayout buttons = new FlowLayout(FlowLayout.RIGHT, 75, 0);

@@ -52,13 +52,10 @@ public class Inloggen extends JFrame implements ActionListener {
         accountknoppenPnl.add(inlogknopPnl, BorderLayout.NORTH);
         accountknoppenPnl.add(newAccountknopPnl, BorderLayout.CENTER);
 
-        JPanel wachtwoordknopPnl = new JPanel(new FlowLayout());
-        wachtwoordknopPnl.add(jbVergetenWachtwoord = new JButton("Wachtwoord vergeten"));
-        jbVergetenWachtwoord.addActionListener(this);
 
         JPanel knoppenPnl = new JPanel(new BorderLayout());
         knoppenPnl.add(accountknoppenPnl, BorderLayout.NORTH);
-        knoppenPnl.add(wachtwoordknopPnl, BorderLayout.CENTER);
+
 
         JPanel gebruikergegevensPnl = new JPanel(new GridLayout(2, 2));
         gebruikergegevensPnl.add(gebruikersnaamPnl, BorderLayout.NORTH);
@@ -127,6 +124,7 @@ public class Inloggen extends JFrame implements ActionListener {
                 connection.close();
             } catch (SQLException sqle) {
                 errorCheck = true;
+                System.out.println(sqle);
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -139,11 +137,6 @@ public class Inloggen extends JFrame implements ActionListener {
         if (e.getSource() == jbNieuwAccount) {
             System.out.println("link naar account");
             Account CreateAccountGUI = new Account();
-            this.dispose();
-        }
-        if (e.getSource() == jbVergetenWachtwoord) {
-            System.out.println("link naar wachtwoord wijzigen");
-            WachtwoordWijzigen wachtwoordWijzigenscherm = new WachtwoordWijzigen();
             this.dispose();
         }
 
