@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,16 +9,21 @@ import java.sql.*;
 
 public class PersoonlijkeInstellingen extends JFrame implements ActionListener, MouseListener {
   // definitions for labels, buttons and layouts
-  JLabel settings = new JLabel("Persoonlijke instellingen");
-  JLabel whitespace = new JLabel(" ");
-  JLabel username = new JLabel(Inloggen.getAccountName());
-  JLabel about = new JLabel("About tekst");
-  JLabel song1 = new JLabel("Nummer 1");
+  private JLabel settings = new JLabel("Persoonlijke instellingen");
+
+
+
+  private JLabel username = new JLabel("accountnaam: " + Inloggen.getAccountName());
+  private JLabel tempProfile = new JLabel("geselecteerde temperatuur profiel: geen profiel geselecteerd");
+  private JLabel lightProfile = new JLabel("geselecteerde lichtsterkte profiel: geen profiel geselecteerd");
+
   private BasicArrowButton backButton;
   private JTable jtTempProfile;
   private JTable jtLightProfile;
-  private String[] TempcolumnNames = {"Temperature profiles"};
-  private String[] lightColumnNames = {"Light strength profiles"};
+  private String[] TempcolumnNames = {"Temperatuur profielen"};
+  private String[] lightColumnNames = {"Lichtsterkte profielen"};
+  private String profilename;
+
   DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
   DefaultTableModel lightTableModel = new DefaultTableModel(lightColumnNames, 0);
 
@@ -29,30 +33,55 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
 //  String[][] profiel = { { "profiel 1" }, { "profiel 2" }, { "profiel 3" },
 //      { "profiel 4" }, { "profiel 5" }, };
 
-  JLabel playlist1 = new JLabel("Afspeellijst 1");
+  //JLabel playlist1 = new JLabel("Afspeellijst 1");
   JLabel profiles = new JLabel("Klimaatbeheer profielen bewerken");
 
   JButton jbEdit = new JButton("Profielen aanpassen");
 
-  FlowLayout standard = new FlowLayout();
-  FlowLayout spacing = new FlowLayout(FlowLayout.RIGHT, 100, 0);
-  FlowLayout aboutSpacing = new FlowLayout();
 
-  BorderLayout userdetails = new BorderLayout();
-  BorderLayout userdata = new BorderLayout();
-  BorderLayout profiledata = new BorderLayout();
   BorderLayout privacyBorder = new BorderLayout();
-  BorderLayout privacydetailBorder = new BorderLayout();
-  BorderLayout collection = new BorderLayout();
+
 
   public PersoonlijkeInstellingen() {
     // set standard data
     setTitle("Persoonlijke instellingen");
-    setLayout(new FlowLayout(FlowLayout.LEFT));
-    setSize(1900, 800);//800 600
+    setLayout(new GridLayout(4,1));
+    setSize(800, 600);
+    setLocationRelativeTo(null);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     // borders
     Border blackline = BorderFactory.createLineBorder(Color.black);
+
+
+      // userdetails panel to contain both username and about text
+      settings.setFont(new Font("Arial",Font.BOLD,20 ));
+
+      JPanel left = new JPanel(privacyBorder);
+
+      left.add(backButton = new BasicArrowButton(BasicArrowButton.WEST), BorderLayout.WEST);
+      left.add(settings, BorderLayout.CENTER);
+
+
+      JPanel userDetails = new JPanel(new GridLayout(3,1));
+      userDetails.add(username);
+      userDetails.add(tempProfile);
+      userDetails.add(lightProfile);
+
+
+
+      JPanel titelPanel = new JPanel(new BorderLayout());
+      titelPanel.add(left, BorderLayout.NORTH);
+
+
+      add(titelPanel);
+      JPanel midPanel = new JPanel(new BorderLayout());
+      midPanel.add(userDetails,BorderLayout.NORTH);
+      JPanel buttonPanel = new JPanel(new FlowLayout());
+      buttonPanel.add(jbEdit);
+      midPanel.add(buttonPanel,BorderLayout.SOUTH);
+
+      add(midPanel);
+
 
     try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
@@ -100,9 +129,12 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
-    GridLayout tabelLayout = new GridLayout(1, 2);
+
+
+            GridLayout tabelLayout = new GridLayout(1, 2);
             JPanel tablePanel = new JPanel(tabelLayout);
             tabelLayout.setHgap(15);
+
             jtTempProfile = new JTable(tempTableModel) {
                 public boolean isCellEditable(int row, int column) {
                     return false;
@@ -115,8 +147,9 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
             jtTempProfile.setRowHeight(50);
             jtTempProfile.setRowSelectionAllowed(false);
             jtTempProfile.setBorder(blackline);
+            jtTempProfile.addMouseListener((MouseListener) this);
 
-    jtLightProfile = new JTable(lightTableModel) {
+            jtLightProfile = new JTable(lightTableModel) {
                public boolean isCellEditable(int row, int column) {
                    return false;
                }
@@ -128,12 +161,20 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
            jtLightProfile.setRowSelectionAllowed(false);
            jtLightProfile.setBorder(blackline);
            jtLightProfile.getColumnModel().getColumnSelectionAllowed();
-    JScrollPane tempscrollpane = new JScrollPane(jtTempProfile);
-            JScrollPane lightscrollpane = new JScrollPane(jtLightProfile);
+           jtLightProfile.addMouseListener((MouseListener) this);
 
+            JScrollPane tempscrollpane = new JScrollPane(jtTempProfile);
+            JScrollPane lightscrollpane = new JScrollPane(jtLightProfile);
+            tempscrollpane.setPreferredSize(new Dimension(200,150));
+            lightscrollpane.setPreferredSize(new Dimension(200,150));
+
+
+            JPanel southPanel = new JPanel(new BorderLayout());
             tablePanel.add(tempscrollpane);
             tablePanel.add(lightscrollpane);
-            add(tablePanel);
+
+            southPanel.add(tablePanel, BorderLayout.CENTER);
+            add(southPanel);
 
 
 
@@ -171,62 +212,24 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
 //    playlistsPanel.add(jtTableProfiel);
 
     // borderpanel for the collection of both lists
-    JPanel privacySettings = new JPanel(privacydetailBorder);
-    privacydetailBorder.setVgap(30);
-    privacySettings.add(tablePanel,BorderLayout.SOUTH);
+    //JPanel privacySettings = new JPanel(privacydetailBorder);
+    //privacydetailBorder.setVgap(30);
+    //privacySettings.add(tablePanel,BorderLayout.SOUTH);
     //privacySettings.add(NumbersPanel, BorderLayout.NORTH);
     //privacySettings.add(playlistsPanel, BorderLayout.SOUTH);
 
     // borderpanel for the left section of the GUI
-    JPanel left = new JPanel(privacyBorder);
-    privacyBorder.setVgap(20);
-    left.setBorder(new EmptyBorder(50, 0, 0, 0));
-    left.add(backButton = new BasicArrowButton(BasicArrowButton.WEST), BorderLayout.WEST);
-    left.add(settings, BorderLayout.CENTER);
-    left.add(privacySettings, BorderLayout.SOUTH);
 
-    // username panel
-    JPanel userName = new JPanel(aboutSpacing);
-    userName.add(username);
+    //left.add(privacySettings, BorderLayout.SOUTH);
 
-    // about text panel
-    JPanel userAbout = new JPanel(aboutSpacing);
-    userAbout.add(about);
 
-    // userdetails panel to contain both username and about text
-    JPanel userDetails = new JPanel(userdata);
-    userDetails.setBorder(new EmptyBorder(100, 0, 0, 0));
-    userDetails.add(userName, BorderLayout.NORTH);
-    userDetails.add(userAbout);
 
-    // panel of the header for the climate profiles
-    JPanel climate = new JPanel(standard);
-    climate.add(profiles);
 
-    // edit profiles button panel
-    JPanel climateButton = new JPanel(standard);
-    climateButton.add(jbEdit);
 
-    // collection borderpanel for climate profiles
-    JPanel profile = new JPanel(profiledata);
-    profile.setBorder(new EmptyBorder(0, 0, 100, 0));
-    profile.add(climate, BorderLayout.NORTH);
-    profile.add(climateButton, BorderLayout.SOUTH);
 
-    // collection borderpanel for all panels on the right of the GUI
-    JPanel changeViewSettings = new JPanel(userdetails);
-    changeViewSettings.add(whitespace, BorderLayout.NORTH);
-    changeViewSettings.add(userDetails, BorderLayout.CENTER);
-    changeViewSettings.add(profile, BorderLayout.SOUTH);
 
-    // collection panel for all elements
-    JPanel borderPnl = new JPanel(collection);
-    borderPnl.setBorder(new EmptyBorder(0, 50, 50, 0));
-    collection.setHgap(150);
-    borderPnl.add(left, BorderLayout.WEST);
-    borderPnl.add(changeViewSettings, BorderLayout.EAST);
 
-    add(borderPnl);
+    //add(borderPnl);
     setVisible(true);
     jbEdit.addActionListener(this);
     backButton.addActionListener(this);
@@ -252,6 +255,92 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
 
   @Override
   public void mouseClicked(MouseEvent e) {
+
+      if(e.getSource() == jtTempProfile){
+          int column = jtTempProfile.getSelectedColumn();
+          int row = jtTempProfile.getSelectedRow();
+          profilename = jtTempProfile.getModel().getValueAt(row, column).toString();
+
+
+          try{
+              Class.forName("com.mysql.cj.jdbc.Driver");
+
+              String url = "jdbc:mysql://localhost/domotica_database";
+              String username = "root", password = "";
+
+              Connection connection = DriverManager.getConnection(url, username, password);
+
+              PreparedStatement selectStmt = connection.prepareStatement("Update temperature_profile set is_selected = 1 where temp_profile_name = ? ");
+
+              selectStmt.setString(1,profilename);
+
+              int i = selectStmt.executeUpdate();
+              System.out.println(i + "temperatuur profiel geupdated");
+
+              selectStmt.close();
+
+              PreparedStatement setFalseStmt = connection.prepareStatement("Update temperature_profile set is_selected = 0 where temp_profile_name not like ? ");
+              setFalseStmt.setString(1,profilename);
+
+              int falseStatement = setFalseStmt.executeUpdate();
+
+              System.out.println(falseStatement + "temperatuur profielen geupdated");
+
+              setFalseStmt.close();
+              connection.close();
+
+          }catch(SQLException sqlEx){
+              System.out.println(sqlEx.getMessage());
+          }catch(Exception ex){
+              System.out.println(ex.getMessage());
+          }
+
+          tempProfile.setText("geselecteerde temperatuur profiel: " + profilename);
+          SwingUtilities.updateComponentTreeUI(this);
+      }
+
+      if(e.getSource() == jtLightProfile){
+          int column = jtLightProfile.getSelectedColumn();
+          int row = jtLightProfile.getSelectedRow();
+          profilename = jtLightProfile.getModel().getValueAt(row, column).toString();
+
+
+          try{
+              Class.forName("com.mysql.cj.jdbc.Driver");
+
+              String url = "jdbc:mysql://localhost/domotica_database";
+              String username = "root", password = "";
+
+              Connection connection = DriverManager.getConnection(url, username, password);
+
+              PreparedStatement selectStmt = connection.prepareStatement("Update light_strength_profile set is_selected = 1 where light_strength_profile_name = ? ");
+              selectStmt.setString(1,profilename);
+
+              int i = selectStmt.executeUpdate();
+              System.out.println(i + "lichtsterkte profiel geupdated");
+
+              selectStmt.close();
+
+              PreparedStatement setFalseStmt = connection.prepareStatement("Update light_strength_profile set is_selected = 0 where light_strength_profile_name not like ? ");
+              setFalseStmt.setString(1,profilename);
+
+              int falseStatement = setFalseStmt.executeUpdate();
+
+              System.out.println(falseStatement + "lichtsterkte profielen geupdated");
+
+              setFalseStmt.close();
+              connection.close();
+
+          }catch(SQLException sqlEx){
+              System.out.println(sqlEx.getMessage());
+          }catch(Exception ex){
+              System.out.println(ex.getMessage());
+          }
+
+          lightProfile.setText("geselecteerde lichtsterkte profiel: " + profilename);
+          SwingUtilities.updateComponentTreeUI(this);
+      }
+
 //    if (e.getSource() == jtTableProfiel) {
 //      if (jtTableProfiel.getSelectedColumn() == 1) {
 //        System.out.println("playlist table");

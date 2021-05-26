@@ -30,6 +30,7 @@ public class KlimaatProfiel extends JFrame implements ActionListener, MouseListe
         setTitle("Klimaat Systeem");
         setSize(800, 600);
         setLayout(new GridLayout(4, 3));
+        setLocationRelativeTo(null);
         // borders
         Border blackline = BorderFactory.createLineBorder(Color.black);
 

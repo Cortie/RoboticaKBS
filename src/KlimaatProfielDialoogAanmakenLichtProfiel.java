@@ -13,23 +13,19 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
 {
     private JTextField jtProfielNaam;
         private JButton jbBevestigenKnop;
-        private JTextField jtVan;
-        private JTextField jtTot;
-        private String waardeVan = "00:00";
-        private String waardeTot = "23:59";
+
         private JLabel jlWaardeSlider;
         private JSlider jsSlider;
 
         private int waardeSlider;
         private String profielnaam;
-        private LocalTime vanWaarde;
-        private LocalTime totWaarde;
         private Boolean errorCheck = false;
         private JLabel jlErrorMessage;
         public KlimaatProfielDialoogAanmakenLichtProfiel(JFrame frame, boolean modal){
                     super(frame, modal);
                     setSize(800, 500);
                     setTitle("Lichtsterkte profiel aanmaken pop-up");
+                    setLocationRelativeTo(null);
 
                     JPanel profielNaamPnl = new JPanel(new FlowLayout());
                     profielNaamPnl.add(new JLabel("Profiel naam"));
@@ -40,8 +36,6 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
                     jbBevestigenKnop.addActionListener(this);
 
                     JPanel sliderPnl = new JPanel(new FlowLayout());
-                    sliderPnl.add(jtVan=new JTextField(waardeVan,5));
-                    sliderPnl.add(jtTot=new JTextField(waardeTot,5));
                     sliderPnl.add(jsSlider=new JSlider(0,500));
                     jsSlider.addChangeListener(this);
                     sliderPnl.add(jlWaardeSlider = new JLabel(String.valueOf(waardeSlider=jsSlider.getValue())+" LM"));
@@ -67,11 +61,9 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
         public void actionPerformed(ActionEvent e)
         {
             if (e.getSource()==jbBevestigenKnop) {
-                profielnaam = jtProfielNaam.getText();
-                try {
-                    vanWaarde = LocalTime.parse(jtVan.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-                    totWaarde = LocalTime.parse(jtTot.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-                } catch (DateTimeParseException dtEx) {
+                if(!jtProfielNaam.getText().equals("") && jtProfielNaam.getText().length() <= 15) {
+                    profielnaam = jtProfielNaam.getText();
+                }   else{
                     errorCheck = true;
                 }
                 if (!errorCheck) {
@@ -83,13 +75,11 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
 
                         Connection connection = DriverManager.getConnection(url, username, password);
 
-                        PreparedStatement statement = connection.prepareStatement("Insert into light_strength_profile (light_strength_profile_name, light_start_time, light_end_time, profile_light_strength, account_id) Values (?,?,?,?,?);");
+                        PreparedStatement statement = connection.prepareStatement("Insert into light_strength_profile (light_strength_profile_name,  profile_light_strength, account_id,is_selected) Values (?,?,?,0);");
 
                         statement.setString(1, profielnaam);
-                        statement.setTime(2, Time.valueOf(vanWaarde));
-                        statement.setTime(3, Time.valueOf(totWaarde));
-                        statement.setInt(4, waardeSlider);
-                        statement.setInt(5,Inloggen.getAccountID());
+                        statement.setInt(2, waardeSlider);
+                        statement.setInt(3,Inloggen.getAccountID());
 
                         int i = statement.executeUpdate();
                         System.out.println(i + " records inserted");
@@ -105,14 +95,15 @@ public class KlimaatProfielDialoogAanmakenLichtProfiel extends JDialog implement
 
 
                     System.out.println(profielnaam);
-                    System.out.println(vanWaarde);
-                    System.out.println(totWaarde);
                     System.out.println(waardeSlider);
                     dispose();
                 }
             }
             if(errorCheck){
                 jlErrorMessage.setText("je hebt ongeldige data ingevuld");
+                if(jtProfielNaam.getText().length() >15){
+                    jlErrorMessage.setText("je profielnaam mag niet langer zijn dan 15 tekens!");
+                }
                 SwingUtilities.updateComponentTreeUI(this);
                 errorCheck = false;
             }

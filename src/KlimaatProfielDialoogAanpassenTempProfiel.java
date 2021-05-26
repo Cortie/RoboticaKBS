@@ -14,16 +14,10 @@ import static java.time.format.DateTimeFormatter.ofPattern;
 public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implements ActionListener, ChangeListener {
     private JTextField jtProfielNaam;
     private JButton jbBevestigenKnop;
-    private JTextField jtVan;
-    private JTextField jtTot;
-    private String waardeVan;
-    private String waardeTot;
     private JLabel jlWaardeSlider;
     private int waardeSlider;
     private JSlider jsSlider;
     private String profielnaam;
-    private LocalTime vanWaarde;
-    private LocalTime totWaarde;
     private Boolean errorCheck = false;
     private JLabel jlErrorMessage;
 
@@ -33,6 +27,7 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
         super(frame, modal);
         setSize(800, 500);
         setTitle("Temperatuur profiel aanpassen pop-up");
+        setLocationRelativeTo(null);
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -42,19 +37,13 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
 
             Connection connection = DriverManager.getConnection(url, username, password);
 
-            PreparedStatement titlestmt = connection.prepareStatement("select temp_profile_name, temp_start_time, temp_end_time, profile_temperature from temperature_profile where temp_profile_name = ? ");
+            PreparedStatement titlestmt = connection.prepareStatement("select temp_profile_name,  profile_temperature from temperature_profile where temp_profile_name = ? ");
             titlestmt.setString(1, KlimaatProfiel.getProfilename());
             ResultSet getTemprs = titlestmt.executeQuery();
             getTemprs.next();
 
-            LocalTime WaardeVanTijd = LocalTime.parse(String.valueOf(getTemprs.getTime(2)));
-            LocalTime WaardeTotTijd = LocalTime.parse(String.valueOf(getTemprs.getTime(3)));
             profielnaam = getTemprs.getString(1);
-            waardeVan = String.valueOf(WaardeVanTijd.format(DateTimeFormatter.ofPattern("HH:mm")));
-            waardeTot = String.valueOf(WaardeTotTijd.format(DateTimeFormatter.ofPattern("HH:mm")));
-            waardeSlider = getTemprs.getInt(4);
-
-
+            waardeSlider = getTemprs.getInt(2);
 
         }catch(SQLException sqlEx){
             System.out.println(sqlEx.getMessage());
@@ -71,8 +60,6 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
         jbBevestigenKnop.addActionListener(this);
 
         JPanel sliderPnl = new JPanel(new FlowLayout());
-        sliderPnl.add(jtVan = new JTextField(waardeVan,5));
-        sliderPnl.add(jtTot = new JTextField(waardeTot,5));
         sliderPnl.add(jsSlider = new JSlider());
         jsSlider.setValue(waardeSlider);
         jsSlider.addChangeListener(this);
@@ -99,22 +86,12 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbBevestigenKnop) {
 
-            if(!jtProfielNaam.getText().equals("")) {
+            if(!jtProfielNaam.getText().equals("")&& jtProfielNaam.getText().length() <= 15) {
                 profielnaam = jtProfielNaam.getText();
             }   else{
                 errorCheck = true;
             }
-            if(jtProfielNaam.getText().length() >12){
-                errorCheck = true;
 
-            }
-
-            try {
-                vanWaarde = LocalTime.parse(jtVan.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-                totWaarde = LocalTime.parse(jtTot.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-            }catch(DateTimeParseException dtEx){
-                errorCheck = true;
-            }
 
             if(!errorCheck){
             try{
@@ -125,13 +102,11 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
 
                 Connection connection = DriverManager.getConnection(url, username, password);
 
-                PreparedStatement pstmt = connection.prepareStatement("Update temperature_profile set temp_profile_name = ?, temp_start_time = ?,temp_end_time = ?, profile_temperature = ? where temp_profile_name = ?");
+                PreparedStatement pstmt = connection.prepareStatement("Update temperature_profile set temp_profile_name = ?, profile_temperature = ? where temp_profile_name = ?");
 
                 pstmt.setString(1, profielnaam);
-                pstmt.setTime(2, Time.valueOf(vanWaarde));
-                pstmt.setTime(3, Time.valueOf(totWaarde));
-                pstmt.setInt(4, waardeSlider);
-                pstmt.setString(5,KlimaatProfiel.getProfilename());
+                pstmt.setInt(2, waardeSlider);
+                pstmt.setString(3,KlimaatProfiel.getProfilename());
 
                 int i = pstmt.executeUpdate();
                 System.out.println(i + " records inserted");
@@ -147,8 +122,6 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
 
 
             System.out.println(profielnaam);
-            System.out.println(vanWaarde);
-            System.out.println(totWaarde);
             System.out.println(waardeSlider);
 
             dispose();
@@ -156,8 +129,8 @@ public class KlimaatProfielDialoogAanpassenTempProfiel extends JDialog implement
         }
         if(errorCheck){
             jlErrorMessage.setText("je hebt ongeldige data ingevuld");
-            if(jtProfielNaam.getText().length() >12){
-                jlErrorMessage.setText("je profielnaam mag niet langer zijn dan 12 tekens!");
+            if(jtProfielNaam.getText().length() >15){
+                jlErrorMessage.setText("je profielnaam mag niet langer zijn dan 15 tekens!");
             }
             SwingUtilities.updateComponentTreeUI(this);
             errorCheck = false;

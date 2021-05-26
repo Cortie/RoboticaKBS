@@ -4,9 +4,26 @@
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatBeheer layout veranderd en wanneer licht aan gaat aangepast">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfiel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfiel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfiel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfiel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenLichtProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenLichtProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenTempProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanmakenTempProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenLichtProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenLichtProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenTempProfiel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatProfielDialoogAanpassenTempProfiel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,8 +119,8 @@
       <list>
         <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.PersoonlijkeInstellingen" />
-        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.KlimaatProfiel" />
+        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.KlimaatBeheer" />
       </list>
     </recent_temporary>

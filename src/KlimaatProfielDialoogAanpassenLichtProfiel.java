@@ -12,16 +12,10 @@ import java.time.format.DateTimeParseException;
 public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implements ActionListener, ChangeListener {
     private JTextField jtProfielNaam;// haal waarde uit database
     private JButton jbBevestigenKnop;
-    private JTextField jtVan;
-    private JTextField jtTot;
-    private String waardeVan;
-    private String waardeTot;
     private JLabel jlWaardeSlider;
     private int waardeSlider;
     private JSlider jsSlider;
     private String profielnaam;
-    private LocalTime vanWaarde;
-    private LocalTime totWaarde;
     private Boolean errorCheck = false;
     private JLabel jlErrorMessage;
 
@@ -29,6 +23,7 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
         super(frame, modal);
         setSize(800, 500);
         setTitle("Lichtsterkte profiel aanpassen pop-up");
+        setLocationRelativeTo(null);
 
 
         try{
@@ -39,17 +34,13 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
 
             Connection connection = DriverManager.getConnection(url, username, password);
 
-            PreparedStatement titlestmt = connection.prepareStatement("select light_strength_profile_name, light_start_time, light_end_time, profile_light_strength from light_strength_profile where light_strength_profile_name = ? ");
+            PreparedStatement titlestmt = connection.prepareStatement("select light_strength_profile_name, profile_light_strength from light_strength_profile where light_strength_profile_name = ? ");
             titlestmt.setString(1, KlimaatProfiel.getProfilename());
             ResultSet getLightrs = titlestmt.executeQuery();
             getLightrs.next();
 
-            LocalTime WaardeVanTijd = LocalTime.parse(String.valueOf(getLightrs.getTime(2)));
-            LocalTime WaardeTotTijd = LocalTime.parse(String.valueOf(getLightrs.getTime(3)));
             profielnaam = getLightrs.getString(1);
-            waardeVan = String.valueOf(WaardeVanTijd.format(DateTimeFormatter.ofPattern("HH:mm")));
-            waardeTot = String.valueOf(WaardeTotTijd.format(DateTimeFormatter.ofPattern("HH:mm")));
-            waardeSlider = getLightrs.getInt(4);
+            waardeSlider = getLightrs.getInt(2);
 
 
 
@@ -68,8 +59,6 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
         jbBevestigenKnop.addActionListener(this);
 
         JPanel sliderPnl = new JPanel(new FlowLayout());
-        sliderPnl.add(jtVan = new JTextField(waardeVan,5));
-        sliderPnl.add(jtTot = new JTextField(waardeTot,5));
         sliderPnl.add(jsSlider = new JSlider(0,500));
         jsSlider.setValue(waardeSlider);
         jsSlider.addChangeListener(this);
@@ -95,21 +84,12 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbBevestigenKnop) {
-            if (!jtProfielNaam.getText().equals("")) {
+            if (!jtProfielNaam.getText().equals("") && jtProfielNaam.getText().length() <= 15) {
                 profielnaam = jtProfielNaam.getText();
             } else {
                 errorCheck = true;
             }
-            if (jtProfielNaam.getText().length() > 12) {
-                errorCheck = true;
 
-            }
-            try {
-                vanWaarde = LocalTime.parse(jtVan.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-                totWaarde = LocalTime.parse(jtTot.getText(), DateTimeFormatter.ofPattern("HH:mm"));
-            } catch (DateTimeParseException dtEx) {
-                errorCheck = true;
-            }
             if (!errorCheck) {
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
@@ -119,13 +99,11 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
 
                     Connection connection = DriverManager.getConnection(url, username, password);
 
-                    PreparedStatement pstmt = connection.prepareStatement("Update light_strength_profile set light_strength_profile_name = ?, light_start_time = ?, light_end_time = ?, profile_light_strength = ? where light_strength_profile_name = ?");
+                    PreparedStatement pstmt = connection.prepareStatement("Update light_strength_profile set light_strength_profile_name = ?, profile_light_strength = ? where light_strength_profile_name = ?");
 
                     pstmt.setString(1, profielnaam);
-                    pstmt.setTime(2, Time.valueOf(vanWaarde));
-                    pstmt.setTime(3, Time.valueOf(totWaarde));
-                    pstmt.setInt(4, waardeSlider);
-                    pstmt.setString(5, KlimaatProfiel.getProfilename());
+                    pstmt.setInt(2, waardeSlider);
+                    pstmt.setString(3, KlimaatProfiel.getProfilename());
 
                     int i = pstmt.executeUpdate();
                     System.out.println(i + " records inserted");
@@ -139,11 +117,18 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
                     System.out.println(ex.getMessage());
                 }
                 System.out.println(profielnaam);
-                System.out.println(vanWaarde);
-                System.out.println(totWaarde);
+
                 System.out.println(waardeSlider);
                 dispose();
             }
+        }
+        if(errorCheck){
+            jlErrorMessage.setText("je hebt ongeldige data ingevuld");
+            if(jtProfielNaam.getText().length() >15){
+                jlErrorMessage.setText("je profielnaam mag niet langer zijn dan 15 tekens!");
+            }
+            SwingUtilities.updateComponentTreeUI(this);
+            errorCheck = false;
         }
     }
 
