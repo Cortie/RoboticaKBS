@@ -37,6 +37,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener {
     setLayout(new FlowLayout(FlowLayout.CENTER));
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
 
     // temperature panel
     JPanel musicTxtPnl = new JPanel(new BorderLayout());

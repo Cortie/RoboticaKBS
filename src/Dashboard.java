@@ -34,6 +34,7 @@ public class Dashboard extends JFrame implements ActionListener {
     setLayout(new FlowLayout(FlowLayout.CENTER));
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
 
     // temperature panel
     JPanel tempPnl = new JPanel(standard);

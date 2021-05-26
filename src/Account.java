@@ -30,6 +30,7 @@ public class Account extends JFrame implements ActionListener {
         setSize(800, 600);
         setLayout(new FlowLayout());
         jlCreateAccount = new JLabel("Nieuw account aanmaken");
+        setLocationRelativeTo(null);
 
         JPanel labelCreateAccountPanel = new JPanel(new FlowLayout());
         labelCreateAccountPanel.add(jlCreateAccount);

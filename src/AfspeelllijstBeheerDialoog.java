@@ -13,7 +13,8 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
     public AfspeelllijstBeheerDialoog(JFrame frame, boolean modal) {
         super(frame, modal);
         setSize(800, 500);
-        setTitle("Muziek toevoegen aan afspeellijst pop-up");
+        setTitle("Muziek toevoegen aan afspeellijst");
+        setLocationRelativeTo(null);
 
         JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(2, 2));
         lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 1 "));

@@ -20,6 +20,7 @@ public class MuziekBeheren extends JFrame implements ActionListener {
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         JPanel titelPnl = new JPanel(new BorderLayout());
         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST),BorderLayout.WEST);
         titelPnl.add(jlTitel = new JLabel("Muziekspeler"));

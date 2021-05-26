@@ -87,6 +87,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         JPanel backbuttenPnl = new JPanel(new FlowLayout());
         backbuttenPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
