@@ -26,6 +26,8 @@ public class KlimaatProfielDialoogAanmakenTempProfiel extends JDialog implements
                 setSize(800, 500);
                 setTitle("Temperatuur profiel aanmaken");
                 setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
 
                 JPanel profielNaamPnl = new JPanel(new FlowLayout());
                 profielNaamPnl.add(new JLabel("Profiel naam"));

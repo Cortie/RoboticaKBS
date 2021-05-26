@@ -24,6 +24,8 @@ public class KlimaatProfielDialoogAanpassenLichtProfiel extends JDialog implemen
         setSize(800, 500);
         setTitle("Lichtsterkte profiel aanpassen");
         setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
 
 
         try{

@@ -88,6 +88,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
 
         JPanel backbuttenPnl = new JPanel(new FlowLayout());
         backbuttenPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));

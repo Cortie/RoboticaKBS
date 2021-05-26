@@ -38,6 +38,8 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener {
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
+    Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+        this.setIconImage(icon);
 
     // temperature panel
     JPanel musicTxtPnl = new JPanel(new BorderLayout());
