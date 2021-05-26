@@ -14,7 +14,7 @@ public class Dashboard extends JFrame implements ActionListener {
   JLabel temp = new JLabel(piTemp);
   JButton jbPlayer = new JButton("Muziekspeler");
   JButton jbClimate = new JButton("Klimaatbeheer");
-  JButton jbSettings = new JButton("Instellingen");
+  JButton jbSettings = new JButton("Profiel");
   JButton jbOut = new JButton("Uitloggen");
 
   FlowLayout buttons = new FlowLayout(FlowLayout.RIGHT, 75, 0);
@@ -34,10 +34,15 @@ public class Dashboard extends JFrame implements ActionListener {
     setLayout(new FlowLayout(FlowLayout.CENTER));
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
+    Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+    this.setIconImage(icon);
+
 
     // temperature panel
     JPanel tempPnl = new JPanel(standard);
     tempPnl.add(temp);
+    temp.setText(piTemp+" °C");
     temp.setFont(temp.getFont().deriveFont(32.0f));
     tempPnl.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
 
