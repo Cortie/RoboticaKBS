@@ -1,5 +1,3 @@
-import com.mysql.cj.protocol.Resultset;
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -14,12 +12,10 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   JLabel manage = new JLabel("Afspeellijst beheren");
   JLabel name = new JLabel("Nieuw Afspeellijst");
   JLabel share = new JLabel("Afspeellijst Selecteren");
-  JLabel addMusic = new JLabel("Muziek verwijderen");
+  private String playlistName;
   private final BasicArrowButton backButton;
   public JList<String> userPlaylists = new JList<>();
-  private JList<String> playlistSongs = new JList<>();
   private final DefaultListModel demoPlaylists = new DefaultListModel();
-  private final DefaultListModel demoSongs = new DefaultListModel();
   JTextField pName = new JTextField(10);
   JButton jbMakeP = new JButton("Afspeellijst aanmaken");
   FlowLayout standard = new FlowLayout();
@@ -88,29 +84,18 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
         {
           userPlaylists.setSelectionMode(
                   ListSelectionModel.SINGLE_SELECTION);
-          String name = userPlaylists.getSelectedValue();
-          getSongs(name);
-          // adding songs to playlist
-          JPanel addM = new JPanel(new BorderLayout());
-          addM.add(addMusic, BorderLayout.NORTH);
-          addMusic.setFont(addMusic.getFont().deriveFont(16.0f));
-          addM.add(playlistSongs, BorderLayout.CENTER);
-          JScrollPane outputPane2 = new JScrollPane(playlistSongs,
-                  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-          addM.add(outputPane2);
-          bottom.add(addM);
+          playlistName = userPlaylists.getSelectedValue();
         }
       }
     });
     
     JPanel knoppenPnl = new JPanel(new BorderLayout());
     knoppenPnl.add(jbAfspeellijstVerwijderen,BorderLayout.NORTH);
-        jbAfspeellijstVerwijderen.addActionListener(this);
-        knoppenPnl.add(jbNummerToevoegen,BorderLayout.CENTER);
-        jbNummerToevoegen.addActionListener(this);
-        knoppenPnl.add(jbNummerVerwijderen,BorderLayout.SOUTH);
-        jbNummerVerwijderen.addActionListener(this);
+    jbAfspeellijstVerwijderen.addActionListener(this);
+    knoppenPnl.add(jbNummerToevoegen,BorderLayout.CENTER);
+    jbNummerToevoegen.addActionListener(this);
+    knoppenPnl.add(jbNummerVerwijderen,BorderLayout.SOUTH);
+    jbNummerVerwijderen.addActionListener(this);
 
     shareA.add(knoppenPnl,BorderLayout.SOUTH);
     
@@ -143,12 +128,11 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
     }
     if (e.getSource() == jbNummerToevoegen)
         {
-          AfspeelllijstBeheerDialoog createTempDialog = new AfspeelllijstBeheerDialoog(this, true, userPlaylists.getSelectedValue());
-          //createTempDialog.setVisible(true);
+          AfspeelllijstBeheerDialoog createTempDialog = new AfspeelllijstBeheerDialoog(this, true, playlistName);
         }
     if (e.getSource() == jbNummerVerwijderen)
         {
-          System.out.println("doe iets");
+          AfspeellijstMuziekVerwijderen createTempDialog = new AfspeellijstMuziekVerwijderen(this, true, playlistName);
         }
   }
   public void afspeellijstAanmaken(String naam)
@@ -192,26 +176,6 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
     AfspeellijstBeheer playlist = new AfspeellijstBeheer();
   }
   
-  public void getSongs(String naam)
-  {
-    try {
-      demoSongs.removeAllElements();
-      setConnection();
-      String sql = "select song_name from song WHERE song_id IN(SELECT song_id FROM playlist_song WHERE Playlist_id IN(SELECT Playlist_id FROM playlist WHERE Playlist_name='"+naam+"' AND account_id = "+Inloggen.getAccountID()+"));";
-      PreparedStatement userstmt = connection.prepareStatement(sql);
-      ResultSet songs = userstmt.executeQuery();
-      while(songs.next())
-      {
-        String tempTitle = songs.getString("song_name");
-        demoSongs.addElement(tempTitle);
-      }
-      playlistSongs = new JList<String>(demoSongs);
-      songs.close();
-      connection.close();
-    }catch (Exception ex) {
-      System.out.println(ex.getMessage());
-    }
-  }
   
   @Override
   public void mouseClicked(MouseEvent e)

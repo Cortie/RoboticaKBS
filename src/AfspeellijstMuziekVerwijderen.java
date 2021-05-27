@@ -9,13 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class AfspeellijstMuziekToevoegen extends JDialog implements ActionListener {
+public class AfspeellijstMuziekVerwijderen extends JDialog implements ActionListener {
     private String name;
     public JList<String> userPlaylists = new JList<>();
     private DefaultListModel demoPlaylists = new DefaultListModel();
     int num= 0;
     
-    public AfspeellijstMuziekToevoegen(JFrame frame, boolean modal, String name) {
+    public AfspeellijstMuziekVerwijderen(JFrame frame, boolean modal, String name) {
         super(frame, modal);
         setSize(800, 500);
         this.name = name;
