@@ -6,6 +6,7 @@ import com.fazecast.jSerialComm.SerialPort;
 public class GetLights {
   private int lightvalue;
   public int lichtwaarde;
+  public static int licht = 0;
   public SerialPort port;
 
   public Scanner data;
@@ -67,8 +68,9 @@ public class GetLights {
 
       } catch (Exception e) {
         System.out.println("lichtwaarde kon niet worden uitgelezen!");
-        lightvalue = 0;
+        lightvalue = 10;
       }
+      licht = lightvalue;
 
     }
     this.port.closePort();

@@ -131,10 +131,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         //ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
         //ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
 
-        if (lightvalue >= 150 ) {
+        if (lightvalue >= PersoonlijkeInstellingen.lightSetting ) {
             lampStatus = "uit";
         }
-        if (lightvalue < 150) {
+        if (lightvalue < PersoonlijkeInstellingen.lightSetting) {
             lampStatus = "aan";
         }
 
@@ -222,5 +222,6 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
 
     }
+
 
 }

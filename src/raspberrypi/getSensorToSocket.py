@@ -35,6 +35,8 @@ def switch_lights_on():
 def switch_lights_off():
     sense.clear()
 
+
+
 soc = socket.socket()
 host = "192.168.0.124"
 port = 8080
