@@ -9,14 +9,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class MuziekAfspeler extends JFrame implements ActionListener, MouseListener
 {
+    private JLabel jlTitel;
     private final BasicArrowButton backButton;
-    private final JLabel jlTitel;
-    private final JLabel jlAfspeellijst;
-    private JLabel jlNummer;
     private final JButton jbVorigeAfspelen;
     private JButton jbPauzeAfspelen;
     private final JButton jbVolgendeAfspelen;
@@ -64,7 +65,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         backButton.addActionListener(this);
 
         JPanel subTitels = new JPanel(new BorderLayout());
-        subTitels.add(jlAfspeellijst = new JLabel("naam afspeellijst"), BorderLayout.NORTH);
+        //subTitels.add(jlAfspeellijst = new JLabel("naam afspeellijst"), BorderLayout.NORTH);
         GridLayout tabelLayout = new GridLayout(1, 2);
         JPanel tablePanel = new JPanel(tabelLayout);
         tabelLayout.setHgap(15);
@@ -269,6 +270,38 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     {
         listener.currentSong = num;
         thisNote = 1;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            Calendar cal = Calendar.getInstance();
+            java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        
+            String url = "jdbc:mysql://localhost/domotica_database";
+            String username = "root", password = "";
+        
+            Connection connection = DriverManager.getConnection(url, username, password);
+            String sql2 = "SELECT song_name FROM song WHERE song_id ='"+ num +"'";
+            Statement stmt = connection.createStatement();
+            ResultSet r = stmt.executeQuery(sql2);
+            String naam;
+            if(r.next())
+            {
+                naam = r.getString(1);
+                stmt.close();
+                String sql = "INSERT INTO song_log (account_id, song_name, date) VALUES (?,?, ?)";
+                PreparedStatement userstmt = connection.prepareStatement(sql);
+                userstmt.setInt(1, Inloggen.getAccountID());
+                userstmt.setTimestamp(3, timestamp);
+                userstmt.setString(2, naam);
+                int i = userstmt.executeUpdate();
+                System.out.println(i + " records inserted");
+            }
+            connection.close();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
     
     
@@ -279,10 +312,6 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         {
             if(jtTempSong.getSelectedColumn() == 0)
             {
-                if(jtTempSong.getSelectedRow() == 1)
-                {
-                    setSong(2);
-                }
                 switch (jtTempSong.getSelectedRow())
                 {
                     case 0 -> setSong(1);

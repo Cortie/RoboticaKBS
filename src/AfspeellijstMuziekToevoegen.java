@@ -9,20 +9,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListener {
+public class AfspeellijstMuziekToevoegen extends JDialog implements ActionListener {
     private String name;
     public JList<String> userPlaylists = new JList<>();
     private DefaultListModel demoPlaylists = new DefaultListModel();
     int num= 0;
-
-    public AfspeelllijstBeheerDialoog(JFrame frame, boolean modal, String name) {
+    
+    public AfspeellijstMuziekToevoegen(JFrame frame, boolean modal, String name) {
         super(frame, modal);
         setSize(800, 500);
         this.name = name;
         setTitle("Muziek toevoegen aan afspeellijst: " + this.name);
         setLocationRelativeTo(null);
         Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
-            this.setIconImage(icon);
+        this.setIconImage(icon);
         createTable();
         JPanel borderPnl = new JPanel(new BorderLayout());
         borderPnl.add(userPlaylists, BorderLayout.CENTER);
@@ -32,7 +32,7 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         borderPnl.add(outputPane);
         userPlaylists.addListSelectionListener(new ListSelectionListener() {
-        
+            
             public void valueChanged(ListSelectionEvent e) {
                 if(e.getValueIsAdjusting())
                 {
@@ -42,13 +42,13 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
                     addSong(name);
                 }
             }
-        
+            
         });
-    
+        
         add(borderPnl);
         setVisible(true);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
     }
@@ -57,10 +57,10 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
         try {
             demoPlaylists.removeAllElements();
             Class.forName("com.mysql.cj.jdbc.Driver");
-        
+            
             String url = "jdbc:mysql://localhost/domotica_database";
             String username = "root", password = "";
-        
+            
             Connection connection = DriverManager.getConnection(url, username, password);
             PreparedStatement stmt = connection.prepareStatement("SELECT Playlist_id from playlist WHERE account_id =" + Inloggen.getAccountID() + " AND Playlist_name='" +name +"'");
             ResultSet playlist = stmt.executeQuery();
@@ -68,7 +68,7 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
             {
                 num = playlist.getInt("Playlist_id");
             }
-            PreparedStatement userstmt = connection.prepareStatement("select song_name from song WHERE song_id NOT IN(SELECT song_id FROM playlist_song WHERE Playlist_id =" + num +")");
+            PreparedStatement userstmt = connection.prepareStatement("select song_name from song WHERE song_id IN(SELECT song_id FROM playlist_song WHERE Playlist_id =" + num +")");
             ResultSet songs = userstmt.executeQuery();
             while(songs.next())
             {
@@ -82,14 +82,14 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
             System.out.println(ex.getMessage());
         }
     }
-    public void addSong(String name)
+    public void removeSong(String name)
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-    
+            
             String url = "jdbc:mysql://localhost/domotica_database";
             String username = "root", password = "";
-    
+            
             Connection connection = DriverManager.getConnection(url, username, password);
             String sql2 = "SELECT song_id FROM song WHERE song_name='" + name + "'";
             PreparedStatement stmt = connection.prepareStatement(sql2);
@@ -100,12 +100,12 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
                 id = songID.getInt("song_id");
             }
             stmt.close();
-            String sql = "INSERT INTO playlist_song (Playlist_id, song_id) VALUES (?,?)";
+            String sql = "DELETE FROM playlist_song WHERE Playlist_id =? AND song_id =?";
             PreparedStatement userstmt = connection.prepareStatement(sql);
             userstmt.setInt(1, num);
             userstmt.setInt(2, id);
             int i = userstmt.executeUpdate();
-            System.out.println(i + " records inserted");
+            System.out.println(i + " records removed");
             connection.close();
         }catch (Exception ex) {
             System.out.println(ex.getMessage());

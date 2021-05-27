@@ -1,3 +1,5 @@
+import com.mysql.cj.protocol.Resultset;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,11 +15,11 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   JLabel name = new JLabel("Nieuw Afspeellijst");
   JLabel share = new JLabel("Afspeellijst Selecteren");
   JLabel addMusic = new JLabel("Muziek verwijderen");
-  private BasicArrowButton backButton;
-  private JList<String> userPlaylists = new JList<>();
+  private final BasicArrowButton backButton;
+  public JList<String> userPlaylists = new JList<>();
   private JList<String> playlistSongs = new JList<>();
-  private DefaultListModel demoPlaylists = new DefaultListModel();
-  private DefaultListModel demoSongs = new DefaultListModel();
+  private final DefaultListModel demoPlaylists = new DefaultListModel();
+  private final DefaultListModel demoSongs = new DefaultListModel();
   JTextField pName = new JTextField(10);
   JButton jbMakeP = new JButton("Afspeellijst aanmaken");
   FlowLayout standard = new FlowLayout();
@@ -25,9 +27,11 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   FlowLayout select = new FlowLayout(FlowLayout.RIGHT, 50, 0);
   BorderLayout Bname = new BorderLayout();
   BorderLayout collection = new BorderLayout();
-  private JButton jbNummerToevoegen = new JButton("Muziek toevoegen");
-  private JButton jbNummerVerwijderen = new JButton("Muziek verwijderen");
-  private JButton jbAfspeellijstVerwijderen = new JButton("Afspeellijst verwijderen");
+  private JPanel bottom;
+  private Connection connection;
+  private final JButton jbNummerToevoegen = new JButton("Muziek toevoegen");
+  private final JButton jbNummerVerwijderen = new JButton("Muziek verwijderen");
+  private final JButton jbAfspeellijstVerwijderen = new JButton("Afspeellijst verwijderen");
 
   public AfspeellijstBeheer() {
     // set standard data
@@ -63,7 +67,10 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
     addPnl.add(pName);
     addPnl.add(jbMakeP);
     jbMakeP.addActionListener(this);
-
+  
+    // collection panel for sharing and adding songs panels
+    bottom = new JPanel(select);
+    
     // Select a playlist
     getData();
     JPanel shareA = new JPanel(new BorderLayout());
@@ -83,32 +90,28 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
                   ListSelectionModel.SINGLE_SELECTION);
           String name = userPlaylists.getSelectedValue();
           getSongs(name);
+          // adding songs to playlist
+          JPanel addM = new JPanel(new BorderLayout());
+          addM.add(addMusic, BorderLayout.NORTH);
+          addMusic.setFont(addMusic.getFont().deriveFont(16.0f));
+          addM.add(playlistSongs, BorderLayout.CENTER);
+          JScrollPane outputPane2 = new JScrollPane(playlistSongs,
+                  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+          addM.add(outputPane2);
+          bottom.add(addM);
         }
       }
-
     });
-
+    
     JPanel knoppenPnl = new JPanel(new FlowLayout());
     knoppenPnl.add(jbAfspeellijstVerwijderen);
         jbAfspeellijstVerwijderen.addActionListener(this);
         knoppenPnl.add(jbNummerToevoegen);
         jbNummerToevoegen.addActionListener(this);
     shareA.add(knoppenPnl,BorderLayout.SOUTH);
-
-    // adding songs to playlist
-    JPanel addM = new JPanel(new BorderLayout());
-    addM.add(addMusic, BorderLayout.NORTH);
-    addMusic.setFont(addMusic.getFont().deriveFont(16.0f));
-    addM.add(playlistSongs, BorderLayout.CENTER);
-    addM.setBorder(BorderFactory.createLineBorder(Color.black));
-    addM.add(jbNummerVerwijderen,BorderLayout.SOUTH);
-    jbNummerVerwijderen.addActionListener(this);
     
-    // collection panel for sharing and adding songs panels
-    JPanel bottom = new JPanel(select);
     bottom.add(shareA);
-    bottom.add(addM);
-
     // collection panel for all elements
     JPanel borderPnl = new JPanel(collection);
     borderPnl.add(musicPnl, BorderLayout.NORTH);
@@ -133,11 +136,12 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
     }
     if (e.getSource() == jbAfspeellijstVerwijderen)
     {
-      System.out.println("doe iets");
+      removePlaylist(userPlaylists.getSelectedValue());
     }
     if (e.getSource() == jbNummerToevoegen)
         {
-          System.out.println("doe iets");
+          AfspeelllijstBeheerDialoog createTempDialog = new AfspeelllijstBeheerDialoog(this, true, userPlaylists.getSelectedValue());
+          //createTempDialog.setVisible(true);
         }
     if (e.getSource() == jbNummerVerwijderen)
         {
@@ -147,23 +151,15 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   public void afspeellijstAanmaken(String naam)
   {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-    
-      String url = "jdbc:mysql://localhost/domotica_database";
-      String username = "root", password = "";
-    
-      Connection connection = DriverManager.getConnection(url, username, password);
+      setConnection();
       String sql = "INSERT INTO playlist (account_id, Playlist_name) VALUES (?,?)";
       PreparedStatement userstmt = connection.prepareStatement(sql);
       userstmt.setInt(1, Inloggen.getAccountID());
       userstmt.setString(2, naam);
       int i = userstmt.executeUpdate();
       System.out.println(i + " records inserted");
-      demoPlaylists.removeAllElements();
       getData();
       connection.close();
-    } catch (SQLException sqle) {
-      System.out.println(sqle.getMessage());
     } catch (Exception ex) {
       System.out.println(ex.getMessage());
     }
@@ -172,13 +168,9 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   public void getData()
   {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
-    
-      String url = "jdbc:mysql://localhost/domotica_database";
-      String username = "root", password = "";
-    
-      Connection connection = DriverManager.getConnection(url, username, password);
-    
+      demoPlaylists.removeAllElements();
+      setConnection();
+      
       PreparedStatement userstmt = connection.prepareStatement("select playlist_name from playlist WHERE account_id =" + Inloggen.getAccountID() +" ORDER BY playlist_name ASC ");
       ResultSet playlists = userstmt.executeQuery();
       while(playlists.next())
@@ -189,9 +181,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
       userPlaylists = new JList<String>(demoPlaylists);
       playlists.close();
       connection.close();
-    } catch (SQLException sqle) {
-      System.out.println(sqle.getMessage());
-    } catch (Exception ex) {
+    }  catch (Exception ex) {
       System.out.println(ex.getMessage());
     }
   }
@@ -203,26 +193,19 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   {
     try {
       demoSongs.removeAllElements();
-      Class.forName("com.mysql.cj.jdbc.Driver");
-      String url = "jdbc:mysql://localhost/domotica_database";
-      String username = "root", password = "";
-    
-      Connection connection = DriverManager.getConnection(url, username, password);
+      setConnection();
       String sql = "select song_name from song WHERE song_id IN(SELECT song_id FROM playlist_song WHERE Playlist_id IN(SELECT Playlist_id FROM playlist WHERE Playlist_name='"+naam+"' AND account_id = "+Inloggen.getAccountID()+"));";
       PreparedStatement userstmt = connection.prepareStatement(sql);
       ResultSet songs = userstmt.executeQuery();
       while(songs.next())
       {
         String tempTitle = songs.getString("song_name");
-        System.out.println(tempTitle);
         demoSongs.addElement(tempTitle);
       }
       playlistSongs = new JList<String>(demoSongs);
       songs.close();
       connection.close();
-    } catch (SQLException sqle) {
-      System.out.println(sqle.getMessage());
-    } catch (Exception ex) {
+    }catch (Exception ex) {
       System.out.println(ex.getMessage());
     }
   }
@@ -255,5 +238,47 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   public void mouseExited(MouseEvent e)
   {
   
+  }
+  public void removePlaylist(String naam)
+  {
+    try
+    {
+      setConnection();
+      String sql3 = "SELECT Playlist_id from playlist " +
+              "WHERE account_id=" + Inloggen.getAccountID() + " AND Playlist_name='" + naam + "'";
+      PreparedStatement userstmt = connection.prepareStatement(sql3);
+      ResultSet rs = userstmt.executeQuery();
+      int i = 0;
+      while(rs.next())
+      {
+        i = rs.getInt(1);
+      }
+      String sql2 = "DELETE FROM playlist_song WHERE " +
+        " Playlist_id="+ i;
+      Statement stmt2 = connection.createStatement();
+      stmt2.executeUpdate(sql2);
+      String sql = "DELETE FROM playlist " +
+              "WHERE account_id=" + Inloggen.getAccountID() + " AND Playlist_name='" + naam + "'";
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate(sql);
+    } catch (SQLException throwables)
+    {
+      throwables.printStackTrace();
+    }
+    getData();
+  }
+  public void setConnection()
+  {
+    try
+    {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+      String url = "jdbc:mysql://localhost/domotica_database";
+      String username = "root", password = "";
+    
+      connection = DriverManager.getConnection(url, username, password);
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 }
