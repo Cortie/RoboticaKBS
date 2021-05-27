@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="icon veranderd in de title back voor de schermen">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_17_41__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_17_41__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_18_51__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_18_51__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/GetLights.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/GetLights.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Inloggen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Music.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Music.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Music.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MuziekAfspeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekAfspeler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +37,11 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_1_PiListener.class" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp__PiListener.class" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_2_PiListener.class" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1r41VTPoIdwa7gmsm3RqM10vQl1" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -61,7 +61,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.MuziekAfspeler">
+  <component name="RunManager" selected="Application.Inloggen">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -106,8 +106,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.Inloggen" />
+        <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.PersoonlijkeInstellingen" />

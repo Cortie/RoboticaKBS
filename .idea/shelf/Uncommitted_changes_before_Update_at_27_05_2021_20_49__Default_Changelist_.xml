@@ -1,0 +1,34 @@
+<changelist name="Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]" date="1622141346515" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/05/2021 20:49 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/PiListener.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/PiListener.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/PiListener.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/Music.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/Music.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/Music.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/Music$1.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/Music$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/Music$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/MuziekAfspeler$1.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/MuziekAfspeler$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/MuziekAfspeler$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/Dashboard.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/Dashboard.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/Dashboard.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/MuziekAfspeler.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/MuziekAfspeler.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_20_49_[Default_Changelist]/MuziekAfspeler.class" />
+  </binary>
+</changelist>

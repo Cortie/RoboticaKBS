@@ -101,9 +101,10 @@ public class Music implements Runnable
                 noteDuration = (wholeNote) / abs(divider);
                 noteDuration *= 1.5; // increases the duration in half for dotted notes
             }
-            System.out.println(tone + "|" + noteDuration);
+            System.out.println(tone + " | " + noteDuration);
             sendMusic(tone, noteDuration);
             afspeler.setThisNote(afspeler.getThisNote() + 1);
+            afspeler.currentNote.setText(afspeler.getThisNote() + " afgespeelde noten");
             if(afspeler.getThisNote() == songLength)
             {
                 if(currentSong == afspeler.finalSong)
@@ -114,6 +115,8 @@ public class Music implements Runnable
                     afspeler.nextSong();
                 }
             }
+            afspeler.jsTijd.setValue(afspeler.getThisNote());
+            afspeler.jsTijd.setMaximum(songLength);
         }
     }
     public void getMusic(){

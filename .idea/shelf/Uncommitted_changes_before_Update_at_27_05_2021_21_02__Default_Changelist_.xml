@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_27_05_2021_21_02_[Default_Changelist]" date="1622142160038" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_21_02_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/05/2021 21:02 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/GetLights.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/GetLights.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_21_02_[Default_Changelist]/GetLights.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/Inloggen.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/Inloggen.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_21_02_[Default_Changelist]/Inloggen.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/Account.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/Account.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_21_02_[Default_Changelist]/Account.class" />
+  </binary>
+</changelist>

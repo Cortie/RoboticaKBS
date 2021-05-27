@@ -27,20 +27,18 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     private final JButton jbVolgendeAfspelen;
     private final JButton jbAfspeellijstBeheren;
     private String playlistName;
+    public JLabel currentNote = new JLabel("0 afgespeelde noten");
     private final JButton jbMuziekBeheren;
     public int finalSong;
     public int firstSong;
     private final JTable jtTempSong;
     private final String[] TempcolumnNames = {"Muziek nummers"};
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
-    private JTable jtPlaylists;
-    private final String[] playlistColumns = {"Playlists"};
-    DefaultTableModel plTableModel = new DefaultTableModel(playlistColumns, 0);
     private final Music listener = new Music(this);
     private boolean play;
     private int thisNote;
     private Thread listenerThread;
-    private JSlider jsTijd = new JSlider();
+    public JSlider jsTijd = new JSlider();
     
     public int getThisNote()
     {
@@ -128,9 +126,9 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         jbAfspeellijstBeheren.addActionListener(this);
         muziekKnoppenPnl.add(jbMuziekBeheren = new JButton("Muziek beheren"));
         jbMuziekBeheren.addActionListener(this);
-        jsTijd.setValue(0);
         muziekKnoppenPnl.add(jsTijd);
         jsTijd.addChangeListener(this);
+        muziekKnoppenPnl.add(currentNote);
 
         JPanel knoppenPnl = new JPanel(new BorderLayout());
         knoppenPnl.add(nummerKnoppenPnl, BorderLayout.NORTH);
@@ -382,9 +380,11 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     }
     public void setSong(int num)
     {
+        
         listener.currentSong = num;
         thisNote = 1;
         try {
+
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Calendar cal = Calendar.getInstance();
             java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());
@@ -392,8 +392,11 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         
             String url = "jdbc:mysql://localhost/domotica_database";
             String username = "root", password = "";
-        
             Connection connection = DriverManager.getConnection(url, username, password);
+            PreparedStatement userstmt3 = connection.prepareStatement("select MAX(position) from song_note where song_id =" + listener.currentSong );
+            ResultSet length = userstmt3.executeQuery();
+            length.next();
+            listener.songLength = length.getInt(1);
             String sql2 = "SELECT song_name FROM song WHERE song_id ='"+ num +"'";
             Statement stmt = connection.createStatement();
             ResultSet r = stmt.executeQuery(sql2);
@@ -480,7 +483,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     {
         if (e.getSource() == jsTijd)
         {
-
+        
         }
     }
 }
