@@ -23,6 +23,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
     private JLabel jlTitel;
     private JButton jbProfielKnop;
+    private JButton jbRefresh;
     private JLabel jlTempAanpassen;
     private JLabel jlLichtsterkteAanpassen;
     private JSlider jsTempWaarde;
@@ -101,7 +102,9 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
         JPanel profielKnopPnl = new JPanel(new FlowLayout());
         profielKnopPnl.add(jbProfielKnop = new JButton("Profielen aanpassen"));
+        profielKnopPnl.add(jbRefresh = new JButton("Refresh"));
         jbProfielKnop.addActionListener(this);
+        jbRefresh.addActionListener(this);
 
         if (lightvalue >= 150 ) {
             lampStatus = "uit";
@@ -165,7 +168,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
             Dashboard dash = new Dashboard();
             this.dispose();
         }
-
+        if(e.getSource() == jbRefresh) {
+            KlimaatBeheer beheer = new KlimaatBeheer();
+            this.dispose();
+        }
     }
 
     public static void main(String[] args) {

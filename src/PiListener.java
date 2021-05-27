@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.ref.Cleaner.Cleanable;
 import java.net.*;
 
 public class PiListener implements Runnable {
@@ -6,6 +7,7 @@ public class PiListener implements Runnable {
   public String Press;
   public String Humid;
   public Integer lights = 151;
+  public Integer counter = 0;
 
   public PiListener() {
     run();
@@ -14,7 +16,8 @@ public class PiListener implements Runnable {
   @Override
   public void run() {
     try {
-      Socket clientSocket = new Socket("145.44.64.184", 8080);
+      Socket clientSocket = new Socket("192.168.0.124", 8080);
+      clientSocket.setTcpNoDelay(true);
       OutputStream send = clientSocket.getOutputStream();
       byte b = lights.byteValue();
       send.write(b);
@@ -27,14 +30,14 @@ public class PiListener implements Runnable {
       int read;
       while ((read = is.read(buffer)) != -1) {
         String output = new String(buffer, 0, read);
-        Temp = output.substring(0,17);
+        Temp = output.substring(output.indexOf("[") + 1, output.indexOf("]"));
         Press = output.substring(output.indexOf("(") + 1, output.indexOf(")"));
         Humid = output.substring(output.indexOf("|") + 1);
-        //break;
+        break;
       }
-      //clientSocket.close();
+      clientSocket.close();
     } catch (IOException ioe) {
-
+      ioe.printStackTrace();
     }
   }
 }
