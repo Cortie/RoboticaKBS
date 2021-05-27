@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicArrowButton;
@@ -15,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class MuziekAfspeler extends JFrame implements ActionListener, MouseListener
+public class MuziekAfspeler extends JFrame implements ActionListener, MouseListener, ChangeListener
 {
     public JList<String> userPlaylists = new JList<>();
     private final DefaultListModel demoPlaylists = new DefaultListModel();
@@ -38,6 +40,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     private boolean play;
     private int thisNote;
     private Thread listenerThread;
+    private JSlider jsTijd = new JSlider();
     
     public int getThisNote()
     {
@@ -125,6 +128,9 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         jbAfspeellijstBeheren.addActionListener(this);
         muziekKnoppenPnl.add(jbMuziekBeheren = new JButton("Muziek beheren"));
         jbMuziekBeheren.addActionListener(this);
+        jsTijd.setValue(0);
+        muziekKnoppenPnl.add(jsTijd);
+        jsTijd.addChangeListener(this);
 
         JPanel knoppenPnl = new JPanel(new BorderLayout());
         knoppenPnl.add(nummerKnoppenPnl, BorderLayout.NORTH);
@@ -467,5 +473,14 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     public void mouseExited(MouseEvent e)
     {
     
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e)
+    {
+        if (e.getSource() == jsTijd)
+        {
+
+        }
     }
 }
