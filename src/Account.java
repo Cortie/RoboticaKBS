@@ -7,8 +7,7 @@ import java.security.NoSuchProviderException;
 import java.sql.*;
 
 public class Account extends JFrame implements ActionListener {
-    private String name;
-    private String password;
+
     private JLabel jlCreateAccount;
     private JLabel jlUsername;
     private JLabel jlPassword;

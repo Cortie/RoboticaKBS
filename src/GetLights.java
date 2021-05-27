@@ -67,8 +67,8 @@ public class GetLights {
         }
 
       } catch (Exception e) {
-        System.out.println("lichtwaarde kon niet worden uitgelezen!");
-        lightvalue = 10;
+        System.out.println("LDR sensor geeft een onjuiste waarde door.");
+        lightvalue = 100;
       }
       licht = lightvalue;
 

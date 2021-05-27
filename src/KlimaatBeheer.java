@@ -149,9 +149,9 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         sensorgegevenPnl.add(jlLampStatusWaarde = new JLabel(lampStatus));
         jlLampStatusWaarde.setFont(font1);
         sensorgegevenPnl.add(jVerwarmStatus = new JLabel("Verwarming status: "));
-        jlLampStatus.setFont(font1);
+        jVerwarmStatus.setFont(font1);
         sensorgegevenPnl.add(jVerwarmStatusWaarde = new JLabel(verwarmStatus));
-        jlLampStatusWaarde.setFont(font1);
+        jVerwarmStatusWaarde.setFont(font1);
 
         JPanel ondersteGedeelteRechtsPnl = new JPanel(new BorderLayout());
         ondersteGedeelteRechtsPnl.add(profielKnopPnl, BorderLayout.NORTH);

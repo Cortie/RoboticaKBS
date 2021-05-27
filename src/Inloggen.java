@@ -12,7 +12,7 @@ public class Inloggen extends JFrame implements ActionListener {
     private JPasswordField jpWachtwoord;
     private JButton jbInloggen;
     private JButton jbNieuwAccount;
-    private JButton jbVergetenWachtwoord;
+
 
     private String gebruikersnaam = "";
     private String wachtwoord = "";
@@ -133,8 +133,7 @@ public class Inloggen extends JFrame implements ActionListener {
                 System.out.println(ex.getMessage());
             }
 
-            // checkHashdWachtwoord=hashdWachtwoord;//verander checkww naar die uit database
-            // checkGebruikersnaam = gebruikersnaam;//verander checkGB naar die uit database
+
 
         }
         if (e.getSource() == jbNieuwAccount) {
