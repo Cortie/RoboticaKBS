@@ -15,9 +15,7 @@ public class Music implements Runnable
         this.afspeler = afspeler;
     }
     private final MuziekAfspeler afspeler;
-    public int currentSong = 1;
-    private final Clock clock = Clock.systemDefaultZone();
-    private long musicTiming = 0;
+    public int currentSong;
     private int divider = 0;
     private int noteDuration = 500;
     private int tone;
@@ -138,9 +136,7 @@ public class Music implements Runnable
             tone = noteTone.getInt(1);
             noteTone.close();
             connection.close();
-        }catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }

@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Update_at_27_05_2021_17_41_[Default_Changelist]" date="1622130084307" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_17_41_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/05/2021 17:41 [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/PiListener.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/PiListener.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_17_41_[Default_Changelist]/PiListener.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/RoboticaKBS/KlimaatBeheer.class" />
+    <option name="AFTER_PATH" value="out/production/RoboticaKBS/KlimaatBeheer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_17_41_[Default_Changelist]/KlimaatBeheer.class" />
+  </binary>
+</changelist>

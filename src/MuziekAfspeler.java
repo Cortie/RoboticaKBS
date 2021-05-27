@@ -1,8 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,14 +17,17 @@ import java.util.Calendar;
 
 public class MuziekAfspeler extends JFrame implements ActionListener, MouseListener
 {
-    private JLabel jlTitel;
+    public JList<String> userPlaylists = new JList<>();
+    private final DefaultListModel demoPlaylists = new DefaultListModel();
     private final BasicArrowButton backButton;
     private final JButton jbVorigeAfspelen;
     private JButton jbPauzeAfspelen;
     private final JButton jbVolgendeAfspelen;
     private final JButton jbAfspeellijstBeheren;
+    private String playlistName;
     private final JButton jbMuziekBeheren;
     public int finalSong;
+    public int firstSong;
     private final JTable jtTempSong;
     private final String[] TempcolumnNames = {"Muziek nummers"};
     DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
@@ -53,6 +57,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     public MuziekAfspeler() {
         songData();
         playlistData();
+        listener.currentSong = 1;
         setTitle("Klimaat systeem");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,46 +66,51 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
             this.setIconImage(icon);
         JPanel titelPnl = new JPanel(new FlowLayout());
         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
+        JLabel jlTitel;
         titelPnl.add(jlTitel = new JLabel("Dashboard"));
         backButton.addActionListener(this);
 
         JPanel subTitels = new JPanel(new BorderLayout());
-        //subTitels.add(jlAfspeellijst = new JLabel("naam afspeellijst"), BorderLayout.NORTH);
-        GridLayout tabelLayout = new GridLayout(1, 2);
-        JPanel tablePanel = new JPanel(tabelLayout);
-        tabelLayout.setHgap(15);
-        Border blackline = BorderFactory.createLineBorder(Color.black);
-        jtPlaylists = new JTable(plTableModel)
-        {
-            public boolean isCellEditable(int row, int collumn){
-                return false;
+        subTitels.add(new JLabel("Afspeellijsten"), BorderLayout.NORTH);
+        subTitels.add(userPlaylists, BorderLayout.CENTER);
+        JScrollPane outputPane = new JScrollPane(userPlaylists,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        subTitels.add(outputPane);
+        userPlaylists.addListSelectionListener(new ListSelectionListener() {
+        
+            public void valueChanged(ListSelectionEvent e) {
+                if(e.getValueIsAdjusting())
+                {
+                    userPlaylists.setSelectionMode(
+                            ListSelectionModel.SINGLE_SELECTION);
+                    playlistName = userPlaylists.getSelectedValue();
+                    songData(playlistName);
+                    jtTempSong.setRowSelectionInterval(0,0);
+                }
             }
-        };
-        jtPlaylists.setShowGrid(true);
-        jtPlaylists.getCellSelectionEnabled();
-        jtPlaylists.setRowHeight(50);
-        jtPlaylists.setRowSelectionAllowed(true);
-        jtPlaylists.setBorder(blackline);
-        jtPlaylists.addMouseListener(this);
-
-        subTitels.add(jtPlaylists);
+        });
+        JPanel songs = new JPanel(new BorderLayout());
+        songs.add(new JLabel("Nummers"), BorderLayout.NORTH);
+        Border blackline = BorderFactory.createLineBorder(Color.black);
         jtTempSong = new JTable(tempTableModel) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
             
         };
+        jtTempSong.setRowSelectionInterval(0,0);
         jtTempSong.setShowGrid(true);
         jtTempSong.getCellSelectionEnabled();
         jtTempSong.setRowHeight(50);
         jtTempSong.setRowSelectionAllowed(true);
         jtTempSong.setBorder(blackline);
         jtTempSong.addMouseListener(this);
-        
-        subTitels.add(jtTempSong);
+        songs.add(jtTempSong);
         JPanel titelsPnl = new JPanel(new BorderLayout());
         titelsPnl.add(titelPnl, BorderLayout.NORTH);
         titelsPnl.add(subTitels, BorderLayout.CENTER);
+        titelsPnl.add(songs, BorderLayout.SOUTH);
 
         JPanel nummerKnoppenPnl = new JPanel(new FlowLayout());
         nummerKnoppenPnl.add(jbVorigeAfspelen = new JButton("Vorige afspelen"));
@@ -163,25 +173,79 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     }
     public void nextSong()
     {
-        if(listener.currentSong < listener.songLength)
+        if(listener.currentSong == finalSong)
         {
-            listener.currentSong++;
-        }else
-        {
-            listener.currentSong = 1;
+            jtTempSong.setRowSelectionInterval(0,0);
+            listener.currentSong = firstSong;
+        }
+        else{
+            if(playlistName == null)
+            {
+                jtTempSong.setRowSelectionInterval(jtTempSong.getSelectedRow() + 1,jtTempSong.getSelectedRow() + 1);
+                listener.currentSong++;
+            }
+            else
+            {
+                jtTempSong.setRowSelectionInterval(jtTempSong.getSelectedRow() + 1,jtTempSong.getSelectedRow() + 1);
+                try
+                {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+        
+                    String url = "jdbc:mysql://localhost/domotica_database";
+                    String username = "root", password = "";
+        
+                    Connection connection = DriverManager.getConnection(url, username, password);
+                    Statement stmt = connection.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT song_id FROM song WHERE song_name='" + jtTempSong.getValueAt(jtTempSong.getSelectedRow(), 0) + "'");
+                    while(rs.next())
+                    {
+                        setSong(rs.getInt(1));
+                    }
+                }catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
         thisNote = 1;
     }
     public void previousSong()
     {
-        if(listener.currentSong > 1)
+        if(listener.currentSong == firstSong)
         {
-            listener.currentSong--;
-        }else
-        {
-            listener.currentSong = listener.songLength;
+            jtTempSong.setRowSelectionInterval(jtTempSong.getRowCount() -1,jtTempSong.getRowCount() -1);
+            listener.currentSong = finalSong;
         }
-        thisNote =1;
+        else{
+            if(playlistName == null)
+            {
+                jtTempSong.setRowSelectionInterval(jtTempSong.getSelectedRow() - 1,jtTempSong.getSelectedRow() - 1);
+                listener.currentSong--;
+            }
+            else
+            {
+                jtTempSong.setRowSelectionInterval(jtTempSong.getSelectedRow() - 1,jtTempSong.getSelectedRow() - 1);
+                try
+                {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                
+                    String url = "jdbc:mysql://localhost/domotica_database";
+                    String username = "root", password = "";
+                
+                    Connection connection = DriverManager.getConnection(url, username, password);
+                    Statement stmt = connection.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT song_id FROM song WHERE song_name='" + jtTempSong.getValueAt(jtTempSong.getSelectedRow(), 0) + "'");
+                    while(rs.next())
+                    {
+                        setSong(rs.getInt(1));
+                    }
+                }catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        thisNote = 1;
     }
     public void pauseButton()
     {
@@ -210,39 +274,36 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
+    
             String url = "jdbc:mysql://localhost/domotica_database";
             String username = "root", password = "";
-
+    
             Connection connection = DriverManager.getConnection(url, username, password);
-
+        
             PreparedStatement userstmt = connection.prepareStatement("select playlist_name from playlist WHERE account_id =" + Inloggen.getAccountID() +" ORDER BY playlist_name ASC ");
             ResultSet playlists = userstmt.executeQuery();
             while(playlists.next())
             {
                 String tempTitle = playlists.getString("playlist_name");
-                String[] tempData = { tempTitle } ;
-
-                plTableModel.addRow(tempData);
+                demoPlaylists.addElement(tempTitle);
             }
+            userPlaylists = new JList<String>(demoPlaylists);
             playlists.close();
             connection.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-        } catch (Exception ex) {
+        }  catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
     public void songData()
     {
         try {
+            tempTableModel.setRowCount(0);
             Class.forName("com.mysql.cj.jdbc.Driver");
         
             String url = "jdbc:mysql://localhost/domotica_database";
             String username = "root", password = "";
         
             Connection connection = DriverManager.getConnection(url, username, password);
-        
             PreparedStatement userstmt = connection.prepareStatement("select song_name from song ORDER BY song_id ASC");
             ResultSet songs = userstmt.executeQuery();
             while(songs.next())
@@ -254,17 +315,64 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
             }
             songs.close();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(song_id) FROM song");
+            ResultSet rs = stmt.executeQuery("SELECT MAX(song_id) FROM song");
             while(rs.next())
             {
                 finalSong = rs.getInt(1);
             }
+            firstSong = 1;
             connection.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+        setSong(firstSong);
+    }
+    public void songData(String naam)
+    {
+        try {
+            tempTableModel.setRowCount(0);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        
+            String url = "jdbc:mysql://localhost/domotica_database";
+            String username = "root", password = "";
+            
+            Connection connection = DriverManager.getConnection(url, username, password);
+            String sql3 = "SELECT Playlist_id from playlist " +
+                    "WHERE account_id=" + Inloggen.getAccountID() + " AND Playlist_name='" + naam + "'";
+            PreparedStatement stmt2 = connection.prepareStatement(sql3);
+            ResultSet plID = stmt2.executeQuery();
+            int i = 0;
+            while(plID.next())
+            {
+                i = plID.getInt(1);
+            }
+            PreparedStatement userstmt = connection.prepareStatement("select song_name from song WHERE song_id IN(SELECT song_id FROM playlist_song WHERE Playlist_id = "  + i+ ") ORDER BY song_id ASC");
+            ResultSet songs = userstmt.executeQuery();
+            while(songs.next())
+            {
+                String tempTitle = songs.getString("song_name");
+                String[] tempData = { tempTitle } ;
+            
+                tempTableModel.addRow(tempData);
+            }
+            songs.close();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(song_id) FROM song WHERE song_id IN(SELECT song_id from playlist_song WHERE Playlist_id =" + i + ")");
+            while(rs.next())
+            {
+                finalSong = rs.getInt(1);
+            }
+            Statement stmt4 = connection.createStatement();
+            ResultSet rs4 = stmt4.executeQuery("SELECT MIN(song_id) FROM song WHERE song_id IN(SELECT song_id from playlist_song WHERE Playlist_id =" + i + ")");
+            while(rs4.next())
+            {
+                firstSong = rs4.getInt(1);
+            }
+            connection.close();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        setSong(firstSong);
     }
     public void setSong(int num)
     {
@@ -297,9 +405,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
                 System.out.println(i + " records inserted");
             }
             connection.close();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
@@ -312,14 +418,30 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         {
             if(jtTempSong.getSelectedColumn() == 0)
             {
-                switch (jtTempSong.getSelectedRow())
+                String name = (String)jtTempSong.getValueAt(jtTempSong.getSelectedRow(), 0);
+    
+                try
                 {
-                    case 0 -> setSong(1);
-                    case 1 -> setSong(2);
-                    case 2 -> setSong(3);
-                    case 3 -> setSong(4);
-                    case 4 -> setSong(5);
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url = "jdbc:mysql://localhost/domotica_database";
+                    String username = "root", password = "";
+        
+                    Connection connection = DriverManager.getConnection(url, username, password);
+                    String sql = "SELECT song_id from song " +
+                            "WHERE song_name ='" + name + "'";
+                    PreparedStatement userstmt = connection.prepareStatement(sql);
+                    ResultSet rs = userstmt.executeQuery();
+                    int i = 0;
+                    while(rs.next())
+                    {
+                        i = rs.getInt(1);
+                    }
+                    setSong(i);
+                } catch (Exception ex)
+                {
+                    ex.printStackTrace();
                 }
+
             }
         }
     }

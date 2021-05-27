@@ -1,0 +1,383 @@
+Index: src/Dashboard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.awt.*;\r\nimport javax.swing.*;\r\nimport java.awt.event.*;\r\n\r\npublic class Dashboard extends JFrame implements ActionListener {\r\n\r\n  // defenitions for getting the current temperature and light value\r\n  private final static PiListener PiListener = new PiListener();\r\n  private GetLights lampje = new GetLights();\r\n\r\n  static String piTemp = PiListener.Temp;\r\n\r\n  // definitions for labels, buttons and layouts\r\n  JLabel temp = new JLabel(piTemp);\r\n  JButton jbPlayer = new JButton(\"Muziekspeler\");\r\n  JButton jbClimate = new JButton(\"Klimaatbeheer\");\r\n  JButton jbSettings = new JButton(\"Profiel\");\r\n  JButton jbOut = new JButton(\"Uitloggen\");\r\n\r\n  FlowLayout buttons = new FlowLayout(FlowLayout.RIGHT, 75, 0);\r\n  FlowLayout standard = new FlowLayout();\r\n  BorderLayout collection = new BorderLayout();\r\n\r\n  public Dashboard() {\r\n\r\n    PiListener.lightSetting = lampje.lichtwaarde;\r\n\r\n    Thread PiListenerThread = new Thread(PiListener);\r\n    PiListenerThread.setDaemon(true);\r\n    PiListenerThread.start();\r\n\r\n    // set standard data\r\n    setTitle(\"Dashboard\");\r\n    setLayout(new FlowLayout(FlowLayout.CENTER));\r\n    setSize(800, 600);\r\n    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);\r\n    setLocationRelativeTo(null);\r\n    Image icon = Toolkit.getDefaultToolkit().getImage(\"logo.PNG\");\r\n    this.setIconImage(icon);\r\n\r\n\r\n    // temperature panel\r\n    JPanel tempPnl = new JPanel(standard);\r\n    tempPnl.add(temp);\r\n    temp.setText(piTemp+\" °C\");\r\n    temp.setFont(temp.getFont().deriveFont(32.0f));\r\n    tempPnl.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));\r\n\r\n    // panel for the middle buttons\r\n    JPanel btnPnl = new JPanel(buttons);\r\n    btnPnl.add(jbPlayer);\r\n    jbPlayer.setPreferredSize(new Dimension(150, 50));\r\n    jbPlayer.setFont(jbPlayer.getFont().deriveFont(16.0f));\r\n    btnPnl.add(jbClimate);\r\n    jbClimate.setPreferredSize(new Dimension(150, 50));\r\n    jbClimate.setFont(jbClimate.getFont().deriveFont(16.0f));\r\n    btnPnl.add(jbSettings);\r\n    jbSettings.setPreferredSize(new Dimension(150, 50));\r\n    jbSettings.setFont(jbSettings.getFont().deriveFont(16.0f));\r\n\r\n    // panel for logging out\r\n    JPanel outPnl = new JPanel(standard);\r\n    outPnl.add(jbOut);\r\n    jbOut.setPreferredSize(new Dimension(150, 50));\r\n    jbOut.setFont(jbOut.getFont().deriveFont(16.0f));\r\n\r\n    // border panel serving as collection for the elements\r\n    JPanel borderPnl = new JPanel(collection);\r\n    collection.setVgap(100);\r\n    borderPnl.add(tempPnl, BorderLayout.NORTH);\r\n    borderPnl.add(btnPnl, BorderLayout.CENTER);\r\n    borderPnl.add(outPnl, BorderLayout.SOUTH);\r\n\r\n    add(borderPnl);\r\n    jbPlayer.addActionListener(this);\r\n    jbClimate.addActionListener(this);\r\n    jbOut.addActionListener(this);\r\n    jbSettings.addActionListener(this);\r\n    setVisible(true);\r\n  }\r\n\r\n  @Override\r\n  public void actionPerformed(ActionEvent e) {\r\n    // TODO Auto-generated method stub\r\n    if (e.getSource() == jbPlayer) {\r\n      System.out.println(\"link naar muziekspeler\");\r\n      MuziekAfspeler musicPlayerGUI = new MuziekAfspeler();\r\n      this.dispose();\r\n    }\r\n    if (e.getSource() == jbClimate) {\r\n      System.out.println(\"link naar klimaatbeheer\");\r\n      KlimaatBeheer klimaatBeheerscherm = new KlimaatBeheer();\r\n      this.dispose();\r\n    }\r\n    if (e.getSource() == jbSettings) {\r\n      System.out.println(\"link naar persoonlijke instellingen\");\r\n      PersoonlijkeInstellingen first = new PersoonlijkeInstellingen();\r\n      this.dispose();\r\n    }\r\n    if (e.getSource() == jbOut) {\r\n      System.out.println(\"link naar inloggen\");\r\n      Inloggen inloggenscherm = new Inloggen();\r\n      this.dispose();\r\n    }\r\n  }\r\n\r\n  public static void main(String[] args) {\r\n    Dashboard dash = new Dashboard();\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Dashboard.java b/src/Dashboard.java
+--- a/src/Dashboard.java	(revision 5450ffcf77a9261ed257073e075ae582c87fa72b)
++++ b/src/Dashboard.java	(date 1622130171585)
+@@ -23,7 +23,7 @@
+ 
+   public Dashboard() {
+ 
+-    PiListener.lightSetting = lampje.lichtwaarde;
++    //PiListener.lightSetting = lampje.lichtwaarde;
+ 
+     Thread PiListenerThread = new Thread(PiListener);
+     PiListenerThread.setDaemon(true);
+Index: src/Music.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import com.fazecast.jSerialComm.SerialPort;\r\nimport com.fazecast.jSerialComm.SerialPortDataListener;\r\nimport com.fazecast.jSerialComm.SerialPortEvent;\r\n\r\nimport java.io.IOException;\r\nimport java.io.PrintWriter;\r\nimport java.sql.*;\r\nimport java.time.Clock;\r\n\r\nimport static java.lang.Math.abs;\r\npublic class Music implements Runnable\r\n{\r\n    public Music(MuziekAfspeler afspeler)\r\n    {\r\n        this.afspeler = afspeler;\r\n    }\r\n    private final MuziekAfspeler afspeler;\r\n    public int currentSong = 1;\r\n    private final Clock clock = Clock.systemDefaultZone();\r\n    private long musicTiming = 0;\r\n    private int divider = 0;\r\n    private int noteDuration = 500;\r\n    private int tone;\r\n    public SerialPort port;\r\n    public int songLength;\r\n    @Override\r\n    public void run()\r\n    {\r\n        SerialPort[] availablePorts = SerialPort.getCommPorts();\r\n        for (SerialPort comPort : availablePorts) {\r\n            if (comPort.getDescriptivePortName().length() > 10) {\r\n                String naam = comPort.getDescriptivePortName().substring(0, 11);\r\n                if (naam.equalsIgnoreCase(\"Arduino Uno\")) {\r\n                    this.port = comPort;\r\n                }\r\n            \r\n                if (this.port == null && naam.equalsIgnoreCase(\"USB Serial \")) {\r\n                    this.port = comPort;\r\n                }\r\n            }\r\n        }\r\n        if(port.openPort())\r\n        {\r\n            System.out.println(\"port open\");\r\n        }\r\n        else\r\n        {\r\n            System.out.println(\"Something wrong with Arduino connection\");\r\n        }\r\n        port.setComPortParameters(9600, 8, 1, SerialPort.NO_PARITY);\r\n        port.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);\r\n        port.addDataListener(new SerialPortDataListener() {\r\n            @Override\r\n            public int getListeningEvents() {\r\n                return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;\r\n            }\r\n        \r\n            @Override\r\n            public void serialEvent(SerialPortEvent event) {\r\n                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) {\r\n                    return;\r\n                }\r\n                byte[] newData = new byte[port.bytesAvailable()];\r\n                int numRead = port.readBytes(newData, newData.length);\r\n                String test = new String(newData);\r\n                //System.out.println(test);\r\n                //System.out.println(\"Read \" + numRead + \" bytes. \" + newData[0]);\r\n            }\r\n        });\r\n        String url = \"jdbc:mysql://localhost/domotica_database\";\r\n        String username = \"root\", password = \"\";\r\n    \r\n        Connection connection;\r\n        try\r\n        {\r\n            connection = DriverManager.getConnection(url, username, password);\r\n            PreparedStatement userstmt = connection.prepareStatement(\"select MAX(position) from song_note where song_id =\" + currentSong );\r\n            ResultSet length = userstmt.executeQuery();\r\n            length.next();\r\n            songLength = length.getInt(1);\r\n        } catch (SQLException throwables)\r\n        {\r\n            throwables.printStackTrace();\r\n        }\r\n        while (afspeler.isPlay())\r\n        {\r\n            try\r\n            {\r\n                Thread.sleep(noteDuration);\r\n            } catch (InterruptedException e)\r\n            {\r\n                e.printStackTrace();\r\n            }\r\n            getMusic();\r\n            int wholeNote = (60000 * 4) / 150;\r\n            if (divider > 0) {\r\n                // regular note, just proceed\r\n                noteDuration = (wholeNote) / divider;\r\n            }\r\n            else if (divider < 0)\r\n            {\r\n                // dotted notes are represented with negative durations!!\r\n                noteDuration = (wholeNote) / abs(divider);\r\n                noteDuration *= 1.5; // increases the duration in half for dotted notes\r\n            }\r\n            System.out.println(tone + \"|\" + noteDuration);\r\n            sendMusic(tone, noteDuration);\r\n            afspeler.setThisNote(afspeler.getThisNote() + 1);\r\n            if(afspeler.getThisNote() == songLength)\r\n            {\r\n                if(currentSong == afspeler.finalSong)\r\n                {\r\n                    afspeler.setSong(1);\r\n                }\r\n                else{\r\n                    afspeler.nextSong();\r\n                }\r\n            }\r\n        }\r\n    }\r\n    public void getMusic(){\r\n        try{\r\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n            \r\n            String url = \"jdbc:mysql://localhost/domotica_database\";\r\n            String username = \"root\", password = \"\";\r\n            \r\n            Connection connection = DriverManager.getConnection(url, username, password);\r\n            PreparedStatement userstmt = connection.prepareStatement(\"select duration, note from song_note where song_id =\" + currentSong +\" AND position =\" + afspeler.getThisNote());\r\n            ResultSet duration = userstmt.executeQuery();\r\n            duration.next();\r\n            divider = duration.getInt(1);\r\n            String note = duration.getString(2);\r\n            duration.close();\r\n            PreparedStatement userstmt2 = connection.prepareStatement(\"select tone from notes where note ='\" + note + \"'\");\r\n            ResultSet noteTone = userstmt2.executeQuery();\r\n            noteTone.next();\r\n            tone = noteTone.getInt(1);\r\n            noteTone.close();\r\n            connection.close();\r\n        }catch (SQLException sqle) {\r\n            System.out.println(sqle.getMessage());\r\n        } catch (Exception ex) {\r\n            System.out.println(ex.getMessage());\r\n        }\r\n    }\r\n    public void sendMusic(int tone, int noteDuration)\r\n    {\r\n        String info =\"<\"  + tone + \", \" + noteDuration + \">\";\r\n        PrintWriter out = new PrintWriter(port.getOutputStream(), true);\r\n        out.println(info);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Music.java b/src/Music.java
+--- a/src/Music.java	(revision 5450ffcf77a9261ed257073e075ae582c87fa72b)
++++ b/src/Music.java	(date 1622132549810)
+@@ -16,8 +16,6 @@
+     }
+     private final MuziekAfspeler afspeler;
+     public int currentSong = 1;
+-    private final Clock clock = Clock.systemDefaultZone();
+-    private long musicTiming = 0;
+     private int divider = 0;
+     private int noteDuration = 500;
+     private int tone;
+@@ -138,9 +136,7 @@
+             tone = noteTone.getInt(1);
+             noteTone.close();
+             connection.close();
+-        }catch (SQLException sqle) {
+-            System.out.println(sqle.getMessage());
+-        } catch (Exception ex) {
++        }catch (Exception ex) {
+             System.out.println(ex.getMessage());
+         }
+     }
+Index: src/PiListener.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.io.*;\r\nimport java.lang.ref.Cleaner.Cleanable;\r\nimport java.net.*;\r\n\r\npublic class PiListener implements Runnable {\r\n  public String Temp;\r\n  public String Press;\r\n  public String Humid;\r\n  public Integer lightSetting;\r\n  public Integer light;\r\n  public Integer tempSetting;\r\n  public String splitter =\"|\";\r\n\r\n\r\n  public PiListener() {\r\n    run();\r\n  }\r\n\r\n  @Override\r\n  public void run() {\r\n    try {\r\n      light = GetLights.licht;\r\n      lightSetting = PersoonlijkeInstellingen.lightSetting;\r\n      tempSetting = PersoonlijkeInstellingen.tempSetting;//KlimaatBeheer.getIngesteldeTempwaarde();\r\n      Socket clientSocket = new Socket(\"10.80.17.1\", 8080);\r\n      OutputStream send = clientSocket.getOutputStream();\r\n\r\n      String setData = light.toString()+splitter+lightSetting.toString()+splitter+tempSetting.toString();\r\n\r\n      byte[] a = setData.getBytes();\r\n      send.write(a);\r\n\r\n\r\n      InputStream is = clientSocket.getInputStream();\r\n      PrintWriter pw = new PrintWriter(clientSocket.getOutputStream());\r\n      //pw.println(\"GET / HTTP/1.0\");\r\n      pw.println();\r\n      pw.flush();\r\n      byte[] buffer = new byte[1024];\r\n      int read;\r\n      while ((read = is.read(buffer)) != -1) {\r\n        String output = new String(buffer, 0, read);\r\n        Temp = output.substring(output.indexOf(\"[\") + 1, output.indexOf(\"]\"));\r\n        Press = output.substring(output.indexOf(\"(\") + 1, output.indexOf(\")\"));\r\n        Humid = output.substring(output.indexOf(\"|\") + 1);\r\n        break;\r\n      }\r\n      clientSocket.close();\r\n    } catch (IOException ioe) {\r\n      ioe.printStackTrace();\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/PiListener.java b/src/PiListener.java
+--- a/src/PiListener.java	(revision 5450ffcf77a9261ed257073e075ae582c87fa72b)
++++ b/src/PiListener.java	(date 1622130084289)
+@@ -22,7 +22,7 @@
+       light = GetLights.licht;
+       lightSetting = PersoonlijkeInstellingen.lightSetting;
+       tempSetting = PersoonlijkeInstellingen.tempSetting;//KlimaatBeheer.getIngesteldeTempwaarde();
+-      Socket clientSocket = new Socket("10.80.17.1", 8080);
++      Socket clientSocket = new Socket("192.168.178.46", 8080);
+       OutputStream send = clientSocket.getOutputStream();
+ 
+       String setData = light.toString()+splitter+lightSetting.toString()+splitter+tempSetting.toString();
+Index: src/MuziekAfspeler.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.swing.*;\r\nimport javax.swing.border.Border;\r\nimport javax.swing.plaf.basic.BasicArrowButton;\r\nimport javax.swing.table.DefaultTableModel;\r\nimport javax.swing.table.JTableHeader;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.MouseEvent;\r\nimport java.awt.event.MouseListener;\r\nimport java.sql.*;\r\nimport java.text.DateFormat;\r\nimport java.text.SimpleDateFormat;\r\nimport java.util.Calendar;\r\n\r\n\r\npublic class MuziekAfspeler extends JFrame implements ActionListener, MouseListener\r\n{\r\n    private JLabel jlTitel;\r\n    private final BasicArrowButton backButton;\r\n    private final JButton jbVorigeAfspelen;\r\n    private JButton jbPauzeAfspelen;\r\n    private final JButton jbVolgendeAfspelen;\r\n    private final JButton jbAfspeellijstBeheren;\r\n    private final JButton jbMuziekBeheren;\r\n    public int finalSong;\r\n    private final JTable jtTempSong;\r\n    private final String[] TempcolumnNames = {\"Muziek nummers\"};\r\n    DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);\r\n    private JTable jtPlaylists;\r\n    private final String[] playlistColumns = {\"Playlists\"};\r\n    DefaultTableModel plTableModel = new DefaultTableModel(playlistColumns, 0);\r\n    private final Music listener = new Music(this);\r\n    private boolean play;\r\n    private int thisNote;\r\n    private Thread listenerThread;\r\n    \r\n    public int getThisNote()\r\n    {\r\n        return thisNote;\r\n    }\r\n    \r\n    public void setThisNote(int thisNote)\r\n    {\r\n        this.thisNote = thisNote;\r\n    }\r\n    \r\n    public boolean isPlay()\r\n    {\r\n        return play;\r\n    }\r\n    \r\n    public MuziekAfspeler() {\r\n        songData();\r\n        playlistData();\r\n        setTitle(\"Klimaat systeem\");\r\n        setSize(800, 600);\r\n        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        setLocationRelativeTo(null);\r\n        Image icon = Toolkit.getDefaultToolkit().getImage(\"logo.PNG\");\r\n            this.setIconImage(icon);\r\n        JPanel titelPnl = new JPanel(new FlowLayout());\r\n        titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));\r\n        titelPnl.add(jlTitel = new JLabel(\"Dashboard\"));\r\n        backButton.addActionListener(this);\r\n\r\n        JPanel subTitels = new JPanel(new BorderLayout());\r\n        //subTitels.add(jlAfspeellijst = new JLabel(\"naam afspeellijst\"), BorderLayout.NORTH);\r\n        GridLayout tabelLayout = new GridLayout(1, 2);\r\n        JPanel tablePanel = new JPanel(tabelLayout);\r\n        tabelLayout.setHgap(15);\r\n        Border blackline = BorderFactory.createLineBorder(Color.black);\r\n        jtPlaylists = new JTable(plTableModel)\r\n        {\r\n            public boolean isCellEditable(int row, int collumn){\r\n                return false;\r\n            }\r\n        };\r\n        jtPlaylists.setShowGrid(true);\r\n        jtPlaylists.getCellSelectionEnabled();\r\n        jtPlaylists.setRowHeight(50);\r\n        jtPlaylists.setRowSelectionAllowed(true);\r\n        jtPlaylists.setBorder(blackline);\r\n        jtPlaylists.addMouseListener(this);\r\n\r\n        subTitels.add(jtPlaylists);\r\n        jtTempSong = new JTable(tempTableModel) {\r\n            public boolean isCellEditable(int row, int column) {\r\n                return false;\r\n            }\r\n            \r\n        };\r\n        jtTempSong.setShowGrid(true);\r\n        jtTempSong.getCellSelectionEnabled();\r\n        jtTempSong.setRowHeight(50);\r\n        jtTempSong.setRowSelectionAllowed(true);\r\n        jtTempSong.setBorder(blackline);\r\n        jtTempSong.addMouseListener(this);\r\n        \r\n        subTitels.add(jtTempSong);\r\n        JPanel titelsPnl = new JPanel(new BorderLayout());\r\n        titelsPnl.add(titelPnl, BorderLayout.NORTH);\r\n        titelsPnl.add(subTitels, BorderLayout.CENTER);\r\n\r\n        JPanel nummerKnoppenPnl = new JPanel(new FlowLayout());\r\n        nummerKnoppenPnl.add(jbVorigeAfspelen = new JButton(\"Vorige afspelen\"));\r\n        jbVorigeAfspelen.addActionListener(this);\r\n        nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton(\"Afspelen\"));\r\n        jbPauzeAfspelen.addActionListener(this);\r\n        nummerKnoppenPnl.add(jbVolgendeAfspelen = new JButton(\"Volgende afspelen\"));\r\n        jbVolgendeAfspelen.addActionListener(this);\r\n\r\n        JPanel muziekKnoppenPnl = new JPanel(new FlowLayout());\r\n        muziekKnoppenPnl.add(jbAfspeellijstBeheren = new JButton(\"Afspeellijst beheren\"));\r\n        jbAfspeellijstBeheren.addActionListener(this);\r\n        muziekKnoppenPnl.add(jbMuziekBeheren = new JButton(\"Muziek beheren\"));\r\n        jbMuziekBeheren.addActionListener(this);\r\n\r\n        JPanel knoppenPnl = new JPanel(new BorderLayout());\r\n        knoppenPnl.add(nummerKnoppenPnl, BorderLayout.NORTH);\r\n        knoppenPnl.add(muziekKnoppenPnl, BorderLayout.CENTER);\r\n\r\n        JPanel ondersteGedeeltePnl = new JPanel(new BorderLayout());\r\n//        ondersteGedeeltePnl.add(nummertijdPnl, BorderLayout.NORTH);\r\n        ondersteGedeeltePnl.add(knoppenPnl, BorderLayout.CENTER);\r\n\r\n        JPanel borderPnl = new JPanel(new BorderLayout());\r\n        borderPnl.add(titelsPnl, BorderLayout.NORTH);\r\n        borderPnl.add(ondersteGedeeltePnl, BorderLayout.SOUTH);\r\n\r\n        add(borderPnl);\r\n        setVisible(true);\r\n    }\r\n\r\n    @Override\r\n    public void actionPerformed(ActionEvent e) {\r\n        if (e.getSource() == jbVorigeAfspelen) {\r\n            previousSong();\r\n        }\r\n        if (e.getSource() == jbPauzeAfspelen) {\r\n            pauseButton();\r\n        }\r\n        if (e.getSource() == jbVolgendeAfspelen) {\r\n            nextSong();\r\n        }\r\n        if (e.getSource() == jbAfspeellijstBeheren) {\r\n            AfspeellijstBeheer playlist = new AfspeellijstBeheer();\r\n            this.dispose();\r\n        }\r\n        if (e.getSource() == jbMuziekBeheren) {\r\n            MuziekBeheren muziekBeherenscher = new MuziekBeheren();\r\n            this.dispose();\r\n        }\r\n        if (e.getSource() == backButton) {\r\n            Dashboard musicPlayerGUI = new Dashboard();\r\n            this.dispose();\r\n        }\r\n    }\r\n\r\n    public static void main(String[] args) {\r\n        MuziekAfspeler muziekAfspelerscherm = new MuziekAfspeler();\r\n        \r\n    }\r\n    public void nextSong()\r\n    {\r\n        if(listener.currentSong < listener.songLength)\r\n        {\r\n            listener.currentSong++;\r\n        }else\r\n        {\r\n            listener.currentSong = 1;\r\n        }\r\n        thisNote = 1;\r\n    }\r\n    public void previousSong()\r\n    {\r\n        if(listener.currentSong > 1)\r\n        {\r\n            listener.currentSong--;\r\n        }else\r\n        {\r\n            listener.currentSong = listener.songLength;\r\n        }\r\n        thisNote =1;\r\n    }\r\n    public void pauseButton()\r\n    {\r\n        play = !play;\r\n        if(play)\r\n        {\r\n            listenerThread = new Thread(this.listener);\r\n            listenerThread.setDaemon(true);\r\n            listenerThread.start();\r\n            try\r\n            {\r\n                Thread.sleep(100);\r\n            } catch (InterruptedException interruptedException)\r\n            {\r\n                interruptedException.printStackTrace();\r\n            }\r\n            jbPauzeAfspelen.setText(\"Pauze\");\r\n        }\r\n        if(!play)\r\n        {\r\n            listener.port.closePort();\r\n            jbPauzeAfspelen.setText(\"Spelen\");\r\n        }\r\n    }\r\n    public void playlistData()\r\n    {\r\n        try {\r\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n\r\n            String url = \"jdbc:mysql://localhost/domotica_database\";\r\n            String username = \"root\", password = \"\";\r\n\r\n            Connection connection = DriverManager.getConnection(url, username, password);\r\n\r\n            PreparedStatement userstmt = connection.prepareStatement(\"select playlist_name from playlist WHERE account_id =\" + Inloggen.getAccountID() +\" ORDER BY playlist_name ASC \");\r\n            ResultSet playlists = userstmt.executeQuery();\r\n            while(playlists.next())\r\n            {\r\n                String tempTitle = playlists.getString(\"playlist_name\");\r\n                String[] tempData = { tempTitle } ;\r\n\r\n                plTableModel.addRow(tempData);\r\n            }\r\n            playlists.close();\r\n            connection.close();\r\n        } catch (SQLException sqle) {\r\n            System.out.println(sqle.getMessage());\r\n        } catch (Exception ex) {\r\n            System.out.println(ex.getMessage());\r\n        }\r\n    }\r\n    public void songData()\r\n    {\r\n        try {\r\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n        \r\n            String url = \"jdbc:mysql://localhost/domotica_database\";\r\n            String username = \"root\", password = \"\";\r\n        \r\n            Connection connection = DriverManager.getConnection(url, username, password);\r\n        \r\n            PreparedStatement userstmt = connection.prepareStatement(\"select song_name from song ORDER BY song_id ASC\");\r\n            ResultSet songs = userstmt.executeQuery();\r\n            while(songs.next())\r\n            {\r\n                String tempTitle = songs.getString(\"song_name\");\r\n                String[] tempData = { tempTitle } ;\r\n            \r\n                tempTableModel.addRow(tempData);\r\n            }\r\n            songs.close();\r\n            Statement stmt = connection.createStatement();\r\n            ResultSet rs = stmt.executeQuery(\"SELECT COUNT(song_id) FROM song\");\r\n            while(rs.next())\r\n            {\r\n                finalSong = rs.getInt(1);\r\n            }\r\n            connection.close();\r\n        } catch (SQLException sqle) {\r\n            System.out.println(sqle.getMessage());\r\n        } catch (Exception ex) {\r\n            System.out.println(ex.getMessage());\r\n        }\r\n    }\r\n    public void setSong(int num)\r\n    {\r\n        listener.currentSong = num;\r\n        thisNote = 1;\r\n        try {\r\n            DateFormat dateFormat = new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss.SSS\");\r\n            Calendar cal = Calendar.getInstance();\r\n            java.sql.Timestamp timestamp = new java.sql.Timestamp(cal.getTimeInMillis());\r\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n        \r\n            String url = \"jdbc:mysql://localhost/domotica_database\";\r\n            String username = \"root\", password = \"\";\r\n        \r\n            Connection connection = DriverManager.getConnection(url, username, password);\r\n            String sql2 = \"SELECT song_name FROM song WHERE song_id ='\"+ num +\"'\";\r\n            Statement stmt = connection.createStatement();\r\n            ResultSet r = stmt.executeQuery(sql2);\r\n            String naam;\r\n            if(r.next())\r\n            {\r\n                naam = r.getString(1);\r\n                stmt.close();\r\n                String sql = \"INSERT INTO song_log (account_id, song_name, date) VALUES (?,?, ?)\";\r\n                PreparedStatement userstmt = connection.prepareStatement(sql);\r\n                userstmt.setInt(1, Inloggen.getAccountID());\r\n                userstmt.setTimestamp(3, timestamp);\r\n                userstmt.setString(2, naam);\r\n                int i = userstmt.executeUpdate();\r\n                System.out.println(i + \" records inserted\");\r\n            }\r\n            connection.close();\r\n        } catch (SQLException sqle) {\r\n            System.out.println(sqle.getMessage());\r\n        } catch (Exception ex) {\r\n            System.out.println(ex.getMessage());\r\n        }\r\n    }\r\n    \r\n    \r\n    @Override\r\n    public void mouseClicked(MouseEvent e)\r\n    {\r\n        if(e.getSource() == jtTempSong)\r\n        {\r\n            if(jtTempSong.getSelectedColumn() == 0)\r\n            {\r\n                switch (jtTempSong.getSelectedRow())\r\n                {\r\n                    case 0 -> setSong(1);\r\n                    case 1 -> setSong(2);\r\n                    case 2 -> setSong(3);\r\n                    case 3 -> setSong(4);\r\n                    case 4 -> setSong(5);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    \r\n    @Override\r\n    public void mousePressed(MouseEvent e)\r\n    {\r\n    \r\n    }\r\n    \r\n    @Override\r\n    public void mouseReleased(MouseEvent e)\r\n    {\r\n    \r\n    }\r\n    @Override\r\n    public void mouseEntered(MouseEvent e)\r\n    {\r\n    \r\n    }\r\n    \r\n    @Override\r\n    public void mouseExited(MouseEvent e)\r\n    {\r\n    \r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/MuziekAfspeler.java b/src/MuziekAfspeler.java
+--- a/src/MuziekAfspeler.java	(revision 5450ffcf77a9261ed257073e075ae582c87fa72b)
++++ b/src/MuziekAfspeler.java	(date 1622134296881)
+@@ -1,8 +1,9 @@
+ import javax.swing.*;
+ import javax.swing.border.Border;
++import javax.swing.event.ListSelectionEvent;
++import javax.swing.event.ListSelectionListener;
+ import javax.swing.plaf.basic.BasicArrowButton;
+ import javax.swing.table.DefaultTableModel;
+-import javax.swing.table.JTableHeader;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+@@ -16,12 +17,14 @@
+ 
+ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListener
+ {
+-    private JLabel jlTitel;
++    public JList<String> userPlaylists = new JList<>();
++    private final DefaultListModel demoPlaylists = new DefaultListModel();
+     private final BasicArrowButton backButton;
+     private final JButton jbVorigeAfspelen;
+     private JButton jbPauzeAfspelen;
+     private final JButton jbVolgendeAfspelen;
+     private final JButton jbAfspeellijstBeheren;
++    private String playlistName;
+     private final JButton jbMuziekBeheren;
+     public int finalSong;
+     private final JTable jtTempSong;
+@@ -61,29 +64,32 @@
+             this.setIconImage(icon);
+         JPanel titelPnl = new JPanel(new FlowLayout());
+         titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
++        JLabel jlTitel;
+         titelPnl.add(jlTitel = new JLabel("Dashboard"));
+         backButton.addActionListener(this);
+ 
+         JPanel subTitels = new JPanel(new BorderLayout());
+-        //subTitels.add(jlAfspeellijst = new JLabel("naam afspeellijst"), BorderLayout.NORTH);
+-        GridLayout tabelLayout = new GridLayout(1, 2);
+-        JPanel tablePanel = new JPanel(tabelLayout);
+-        tabelLayout.setHgap(15);
++        subTitels.add(new JLabel("Afspeellijsten"), BorderLayout.NORTH);
++        subTitels.add(userPlaylists, BorderLayout.CENTER);
++        JScrollPane outputPane = new JScrollPane(userPlaylists,
++                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
++                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
++        subTitels.add(outputPane);
++        userPlaylists.addListSelectionListener(new ListSelectionListener() {
++        
++            public void valueChanged(ListSelectionEvent e) {
++                if(e.getValueIsAdjusting())
++                {
++                    userPlaylists.setSelectionMode(
++                            ListSelectionModel.SINGLE_SELECTION);
++                    playlistName = userPlaylists.getSelectedValue();
++                    songData(playlistName);
++                }
++            }
++        });
++        JPanel songs = new JPanel(new BorderLayout());
++        songs.add(new JLabel("Nummers"), BorderLayout.NORTH);
+         Border blackline = BorderFactory.createLineBorder(Color.black);
+-        jtPlaylists = new JTable(plTableModel)
+-        {
+-            public boolean isCellEditable(int row, int collumn){
+-                return false;
+-            }
+-        };
+-        jtPlaylists.setShowGrid(true);
+-        jtPlaylists.getCellSelectionEnabled();
+-        jtPlaylists.setRowHeight(50);
+-        jtPlaylists.setRowSelectionAllowed(true);
+-        jtPlaylists.setBorder(blackline);
+-        jtPlaylists.addMouseListener(this);
+-
+-        subTitels.add(jtPlaylists);
+         jtTempSong = new JTable(tempTableModel) {
+             public boolean isCellEditable(int row, int column) {
+                 return false;
+@@ -96,11 +102,11 @@
+         jtTempSong.setRowSelectionAllowed(true);
+         jtTempSong.setBorder(blackline);
+         jtTempSong.addMouseListener(this);
+-        
+-        subTitels.add(jtTempSong);
++        songs.add(jtTempSong);
+         JPanel titelsPnl = new JPanel(new BorderLayout());
+         titelsPnl.add(titelPnl, BorderLayout.NORTH);
+         titelsPnl.add(subTitels, BorderLayout.CENTER);
++        titelsPnl.add(songs, BorderLayout.SOUTH);
+ 
+         JPanel nummerKnoppenPnl = new JPanel(new FlowLayout());
+         nummerKnoppenPnl.add(jbVorigeAfspelen = new JButton("Vorige afspelen"));
+@@ -210,39 +216,36 @@
+     {
+         try {
+             Class.forName("com.mysql.cj.jdbc.Driver");
+-
++    
+             String url = "jdbc:mysql://localhost/domotica_database";
+             String username = "root", password = "";
+-
++    
+             Connection connection = DriverManager.getConnection(url, username, password);
+-
++        
+             PreparedStatement userstmt = connection.prepareStatement("select playlist_name from playlist WHERE account_id =" + Inloggen.getAccountID() +" ORDER BY playlist_name ASC ");
+             ResultSet playlists = userstmt.executeQuery();
+             while(playlists.next())
+             {
+                 String tempTitle = playlists.getString("playlist_name");
+-                String[] tempData = { tempTitle } ;
+-
+-                plTableModel.addRow(tempData);
++                demoPlaylists.addElement(tempTitle);
+             }
++            userPlaylists = new JList<String>(demoPlaylists);
+             playlists.close();
+             connection.close();
+-        } catch (SQLException sqle) {
+-            System.out.println(sqle.getMessage());
+-        } catch (Exception ex) {
++        }  catch (Exception ex) {
+             System.out.println(ex.getMessage());
+         }
+     }
+     public void songData()
+     {
+         try {
++            tempTableModel.setRowCount(0);
+             Class.forName("com.mysql.cj.jdbc.Driver");
+         
+             String url = "jdbc:mysql://localhost/domotica_database";
+             String username = "root", password = "";
+         
+             Connection connection = DriverManager.getConnection(url, username, password);
+-        
+             PreparedStatement userstmt = connection.prepareStatement("select song_name from song ORDER BY song_id ASC");
+             ResultSet songs = userstmt.executeQuery();
+             while(songs.next())
+@@ -260,8 +263,46 @@
+                 finalSong = rs.getInt(1);
+             }
+             connection.close();
+-        } catch (SQLException sqle) {
+-            System.out.println(sqle.getMessage());
++        } catch (Exception ex) {
++            System.out.println(ex.getMessage());
++        }
++    }
++    public void songData(String naam)
++    {
++        try {
++            tempTableModel.setRowCount(0);
++            Class.forName("com.mysql.cj.jdbc.Driver");
++        
++            String url = "jdbc:mysql://localhost/domotica_database";
++            String username = "root", password = "";
++            
++            Connection connection = DriverManager.getConnection(url, username, password);
++            String sql3 = "SELECT Playlist_id from playlist " +
++                    "WHERE account_id=" + Inloggen.getAccountID() + " AND Playlist_name='" + naam + "'";
++            PreparedStatement stmt2 = connection.prepareStatement(sql3);
++            ResultSet plID = stmt2.executeQuery();
++            int i = 0;
++            while(plID.next())
++            {
++                i = plID.getInt(1);
++            }
++            PreparedStatement userstmt = connection.prepareStatement("select song_name from song WHERE song_id IN(SELECT song_id FROM playlist_song WHERE Playlist_id = "  + i+ ") ORDER BY song_id ASC");
++            ResultSet songs = userstmt.executeQuery();
++            while(songs.next())
++            {
++                String tempTitle = songs.getString("song_name");
++                String[] tempData = { tempTitle } ;
++            
++                tempTableModel.addRow(tempData);
++            }
++            songs.close();
++            Statement stmt = connection.createStatement();
++            ResultSet rs = stmt.executeQuery("SELECT COUNT(song_id) FROM song");
++            while(rs.next())
++            {
++                finalSong = rs.getInt(1);
++            }
++            connection.close();
+         } catch (Exception ex) {
+             System.out.println(ex.getMessage());
+         }
+@@ -312,6 +353,19 @@
+         {
+             if(jtTempSong.getSelectedColumn() == 0)
+             {
++                String name = (String)jtTempSong.getValueAt(jtTempSong.getSelectedRow(), 0);
++    
++                try
++                {
++                    Class.forName("com.mysql.cj.jdbc.Driver");
++                    String url = "jdbc:mysql://localhost/domotica_database";
++                    String username = "root", password = "";
++        
++                    Connection connection = DriverManager.getConnection(url, username, password);
++                } catch (Exception e)
++                {
++                    e.printStackTrace();
++                }
+                 switch (jtTempSong.getSelectedRow())
+                 {
+                     case 0 -> setSong(1);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0\" name=\"Default Changelist\" comment=\"icon veranderd in de title back voor de schermen\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_12_58__Default_Changelist_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_12_58__Default_Changelist_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/AfspeellijstBeheer.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/AfspeellijstBeheer.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/AfspeellijstMuziekToevoegen.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/AfspeellijstMuziekToevoegen.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/PiListener.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/PiListener.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1r41VTPoIdwa7gmsm3RqM10vQl1\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"ASKED_ADD_EXTERNAL_FILES\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"SHARE_PROJECT_CONFIGURATION_FILES\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Modules\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.15\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.2\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.pluginManager\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.AfspeellijstBeheer\">\r\n    <configuration name=\"AfspeellijstBeheer\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"AfspeellijstBeheer\" />\r\n      <module name=\"RoboticaKBS\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Dashboard\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Dashboard\" />\r\n      <module name=\"RoboticaKBS\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Inloggen\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Inloggen\" />\r\n      <module name=\"RoboticaKBS\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MuziekAfspeler\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MuziekAfspeler\" />\r\n      <module name=\"RoboticaKBS\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PersoonlijkeInstellingen\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"PersoonlijkeInstellingen\" />\r\n      <module name=\"RoboticaKBS\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.AfspeellijstBeheer\" />\r\n      <item itemvalue=\"Application.Inloggen\" />\r\n      <item itemvalue=\"Application.PersoonlijkeInstellingen\" />\r\n      <item itemvalue=\"Application.Dashboard\" />\r\n      <item itemvalue=\"Application.MuziekAfspeler\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.AfspeellijstBeheer\" />\r\n        <item itemvalue=\"Application.Inloggen\" />\r\n        <item itemvalue=\"Application.Dashboard\" />\r\n        <item itemvalue=\"Application.MuziekAfspeler\" />\r\n        <item itemvalue=\"Application.PersoonlijkeInstellingen\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1618220571875</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1618220571875</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"muziek beheren scherm\">\r\n      <created>1619182570001</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619182570001</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"update inloggen\">\r\n      <created>1619183714013</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619183714013</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"update muziekbeheren\">\r\n      <created>1619441719534</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619441719534</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"update muziekbeheren\">\r\n      <created>1619615894471</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619615894472</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer\">\r\n      <created>1619623569105</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619623569105</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan\">\r\n      <created>1619684007990</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619684007990</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"update de schermen vooruit aan elkaar gelinkt\">\r\n      <created>1619685756763</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619685756763</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"update de schermen achteruit aan elkaar gelinkt\">\r\n      <created>1619688498412</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619688498412</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"update de schermen achteruit aan elkaar gelinkt\">\r\n      <created>1619688901165</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619688901165</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"update de schermen achteruit aan elkaar gelinkt\">\r\n      <created>1619689332048</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619689332048</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"MuziekAfspeler\">\r\n      <created>1619689397935</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619689397935</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"MuziekAfspeler\">\r\n      <created>1619702394227</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619702394227</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"KlimaatBeheer\">\r\n      <created>1619773864013</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619773864013</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"KlimaatBeheer,muziekspeler\">\r\n      <created>1619776153858</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619776153858</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"AfspeellijstBeheer\">\r\n      <created>1619777564209</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619777564209</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"KlimaatProfiel\">\r\n      <created>1619779413900</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619779413900</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"KlimaatProfiel\">\r\n      <created>1619782413609</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619782413609</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"KlimaatProfiel\">\r\n      <created>1619783763773</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619783763773</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"PersoonlijkeInstellingen\">\r\n      <created>1619784932855</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619784932855</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"PersoonlijkeInstellingen\">\r\n      <created>1619784980162</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1619784980162</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"AfspeellijstBeheer dialogen toegevoegt en de afspeellijst gedeeld lijst toegevoegt. AfspeelllijstBeheerDialoog toegevoegt\">\r\n      <created>1620044690762</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620044690762</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\"KlimaatProfiel dialogen toegevoegt.  KlimaatProfielDialoogAanmakenLichtProfiel toegevoegt, KlimaatProfielDialoogAanmakenTempProfiel toegevoegt, KlimaatProfielDialoogAanpassenLichtProfiel toegevoegt, KlimaatProfielDialoogAanpassenTempProfiel toegevoegt.\">\r\n      <created>1620048970127</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620048970127</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\"hashen wachtwoord in inloggen en Account en check gb en ww in Inloggen\">\r\n      <created>1620823981323</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620823981323</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\"hash beter gemaakt\">\r\n      <created>1620824259267</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620824259267</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00025\" summary=\"WachtwoordWijzigen checkt of de wachtwoorden overeen komen en hasht het wachtwoord\">\r\n      <created>1620825484090</created>\r\n      <option name=\"number\" value=\"00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00025\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620825484090</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00026\" summary=\"variabelen toegevoegt om het naar de database zetten makkelijker te maken.\">\r\n      <created>1620907735614</created>\r\n      <option name=\"number\" value=\"00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00026\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620907735614</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00027\" summary=\"variabelen toegevoegt om het naar de database zetten\">\r\n      <created>1620909039189</created>\r\n      <option name=\"number\" value=\"00027\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00027\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620909039189</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00028\" summary=\".\">\r\n      <created>1620909513034</created>\r\n      <option name=\"number\" value=\"00028\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00028\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1620909513034</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00029\" summary=\"KlimaatBeheer layout wijzigingen\">\r\n      <created>1621510072993</created>\r\n      <option name=\"number\" value=\"00029\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00029\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1621510072993</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00030\" summary=\"MuziekAfspeler slider weg gehaald\">\r\n      <created>1621511148397</created>\r\n      <option name=\"number\" value=\"00030\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00030\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1621511148397</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00031\" summary=\"puntjes op de i voor game code\">\r\n      <created>1622052085816</created>\r\n      <option name=\"number\" value=\"00031\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00031\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1622052085816</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"32\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"UnknownFeatures\">\r\n    <option featureType=\"com.intellij.fileTypeFactory\" implementationName=\"*.py\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"muziek beheren scherm\" />\r\n    <MESSAGE value=\"update inloggen\" />\r\n    <MESSAGE value=\"update muziekbeheren\" />\r\n    <MESSAGE value=\"update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer\" />\r\n    <MESSAGE value=\"update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan\" />\r\n    <MESSAGE value=\"update de schermen vooruit aan elkaar gelinkt\" />\r\n    <MESSAGE value=\"update de schermen achteruit aan elkaar gelinkt\" />\r\n    <MESSAGE value=\"MuziekAfspeler\" />\r\n    <MESSAGE value=\"KlimaatBeheer\" />\r\n    <MESSAGE value=\"KlimaatBeheer,muziekspeler\" />\r\n    <MESSAGE value=\"AfspeellijstBeheer\" />\r\n    <MESSAGE value=\"KlimaatProfiel\" />\r\n    <MESSAGE value=\"PersoonlijkeInstellingen\" />\r\n    <MESSAGE value=\"AfspeellijstBeheer dialogen toegevoegt en de afspeellijst gedeeld lijst toegevoegt. AfspeelllijstBeheerDialoog toegevoegt\" />\r\n    <MESSAGE value=\"KlimaatProfiel dialogen toegevoegt.  KlimaatProfielDialoogAanmakenLichtProfiel toegevoegt, KlimaatProfielDialoogAanmakenTempProfiel toegevoegt, KlimaatProfielDialoogAanpassenLichtProfiel toegevoegt, KlimaatProfielDialoogAanpassenTempProfiel toegevoegt.\" />\r\n    <MESSAGE value=\"hashen wachtwoord in inloggen en Account en check gb en ww in Inloggen\" />\r\n    <MESSAGE value=\"hash beter gemaakt\" />\r\n    <MESSAGE value=\"WachtwoordWijzigen checkt of de wachtwoorden overeen komen en hasht het wachtwoord\" />\r\n    <MESSAGE value=\"variabelen toegevoegt om het naar de database zetten makkelijker te maken.\" />\r\n    <MESSAGE value=\"variabelen toegevoegt om het naar de database zetten\" />\r\n    <MESSAGE value=\".\" />\r\n    <MESSAGE value=\"KlimaatBeheer layout wijzigingen\" />\r\n    <MESSAGE value=\"MuziekAfspeler slider weg gehaald\" />\r\n    <MESSAGE value=\"puntjes op de i voor game code\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"puntjes op de i voor game code\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.awt.AWTError\" package=\"java.awt\" />\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </breakpoint>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.lang.NullPointerException\" package=\"java.lang\" />\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 5450ffcf77a9261ed257073e075ae582c87fa72b)
++++ b/.idea/workspace.xml	(date 1622133872145)
+@@ -1,17 +1,17 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="icon veranderd in de title back voor de schermen">
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_12_58__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_12_58__Default_Changelist_.xml" afterDir="false" />
++    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="Afspeellijstbeheer compleet">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Music$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Music$1.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Music.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Music.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/AfspeellijstMuziekToevoegen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstMuziekToevoegen.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Music.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/MuziekAfspeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekAfspeler.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -41,6 +41,11 @@
+       <filtered-out-file-type name="TAG" />
+       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+     </file-type-list>
++  </component>
++  <component name="HighlightingSettingsPerFile">
++    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_1_PiListener.class" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp__PiListener.class" root0="FORCE_HIGHLIGHTING" />
++    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_2_PiListener.class" root0="FORCE_HIGHLIGHTING" />
+   </component>
+   <component name="ProjectId" id="1r41VTPoIdwa7gmsm3RqM10vQl1" />
+   <component name="ProjectLevelVcsManager">
+@@ -61,7 +66,10 @@
+     <property name="project.structure.side.proportion" value="0.2" />
+     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+   </component>
+-  <component name="RunManager" selected="Application.AfspeellijstBeheer">
++  <component name="ReaderModeSettings">
++    <option name="enabled" value="false" />
++  </component>
++  <component name="RunManager" selected="Application.Inloggen">
+     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
+       <module name="RoboticaKBS" />
+@@ -106,9 +114,9 @@
+     </list>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.AfspeellijstBeheer" />
+         <item itemvalue="Application.Inloggen" />
+         <item itemvalue="Application.Dashboard" />
++        <item itemvalue="Application.AfspeellijstBeheer" />
+         <item itemvalue="Application.MuziekAfspeler" />
+         <item itemvalue="Application.PersoonlijkeInstellingen" />
+       </list>
+@@ -340,7 +348,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1622052085816</updated>
+     </task>
+-    <option name="localTasksCounter" value="32" />
++    <task id="LOCAL-00032" summary="Afspeellijstbeheer compleet">
++      <created>1622130627200</created>
++      <option name="number" value="00032" />
++      <option name="presentableId" value="LOCAL-00032" />
++      <option name="project" value="LOCAL" />
++      <updated>1622130627200</updated>
++    </task>
++    <option name="localTasksCounter" value="33" />
+     <servers />
+   </component>
+   <component name="UnknownFeatures">
+@@ -384,7 +399,8 @@
+     <MESSAGE value="KlimaatBeheer layout wijzigingen" />
+     <MESSAGE value="MuziekAfspeler slider weg gehaald" />
+     <MESSAGE value="puntjes op de i voor game code" />
+-    <option name="LAST_COMMIT_MESSAGE" value="puntjes op de i voor game code" />
++    <MESSAGE value="Afspeellijstbeheer compleet" />
++    <option name="LAST_COMMIT_MESSAGE" value="Afspeellijstbeheer compleet" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>

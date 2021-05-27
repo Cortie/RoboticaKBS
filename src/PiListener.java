@@ -22,7 +22,7 @@ public class PiListener implements Runnable {
       light = GetLights.licht;
       lightSetting = PersoonlijkeInstellingen.lightSetting;
       tempSetting = PersoonlijkeInstellingen.tempSetting;//KlimaatBeheer.getIngesteldeTempwaarde();
-      Socket clientSocket = new Socket("10.80.17.1", 8080);
+      Socket clientSocket = new Socket("192.168.178.46", 8080);
       OutputStream send = clientSocket.getOutputStream();
 
       String setData = light.toString()+splitter+lightSetting.toString()+splitter+tempSetting.toString();
