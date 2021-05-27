@@ -51,7 +51,7 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
     manageTxtPnl.add(manage);
     manage.setFont(manage.getFont().deriveFont(16.0f));
 
-    // collection panel for temperature and managa texts
+    // collection panel for temperature and manage texts
     JPanel musicPnl = new JPanel(Bname);
     musicPnl.add(musicTxtPnl, BorderLayout.NORTH);
     musicPnl.add(manageTxtPnl, BorderLayout.SOUTH);
@@ -98,7 +98,8 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
     jbNummerVerwijderen.addActionListener(this);
 
     shareA.add(knoppenPnl,BorderLayout.SOUTH);
-    
+
+    bottom = new JPanel(new FlowLayout());
     bottom.add(shareA);
     // collection panel for all elements
     JPanel borderPnl = new JPanel(collection);

@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="icon veranderd in de title back voor de schermen">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_12_58__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_05_2021_12_58__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AfspeellijstMuziekToevoegen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstMuziekToevoegen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +53,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.AfspeellijstBeheer">
+  <component name="RunManager" selected="Application.Inloggen">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -106,8 +98,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.Inloggen" />
+        <item itemvalue="Application.AfspeellijstBeheer" />
         <item itemvalue="Application.Dashboard" />
         <item itemvalue="Application.MuziekAfspeler" />
         <item itemvalue="Application.PersoonlijkeInstellingen" />
