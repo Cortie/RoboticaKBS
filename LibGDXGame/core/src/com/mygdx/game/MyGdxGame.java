@@ -28,6 +28,7 @@ public class MyGdxGame extends Game
 	public static boolean HighscoreActive;
 	private int playercount = 1;
 	private int playerlives = 3;
+	public double multiplier = 1;
 	private int score = 0;
 	private String Scoretext = "0";
 	private BitmapFont font;

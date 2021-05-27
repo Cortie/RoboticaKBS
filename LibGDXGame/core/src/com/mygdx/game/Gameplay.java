@@ -262,9 +262,10 @@ public class Gameplay implements Screen
                                 int rand = MathUtils.random(1,5);
                                 {
                                     spawnPowerUp(rand, enemy.getX() + 100, enemy.getY() + 100);
+                                    game.multiplier += 0.2;
                                 }
                             }
-                            game.setScore(game.getScore()+enemy.getType().getPointValue());
+                            game.setScore(game.getScore()+enemy.getType().getPointValue()* game.multiplier);
                             game.setScoretext(String.valueOf(game.getScore()));
                             int rand = MathUtils.random(1,10);
                             {
