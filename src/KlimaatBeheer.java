@@ -17,8 +17,12 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     static String piPress = sensor.Press;
     static String piHumid = sensor.Humid;
 
+    private Double temp = Double.parseDouble(piTemp);
+    private Double defaultTemp = 18.0;
+
     // fetch lightsensor value
     private GetLights lampje = new GetLights();
+    private int defaultlight = 150;
     private int lightvalue;
 
     private JLabel jlTitel;
@@ -51,6 +55,9 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     private String lampStatus;
     private JLabel jlLampStatus;
     private JLabel jlLampStatusWaarde;
+    private JLabel jVerwarmStatus;
+    private JLabel jVerwarmStatusWaarde;
+    private String verwarmStatus;
     public Scanner data;
 
     public KlimaatBeheer() {
@@ -106,14 +113,21 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         jbProfielKnop.addActionListener(this);
         jbRefresh.addActionListener(this);
 
-        if (lightvalue >= 150 ) {
+        if (lightvalue >= PersoonlijkeInstellingen.lightSetting ) {
             lampStatus = "uit";
         }
-        if (lightvalue < 150) {
+        if (lightvalue < PersoonlijkeInstellingen.lightSetting) {
             lampStatus = "aan";
         }
 
-        JPanel sensorgegevenPnl = new JPanel(new GridLayout(5, 2));
+        if(temp >= PersoonlijkeInstellingen.tempSetting){
+            verwarmStatus = "uit";
+        }
+        if(temp < PersoonlijkeInstellingen.tempSetting){
+            verwarmStatus = "aan";
+        } 
+
+        JPanel sensorgegevenPnl = new JPanel(new GridLayout(6, 2));
         sensorgegevenPnl.add(jltempSensor = new JLabel("Temperatuur: "));
         jltempSensor.setFont(font1);
         sensorgegevenPnl.add(jlTempWaarde=new JLabel(piTemp + " °C"));
@@ -134,7 +148,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         jlLampStatus.setFont(font1);
         sensorgegevenPnl.add(jlLampStatusWaarde = new JLabel(lampStatus));
         jlLampStatusWaarde.setFont(font1);
-
+        sensorgegevenPnl.add(jVerwarmStatus = new JLabel("Verwarming status: "));
+        jlLampStatus.setFont(font1);
+        sensorgegevenPnl.add(jVerwarmStatusWaarde = new JLabel(verwarmStatus));
+        jlLampStatusWaarde.setFont(font1);
 
         JPanel ondersteGedeelteRechtsPnl = new JPanel(new BorderLayout());
         ondersteGedeelteRechtsPnl.add(profielKnopPnl, BorderLayout.NORTH);
@@ -183,6 +200,15 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == jsTempWaarde) {
             jlTempWaarde.setText(String.valueOf(tempWaarde = jsTempWaarde.getValue()) + " °C");
+            
+            if(temp >= jsTempWaarde.getValue()){
+                verwarmStatus = "uit";
+                jVerwarmStatusWaarde.setText(verwarmStatus);
+            }
+            if(temp< jsTempWaarde.getValue()){
+                verwarmStatus = "aan";
+                jVerwarmStatusWaarde.setText(verwarmStatus);
+            }
         }
         if (e.getSource() == jsLichtsterkte) {
             jlLichtsterkteWaarde.setText(String.valueOf(lichtsterkteWaarde = jsLichtsterkte.getValue()) + " LM");
@@ -200,5 +226,6 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
 
     }
+
 
 }

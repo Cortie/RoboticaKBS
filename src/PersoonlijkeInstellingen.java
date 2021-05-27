@@ -1,3 +1,5 @@
+import com.mysql.cj.protocol.Resultset;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,31 +12,20 @@ import java.sql.*;
 public class PersoonlijkeInstellingen extends JFrame implements ActionListener, MouseListener {
   // definitions for labels, buttons and layouts
   private JLabel settings = new JLabel("Persoonlijke instellingen");
-
-
-
   private JLabel username = new JLabel("accountnaam: " + Inloggen.getAccountName());
-  private JLabel tempProfile = new JLabel("geselecteerde temperatuur profiel: geen profiel geselecteerd");
-  private JLabel lightProfile = new JLabel("geselecteerde lichtsterkte profiel: geen profiel geselecteerd");
-
+  private JLabel tempProfile;
+  private JLabel lightProfile;
   private BasicArrowButton backButton;
   private JTable jtTempProfile;
   private JTable jtLightProfile;
   private String[] TempcolumnNames = {"Temperatuur profielen"};
   private String[] lightColumnNames = {"Lichtsterkte profielen"};
   private String profilename;
+  public static int lightSetting;
+  public static int tempSetting;
 
   DefaultTableModel tempTableModel = new DefaultTableModel(TempcolumnNames, 0);
   DefaultTableModel lightTableModel = new DefaultTableModel(lightColumnNames, 0);
-
-//  String[][] num = { { "nummer 1"}, { "nummer 2"}, { "nummer 3" }, { "nummer 4" },
-//      { "nummer 5" }, };
-//
-//  String[][] profiel = { { "profiel 1" }, { "profiel 2" }, { "profiel 3" },
-//      { "profiel 4" }, { "profiel 5" }, };
-
-  //JLabel playlist1 = new JLabel("Afspeellijst 1");
-  JLabel profiles = new JLabel("Klimaatbeheer profielen bewerken");
 
   JButton jbEdit = new JButton("Profielen aanpassen");
 
@@ -53,6 +44,45 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     // borders
     Border blackline = BorderFactory.createLineBorder(Color.black);
+
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        String url = "jdbc:mysql://localhost/domotica_database";
+        String username = "root", password = "";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        PreparedStatement lightStmt = connection.prepareStatement("select light_strength_profile_name, profile_light_strength from light_strength_profile where is_selected = 1 && account_id = ?;");
+        lightStmt.setInt(1,Inloggen.getAccountID());
+        ResultSet rs = lightStmt.executeQuery();
+        rs.next();
+        String defaultLightProfile = rs.getString(1);
+        int defaultLightValue = rs.getInt(2);
+        lightProfile = new JLabel("geselecteerde lichtsterkte profiel: "+defaultLightProfile );
+        lightSetting = defaultLightValue;
+
+        rs.close();
+
+        PreparedStatement tempStmt = connection.prepareStatement("select temp_profile_name ,profile_temperature from temperature_profile where is_selected = 1 && account_id = ?; ");
+        tempStmt.setInt(1,Inloggen.getAccountID());
+        ResultSet tempRs = tempStmt.executeQuery();
+        tempRs.next();
+        String defaultTempProfile = tempRs.getString(1);
+        int defaultTempValue = tempRs.getInt(2);
+        tempProfile = new JLabel("geselecteerde temperatuur profiel: "+ defaultTempProfile);
+        tempSetting =defaultTempValue;
+
+        tempRs.close();
+        connection.close();
+
+    }catch(SQLException sqle){
+
+        lightProfile = new JLabel("geselecteerde lichtsterkte profiel: geen profiel geselecteerd");
+        tempProfile = new JLabel("geselecteerde temperatuur profiel: geen profiel geselecteerd");
+    }catch(Exception e){
+        System.out.println(e.getMessage());
+    }
+
 
 
       // userdetails panel to contain both username and about text
@@ -180,58 +210,6 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
 
 
 
-      // panel for list of songs
-//    JPanel NumbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//    NumbersPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//    String[] headerN = { "nummers" };
-//    jtTableNum = new JTable(num, headerN) {
-//      public boolean isCellEditable(int row, int column) {
-//        return false;
-//      }
-//    };
-//    jtTableNum.addMouseListener(this);
-//    jtTableNum.setCellSelectionEnabled(false);
-//    jtTableNum.setShowGrid(false);
-//    // jtTableNum.setEnabled(false);
-//    jtTableNum.setRowHeight(30);
-//
-//    NumbersPanel.add(jtTableNum);
-
-    // panel for list of playlists
-//    JPanel playlistsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//    playlistsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//    String[] headerP = { "profiel" };
-//    jtTableProfiel = new JTable(profiel, headerP) {
-//      public boolean isCellEditable(int row, int column) {
-//        return false;
-//      }
-//    };
-//    jtTableProfiel.addMouseListener(this);
-//    jtTableProfiel.setCellSelectionEnabled(false);
-//    jtTableProfiel.setShowGrid(false);
-//    // jtTablePlaylist.setEnabled(false);
-//    jtTableProfiel.setRowHeight(30);
-//    playlistsPanel.add(jtTableProfiel);
-
-    // borderpanel for the collection of both lists
-    //JPanel privacySettings = new JPanel(privacydetailBorder);
-    //privacydetailBorder.setVgap(30);
-    //privacySettings.add(tablePanel,BorderLayout.SOUTH);
-    //privacySettings.add(NumbersPanel, BorderLayout.NORTH);
-    //privacySettings.add(playlistsPanel, BorderLayout.SOUTH);
-
-    // borderpanel for the left section of the GUI
-
-    //left.add(privacySettings, BorderLayout.SOUTH);
-
-
-
-
-
-
-
-
-    //add(borderPnl);
     setVisible(true);
     jbEdit.addActionListener(this);
     backButton.addActionListener(this);
@@ -289,6 +267,16 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
               System.out.println(falseStatement + "temperatuur profielen geupdated");
 
               setFalseStmt.close();
+
+
+              PreparedStatement getIngesteldeTempwaarde = connection.prepareStatement("select profile_temperature from temperature_profile where is_selected = 1");
+              ResultSet rs =  getIngesteldeTempwaarde.executeQuery();
+              rs.next();
+              int tempWaarde = rs.getInt(1);
+              tempSetting =tempWaarde;
+
+              rs.close();
+              getIngesteldeTempwaarde.close();
               connection.close();
 
           }catch(SQLException sqlEx){
@@ -331,6 +319,16 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
               System.out.println(falseStatement + "lichtsterkte profielen geupdated");
 
               setFalseStmt.close();
+
+              PreparedStatement getIngesteldeLichtwaarde = connection.prepareStatement("select profile_light_strength from light_strength_profile where is_selected = 1");
+              ResultSet rs =  getIngesteldeLichtwaarde.executeQuery();
+              rs.next();
+              int lichtWaarde = rs.getInt(1);
+              lightSetting = lichtWaarde;
+
+              rs.close();
+              getIngesteldeLichtwaarde.close();
+
               connection.close();
 
           }catch(SQLException sqlEx){
@@ -343,52 +341,6 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
           SwingUtilities.updateComponentTreeUI(this);
       }
 
-//    if (e.getSource() == jtTableProfiel) {
-//      if (jtTableProfiel.getSelectedColumn() == 1) {
-//        System.out.println("playlist table");
-//        System.out.println("knop column");
-//        if (jtTableProfiel.getSelectedRow() == 0) {
-//          System.out.println("row 1");
-//        }
-//        if (jtTableProfiel.getSelectedRow() == 1) {
-//          System.out.println("row 2");
-//        }
-//        if (jtTableProfiel.getSelectedRow() == 2) {
-//          System.out.println("row 3");
-//        }
-//        if (jtTableProfiel.getSelectedRow() == 3) {
-//          System.out.println("row 4");
-//        }
-//        if (jtTableProfiel.getSelectedRow() == 4) {
-//          System.out.println("row 5");
-//        }
-//      }
-//    }
-//    if (e.getSource() == jtTableNum) {
-//
-////      if (jtTableNum.getSelectedColumn() == 1) {
-////
-////
-//////        System.out.println("nummer table");
-//////        System.out.println("knop column");
-//////        if (jtTableNum.getSelectedRow() == 0) {
-//////          System.out.println("row 1");
-//////        }
-//////        if (jtTableNum.getSelectedRow() == 1) {
-//////          System.out.println("row 2");
-//////        }
-//////        if (jtTableNum.getSelectedRow() == 2) {
-//////          System.out.println("row 3");
-//////        }
-//////        if (jtTableNum.getSelectedRow() == 3) {
-//////          System.out.println("row 4");
-//////        }
-//////        if (jtTableNum.getSelectedRow() == 4) {
-//////          System.out.println("row 5");
-//////        }
-////
-////      }
-//    }
   }
 
   @Override
