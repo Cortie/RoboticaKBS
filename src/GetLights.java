@@ -6,7 +6,7 @@ import com.fazecast.jSerialComm.SerialPort;
 public class GetLights {
   private int lightvalue;
   public int lichtwaarde;
-  private int defaultLight;
+  public static int licht = 0;
   public SerialPort port;
 
   public Scanner data;

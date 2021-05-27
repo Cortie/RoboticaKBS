@@ -52,7 +52,8 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
         String username = "root", password = "";
 
         Connection connection = DriverManager.getConnection(url, username, password);
-        PreparedStatement lightStmt = connection.prepareStatement("select light_strength_profile_name, profile_light_strength from light_strength_profile where is_selected = 1");
+        PreparedStatement lightStmt = connection.prepareStatement("select light_strength_profile_name, profile_light_strength from light_strength_profile where is_selected = 1 && account_id = ?;");
+        lightStmt.setInt(1,Inloggen.getAccountID());
         ResultSet rs = lightStmt.executeQuery();
         rs.next();
         String defaultLightProfile = rs.getString(1);
@@ -62,7 +63,8 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
 
         rs.close();
 
-        PreparedStatement tempStmt = connection.prepareStatement("select temp_profile_name ,profile_temperature from temperature_profile where is_selected = 1");
+        PreparedStatement tempStmt = connection.prepareStatement("select temp_profile_name ,profile_temperature from temperature_profile where is_selected = 1 && account_id = ?; ");
+        tempStmt.setInt(1,Inloggen.getAccountID());
         ResultSet tempRs = tempStmt.executeQuery();
         tempRs.next();
         String defaultTempProfile = tempRs.getString(1);
