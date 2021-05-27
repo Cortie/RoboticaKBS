@@ -39,7 +39,7 @@ public class AfspeellijstMuziekToevoegen extends JDialog implements ActionListen
                     userPlaylists.setSelectionMode(
                             ListSelectionModel.SINGLE_SELECTION);
                     String name = userPlaylists.getSelectedValue();
-                    addSong(name);
+                    removeSong(name);
                 }
             }
             

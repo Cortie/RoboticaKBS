@@ -104,11 +104,14 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
       }
     });
     
-    JPanel knoppenPnl = new JPanel(new FlowLayout());
-    knoppenPnl.add(jbAfspeellijstVerwijderen);
+    JPanel knoppenPnl = new JPanel(new BorderLayout());
+    knoppenPnl.add(jbAfspeellijstVerwijderen,BorderLayout.NORTH);
         jbAfspeellijstVerwijderen.addActionListener(this);
-        knoppenPnl.add(jbNummerToevoegen);
+        knoppenPnl.add(jbNummerToevoegen,BorderLayout.CENTER);
         jbNummerToevoegen.addActionListener(this);
+        knoppenPnl.add(jbNummerVerwijderen,BorderLayout.SOUTH);
+        jbNummerVerwijderen.addActionListener(this);
+
     shareA.add(knoppenPnl,BorderLayout.SOUTH);
     
     bottom.add(shareA);
