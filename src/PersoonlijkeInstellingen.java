@@ -39,6 +39,8 @@ public class PersoonlijkeInstellingen extends JFrame implements ActionListener, 
     setLayout(new GridLayout(4,1));
     setSize(800, 600);
     setLocationRelativeTo(null);
+      Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+          this.setIconImage(icon);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     // borders
     Border blackline = BorderFactory.createLineBorder(Color.black);

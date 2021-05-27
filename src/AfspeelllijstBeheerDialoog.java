@@ -15,6 +15,8 @@ public class AfspeelllijstBeheerDialoog extends JDialog implements ActionListene
         setSize(800, 500);
         setTitle("Muziek toevoegen aan afspeellijst");
         setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
 
         JPanel lijstMusicAanAfspeellijst = new JPanel(new GridLayout(2, 2));
         lijstMusicAanAfspeellijst.add(new JLabel("Afspeellijst 1 "));

@@ -1,15 +1,13 @@
 import java.io.*;
+import java.lang.ref.Cleaner.Cleanable;
 import java.net.*;
 
 public class PiListener implements Runnable {
   public String Temp;
   public String Press;
   public String Humid;
-  public Integer lightSetting;
-  public Integer light;
-  public Integer tempSetting;
-  public String splitter ="|";
-
+  public Integer lights = 151;
+  public Integer counter = 0;
 
   public PiListener() {
     run();
@@ -18,10 +16,8 @@ public class PiListener implements Runnable {
   @Override
   public void run() {
     try {
-      light = GetLights.licht;
-      lightSetting = PersoonlijkeInstellingen.lightSetting;
-      tempSetting = PersoonlijkeInstellingen.tempSetting;//KlimaatBeheer.getIngesteldeTempwaarde();
-      Socket clientSocket = new Socket("10.80.17.1", 8080);
+      Socket clientSocket = new Socket("192.168.0.124", 8080);
+      clientSocket.setTcpNoDelay(true);
       OutputStream send = clientSocket.getOutputStream();
 
       String setData = light.toString()+splitter+lightSetting.toString()+splitter+tempSetting.toString();
@@ -39,14 +35,14 @@ public class PiListener implements Runnable {
       int read;
       while ((read = is.read(buffer)) != -1) {
         String output = new String(buffer, 0, read);
-        Temp = output.substring(0,17);
+        Temp = output.substring(output.indexOf("[") + 1, output.indexOf("]"));
         Press = output.substring(output.indexOf("(") + 1, output.indexOf(")"));
         Humid = output.substring(output.indexOf("|") + 1);
         break;
       }
       clientSocket.close();
     } catch (IOException ioe) {
-
+      ioe.printStackTrace();
     }
   }
 }

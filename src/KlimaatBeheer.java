@@ -23,6 +23,7 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
 
     private JLabel jlTitel;
     private JButton jbProfielKnop;
+    private JButton jbRefresh;
     private JLabel jlTempAanpassen;
     private JLabel jlLichtsterkteAanpassen;
     private JSlider jsTempWaarde;
@@ -88,6 +89,8 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+            this.setIconImage(icon);
 
         JPanel backbuttenPnl = new JPanel(new FlowLayout());
         backbuttenPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST));
@@ -97,39 +100,11 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         titelTekstPnl.add(jlTitel = new JLabel("Klimaatbeheer"),BorderLayout.NORTH);
         jlTitel.setFont(font1);
 
-//        JPanel titelPnl = new JPanel(new BorderLayout());
-//        titelPnl.add(backbuttenPnl,BorderLayout.WEST);
-//        titelPnl.add(titelTekstPnl,BorderLayout.CENTER);
-        //titelPnl.add(backButton = new BasicArrowButton(BasicArrowButton.WEST),BorderLayout.WEST);
-        //titelPnl.add(jlTitel = new JLabel("Klimaatbeheer"),BorderLayout.NORTH);
-
         JPanel profielKnopPnl = new JPanel(new FlowLayout());
         profielKnopPnl.add(jbProfielKnop = new JButton("Profielen aanpassen"));
+        profielKnopPnl.add(jbRefresh = new JButton("Refresh"));
         jbProfielKnop.addActionListener(this);
-
-//        JPanel slidersGedeeltePnl = new JPanel(new GridLayout(4, 2));
-//        slidersGedeeltePnl.add(jlTempAanpassen = new JLabel("Temperatuur aanpassen"));
-//        slidersGedeeltePnl.add(jlEmpty = new JLabel(""));
-//        slidersGedeeltePnl.add(jsTempWaarde = new JSlider());
-//        tempWaarde = jsTempWaarde.getValue();
-//        jsTempWaarde.addChangeListener(this);
-//        slidersGedeeltePnl.add(jlTempWaarde = new JLabel(String.valueOf(tempWaarde) + " °C"));
-//        slidersGedeeltePnl.add(jlLichtsterkteAanpassen = new JLabel("Lichtsterkte aanpassen"));
-//        slidersGedeeltePnl.add(jlEmpty = new JLabel(""));
-//        slidersGedeeltePnl.add(jsLichtsterkte = new JSlider(0, 500));
-//        jsLichtsterkte.addChangeListener(this);
-//        lichtsterkteWaarde = jsLichtsterkte.getValue();
-//        slidersGedeeltePnl.add(jlLichtsterkteWaarde = new JLabel(String.valueOf(lichtsterkteWaarde) + " LM"));
-
-//        JPanel profielenPnl = new JPanel(new GridLayout(2, 2));
-//        profielenPnl.add(jlTempprofiel = new JLabel("Temperatuurprofiel: "));
-//        profielenPnl.add(new JLabel(tempProfiel));
-//        profielenPnl.add(jlLichtsterkteprofiel = new JLabel("Lichtsterkteprofiel: "));
-//        profielenPnl.add(new JLabel(lichtsterkteProfiel));
-
-//        JPanel ondersteGedeelteLinksPnl = new JPanel(new BorderLayout());
-        //ondersteGedeelteLinksPnl.add(slidersGedeeltePnl, BorderLayout.CENTER);
-        //ondersteGedeelteLinksPnl.add(profielenPnl, BorderLayout.NORTH);
+        jbRefresh.addActionListener(this);
 
         if (lightvalue >= PersoonlijkeInstellingen.lightSetting ) {
             lampStatus = "uit";
@@ -193,7 +168,10 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
             Dashboard dash = new Dashboard();
             this.dispose();
         }
-
+        if(e.getSource() == jbRefresh) {
+            KlimaatBeheer beheer = new KlimaatBeheer();
+            this.dispose();
+        }
     }
 
     public static void main(String[] args) {

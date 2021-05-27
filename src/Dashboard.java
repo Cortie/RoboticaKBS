@@ -35,6 +35,9 @@ public class Dashboard extends JFrame implements ActionListener {
     setSize(800, 600);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
+    Image icon = Toolkit.getDefaultToolkit().getImage("logo.PNG");
+    this.setIconImage(icon);
+
 
     // temperature panel
     JPanel tempPnl = new JPanel(standard);
