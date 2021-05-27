@@ -6,8 +6,11 @@ public class PiListener implements Runnable {
   public String Temp;
   public String Press;
   public String Humid;
-  public Integer lights = 151;
-  public Integer counter = 0;
+  public Integer lightSetting;
+  public Integer light;
+  public Integer tempSetting;
+  public String splitter ="|";
+
 
   public PiListener() {
     run();
@@ -16,11 +19,18 @@ public class PiListener implements Runnable {
   @Override
   public void run() {
     try {
-      Socket clientSocket = new Socket("192.168.0.124", 8080);
-      clientSocket.setTcpNoDelay(true);
+      light = GetLights.licht;
+      lightSetting = PersoonlijkeInstellingen.lightSetting;
+      tempSetting = PersoonlijkeInstellingen.tempSetting;//KlimaatBeheer.getIngesteldeTempwaarde();
+      Socket clientSocket = new Socket("10.80.17.1", 8080);
       OutputStream send = clientSocket.getOutputStream();
-      byte b = lights.byteValue();
-      send.write(b);
+
+      String setData = light.toString()+splitter+lightSetting.toString()+splitter+tempSetting.toString();
+
+      byte[] a = setData.getBytes();
+      send.write(a);
+
+
       InputStream is = clientSocket.getInputStream();
       PrintWriter pw = new PrintWriter(clientSocket.getOutputStream());
       pw.println("GET / HTTP/1.0");

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="icon veranderd in de title back voor de schermen">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="KlimaatBeheer layout veranderd en wanneer licht aan gaat aangepast">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PersoonlijkeInstellingen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GetLights.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GetLights.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/raspberrypi/getSensorToSocket.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

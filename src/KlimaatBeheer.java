@@ -113,17 +113,17 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         jbProfielKnop.addActionListener(this);
         jbRefresh.addActionListener(this);
 
-        if (lightvalue >= defaultlight ) {
+        if (lightvalue >= PersoonlijkeInstellingen.lightSetting ) {
             lampStatus = "uit";
         }
-        if (lightvalue < defaultlight) {
+        if (lightvalue < PersoonlijkeInstellingen.lightSetting) {
             lampStatus = "aan";
         }
 
-        if(temp >= defaultTemp){
+        if(temp >= PersoonlijkeInstellingen.tempSetting){
             verwarmStatus = "uit";
         }
-        if(temp < defaultTemp){
+        if(temp < PersoonlijkeInstellingen.tempSetting){
             verwarmStatus = "aan";
         } 
 
@@ -226,5 +226,6 @@ public class KlimaatBeheer extends JFrame implements ActionListener, ChangeListe
         }
 
     }
+
 
 }

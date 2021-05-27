@@ -23,7 +23,7 @@ public class Dashboard extends JFrame implements ActionListener {
 
   public Dashboard() {
 
-    PiListener.lights = lampje.lichtwaarde;
+    PiListener.lightSetting = lampje.lichtwaarde;
 
     Thread PiListenerThread = new Thread(PiListener);
     PiListenerThread.setDaemon(true);
