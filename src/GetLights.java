@@ -57,7 +57,7 @@ public class GetLights {
       lightvalue = 0;
 
       try {
-        if (data.nextLine().length() == 2 || data.nextLine().length() == 3) {
+        if (data.nextLine().length() < 4) {
           lightvalue = Integer.parseInt(data.nextLine());
 
         }

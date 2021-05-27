@@ -80,7 +80,7 @@ while True:
         switch_lights_on()
     else:
         switch_lights_off()
-        
+
 
 
     if temp < tempSetting:

@@ -33,7 +33,7 @@ public class PiListener implements Runnable {
 
       InputStream is = clientSocket.getInputStream();
       PrintWriter pw = new PrintWriter(clientSocket.getOutputStream());
-      pw.println("GET / HTTP/1.0");
+      //pw.println("GET / HTTP/1.0");
       pw.println();
       pw.flush();
       byte[] buffer = new byte[1024];

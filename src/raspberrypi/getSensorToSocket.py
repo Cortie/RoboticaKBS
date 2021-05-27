@@ -5,7 +5,9 @@ sense = SenseHat()
 
 temp = sense.get_temperature()
 temp = round(temp,1)
+temp2 = round(temp,1)
 temp = str(temp)
+temp2 = int(temp2)
 
 pressure = sense.get_pressure()
 pressure = round(pressure,1)
@@ -74,19 +76,25 @@ while True:
 
 
     [lightValue,lightSetting,tempSetting] = data.split("|")
+    tempSetting = int(tempSetting)
+    lightValue = int(lightValue)
+    lightSetting = int(lightSetting)
     my_Sensors()
     print("light Int value: ", lightValue)
-    if lightValue < lightSetting:
+    if lightValue < lightSetting and temp2 < tempSetting:
         switch_lights_on()
-    else:
-        switch_lights_off()
-
-
-
-    if temp < tempSetting:
         switch_heater_on()
-    if temp >= tempSetting:
+
+    if lightValue >= lightSetting and temp2 < tempSetting:
+        switch_lights_off()
+        switch_heater_on()
+
+    if lightValue < lightSetting and temp2 >= tempSetting:
+        switch_lights_on()
         switch_heater_off()
+
+    if lightValue >= lightSetting and temp2 >= tempSetting:
+        sense.clear()
 
 
     conn.send(my_Sensors.Sdata)
