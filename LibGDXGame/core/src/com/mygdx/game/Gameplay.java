@@ -36,6 +36,7 @@ public class Gameplay implements Screen
     @Override
     public void show()
     {
+        game.multiplier = 1;
         heart = new Texture(Gdx.files.internal("1live.png"));
         forcefieldImg = new Texture(Gdx.files.internal("ForceField.png"));
         //local variables used during gameplay
