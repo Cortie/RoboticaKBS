@@ -25,6 +25,9 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
   FlowLayout select = new FlowLayout(FlowLayout.RIGHT, 50, 0);
   BorderLayout Bname = new BorderLayout();
   BorderLayout collection = new BorderLayout();
+  private JButton jbNummerToevoegen = new JButton("Muziek toevoegen");
+  private JButton jbNummerVerwijderen = new JButton("Muziek verwijderen");
+  private JButton jbAfspeellijstVerwijderen = new JButton("Afspeellijst verwijderen");
 
   public AfspeellijstBeheer() {
     // set standard data
@@ -82,13 +85,24 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
           getSongs(name);
         }
       }
+
     });
+
+    JPanel knoppenPnl = new JPanel(new FlowLayout());
+    knoppenPnl.add(jbAfspeellijstVerwijderen);
+        jbAfspeellijstVerwijderen.addActionListener(this);
+        knoppenPnl.add(jbNummerToevoegen);
+        jbNummerToevoegen.addActionListener(this);
+    shareA.add(knoppenPnl,BorderLayout.SOUTH);
+
     // adding songs to playlist
     JPanel addM = new JPanel(new BorderLayout());
     addM.add(addMusic, BorderLayout.NORTH);
     addMusic.setFont(addMusic.getFont().deriveFont(16.0f));
     addM.add(playlistSongs, BorderLayout.CENTER);
     addM.setBorder(BorderFactory.createLineBorder(Color.black));
+    addM.add(jbNummerVerwijderen,BorderLayout.SOUTH);
+    jbNummerVerwijderen.addActionListener(this);
     
     // collection panel for sharing and adding songs panels
     JPanel bottom = new JPanel(select);
@@ -117,6 +131,18 @@ public class AfspeellijstBeheer extends JFrame implements ActionListener, MouseL
       MuziekAfspeler musicPlayerGUI = new MuziekAfspeler();
       this.dispose();
     }
+    if (e.getSource() == jbAfspeellijstVerwijderen)
+    {
+      System.out.println("doe iets");
+    }
+    if (e.getSource() == jbNummerToevoegen)
+        {
+          System.out.println("doe iets");
+        }
+    if (e.getSource() == jbNummerVerwijderen)
+        {
+          System.out.println("doe iets");
+        }
   }
   public void afspeellijstAanmaken(String naam)
   {
