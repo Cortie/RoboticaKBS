@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="schermen openen in het midden">
-      <change afterPath="$PROJECT_DIR$/logo.png" afterDir="false" />
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="icon veranderd in de title back voor de schermen">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12-4-2021_12_29__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_05_2021_15_10__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeelllijstBeheerDialoog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeelllijstBeheerDialoog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/Dashboard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/AfspeellijstBeheer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/KlimaatBeheer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekAfspeler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/MuziekBeheren.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoboticaKBS/PiListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeellijstBeheer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AfspeelllijstBeheerDialoog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AfspeelllijstBeheerDialoog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Inloggen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Inloggen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatBeheer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatBeheer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenLichtProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanmakenTempProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenLichtProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KlimaatProfielDialoogAanpassenTempProfiel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MuziekAfspeler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekAfspeler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MuziekBeheren.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MuziekBeheren.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersoonlijkeInstellingen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PiListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PiListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,13 +53,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/LibGDXGame" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.Inloggen">
+  <component name="RunManager" selected="Application.Dashboard">
     <configuration name="AfspeellijstBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="AfspeellijstBeheer" />
       <module name="RoboticaKBS" />
@@ -93,15 +81,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KlimaatBeheer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="KlimaatBeheer" />
+    <configuration name="MuziekAfspeler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MuziekAfspeler" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KlimaatProfiel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="KlimaatProfiel" />
+    <configuration name="PersoonlijkeInstellingen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PersoonlijkeInstellingen" />
       <module name="RoboticaKBS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -110,18 +98,17 @@
     <list>
       <item itemvalue="Application.AfspeellijstBeheer" />
       <item itemvalue="Application.Inloggen" />
+      <item itemvalue="Application.PersoonlijkeInstellingen" />
       <item itemvalue="Application.Dashboard" />
-      <item itemvalue="Application.KlimaatBeheer" />
-      <item itemvalue="Application.KlimaatProfiel" />
-      <item itemvalue="Application.AfspeellijstBeheer" />
+      <item itemvalue="Application.MuziekAfspeler" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.Dashboard" />
+        <item itemvalue="Application.Inloggen" />
         <item itemvalue="Application.AfspeellijstBeheer" />
-        <item itemvalue="Application.KlimaatBeheer" />
-        <item itemvalue="Application.KlimaatProfiel" />
+        <item itemvalue="Application.MuziekAfspeler" />
+        <item itemvalue="Application.PersoonlijkeInstellingen" />
       </list>
     </recent_temporary>
   </component>
@@ -344,35 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621511148397</updated>
     </task>
-    <task id="LOCAL-00031" summary="afspeellijsten v1">
-      <created>1622037940958</created>
+    <task id="LOCAL-00031" summary="puntjes op de i voor game code">
+      <created>1622052085816</created>
       <option name="number" value="00031" />
       <option name="presentableId" value="LOCAL-00031" />
       <option name="project" value="LOCAL" />
-      <updated>1622037940958</updated>
+      <updated>1622052085816</updated>
     </task>
-    <task id="LOCAL-00033" summary="Dashboard de knop naam verranderd">
-      <created>1622034046671</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1622034046671</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Klimaatprofielen pop-ups titel veranderd en dashboard verandert">
-      <created>1622035165146</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1622035165146</updated>
-    </task>
-    <task id="LOCAL-00035" summary="schermen openen in het midden">
-      <created>1622035841107</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1622035841107</updated>
-    </task>
-    <option name="localTasksCounter" value="36" />
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -392,6 +358,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="muziek beheren scherm" />
+    <MESSAGE value="update inloggen" />
+    <MESSAGE value="update muziekbeheren" />
     <MESSAGE value="update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer" />
     <MESSAGE value="update inloggen,account, dashboard, muziekspeler, persoonlijke instellingen. knoppen geven link aan" />
     <MESSAGE value="update de schermen vooruit aan elkaar gelinkt" />
@@ -412,12 +381,8 @@
     <MESSAGE value="." />
     <MESSAGE value="KlimaatBeheer layout wijzigingen" />
     <MESSAGE value="MuziekAfspeler slider weg gehaald" />
-    <MESSAGE value="Wachtwoord vergeten knop weg gehaald uit inlog scherm" />
-    <MESSAGE value="WachtwoordWijzigen verwijderd" />
-    <MESSAGE value="Dashboard de knop naam verranderd" />
-    <MESSAGE value="Klimaatprofielen pop-ups titel veranderd en dashboard verandert" />
-    <MESSAGE value="schermen openen in het midden" />
-    <option name="LAST_COMMIT_MESSAGE" value="schermen openen in het midden" />
+    <MESSAGE value="puntjes op de i voor game code" />
+    <option name="LAST_COMMIT_MESSAGE" value="puntjes op de i voor game code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

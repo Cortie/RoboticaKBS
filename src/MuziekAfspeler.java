@@ -17,9 +17,6 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     private final JLabel jlTitel;
     private final JLabel jlAfspeellijst;
     private JLabel jlNummer;
-//    private JSlider jsNumerTijd;
-//    private JLabel jlNummerTijdWaarde;
-//    private int nummerTijdWaarde;
     private final JButton jbVorigeAfspelen;
     private JButton jbPauzeAfspelen;
     private final JButton jbVolgendeAfspelen;
@@ -107,16 +104,8 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
         JPanel nummerKnoppenPnl = new JPanel(new FlowLayout());
         nummerKnoppenPnl.add(jbVorigeAfspelen = new JButton("Vorige afspelen"));
         jbVorigeAfspelen.addActionListener(this);
-        if(play)
-        {
-            nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton("Pauze"));
-            jbPauzeAfspelen.addActionListener(this);
-        }
-        else if(!play)
-        {
-            nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton("Afspelen"));
-            jbPauzeAfspelen.addActionListener(this);
-        }
+        nummerKnoppenPnl.add(jbPauzeAfspelen = new JButton("Afspelen"));
+        jbPauzeAfspelen.addActionListener(this);
         nummerKnoppenPnl.add(jbVolgendeAfspelen = new JButton("Volgende afspelen"));
         jbVolgendeAfspelen.addActionListener(this);
 
@@ -208,11 +197,12 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
             {
                 interruptedException.printStackTrace();
             }
+            jbPauzeAfspelen.setText("Pauze");
         }
         if(!play)
         {
             listener.port.closePort();
-            listenerThread.stop();
+            jbPauzeAfspelen.setText("Spelen");
         }
     }
     public void playlistData()
