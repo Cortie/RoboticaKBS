@@ -17,21 +17,6 @@ humidity = sense.get_humidity()
 humidity = round(humidity,1)
 humidity = str(humidity)
 
-def my_Sensors():
-    Temp = "[Temperatuur: " + temp + "]"
-    print(Temp)
-    Tdata = Temp.encode()
-
-    Pressure = "Pressure: (" + pressure + ")"
-    print(Pressure)
-    Pdata = Pressure.encode()
-
-    Humid = "Humidity: |" + humidity
-    print(Humid)
-    Hdata = Humid.encode()
-    my_Sensors.Sdata = Tdata + Pdata + Hdata
-
-
 tempSetting = 0
 lightSetting = 0
 lightValue = 0
