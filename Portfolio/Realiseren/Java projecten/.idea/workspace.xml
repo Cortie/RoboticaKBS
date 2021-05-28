@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="muziekspeler klaar" />
+    <list default="true" id="57edfd6c-e798-4a4f-a2ae-c3eed45c9bc0" name="Default Changelist" comment="resterende noten">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/getSensorToSocket.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/readHumid.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/readPress.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoboticaKBS/raspberrypi/readTemp.py" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +27,7 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -30,13 +37,8 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_1_PiListener.class" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp__PiListener.class" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_2_PiListener.class" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="ProjectId" id="1r41VTPoIdwa7gmsm3RqM10vQl1" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -340,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622143225653</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="resterende noten">
+      <created>1622195394501</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1622195394501</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -360,7 +369,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="muziek beheren scherm" />
     <MESSAGE value="update inloggen" />
     <MESSAGE value="update muziekbeheren" />
     <MESSAGE value="update muziekbeheren,inloggen,wachtwoord wijzigen, klimaatbeheer" />
@@ -385,7 +393,8 @@
     <MESSAGE value="MuziekAfspeler slider weg gehaald" />
     <MESSAGE value="puntjes op de i voor game code" />
     <MESSAGE value="muziekspeler klaar" />
-    <option name="LAST_COMMIT_MESSAGE" value="muziekspeler klaar" />
+    <MESSAGE value="resterende noten" />
+    <option name="LAST_COMMIT_MESSAGE" value="resterende noten" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
