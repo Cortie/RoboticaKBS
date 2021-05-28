@@ -19,6 +19,7 @@ public class Inloggen extends JFrame implements ActionListener {
 
     private String hashdWachtwoord;
     private String checkHashedPassword;
+    private String checkUsername;
 
     private static int accountID = 0;
     private static String accountname = "";
@@ -103,7 +104,7 @@ public class Inloggen extends JFrame implements ActionListener {
                 ResultSet inlogrs = userstmt.executeQuery();
                 inlogrs.next();
                 int accountIdNummer = inlogrs.getInt(1);
-                String checkUsername = inlogrs.getString(2);
+                checkUsername = inlogrs.getString(2);
                 Blob pass = inlogrs.getBlob(3);
                 byte[] passwordSalt = inlogrs.getBytes(4);
                 checkHashedPassword = new String(pass.getBytes(1L, (int) pass.length()));
@@ -120,7 +121,11 @@ public class Inloggen extends JFrame implements ActionListener {
                     this.dispose();
                 }
                 if (!hashdWachtwoord.equals(checkHashedPassword) || !gebruikersnaam.equals(checkUsername)) {
-                    System.out.println("onjuiste gegevens");
+
+                    errorCheck = true;
+                }
+                if(hashdWachtwoord.equals(checkHashedPassword) && !gebruikersnaam.equals(checkUsername)){
+                    errorCheck = true;
                 }
 
                 inlogrs.close();
@@ -146,9 +151,15 @@ public class Inloggen extends JFrame implements ActionListener {
 
             if(jtGebruikersnaam.getText().equals("") || jpWachtwoord.getText().equals("")){
                 jlErrorMessage.setText("een of meerdere velden zijn niet ingevuld!");
+                SwingUtilities.updateComponentTreeUI(this);
+            }
+            if(jtGebruikersnaam.getText().equals(checkUsername)){
+                jlErrorMessage.setText("Gebruikersaccount bestaat al");
+                SwingUtilities.updateComponentTreeUI(this);
             }
             else {
                 jlErrorMessage.setText("Er zijn geen accounts gevonden, maak eerst een account aan!");
+                SwingUtilities.updateComponentTreeUI(this);
             }
             SwingUtilities.updateComponentTreeUI(this);
             errorCheck = false;
