@@ -27,7 +27,7 @@ public class MuziekAfspeler extends JFrame implements ActionListener, MouseListe
     private final JButton jbVolgendeAfspelen;
     private final JButton jbAfspeellijstBeheren;
     private String playlistName;
-    public JLabel currentNote = new JLabel("0 afgespeelde noten");
+    public JLabel currentNote = new JLabel("0 resterende noten");
     private final JButton jbMuziekBeheren;
     public int finalSong;
     public int firstSong;

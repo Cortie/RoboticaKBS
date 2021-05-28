@@ -104,7 +104,7 @@ public class Music implements Runnable
             System.out.println(tone + " | " + noteDuration);
             sendMusic(tone, noteDuration);
             afspeler.setThisNote(afspeler.getThisNote() + 1);
-            afspeler.currentNote.setText(afspeler.getThisNote() + " afgespeelde noten");
+            afspeler.currentNote.setText(songLength - afspeler.getThisNote() + " resterende noten");
             if(afspeler.getThisNote() == songLength)
             {
                 if(currentSong == afspeler.finalSong)
